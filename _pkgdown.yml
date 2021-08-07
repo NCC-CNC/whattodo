@@ -1,0 +1,18 @@
+authors:
+  Jeffrey O Hanson:
+    href: https://jeffrey-hanson.com
+  Richard Schuster:
+    href: http://www.richard-schuster.com
+
+template:
+  params:
+    bootswatch: flatly
+
+reference:
+  - title: Application
+    desc: >
+      Main functions and documentation for the application.
+    contents:
+      - whattodo
+      - run_app
+      - get_golem_config

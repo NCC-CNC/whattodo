@@ -1,0 +1,24 @@
+.divCenter {
+  display: flex;
+  justify-content: center;
+}
+
+.divMap {
+  height: calc(60vh - 32px)
+}
+
+.divShrink{
+  display:inline-block;
+}
+
+.modal-content{
+  background: #f2dede;
+}
+
+#alert_modal_msg{
+  color: #a94442;
+}
+
+#alert_modal_title{
+  color: #a94442;
+}

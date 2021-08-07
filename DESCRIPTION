@@ -1,0 +1,49 @@
+Package: whattodo
+Title: Interactive management action prioritization application
+Version: 0.0.0.9000
+Description:
+    Launch an interactive web application for prioritizing management actions.
+    Data can be uploaded using an Excel Spreadsheet and (optional) a shapefile
+    delineating the spatial location of sites. Prioritizations are
+    generated using mixed integer programming techniques. The performance of
+    candidate prioritizations can be examined using summary statistics
+    and tables. Finally, data and prioritizations can also
+    be downloaded for subsequent analysis.
+Authors@R: c(
+  person(c('Jeffrey', 'O'), 'Hanson',
+    email='jeffrey.hanson@uqconnect.edu.au', role = c('aut', 'cre'),
+    comment = c(ORCID = '0000-0002-4716-6134')),
+  person(c('Richard'), 'Schuster',
+    email='richard.schuster@glel.carleton.ca', role = c('aut'),
+    comment = c(ORCID = '0000-0003-3191-7869')))
+Imports:
+    utils,
+    stats,
+    methods,
+    assertthat (>= 0.2.0),
+    tibble (>= 2.1.3),
+    openxlsx (>= 4.2.3),
+    shiny (>= 1.5.0),
+    leaflet (>= 2.0.3),
+    shinyBS (>= 0.61),
+    rhandsontable (>= 0.3.7),
+    actionmisc
+Suggests:
+    testthat (>= 2.0.1),
+    knitr (>= 1.2.0),
+    roxygen2 (>= 6.1.1),
+    rmarkdown (>= 1.10),
+Depends:
+    R (>= 4.0.0),
+    shinyBS (>= 0.6.1),
+    sf (>= 0.9-8),
+License: GPL-3
+Encoding: UTF-8
+URL: https://NCC-CNC.github.io/whattodo/
+BugReports: https://github.com/NCC-CNC/whattodo/issues
+Roxygen: list(markdown = TRUE)
+RoxygenNote: 7.1.1
+Remotes:
+  r-lib/pkgdown,
+  dirkschumacher/rcbc,
+  NCC-CNC/actionmisc
