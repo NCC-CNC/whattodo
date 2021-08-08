@@ -7,11 +7,11 @@
 #' Within the [app_server] function, it should be called like this:
 #'
 #' ```
-#' eval(server_upload_data)
+#' eval(server_upload_spreadsheet)
 #' ```
 #'
 #' @noRd
-server_upload_data <- quote({
+server_upload_spreadsheet <- quote({
 
   # store input data if they have been updated
   shiny::observeEvent(input$site_data_widget, {

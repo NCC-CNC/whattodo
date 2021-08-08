@@ -18,7 +18,7 @@ app_ui <- function(request) {
         paste("Results associated with a prioritization")),
       shiny::sidebarLayout(
         shiny::sidebarPanel(
-          shiny::h3("NCC Priority App"),
+          shiny::h3("What To Do"),
           shiny::br(),
           shiny::uiOutput("sidebar_ui")
         ),

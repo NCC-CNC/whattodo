@@ -135,13 +135,20 @@ server_import_data <- quote({
     )
     ## update tables
     output$site_data_widget <- rhandsontable::renderRHandsontable({
-      render_site_data(values[["site_data"]])
+      actionmisc::render_site_data(
+        values[["site_data"]]
+      )
     })
     output$site_status_widget <- rhandsontable::renderRHandsontable({
-      render_site_status_data(values[["site_status_data"]], parameters)
+      actionmisc::render_site_status_data(
+        values[["site_status_data"]],
+        parameters
+      )
     })
     output$feature_data_widget <- rhandsontable::renderRHandsontable({
-      render_feature_data(values[["feature_data"]])
+      actionmisc::render_feature_data(
+        values[["feature_data"]]
+      )
     })
     lapply(seq_along(values$action_names), function(i) {
       output[[paste0("action_", i, "_widget")]] <-

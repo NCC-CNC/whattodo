@@ -96,7 +96,7 @@ server_initialize_app <- quote({
   # leaflet map
   shiny::observe({
     if (!is.null(values$site_bbox)) {
-      output$map_widget <- leafelt::renderLeaflet({
+      output$map_widget <- leaflet::renderLeaflet({
         actionmisc::initialize_map(
           values$site_bbox,
           site_spatial_data = values$site_spatial_data,

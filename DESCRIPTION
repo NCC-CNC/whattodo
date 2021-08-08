@@ -27,6 +27,7 @@ Imports:
     leaflet (>= 2.0.3),
     shinyBS (>= 0.61),
     rhandsontable (>= 0.3.7),
+    golem (>= 0.3.1),
     actionmisc
 Suggests:
     testthat (>= 2.0.1),
@@ -37,6 +38,7 @@ Depends:
     R (>= 4.0.0),
     shinyBS (>= 0.6.1),
     sf (>= 0.9-8),
+    dplyr (>= 1.0.5),
 License: GPL-3
 Encoding: UTF-8
 URL: https://NCC-CNC.github.io/whattodo/
@@ -47,3 +49,18 @@ Remotes:
   r-lib/pkgdown,
   dirkschumacher/rcbc,
   NCC-CNC/actionmisc
+Collate:
+    'app_config.R'
+    'app_global.R'
+    'app_server.R'
+    'app_ui.R'
+    'internal.R'
+    'package.R'
+    'run_app.R'
+    'server_export_data.R'
+    'server_generate_prioritization.R'
+    'server_import_data.R'
+    'server_initialize_app.R'
+    'server_update_map.R'
+    'server_upload_shapefile.R'
+    'server_upload_spreadsheet.R'

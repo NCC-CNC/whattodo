@@ -70,7 +70,7 @@ server_upload_shapefile <- quote({
       input$shapefile_upload_widget$datapath
     )
     ## validate shapefile format
-    if (!is_valid_shapefile(f_shp)) {
+    if (!actionmisc::is_valid_shapefile(f_shp)) {
       ### display
       output$alert_modal_title <-
         shiny::renderText("Oops: invalid files")
@@ -124,7 +124,7 @@ server_upload_shapefile <- quote({
        (actionmisc::isFALSE(values$shapefile_data_present) &&
         actionmisc::isFALSE(values$shapefile_data_required))) &&
       isTRUE(values$spreadsheet_data_present)) {
-      shinjs::enable("data_done_btn")
+      shinyjs::enable("data_done_btn")
     }
   })
 
