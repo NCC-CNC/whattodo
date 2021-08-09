@@ -23,7 +23,8 @@ render_site_status_data <- function(x, parameters) {
   r <- rhandsontable::rhandsontable(x, useTypes = TRUE)
   r <- rhandsontable::hot_col(r, col = 1, readOnly = TRUE)
   r <- rhandsontable::hot_col(
-    r, col = seq(2, ncol(x)), type = "checkbox", renderer = paste0("
+    r,
+    col = seq(2, ncol(x)), type = "checkbox", renderer = paste0("
     function (instance, td, row, col, prop, value, cellProperties) {
        Handsontable.renderers.CheckboxRenderer.apply(this, arguments);
        if (instance.params) {
@@ -35,7 +36,8 @@ render_site_status_data <- function(x, parameters) {
            }
          }
        }
-    }"))
+    }")
+  )
 
   # return table
   r
@@ -57,7 +59,9 @@ render_site_data <- function(x) {
   r <- rhandsontable::rhandsontable(x, useTypes = TRUE)
   r <- rhandsontable::hot_col(r, col = c(1, 2, 3), readOnly = TRUE)
   r <- rhandsontable::hot_validate_numeric(
-    r, seq(4, ncol(x)), min = 0, max = 1e+6, allowInvalid = FALSE)
+    r, seq(4, ncol(x)),
+    min = 0, max = 1e+6, allowInvalid = FALSE
+  )
   # return table
   r
 }
@@ -76,9 +80,13 @@ render_feature_data <- function(x) {
   r <- rhandsontable::rhandsontable(x, useTypes = TRUE)
   r <- rhandsontable::hot_col(r, col = 1, readOnly = TRUE)
   r <- rhandsontable::hot_validate_numeric(
-    r, 2, min = 0, max = 1e+6, allowInvalid = FALSE)
+    r, 2,
+    min = 0, max = 1e+6, allowInvalid = FALSE
+  )
   r <- rhandsontable::hot_validate_numeric(
-    r, 3, min = 0, max = 100, allowInvalid = FALSE)
+    r, 3,
+    min = 0, max = 100, allowInvalid = FALSE
+  )
   # return table
   r
 }
@@ -97,7 +105,9 @@ render_action_expectation_data <- function(x) {
   r <- rhandsontable::rhandsontable(x, useTypes = TRUE)
   r <- rhandsontable::hot_col(r, col = 1, readOnly = TRUE)
   r <- rhandsontable::hot_validate_numeric(
-    r, seq(2, ncol(x)), min = 0, max = 1e+6, allowInvalid = FALSE)
+    r, seq(2, ncol(x)),
+    min = 0, max = 1e+6, allowInvalid = FALSE
+  )
   # return table
   r
 }
@@ -114,19 +124,23 @@ render_action_expectation_data <- function(x) {
 render_summary_results_data <- function(x, parameters) {
   # assert arguments are valid
   assertthat::assert_that(
-    inherits(x, "data.frame"), is.list(parameters))
+    inherits(x, "data.frame"), is.list(parameters)
+  )
   # main processing
   if (!identical(x[[1]][[1]], parameters$error_sheets$main_message)) {
     # use defaults if not showing specific error message
     out <-
       rhandsontable::hot_cols(
-        rhandsontable::rhandsontable(x, useTypes = TRUE), readOnly = TRUE)
+        rhandsontable::rhandsontable(x, useTypes = TRUE),
+        readOnly = TRUE
+      )
   } else {
     # manually specify column width
     out <-
       rhandsontable::hot_cols(
         rhandsontable::rhandsontable(x, useTypes = TRUE),
-          readOnly = TRUE, colWidths = rep(300, ncol(x)))
+        readOnly = TRUE, colWidths = rep(300, ncol(x))
+      )
   }
   out
 }
@@ -143,11 +157,13 @@ render_summary_results_data <- function(x, parameters) {
 render_feature_results_data <- function(x, parameters) {
   # assert arguments are valid
   assertthat::assert_that(
-    inherits(x, "data.frame"), is.list(parameters))
+    inherits(x, "data.frame"), is.list(parameters)
+  )
   # main processing
   out <-
     rhandsontable::hot_cols(
       rhandsontable::rhandsontable(x, useTypes = TRUE),
-      readOnly = TRUE, colWidths = c(300, rep(200, ncol(x) - 1)))
+      readOnly = TRUE, colWidths = c(300, rep(200, ncol(x) - 1))
+    )
   out
 }

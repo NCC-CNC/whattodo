@@ -16,8 +16,8 @@ NULL
 #' @return A `shiny.tag` object.
 #'
 #' @export
-primary_map_ui <- function(
-  site_names, feature_names, action_names, parameters) {
+primary_map_ui <- function(site_names, feature_names, action_names,
+                           parameters) {
   # assert arguments are valid
   assertthat::assert_that(
     ## site_names

@@ -17,8 +17,8 @@ NULL
 #' @return A `shiny.tag` object.
 #'
 #' @export
-primary_data_ui <- function(
-  site_names, feature_names, action_names, parameters) {
+primary_data_ui <- function(site_names, feature_names, action_names,
+                            parameters) {
   # assert arguments are valid
   assertthat::assert_that(
     ## site_names
@@ -71,11 +71,13 @@ primary_data_ui <- function(
     ### determine name of sheet
     n <- as.character(glue::glue(
       parameters$action_expectation_sheet$sheet_name,
-      action_names = action_names[[i]]))
+      action_names = action_names[[i]]
+    ))
     ## return panel
     shiny::tabPanel(
-     shiny::span(n, id = paste0("action_", i, "_panel")),
-     rhandsontable::rHandsontableOutput(paste0("action_", i, "_widget")))
+      shiny::span(n, id = paste0("action_", i, "_panel")),
+      rhandsontable::rHandsontableOutput(paste0("action_", i, "_widget"))
+    )
   }))
 
   # create panels

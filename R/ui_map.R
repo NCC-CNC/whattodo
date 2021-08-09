@@ -23,7 +23,8 @@ initialize_map <- function(site_bbox, site_spatial_data, parameters) {
   assertthat::assert_that(
     inherits(site_bbox, "bbox"),
     inherits(site_spatial_data, c("sf", "NULL")),
-    is.list(parameters))
+    is.list(parameters)
+  )
 
   # expand viewport by 10%
   site_bbox <- as.list(site_bbox)
@@ -36,7 +37,7 @@ initialize_map <- function(site_bbox, site_spatial_data, parameters) {
   # preliminary processing
   ## prepare JS code
   fly_to_sites_js <- paste0(
-    "function(btn, map){ map.flyToBounds([",
+    "function(btn, map) { map.flyToBounds([",
     "[", site_bbox2$ymin, ", ", site_bbox2$xmin, "],",
     "[", site_bbox2$ymax, ", ", site_bbox2$xmax, "]]);}"
   )
@@ -45,7 +46,7 @@ initialize_map <- function(site_bbox, site_spatial_data, parameters) {
   ## initialize map
   map <-
     leaflet::leaflet() %>%
-     leaflet::addMiniMap() %>%
+    leaflet::addMiniMap() %>%
     leaflet::flyToBounds(
       lng1 = site_bbox2$xmin,
       lat1 = site_bbox2$ymin,
@@ -101,10 +102,9 @@ initialize_map <- function(site_bbox, site_spatial_data, parameters) {
 #' @inherit initialize_map return
 #'
 #' @export
-update_map <- function(
-  map, feature_names, site_spatial_data, site_results_data,
-  action_expectation_data, action_colors, parameters,
-  legend_title = NULL) {
+update_map <- function(map, feature_names, site_spatial_data, site_results_data,
+                       action_expectation_data, action_colors, parameters,
+                       legend_title = NULL) {
   # assert valid arguments
   assertthat::assert_that(
     inherits(map, c("leaflet", "leaflet_proxy")),
@@ -115,7 +115,8 @@ update_map <- function(
     is.character(feature_names),
     assertthat::noNA(feature_names),
     inherits(legend_title, c("character", "NULL")),
-    is.list(parameters))
+    is.list(parameters)
+  )
 
   # determine plotting colors
   idx <- match(
@@ -168,14 +169,14 @@ update_map <- function(
 #' @inherit initialize_map return
 #'
 #' @export
-reset_map <- function(
-  map, site_spatial_data, parameters, legend_title = NULL) {
+reset_map <- function(map, site_spatial_data, parameters, legend_title = NULL) {
   # assert valid arguments
   assertthat::assert_that(
     inherits(map, c("leaflet", "leaflet_proxy")),
     inherits(site_spatial_data, "sf"),
     inherits(legend_title, c("character", "NULL")),
-    is.list(parameters))
+    is.list(parameters)
+  )
 
   # define default color
   col <- default_color_matrix(nrow(site_spatial_data), parameters)
@@ -191,7 +192,8 @@ reset_map <- function(
     layerId = "legend_widget",
     position = "bottomleft",
     colors = col[2, 1],
-    labels = colnames(col)[[1]], opacity = 1)
+    labels = colnames(col)[[1]], opacity = 1
+  )
 
   # update site data
   map <- add_to_map(
@@ -235,7 +237,8 @@ add_to_map <- function(map, x, id, col, popup) {
     assertthat::noNA(c(col)),
     ncol(col) == nrow(x),
     inherits(popup, "data.frame"),
-    nrow(popup) == nrow(x))
+    nrow(popup) == nrow(x)
+  )
 
   # preliminary processing
   ## determine spatial data type
@@ -251,7 +254,8 @@ add_to_map <- function(map, x, id, col, popup) {
     ### create markers
     markers <- lapply(seq_len(nrow(x)), function(i) {
       leaflet::makeAwesomeIcon(
-        icon = "circle", markerColor = unname(col[1, i]))
+        icon = "circle", markerColor = unname(col[1, i])
+      )
     })
     ### update if sites are points
     map <- leaflet::removeMarker(map, layerId = id)
@@ -285,7 +289,7 @@ add_to_map <- function(map, x, id, col, popup) {
     )
   } else if (
     identical(type, "LINESTRING") || identical(type, "MULTILINESTRING")) {
-      ### update if sites are lines
+    ### update if sites are lines
     map <- leaflet::removeShape(map, layerId = id)
     map <- leaflet::addPolylines(
       map,

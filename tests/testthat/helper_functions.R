@@ -19,15 +19,18 @@ has_html_node <- function(x, id, class = NA_character_) {
     inherits(x, c("shiny.tag", "shiny.tag.list")),
     assertthat::is.string(id),
     assertthat::noNA(id),
-    assertthat::is.string(class))
+    assertthat::is.string(class)
+  )
   # parse HTML
   h <- xml2::read_html(as.character(x))
   # subset nodes to desired classes
   if (is.na(class)) {
     h <- xml2::xml_find_all(h, paste0("//*[@id='", id, "']"))
   } else {
-    h <- xml2::xml_find_all(h, paste0("//*[@id='", id,
-                                      "' and contains(@class, '", class,"')]"))
+    h <- xml2::xml_find_all(h, paste0(
+      "//*[@id='", id,
+      "' and contains(@class, '", class, "')]"
+    ))
   }
   # throw warning if multiple found
   if (length(h) > 1) {

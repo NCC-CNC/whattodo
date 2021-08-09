@@ -289,10 +289,10 @@
     },
     "devtools": {
       "Package": "devtools",
-      "Version": "2.4.0",
+      "Version": "2.4.2",
       "Source": "Repository",
       "Repository": "CRAN",
-      "Hash": "712392d9d528a16351c86331ae9b16a1"
+      "Hash": "048d0b914d2cea61f440d35dd3cbddac"
     },
     "diffobj": {
       "Package": "diffobj",

@@ -19,11 +19,11 @@ server_upload_shapefile <- quote({
     if (!is.null(input$shapefile_query_widget)) {
       values[["shapefile_data_required"]] <-
         as.logical(input$shapefile_query_widget)
-        shinyjs::disable("data_done_btn")
+      shinyjs::disable("data_done_btn")
     }
     ## update data done button if they decide they want shapefile
     if (isTRUE(values$shapefile_data_required) &&
-        isFALSE(values$shapefile_data_present)) {
+      isFALSE(values$shapefile_data_present)) {
       shinyjs::disable("data_done_btn")
     }
     ## update data done button if they decide they don't want to
@@ -31,9 +31,9 @@ server_upload_shapefile <- quote({
     if (
       ((isTRUE(values$shapefile_data_present) &&
         isTRUE(values$shapefile_data_required)) ||
-       (isFALSE(values$shapefile_data_present) &&
-        isFALSE(values$shapefile_data_required))) &&
-      isTRUE(values$spreadsheet_data_present)) {
+        (isFALSE(values$shapefile_data_present) &&
+          isFALSE(values$shapefile_data_required))) &&
+        isTRUE(values$spreadsheet_data_present)) {
       shinyjs::enable("data_done_btn")
     }
   })
@@ -48,7 +48,8 @@ server_upload_shapefile <- quote({
     f2_sans_ext <- basename(tools::file_path_sans_ext(f2))
     ## validate single basename
     if (dplyr::n_distinct(basename(tools::file_path_sans_ext(
-      input$shapefile_upload_widget$name))) > 1) {
+      input$shapefile_upload_widget$name
+    ))) > 1) {
       ### display
       output$alert_modal_title <-
         shiny::renderText("Oops: multiple shapefiles specified")
@@ -57,7 +58,8 @@ server_upload_shapefile <- quote({
           "It would seem that you have specified multiple shapefiles. ",
           "All of the underyling files that constitute a single shapefile ",
           "should begin with the same prefix ",
-          "(e.g. \"data.shp\", \"data.prj\", \"data.shx\", and \"data.dbf\")."))
+          "(e.g. \"data.shp\", \"data.prj\", \"data.shx\", and \"data.dbf\")."
+        ))
       shinyBS::toggleModal(session, "alert_modal", toggle = "open")
       ### update app variables
       values$shapefile_data_present <- FALSE
@@ -80,7 +82,8 @@ server_upload_shapefile <- quote({
           "Please ensure that you have selected all of these files when ",
           "uploading the data: ",
           "\"", f2_sans_ext, ".dbf\", \"", f2_sans_ext, ".shp\", \"",
-          f2_sans_ext, ".shx\", and \"", f2_sans_ext, ".prj\"."))
+          f2_sans_ext, ".shx\", and \"", f2_sans_ext, ".prj\"."
+        ))
       shinyBS::toggleModal(session, "alert_modal", toggle = "open")
       ### update app variables
       values$shapefile_data_present <- FALSE
@@ -106,7 +109,8 @@ server_upload_shapefile <- quote({
           "\" sheet in the Excel Spreadsheet). ",
           "To address this, you will need to update the shapefile using a ",
           "geographic information system (GIS), such as ArcGIS, QGIS, or R, ",
-          "and try uploading the shapefile again."))
+          "and try uploading the shapefile again."
+        ))
       shinyBS::toggleModal(session, "alert_modal", toggle = "open")
       ### update app variables
       values$shapefile_data_present <- FALSE
@@ -121,9 +125,9 @@ server_upload_shapefile <- quote({
     if (
       ((isTRUE(values$shapefile_data_present) &&
         isTRUE(values$shapefile_data_required)) ||
-       (isFALSE(values$shapefile_data_present) &&
-        isFALSE(values$shapefile_data_required))) &&
-      isTRUE(values$spreadsheet_data_present)) {
+        (isFALSE(values$shapefile_data_present) &&
+          isFALSE(values$shapefile_data_required))) &&
+        isTRUE(values$spreadsheet_data_present)) {
       shinyjs::enable("data_done_btn")
     }
   })

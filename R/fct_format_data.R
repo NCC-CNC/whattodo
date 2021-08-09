@@ -19,9 +19,8 @@ NULL
 #' @return `data.frame` with planning unit data for prioritizations.
 #'
 #' @export
-format_pu_data <- function(
-  site_names, feature_names, action_names,
-  site_data, action_expectation_data, parameters) {
+format_pu_data <- function(site_names, feature_names, action_names,
+                           site_data, action_expectation_data, parameters) {
   # assert arguments are valid
   assertthat::assert_that(
     is.character(site_names),
@@ -29,18 +28,21 @@ format_pu_data <- function(
     is.character(action_names),
     inherits(site_data, "data.frame"),
     inherits(action_expectation_data, "list"),
-    is.list(parameters))
+    is.list(parameters)
+  )
   # extract cost
   cost_names <- as.character(glue::glue(
-      parameters$site_data_sheet$action_cost_header,
-      action_names = action_names))
+    parameters$site_data_sheet$action_cost_header,
+    action_names = action_names
+  ))
   cost_data <- site_data[, cost_names, drop = FALSE]
   names(cost_data) <- paste0("cost_", action_names)
 
   # extract action expectation data
   feat_col_names <- as.character(glue::glue(
     parameters$action_expectation_sheet$action_expectation_header,
-    feature_names = feature_names))
+    feature_names = feature_names
+  ))
   expectation_data <- lapply(seq_along(action_expectation_data), function(i) {
     out <- action_expectation_data[[i]]
     out <- out[, feat_col_names, drop = FALSE]
@@ -51,9 +53,13 @@ format_pu_data <- function(
   # return result
   do.call(
     dplyr::bind_cols,
-    append(list(
-      tibble::tibble(site = site_names), cost_data),
-      expectation_data))
+    append(
+      list(
+        tibble::tibble(site = site_names), cost_data
+      ),
+      expectation_data
+    )
+  )
 }
 
 #' Format zone data
@@ -63,19 +69,22 @@ format_pu_data <- function(
 #' @return `data.frame` with zone data for prioritizations.
 #'
 #' @export
-format_zone_data <- function(
-  site_names, feature_names, action_names, parameters) {
+format_zone_data <- function(site_names, feature_names, action_names,
+                             parameters) {
   # assert arguments are valid
   assertthat::assert_that(
     is.character(site_names),
     is.character(feature_names),
     is.character(action_names),
-    is.list(parameters))
+    is.list(parameters)
+  )
   # create zone name column
   args <- lapply(action_names, function(x) paste0(x, "_", feature_names))
   # append feature and zone names to object
-  args <- append(args,
-    list(zone_names = action_names, feature_names = feature_names))
+  args <- append(
+    args,
+    list(zone_names = action_names, feature_names = feature_names)
+  )
   # return zones object
   do.call(prioritizr::zones, args)
 }
@@ -89,22 +98,24 @@ format_zone_data <- function(
 #' @return `data.frame` with target data for prioritizations.
 #'
 #' @export
-format_target_data <- function(
-  site_names, feature_names, action_names, feature_data, parameters) {
+format_target_data <- function(site_names, feature_names, action_names,
+                               feature_data, parameters) {
   # assert arguments are valid
   assertthat::assert_that(
     is.character(site_names),
     is.character(feature_names),
     is.character(action_names),
     inherits(feature_data, "data.frame"),
-    is.list(parameters))
+    is.list(parameters)
+  )
   # prepare target data
   out <- tibble::tibble(
     feature = feature_names,
     zone = list(action_names)[rep(1, length(feature_names))],
     type = "absolute",
     sense = ">=",
-    target = feature_data[[parameters$feature_data_sheet$target_header]])
+    target = feature_data[[parameters$feature_data_sheet$target_header]]
+  )
   # return result
   out
 }
@@ -116,19 +127,21 @@ format_target_data <- function(
 #' @return `data.frame` with weights data for prioritizations.
 #'
 #' @export
-format_weights_data <- function(
-  site_names, feature_names, action_names, feature_data, parameters) {
+format_weights_data <- function(site_names, feature_names, action_names,
+                                feature_data, parameters) {
   # assert arguments are valid
   assertthat::assert_that(
     is.character(site_names),
     is.character(feature_names),
     is.character(action_names),
     inherits(feature_data, "data.frame"),
-    is.list(parameters))
+    is.list(parameters)
+  )
   # prepare weights data
   out <- tibble::tibble(
     feature = feature_names,
-    weight = feature_data[[parameters$feature_data_sheet$weight_header]])
+    weight = feature_data[[parameters$feature_data_sheet$weight_header]]
+  )
   # return result
   out
 }
@@ -141,15 +154,16 @@ format_weights_data <- function(
 #' @return `data.frame` with locked data for prioritizations.
 #'
 #' @export
-format_locked_data <- function(
-  site_names, feature_names, action_names, site_status_data, parameters) {
+format_locked_data <- function(site_names, feature_names, action_names,
+                               site_status_data, parameters) {
   # assert arguments are valid
   assertthat::assert_that(
     is.character(site_names),
     is.character(feature_names),
     is.character(action_names),
     inherits(site_status_data, "data.frame"),
-    is.list(parameters))
+    is.list(parameters)
+  )
   # define variables to avoid CRAN checks throwing ERRORS for lazy evaluation
   action <- NULL
   status <- NULL
@@ -165,7 +179,8 @@ format_locked_data <- function(
   tibble::tibble(
     pu = d$id,
     zone = d$action,
-    status = 0)
+    status = 0
+  )
 }
 
 #' Format results data
@@ -189,9 +204,9 @@ format_locked_data <- function(
 #' @return `list` object contain `data.frame` objects summarizing the results.
 #'
 #' @export
-format_results_data <- function(
-  site_names, feature_names, action_names,
-  pu_data, zone_data, target_data, solution, parameters) {
+format_results_data <- function(site_names, feature_names, action_names,
+                                pu_data, zone_data, target_data, solution,
+                                parameters) {
   # assert that arguments are valid
   assertthat::assert_that(
     is.character(site_names),
@@ -200,7 +215,8 @@ format_results_data <- function(
     inherits(pu_data, "data.frame"),
     inherits(zone_data, "ZonesCharacter"),
     inherits(target_data, "data.frame"),
-    inherits(solution, "data.frame"))
+    inherits(solution, "data.frame")
+  )
 
   # declare parameters
   sol_names <- paste0("solution_1_", action_names)
@@ -212,24 +228,27 @@ format_results_data <- function(
   summary_cost_value <-
     sum(vapply(seq_along(action_names), FUN.VALUE = numeric(1), function(i) {
       sum(solution[[sol_names[[i]]]] *
-          pu_data[[paste0("cost_", action_names[i])]])
+        pu_data[[paste0("cost_", action_names[i])]])
     }))
 
   ## calculate number of sites allocated to each action
   summary_n_action_names <- as.character(glue::glue(
     parameters$summary_results_sheet$n_action_statistic_name,
-    action_names = action_names))
+    action_names = action_names
+  ))
   summary_n_action_value <-
     vapply(sol_names, FUN.VALUE = numeric(1), function(x) {
       sum(solution[[x]])
-  })
+    })
   ## prepare summary
   summary_results <- tibble::tibble(
     name = c(summary_cost_name, summary_n_action_names),
-    value = c(summary_cost_value, summary_n_action_value))
+    value = c(summary_cost_value, summary_n_action_value)
+  )
   names(summary_results) <- c(
     parameters$summary_results_sheet$name_header,
-    parameters$summary_results_sheet$value_header)
+    parameters$summary_results_sheet$value_header
+  )
 
   # feature representation results
   feature_results <-
@@ -240,27 +259,35 @@ format_results_data <- function(
         # extract rij values for action
         rij <- as.matrix(pu_data[, zone_data[[i]], drop = FALSE])
         # extract solution values for action
-        s <- matrix(solution[[sol_names[[i]]]], nrow = length(site_names),
-                    ncol = length(feature_names))
+        s <- matrix(solution[[sol_names[[i]]]],
+          nrow = length(site_names),
+          ncol = length(feature_names)
+        )
         # compute amount held in zone
         colSums(rij * s)
-    })
-  if (!is.matrix(feature_results))
+      }
+    )
+  if (!is.matrix(feature_results)) {
     feature_results <- matrix(feature_results, nrow = length(feature_names))
+  }
   feature_totals <- rowSums(feature_results)
   feature_results <- tibble::as_tibble(as.data.frame(feature_results))
 
   names(feature_results) <- action_names
   feature_results <- tibble::tibble(
-    name = feature_names, feature_results, total = feature_totals)
+    name = feature_names, feature_results, total = feature_totals
+  )
   names(feature_results) <- c(
     parameters$feature_results_sheet$name_header,
     sapply(action_names, function(x) {
       as.character(
         glue::glue(parameters$feature_results_sheet$action_amount_header,
-          action_names = x))
+          action_names = x
+        )
+      )
     }),
-    parameters$feature_results_sheet$total_amount_header)
+    parameters$feature_results_sheet$total_amount_header
+  )
 
   # solution status results
   site_results <- solution[, sol_names, drop = FALSE]
@@ -270,12 +297,15 @@ format_results_data <- function(
   site_results <- tibble::tibble(name = site_names, action = site_results)
   names(site_results) <- c(
     parameters$site_results_sheet$name_header,
-    parameters$site_results_sheet$action_header)
+    parameters$site_results_sheet$action_header
+  )
 
   # return result
-  list(summary_results = summary_results,
-       feature_results = feature_results,
-       site_results = site_results)
+  list(
+    summary_results = summary_results,
+    feature_results = feature_results,
+    site_results = site_results
+  )
 }
 
 #' Format error data
@@ -290,15 +320,16 @@ format_results_data <- function(
 #' @inherit format_results_data return
 #'
 #' @export
-format_error_data <- function(
-  site_names, feature_names, action_names, problem, parameters) {
+format_error_data <- function(site_names, feature_names, action_names, problem,
+                              parameters) {
   # assert arguments are valid
   assertthat::assert_that(
     is.character(site_names),
     is.character(feature_names),
     is.character(feature_names),
     inherits(problem, "ConservationProblem"),
-    is.list(parameters))
+    is.list(parameters)
+  )
 
   # make summary table
   if (requireNamespace("gurobi", quietly = TRUE)) {
@@ -306,23 +337,30 @@ format_error_data <- function(
     status_labels <- c(sapply(action_names, function(x) {
       as.character(
         glue::glue(parameters$error_sheets$status_prefix,
-          action_names = x, site_names = site_names))
+          action_names = x, site_names = site_names
+        )
+      )
     }))
     target_labels <-
       as.character(glue::glue(
         parameters$error_sheets$target_prefix,
-        feature_names = feature_names))
+        feature_names = feature_names
+      ))
     ## prepare optimization problem data
     op <- prioritizr::compile(problem)
     model <- list(
       modelsense = op$modelsense(),
       obj = op$obj(), A = op$A(),
       vtype = op$vtype(), rhs = op$rhs(), sense = op$sense(),
-      lb = op$lb(), ub = op$ub())
+      lb = op$lb(), ub = op$ub()
+    )
     ## compute IIS
     withr::with_locale(
       c(LC_CTYPE = "C"),
-      {iis <- gurobi::gurobi_iis(model)})
+      {
+        iis <- gurobi::gurobi_iis(model)
+      }
+    )
     ## extract ISS
     lb_iis <- iis$lb[seq_along(status_labels)]
     ub_iis <- iis$ub[seq_along(status_labels)]
@@ -331,19 +369,24 @@ format_error_data <- function(
     ## prepare text
     lower_text <- paste(
       status_labels[lb_iis],
-      rep(parameters$error_sheets$lower_bound_message, sum(lb_iis)))
+      rep(parameters$error_sheets$lower_bound_message, sum(lb_iis))
+    )
     upper_text <- paste(
       status_labels[ub_iis],
-      rep(parameters$error_sheets$upper_bound_message, sum(ub_iis)))
+      rep(parameters$error_sheets$upper_bound_message, sum(ub_iis))
+    )
     target_text <- paste(
       target_labels[rhs_iis],
-      rep(parameters$error_sheets$target_message, sum(rhs_iis)))
+      rep(parameters$error_sheets$target_message, sum(rhs_iis))
+    )
     budget_text <- paste(
       parameters$error_sheets$budget_prefix[budget_iis],
-      rep(parameters$error_sheets$budget_message, sum(budget_iis)))
+      rep(parameters$error_sheets$budget_message, sum(budget_iis))
+    )
     ## prepare table
     summary_data <- tibble::tibble(
-      text = c(lower_text, upper_text, target_text, budget_text))
+      text = c(lower_text, upper_text, target_text, budget_text)
+    )
     names(summary_data) <- parameters$error_sheets$iis_header
   } else {
     ## prepare table
@@ -353,11 +396,14 @@ format_error_data <- function(
 
   # create default error data
   error_data <- tibble::tibble(
-    name = parameters$error_sheet$sub_message)
+    name = parameters$error_sheet$sub_message
+  )
   names(error_data) <- parameters$error_sheets$name_header
 
   # return solution
-  list(summary_results = summary_data,
-       feature_results = error_data,
-       site_results = error_data)
+  list(
+    summary_results = summary_data,
+    feature_results = error_data,
+    site_results = error_data
+  )
 }

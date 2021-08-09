@@ -10,9 +10,11 @@ test_that("st_geometry_data_type", {
   s2 <- sf::st_as_sf(d = 1, sf::st_sfc(sf::st_linestring(pts)))
   s3 <- sf::st_as_sf(d = 1, sf::st_sfc(sf::st_polygon(list(outer))))
   s4 <- sf::st_as_sf(d = 1, sf::st_sfc(sf::st_multipolygon(
-    list(list(outer, hole1), list(outer)))))
+    list(list(outer, hole1), list(outer))
+  )))
   s5 <- sf::st_as_sf(d = 1, sf::st_sfc(sf::st_multilinestring(
-    list(pts, pts + 3))))
+    list(pts, pts + 3)
+  )))
   # tests
   expect_equal(st_geometry_data_type(s1), "POINT")
   expect_equal(st_geometry_data_type(s2), "LINESTRING")

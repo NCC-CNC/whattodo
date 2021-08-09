@@ -18,8 +18,10 @@ server_import_data <- quote({
     # verify shapefile is correct if specified
     if (isTRUE(values[["shapefile_data_required"]])) {
       ## verify that shapefile and site data have same number of sites
-      if (!identical(length(values$site_names),
-                     length(values$site_spatial_data$name))) {
+      if (!identical(
+        length(values$site_names),
+        length(values$site_spatial_data$name)
+      )) {
         ### display alert
         output$alert_modal_title <-
           shiny::renderText("Oops: invalid shapefile")
@@ -31,7 +33,8 @@ server_import_data <- quote({
             parameters$site_data_sheet$sheet_name, "\" sheet). ",
             "To address this, you will need to update the shapefile using a ",
             "geographic information system (GIS), such as ArcGIS, QGIS, or R, ",
-            "and try uploading the shapefile again."))
+            "and try uploading the shapefile again."
+          ))
         shinyBS::toggleModal(session, "alert_modal", toggle = "open")
         ### update app variables
         values$shapefile_data_present <- FALSE
@@ -42,7 +45,8 @@ server_import_data <- quote({
       }
       ## verify that shapefile and site data have same site names
       if (!identical(
-        sort(values$site_names), sort(values$site_spatial_data$name))) {
+        sort(values$site_names), sort(values$site_spatial_data$name)
+      )) {
         ### display alert
         msg_names <-
           actionmisc::incorrect_names(
@@ -64,7 +68,8 @@ server_import_data <- quote({
             msg_names,
             "To address this, you will need to update the shapefile using a ",
             "geographic information system (GIS), such as ArcGIS, QGIS, or R, ",
-            "and try uploading the shapefile again."))
+            "and try uploading the shapefile again."
+          ))
         shinyBS::toggleModal(session, "alert_modal", toggle = "open")
         ### update app variables
         values$shapefile_data_present <- FALSE
@@ -84,22 +89,26 @@ server_import_data <- quote({
           tibble::tibble(
             name = site_data[[parameters$site_data_sheet$name_header]],
             x = site_data[[parameters$site_data_sheet$longitude_header]],
-            y = site_data[[parameters$site_data_sheet$latitude_header]]),
+            y = site_data[[parameters$site_data_sheet$latitude_header]]
+          ),
           coords = c("x", "y"),
-          crs = 4326)
+          crs = 4326
+        )
     }
     ## reorder site spatial data to match site data
     idx <- match(
       values[["site_spatial_data"]]$name,
-      values[["site_data"]][[parameters$site_data_sheet$name_header]])
+      values[["site_data"]][[parameters$site_data_sheet$name_header]]
+    )
     assertthat::assert_that(
       assertthat::noNA(idx),
-      msg = "shaprfile and Excel spreadsheet have different names ")
+      msg = "shaprfile and Excel spreadsheet have different names "
+    )
     values[["site_spatial_data"]] <-
-    values[["site_spatial_data"]][idx, , drop = FALSE]
+      values[["site_spatial_data"]][idx, , drop = FALSE]
 
     ## add id column to spatial data
-    values[["site_spatial_data"]]$id =
+    values[["site_spatial_data"]]$id <-
       paste0("F", seq_len(nrow(values[["site_data"]])))
     ## reproject spatial data to WGS1984 for leaflet
     ## see https://rstudio.github.io/leaflet/projections.html

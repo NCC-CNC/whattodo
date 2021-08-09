@@ -19,14 +19,17 @@ NULL
 prepare_for_shapefile_import <- function(x) {
   # assert arguments are valid
   assertthat::assert_that(
-      is.character(x), assertthat::noNA(x))
-  base_name <- tools::file_path_sans_ext(x[[1]])
+    is.character(x), assertthat::noNA(x)
+  )
   # main processing
   out <- vapply(x[-1], FUN.VALUE = character(1), function(i) {
     # determine new file path
     new_path <- paste0(
-      file.path(dirname(x[[1]]), basename(tools::file_path_sans_ext(x[[1]]))),
-      ".", tools::file_ext(i))
+      file.path(dirname(x[[1]]),
+      basename(tools::file_path_sans_ext(x[[1]]))),
+      ".",
+      tools::file_ext(i)
+    )
     # copy file to new file path
     file.copy(from = i, to = new_path)
     file.remove(i)

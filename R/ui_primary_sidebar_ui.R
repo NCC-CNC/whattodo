@@ -16,8 +16,8 @@ NULL
 #' @return A `shiny.tag` object.
 #'
 #' @export
-primary_sidebar_ui <- function(
-  site_names, feature_names, action_names, parameters) {
+primary_sidebar_ui <- function(site_names, feature_names, action_names,
+                               parameters) {
   # assert arguments are valid
   assertthat::assert_that(
     ## site_names
@@ -103,10 +103,10 @@ primary_sidebar_ui <- function(
         id = "export_btn",
         placement = "right",
         title = paste(
-           "Click this button to save a snapshot of the",
-           "input data and results to your computer"
-         )
-       )
+          "Click this button to save a snapshot of the",
+          "input data and results to your computer"
+        )
+      )
     )
   )
 }

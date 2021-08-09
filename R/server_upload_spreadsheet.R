@@ -61,7 +61,7 @@ server_upload_spreadsheet <- quote({
       output$alert_modal_title <-
         shiny::renderText("Oops: invalid Excel Spreadsheet")
       output$alert_modal_msg <- shiny::renderText(
-          paste(
+        paste(
           "This Excel Spreadsheet wasn't generated using the Action Data",
           "Template application."
         )
@@ -84,7 +84,8 @@ server_upload_spreadsheet <- quote({
         shiny::renderText(paste(
           "This Excel Spreadsheet is missing data in required",
           "cells. Please note that all light grey",
-          "cells should have a value in them (even if just a 0)."))
+          "cells should have a value in them (even if just a 0)."
+        ))
       shinyBS::toggleModal(session, "alert_modal", toggle = "open")
       ### update app variables
       values$spreadsheet_data_present <- FALSE
@@ -106,8 +107,8 @@ server_upload_spreadsheet <- quote({
     if (
       ((isTRUE(values$shapefile_data_present) &&
         isTRUE(values$shapefile_data_required)) ||
-       (isFALSE(values$shapefile_data_required))) &&
-      isTRUE(values$spreadsheet_data_present)) {
+        (isFALSE(values$shapefile_data_required))) &&
+        isTRUE(values$spreadsheet_data_present)) {
       shinyjs::enable("data_done_btn")
     }
   })

@@ -16,11 +16,11 @@ server_update_map <- quote({
   # leaflet map
   shiny::observe({
     if (!is.null(values$site_spatial_data) &&
-        !identical(
-          values$site_results_data,
-          default_tabular_data()
-        )
-      ) {
+      !identical(
+        values$site_results_data,
+        default_tabular_data()
+      )
+    ) {
       ### if results have updated then...
       if (!identical(
         names(values$site_results_data)[[1]],

@@ -17,20 +17,20 @@ initial_sidebar_ui <- function() {
     shiny::wellPanel(
       shiny::fileInput(
         inputId = "spreadsheet_upload_widget",
-        "Choose Excel Spreadsheet",
+        label = "Choose Excel Spreadsheet",
         multiple = FALSE,
         accept = ".xlsx"
       ),
       shiny::checkboxInput(
         inputId = "shapefile_query_widget",
-        "Use a shapefile for site locations?",
+        label = "Use a shapefile for site locations?",
         value = FALSE
       ),
       shiny::conditionalPanel(
         condition = "input.shapefile_query_widget == 1",
         shiny::fileInput(
           inputId = "shapefile_upload_widget",
-          "Choose shapefile",
+          label = "Choose shapefile",
           multiple = TRUE,
           accept = c(
             ".shp", ".dbf", ".prj", ".shx", ".cpg", ".sbn", ".sbx",
@@ -41,14 +41,18 @@ initial_sidebar_ui <- function() {
     ),
     shiny::div(
       shinyBS::bsButton(
-        "data_done_btn", "Ready to go!", style = "primary", disabled = TRUE
+        inputId = "data_done_btn",
+        label = "Ready to go!",
+        style = "primary",
+        disabled = TRUE
       ),
       class = "divCenter"
     ),
     shiny::br(),
     shiny::div(
       shinyBS::bsTooltip(
-        "data_done_btn", "Click this button to upload the data"
+        id = "data_done_btn",
+        title = "Click this button to upload the data"
       )
     )
   )

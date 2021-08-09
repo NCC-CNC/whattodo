@@ -1,6 +1,7 @@
 #' @include internal.R
 NULL
 
+#' @importFrom magrittr %>%
 #' @import shinyBS
 #' @import sf
 NULL

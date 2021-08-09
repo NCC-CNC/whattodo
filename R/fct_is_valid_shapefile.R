@@ -13,7 +13,8 @@ NULL
 is_valid_shapefile <- function(x) {
   assertthat::assert_that(
     assertthat::is.string(x),
-    assertthat::noNA(x))
+    assertthat::noNA(x)
+  )
   r <- try(sf::read_sf(x), silent = TRUE)
   inherits(r, "sf")
 }

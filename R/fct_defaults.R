@@ -12,7 +12,8 @@ NULL
 default_tabular_data <- function() {
   tibble::tibble(
     Status = "No information to show.",
-    Message = "Please click the \"Generate prioritization!\" button.")
+    Message = "Please click the \"Generate prioritization!\" button."
+  )
 }
 
 #' Default spatial bounding box
@@ -42,11 +43,14 @@ default_colors <- function(x, parameters) {
   assertthat::assert_that(
     is.character(x),
     identical(anyDuplicated(x), 0L),
-    is.list(parameters))
+    is.list(parameters)
+  )
+
   # get colors
   all_names <- parameters$map$actionColorNames
   all_codes <- parameters$map$actionColorCodes
   n <- length(x)
+
   # determine colors
   if (length(x) >= length(all_names)) {
     ## if all colors need to be used then do so
@@ -62,6 +66,7 @@ default_colors <- function(x, parameters) {
     out[1, ] <- all_names[idx]
     out[2, ] <- all_codes[idx]
   }
+
   # return colors
   colnames(out) <- x
   out
@@ -80,7 +85,8 @@ default_color_matrix <- function(n, parameters) {
   assertthat::assert_that(is.list(parameters))
   out <- matrix(
     c(parameters$map$defaultColorName, parameters$map$defaultColorCode),
-    nrow = 2, ncol = n)
+    nrow = 2, ncol = n
+  )
   colnames(out) <- rep("Site", ncol(out))
   out
 }

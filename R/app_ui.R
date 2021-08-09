@@ -17,11 +17,13 @@ app_ui <- function(request) {
 
       ## add tooltips
       shinyBS::bsTooltip(
-        "data_tab",
-        paste("Input data used to generate a prioritization")),
+        id = "data_tab",
+        title = "Input data used to generate a prioritization"
+      ),
       shinyBS::bsTooltip(
-        "results_tab",
-        paste("Results associated with a prioritization")),
+        id = "results_tab",
+        title = "Results associated with a prioritization"
+      ),
 
       # sidebar layout
       shiny::sidebarLayout(

@@ -6,7 +6,8 @@
 #'
 #' @export
 run_app <- function(onStart = purrr::partial(
-                      eval, expr = app_global, envir = globalenv()
+                      eval,
+                      expr = app_global, envir = globalenv()
                     ),
                     options = list(),
                     enableBookmarking = "disable",

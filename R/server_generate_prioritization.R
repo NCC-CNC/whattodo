@@ -84,7 +84,8 @@ server_generate_prioritization <- quote({
         shiny::renderText(paste(
           "There is no possible solution to the specified problem.",
           "Please see the \"Summary results\" tab under the \"Results\" tab",
-          "for possible explanations."))
+          "for possible explanations."
+        ))
       shinyBS::toggleModal(session, "alert_modal", toggle = "open")
       shinyjs::disable("export_btn")
       shinyBS::addTooltip(
