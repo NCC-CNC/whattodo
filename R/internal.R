@@ -19,7 +19,7 @@ column_widths <- function(x) {
 
 #' Incorrect names
 #'
-#' Print the difference between two character vectors. 
+#' Print the difference between two character vectors.
 #'
 #' @param x `character` object.
 #'

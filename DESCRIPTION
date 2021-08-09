@@ -60,6 +60,7 @@ URL: https://NCC-CNC.github.io/whattodo/
 BugReports: https://github.com/NCC-CNC/whattodo/issues
 Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.1.1
+Language: en-US
 Remotes:
   r-lib/pkgdown,
   dirkschumacher/rcbc,

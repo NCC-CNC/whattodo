@@ -123,6 +123,15 @@ naming conventions:
     -   `app_ui.R`: Defines the (font-end) user interface for the
         application. It performs a similar role to the `ui.R` file in
         typical Shiny applications.
+-   `server_*`: Defines components used to assemble the server-side
+    logic for the application.
+-   `ui_`\*: Defines functions used to programmatically create HTML
+    elements for the front-end of the application.
+-   `fct_*`: Defines R functions used in the back-end of the
+    application. These files contain code used to perform analyses and
+    manipulate the classes.
+-   `utils_*`: Defines utility R functions used in the back-end of the
+    application.
 
 ## Getting help
 

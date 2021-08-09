@@ -16,3 +16,53 @@ reference:
       - whattodo
       - run_app
       - get_golem_config
+
+  - title: User interface
+    desc: >
+      Functions for creating user interface components.
+    contents:
+      - ends_with("_ui")
+
+  - title: Map interface
+    desc: >
+      Functions for manipulating the map.
+    contents:
+      - ends_with("_map")
+
+  - title: Render data
+    desc: >
+      Functions for rendering data.
+    contents:
+      - starts_with("render_")
+
+  - title: Data formatting
+    desc: >
+      Functions for data formatting.
+    contents:
+      - starts_with("format_")
+      - starts_with("prepare_")
+
+  - title: Prioritization
+    desc: >
+      Functions for generating prioritizations.
+    contents:
+      - starts_with("prioritization_")
+
+  - title: Default objects
+    desc: >
+      Functions for creating default objects.
+    contents:
+      - starts_with("default_")
+
+  - title: Validation
+    desc: >
+      Functions for validating objects.
+    contents:
+      - starts_with("has_")
+      - starts_with("is_")
+
+  - title: Miscellaneous functions
+    desc: >
+      Functions for assorted usage.
+    contents:
+      - st_geometry_data_type
