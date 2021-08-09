@@ -1,7 +1,15 @@
 context("map")
 
 test_that("initialize_map", {
-  parameters <- app_parameters()
+  parameters <- whatdataio::read_data_configuration()
+  parameters$map <- list(
+    basemap_name = whattodo::get_golem_config("basemap_name"),
+    basemap_key = whattodo::get_golem_config("basemap_key"),
+    defaultColorName = whattodo::get_golem_config("default_color_name"),
+    defaultColorCode = whattodo::get_golem_config("default_color_code"),
+    actionColorNames = whattodo::get_golem_config("action_color_names"),
+    actionColorCodes = whattodo::get_golem_config("action_color_codes")
+  )
   d <- simulate_data(
     n_sites = 5, n_features = 3, n_actions = 4, parameters = parameters
   )
@@ -12,7 +20,15 @@ test_that("initialize_map", {
 
 test_that("update_map (POINT class spatial data)", {
   # data
-  parameters <- app_parameters()
+  parameters <- whatdataio::read_data_configuration()
+  parameters$map <- list(
+    basemap_name = whattodo::get_golem_config("basemap_name"),
+    basemap_key = whattodo::get_golem_config("basemap_key"),
+    defaultColorName = whattodo::get_golem_config("default_color_name"),
+    defaultColorCode = whattodo::get_golem_config("default_color_code"),
+    actionColorNames = whattodo::get_golem_config("action_color_names"),
+    actionColorCodes = whattodo::get_golem_config("action_color_codes")
+  )
   d <- simulate_data(
     n_sites = 5, n_features = 3, n_actions = 4, parameters = parameters
   )
@@ -38,7 +54,15 @@ test_that("update_map (POINT class spatial data)", {
 
 test_that("update_map (MULTILINESTRING class spatial data)", {
   # data
-  parameters <- app_parameters()
+  parameters <- whatdataio::read_data_configuration()
+  parameters$map <- list(
+    basemap_name = whattodo::get_golem_config("basemap_name"),
+    basemap_key = whattodo::get_golem_config("basemap_key"),
+    defaultColorName = whattodo::get_golem_config("default_color_name"),
+    defaultColorCode = whattodo::get_golem_config("default_color_code"),
+    actionColorNames = whattodo::get_golem_config("action_color_names"),
+    actionColorCodes = whattodo::get_golem_config("action_color_codes")
+  )
   d <- simulate_data(
     n_sites = 5, n_features = 3, n_actions = 4, parameters = parameters
   )
@@ -74,7 +98,15 @@ test_that("update_map (MULTILINESTRING class spatial data)", {
 
 test_that("update_map (MULTIPOLYGON class spatial data)", {
   # data
-  parameters <- app_parameters()
+  parameters <- whatdataio::read_data_configuration()
+  parameters$map <- list(
+    basemap_name = whattodo::get_golem_config("basemap_name"),
+    basemap_key = whattodo::get_golem_config("basemap_key"),
+    defaultColorName = whattodo::get_golem_config("default_color_name"),
+    defaultColorCode = whattodo::get_golem_config("default_color_code"),
+    actionColorNames = whattodo::get_golem_config("action_color_names"),
+    actionColorCodes = whattodo::get_golem_config("action_color_codes")
+  )
   d <- simulate_data(
     n_sites = 5, n_features = 3, n_actions = 4, parameters = parameters
   )
@@ -112,7 +144,15 @@ test_that("update_map (MULTIPOLYGON class spatial data)", {
 
 test_that("update_map (GEOMETRY class spatial data)", {
   # data
-  parameters <- app_parameters()
+  parameters <- whatdataio::read_data_configuration()
+  parameters$map <- list(
+    basemap_name = whattodo::get_golem_config("basemap_name"),
+    basemap_key = whattodo::get_golem_config("basemap_key"),
+    defaultColorName = whattodo::get_golem_config("default_color_name"),
+    defaultColorCode = whattodo::get_golem_config("default_color_code"),
+    actionColorNames = whattodo::get_golem_config("action_color_names"),
+    actionColorCodes = whattodo::get_golem_config("action_color_codes")
+  )
   d <- simulate_data(
     n_sites = 5, n_features = 3, n_actions = 4, parameters = parameters
   )

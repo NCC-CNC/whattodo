@@ -5,7 +5,7 @@ test_that("primary_data_ui", {
   site_names <- paste0("s", seq_len(5))
   feature_names <- paste0("f", seq_len(4))
   action_names <- paste0("a", seq_len(4))
-  parameters <- app_parameters()
+  parameters <- whatdataio::read_data_configuration()
 
   # create ui
   x <- primary_data_ui(
@@ -35,7 +35,7 @@ test_that("primary_results_ui", {
   site_names <- paste0("s", seq_len(5))
   feature_names <- paste0("f", seq_len(4))
   action_names <- paste0("a", seq_len(4))
-  parameters <- app_parameters()
+  parameters <- whatdataio::read_data_configuration()
 
   # create ui
   x <- primary_results_ui(
@@ -59,7 +59,7 @@ test_that("primary_sidebar_ui", {
   site_names <- paste0("s", seq_len(5))
   feature_names <- paste0("f", seq_len(4))
   action_names <- paste0("a", seq_len(4))
-  parameters <- app_parameters()
+  parameters <- whatdataio::read_data_configuration()
 
   # create ui
   x <- primary_sidebar_ui(
@@ -83,7 +83,7 @@ test_that("primary_map_ui", {
   site_names <- paste0("s", seq_len(5))
   feature_names <- paste0("f", seq_len(4))
   action_names <- paste0("a", seq_len(4))
-  parameters <- app_parameters()
+  parameters <- whatdataio::read_data_configuration()
 
   # create ui
   x <- primary_map_ui(

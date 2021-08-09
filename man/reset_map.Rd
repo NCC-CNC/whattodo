@@ -11,8 +11,7 @@ reset_map(map, site_spatial_data, parameters, legend_title = NULL)
 
 \item{site_spatial_data}{\code{sf} spatial data for sites.}
 
-\item{parameters}{\code{list} parameters for interpreting the data.
-Defaults to configuration parameters bundled with the application.}
+\item{parameters}{\code{list} object with configuration parameters.}
 
 \item{legend_title}{\code{character} title of legend.}
 }

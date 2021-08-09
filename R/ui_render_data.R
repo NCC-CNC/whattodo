@@ -7,7 +7,7 @@ NULL
 #'
 #' @param x `data.frame` object.
 #'
-#' @inheritParams format_pu_data
+#' @inheritParams prioritization_with_budget
 #'
 #' @return A `rhandsontable` object.
 #'

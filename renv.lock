@@ -60,10 +60,10 @@
     },
     "Rcpp": {
       "Package": "Rcpp",
-      "Version": "1.0.6",
+      "Version": "1.0.7",
       "Source": "Repository",
       "Repository": "CRAN",
-      "Hash": "dbb5e436998a7eba5a9d682060533338"
+      "Hash": "dab19adae4440ae55aa8a9d238b246bb"
     },
     "RcppArmadillo": {
       "Package": "RcppArmadillo",
@@ -85,18 +85,6 @@
       "Source": "Repository",
       "Repository": "CRAN",
       "Hash": "81050aa684032d6db264aa60ed1d59d7"
-    },
-    "actionmisc": {
-      "Package": "actionmisc",
-      "Version": "0.0.0.99999",
-      "Source": "GitHub",
-      "RemoteType": "github",
-      "RemoteHost": "api.github.com",
-      "RemoteUsername": "NCC-CNC",
-      "RemoteRepo": "actionmisc",
-      "RemoteRef": "master",
-      "RemoteSha": "7626a4014fa6d4ed5fba9b0852d38f0ada879468",
-      "Hash": "62d6004830aca6f0841ff9a87c00cd30"
     },
     "ape": {
       "Package": "ape",
@@ -537,6 +525,13 @@
       "Repository": "CRAN",
       "Hash": "a525aba14184fec243f9eaec62fbed43"
     },
+    "hunspell": {
+      "Package": "hunspell",
+      "Version": "3.0.1",
+      "Source": "Repository",
+      "Repository": "CRAN",
+      "Hash": "3987784c19192ad0f2261c456d936df1"
+    },
     "igraph": {
       "Package": "igraph",
       "Version": "1.2.6",
@@ -877,11 +872,11 @@
       "Source": "GitHub",
       "RemoteType": "github",
       "RemoteHost": "api.github.com",
-      "RemoteRepo": "rcbc",
       "RemoteUsername": "dirkschumacher",
-      "RemoteRef": "HEAD",
+      "RemoteRepo": "rcbc",
+      "RemoteRef": "master",
       "RemoteSha": "f7e3997c7709240c7a84da40a3d65913b62e76d3",
-      "Hash": "b0b3fc9bc55738adc010ca29e9567c90"
+      "Hash": "72ad90107805928a4476e8ed1a0972af"
     },
     "rcmdcheck": {
       "Package": "rcmdcheck",
@@ -1058,6 +1053,13 @@
       "Repository": "CRAN",
       "Hash": "8d0918547149f72e78ae942ccd1fdbc7"
     },
+    "spelling": {
+      "Package": "spelling",
+      "Version": "2.2",
+      "Source": "Repository",
+      "Repository": "CRAN",
+      "Hash": "b8c899a5c83f0d897286550481c91798"
+    },
     "stringi": {
       "Package": "stringi",
       "Version": "1.5.3",
@@ -1204,6 +1206,18 @@
       "Source": "Repository",
       "Repository": "CRAN",
       "Hash": "20c45f1d511a3f730b7b469f4d11e104"
+    },
+    "whatdataio": {
+      "Package": "whatdataio",
+      "Version": "0.0.0.99999",
+      "Source": "GitHub",
+      "RemoteType": "github",
+      "RemoteHost": "api.github.com",
+      "RemoteUsername": "NCC-CNC",
+      "RemoteRepo": "whatdataio",
+      "RemoteRef": "master",
+      "RemoteSha": "56a103c0c44f2d6afe04e2ec2b9228ca884357ec",
+      "Hash": "8af2569e446dc585fe65c21aa51a5dff"
     },
     "whisker": {
       "Package": "whisker",

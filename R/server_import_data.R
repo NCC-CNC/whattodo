@@ -49,7 +49,7 @@ server_import_data <- quote({
       )) {
         ### display alert
         msg_names <-
-          actionmisc::incorrect_names(
+          incorrect_names(
             values$site_names,
             values$site_spatial_data$name
           )

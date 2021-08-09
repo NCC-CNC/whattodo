@@ -11,8 +11,7 @@ NULL
 #'
 #' @param site_spatial_data `sf` spatial data for sites.
 #'
-#' @param parameters `list` parameters for interpreting the data.
-#'   Defaults to configuration parameters bundled with the application.
+#' @inheritParams prioritization_with_budget
 #'
 #' @return A [leaflet::leaflet()] map object.
 #'
@@ -97,7 +96,7 @@ initialize_map <- function(site_bbox, site_spatial_data, parameters) {
 #' @param legend_title `character` title of legend.
 #'
 #' @inheritParams initialize_map
-#' @inheritParams format_pu_data
+#' @inheritParams prioritization_with_budget
 #'
 #' @inherit initialize_map return
 #'

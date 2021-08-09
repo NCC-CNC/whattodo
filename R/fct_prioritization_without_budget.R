@@ -27,17 +27,17 @@ prioritization_without_budget <- function(site_names, feature_names,
   )
 
   # prepare data for prioritization
-  pu_data <- format_pu_data(
+  pu_data <- whatdataio::format_pu_data(
     site_names, feature_names, action_names,
     site_data, action_expectation_data, parameters
   )
-  zone_data <- format_zone_data(
+  zone_data <- whatdataio::format_zone_data(
     site_names, feature_names, action_names, parameters
   )
-  target_data <- format_target_data(
+  target_data <- whatdataio::format_target_data(
     site_names, feature_names, action_names, feature_data, parameters
   )
-  locked_data <- format_locked_data(
+  locked_data <- whatdataio::format_locked_data(
     site_names, feature_names, action_names, site_status_data, parameters
   )
 
@@ -58,12 +58,12 @@ prioritization_without_budget <- function(site_names, feature_names,
 
   # summarize results
   if (inherits(sol, "try-error")) {
-    out <- format_error_data(
+    out <- whatdataio::format_error_data(
       site_names, feature_names, action_names, prb, parameters
     )
     out$solved <- FALSE
   } else {
-    out <- format_results_data(
+    out <- whatdataio::format_results_data(
       site_names, feature_names, action_names,
       pu_data, zone_data, target_data, sol, parameters
     )

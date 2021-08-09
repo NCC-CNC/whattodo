@@ -39,15 +39,3 @@ has_html_node <- function(x, id, class = NA_character_) {
   # see if h contains at least one element
   length(h) > 0
 }
-
-#' Application parameters
-#'
-#' Load Action App parameters for testing functions.
-#'
-#' @return `list` object with parameters.
-#'
-#' @export
-app_parameters <- function() {
-  path <- system.file("extdata", "config.toml", package = "actionmisc")
-  RcppTOML::parseTOML(path)
-}

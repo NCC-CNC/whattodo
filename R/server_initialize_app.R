@@ -79,7 +79,7 @@ server_initialize_app <- quote({
   })
   output$feature_results_widget <- rhandsontable::renderRHandsontable({
     rhandsontable::hot_cols(
-      rhandsontable(default_tabular_data(), useTypes = TRUE),
+      rhandsontable::rhandsontable(default_tabular_data(), useTypes = TRUE),
       readOnly = TRUE
     )
   })

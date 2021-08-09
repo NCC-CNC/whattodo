@@ -4,9 +4,7 @@ app_global <- quote({
   set.seed(200)
 
   # load parameters for data handling
-  parameters <- RcppTOML::parseTOML(
-    system.file("extdata", "config.toml", package = "actionmisc")
-  )
+  parameters <- whatdataio::read_data_configuration()
 
   # append color variables to parameters
   parameters$map <- list(

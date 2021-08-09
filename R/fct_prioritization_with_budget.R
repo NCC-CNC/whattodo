@@ -1,19 +1,32 @@
-#' @include internal.R fct_format_data.R
+#' @include internal.R
 NULL
 
 #' Prioritization without budget
 #'
 #' Generate a prioritization without a budget.
 #'
-#' @inheritParams format_pu_data
-#' @inheritParams format_locked_data
-#' @inheritParams format_target_data
+#' @param site_names `character` names of sites.
+#'
+#' @param feature_names `character` names of features.
+#'
+#' @param action_names `character` names of actions.
+#'
+#' @param site_data `data.frame` with site data.
+#'
+#' @param action_expectation_data `list` of `data.frame` objects with
+#'  the expected amount of each feature given each action.
+#'
+#' @param feature_data `data.frame` with feature data.
+#'
+#' @param site_status_data `data.frame` with site status data.
 #'
 #' @param budget `numeric` budget.
 #'
 #' @param weights `logical` use weights?
 #'
 #' @param gap `numeric` optimality gap.
+#'
+#' @param parameters `list` object with configuration parameters.
 #'
 #' @return `list` object containing results of prioritization.
 #'
@@ -39,20 +52,20 @@ prioritization_with_budget <- function(site_names, feature_names, action_names,
   )
 
   # prepare data for prioritization
-  pu_data <- format_pu_data(
+  pu_data <- whatdataio::format_pu_data(
     site_names, feature_names, action_names,
     site_data, action_expectation_data, parameters
   )
-  zone_data <- format_zone_data(
+  zone_data <- whatdataio::format_zone_data(
     site_names, feature_names, action_names, parameters
   )
-  target_data <- format_target_data(
+  target_data <- whatdataio::format_target_data(
     site_names, feature_names, action_names, feature_data, parameters
   )
-  weights_data <- format_weights_data(
+  weights_data <- whatdataio::format_weights_data(
     site_names, feature_names, action_names, feature_data, parameters
   )
-  locked_data <- format_locked_data(
+  locked_data <- whatdataio::format_locked_data(
     site_names, feature_names, action_names, site_status_data, parameters
   )
 
@@ -79,12 +92,12 @@ prioritization_with_budget <- function(site_names, feature_names, action_names,
 
   # summarize results
   if (inherits(sol, "try-error")) {
-    out <- format_error_data(
+    out <- whatdataio::format_error_data(
       site_names, feature_names, action_names, prb, parameters
     )
     out$solved <- FALSE
   } else {
-    out <- format_results_data(
+    out <- whatdataio::format_results_data(
       site_names, feature_names, action_names,
       pu_data, zone_data, target_data, sol, parameters
     )

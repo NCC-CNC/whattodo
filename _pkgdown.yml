@@ -29,17 +29,17 @@ reference:
     contents:
       - ends_with("_map")
 
-  - title: Render data
+  - title: Render and parse data
     desc: >
-      Functions for rendering data.
+      Functions for rendering and parsing data.
     contents:
       - starts_with("render_")
+      - starts_with("parse_")
 
-  - title: Data formatting
+  - title: Data preparation
     desc: >
-      Functions for data formatting.
+      Functions for preparing data.
     contents:
-      - starts_with("format_")
       - starts_with("prepare_")
 
   - title: Prioritization
@@ -54,15 +54,9 @@ reference:
     contents:
       - starts_with("default_")
 
-  - title: Validation
-    desc: >
-      Functions for validating objects.
-    contents:
-      - starts_with("has_")
-      - starts_with("is_")
-
   - title: Miscellaneous functions
     desc: >
       Functions for assorted usage.
     contents:
       - st_geometry_data_type
+      - is_valid_shapefile

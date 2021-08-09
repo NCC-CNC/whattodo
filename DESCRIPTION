@@ -41,7 +41,7 @@ Imports:
     withr (>= 2.4.1),
     RcppTOML (>= 0.1.7),
     magrittr (>= 2.0.1),
-    actionmisc
+    whatdataio
 Suggests:
     testthat (>= 2.0.1),
     knitr (>= 1.2.0),
@@ -64,7 +64,7 @@ Language: en-US
 Remotes:
   r-lib/pkgdown,
   dirkschumacher/rcbc,
-  NCC-CNC/actionmisc
+  NCC-CNC/whatdataio
 Collate:
     'app_config.R'
     'app_global.R'
@@ -72,13 +72,12 @@ Collate:
     'app_ui.R'
     'internal.R'
     'fct_defaults.R'
-    'fct_format_data.R'
-    'fct_has_valid_spreadsheet_data.R'
     'fct_is_valid_shapefile.R'
     'fct_prepare_for_shapefile_import.R'
     'fct_prioritization_with_budget.R'
     'fct_prioritization_without_budget.R'
     'package.R'
+    'parse_data.R'
     'run_app.R'
     'server_export_data.R'
     'server_generate_prioritization.R'
@@ -95,4 +94,3 @@ Collate:
     'ui_primary_sidebar_ui.R'
     'ui_render_data.R'
     'utils_sf.R'
-    'utils_verification.R'

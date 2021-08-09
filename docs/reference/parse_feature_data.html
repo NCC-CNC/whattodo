@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Format locked data — format_locked_data • whattodo</title>
+<title>Parse feature data — parse_feature_data • whattodo</title>
 
 
 <!-- jquery -->
@@ -39,8 +39,8 @@
 
 
 
-<meta property="og:title" content="Format locked data — format_locked_data" />
-<meta property="og:description" content="Format locked data" />
+<meta property="og:title" content="Parse feature data — parse_feature_data" />
+<meta property="og:description" content="Extract feature data from rhandsontable." />
 
 
 
@@ -113,51 +113,29 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Format locked data</h1>
-    <small class="dont-index">Source: <a href='https://github.com/NCC-CNC/whattodo/blob/master/R/fct_format_data.R'><code>R/fct_format_data.R</code></a></small>
-    <div class="hidden name"><code>format_locked_data.Rd</code></div>
+    <h1>Parse feature data</h1>
+    <small class="dont-index">Source: <a href='https://github.com/NCC-CNC/whattodo/blob/master/R/parse_data.R'><code>R/parse_data.R</code></a></small>
+    <div class="hidden name"><code>parse_feature_data.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>Format locked data</p>
+    <p>Extract feature data from <span class="pkg">rhandsontable</span>.</p>
     </div>
 
-    <div class="ref-usage sourceCode"><pre class='sourceCode r'><code><span class='fu'>format_locked_data</span><span class='op'>(</span>
-  <span class='va'>site_names</span>,
-  <span class='va'>feature_names</span>,
-  <span class='va'>action_names</span>,
-  <span class='va'>site_status_data</span>,
-  <span class='va'>parameters</span>
-<span class='op'>)</span></code></pre></div>
+    <div class="ref-usage sourceCode"><pre class='sourceCode r'><code><span class='fu'>parse_feature_data</span><span class='op'>(</span><span class='va'>x</span><span class='op'>)</span></code></pre></div>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
-      <th>site_names</th>
-      <td><p><code>character</code> names of sites.</p></td>
-    </tr>
-    <tr>
-      <th>feature_names</th>
-      <td><p><code>character</code> names of features.</p></td>
-    </tr>
-    <tr>
-      <th>action_names</th>
-      <td><p><code>character</code> names of actions.</p></td>
-    </tr>
-    <tr>
-      <th>site_status_data</th>
-      <td><p><code>data.frame</code> with site status data.</p></td>
-    </tr>
-    <tr>
-      <th>parameters</th>
-      <td><p><code>list</code> object with configuration parameters.</p></td>
+      <th>x</th>
+      <td><p><code>rhandsontable</code> object.</p></td>
     </tr>
     </table>
 
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p><code>data.frame</code> with locked data for prioritizations.</p>
+    <p>x <code>data.frame</code> object.</p>
 
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">

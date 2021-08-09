@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Has valid spreadsheet data? — has_valid_spreadsheet_data • whattodo</title>
+<title>Parse site data — parse_site_data • whattodo</title>
 
 
 <!-- jquery -->
@@ -39,8 +39,8 @@
 
 
 
-<meta property="og:title" content="Has valid spreadsheet data? — has_valid_spreadsheet_data" />
-<meta property="og:description" content="Check if a spreadsheet has valid data in it." />
+<meta property="og:title" content="Parse site data — parse_site_data" />
+<meta property="og:description" content="Extract site data from rhandsontable." />
 
 
 
@@ -113,29 +113,29 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Has valid spreadsheet data?</h1>
-    <small class="dont-index">Source: <a href='https://github.com/NCC-CNC/whattodo/blob/master/R/fct_has_valid_spreadsheet_data.R'><code>R/fct_has_valid_spreadsheet_data.R</code></a></small>
-    <div class="hidden name"><code>has_valid_spreadsheet_data.Rd</code></div>
+    <h1>Parse site data</h1>
+    <small class="dont-index">Source: <a href='https://github.com/NCC-CNC/whattodo/blob/master/R/parse_data.R'><code>R/parse_data.R</code></a></small>
+    <div class="hidden name"><code>parse_site_data.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>Check if a spreadsheet has valid data in it.</p>
+    <p>Extract site data from <span class="pkg">rhandsontable</span>.</p>
     </div>
 
-    <div class="ref-usage sourceCode"><pre class='sourceCode r'><code><span class='fu'>has_valid_spreadsheet_data</span><span class='op'>(</span><span class='va'>x</span><span class='op'>)</span></code></pre></div>
+    <div class="ref-usage sourceCode"><pre class='sourceCode r'><code><span class='fu'>parse_site_data</span><span class='op'>(</span><span class='va'>x</span><span class='op'>)</span></code></pre></div>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>x</th>
-      <td><p><code>list</code> object.</p></td>
+      <td><p><code>rhandsontable</code> object.</p></td>
     </tr>
     </table>
 
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p><code>logical</code> indicating valid data.</p>
+    <p>x <code>data.frame</code> object.</p>
 
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">

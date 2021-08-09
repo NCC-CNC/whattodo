@@ -19,7 +19,7 @@ server_export_data <- quote({
     },
     content = function(con) {
       # create workbook
-      w <- actionmisc::create_export_workbook(
+      w <- whatdataio::create_export_workbook(
         site_names = values$site_names,
         feature_names = values$feature_names,
         action_names = values$action_names,

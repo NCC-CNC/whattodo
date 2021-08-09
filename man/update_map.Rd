@@ -29,8 +29,7 @@ prioritization.}
 
 \item{action_colors}{\code{character} colors to use for rendering prioritizations.}
 
-\item{parameters}{\code{list} parameters for interpreting the data.
-Defaults to configuration parameters bundled with the application.}
+\item{parameters}{\code{list} object with configuration parameters.}
 
 \item{legend_title}{\code{character} title of legend.}
 }

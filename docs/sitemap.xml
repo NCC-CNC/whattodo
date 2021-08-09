@@ -28,37 +28,7 @@
     <loc>/reference/default_tabular_data.html</loc>
   </url>
   <url>
-    <loc>/reference/format_error_data.html</loc>
-  </url>
-  <url>
-    <loc>/reference/format_locked_data.html</loc>
-  </url>
-  <url>
-    <loc>/reference/format_pu_data.html</loc>
-  </url>
-  <url>
-    <loc>/reference/format_results_data.html</loc>
-  </url>
-  <url>
-    <loc>/reference/format_target_data.html</loc>
-  </url>
-  <url>
-    <loc>/reference/format_weights_data.html</loc>
-  </url>
-  <url>
-    <loc>/reference/format_zone_data.html</loc>
-  </url>
-  <url>
     <loc>/reference/get_golem_config.html</loc>
-  </url>
-  <url>
-    <loc>/reference/has_unique_values.html</loc>
-  </url>
-  <url>
-    <loc>/reference/has_valid_spreadsheet_data.html</loc>
-  </url>
-  <url>
-    <loc>/reference/has_valid_values.html</loc>
   </url>
   <url>
     <loc>/reference/index.html</loc>
@@ -80,6 +50,18 @@
   </url>
   <url>
     <loc>/reference/is_valid_shapefile.html</loc>
+  </url>
+  <url>
+    <loc>/reference/parse_action_expectation_data.html</loc>
+  </url>
+  <url>
+    <loc>/reference/parse_feature_data.html</loc>
+  </url>
+  <url>
+    <loc>/reference/parse_site_data.html</loc>
+  </url>
+  <url>
+    <loc>/reference/parse_site_status_data.html</loc>
   </url>
   <url>
     <loc>/reference/prepare_for_shapefile_import.html</loc>

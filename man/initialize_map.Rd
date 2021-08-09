@@ -11,8 +11,7 @@ initialize_map(site_bbox, site_spatial_data, parameters)
 
 \item{site_spatial_data}{\code{sf} spatial data for sites.}
 
-\item{parameters}{\code{list} parameters for interpreting the data.
-Defaults to configuration parameters bundled with the application.}
+\item{parameters}{\code{list} object with configuration parameters.}
 }
 \value{
 A \code{\link[leaflet:leaflet]{leaflet::leaflet()}} map object.

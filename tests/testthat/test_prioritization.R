@@ -3,7 +3,7 @@ context("prioritization")
 test_that("prioritization_with_budget (feasible)", {
   # data
   set.seed(500)
-  parameters <- app_parameters()
+  parameters <- whatdataio::read_data_configuration()
   d <- simulate_data(
     n_sites = 5, n_features = 3, n_actions = 4, parameters = parameters
   )
@@ -36,7 +36,7 @@ test_that("prioritization_with_budget (feasible)", {
 test_that("prioritization_with_budget (infeasible)", {
   # data
   set.seed(500)
-  parameters <- app_parameters()
+  parameters <- whatdataio::read_data_configuration()
   d <- simulate_data(
     n_sites = 5, n_features = 3, n_actions = 4, parameters = parameters
   )
@@ -59,7 +59,7 @@ test_that("prioritization_with_budget (infeasible)", {
 
 test_that("prioritization_without_budget (feasible)", {
   # data
-  parameters <- app_parameters()
+  parameters <- whatdataio::read_data_configuration()
   d <- simulate_data(
     n_sites = 5, n_features = 3, n_actions = 4, parameters = parameters
   )
@@ -80,7 +80,7 @@ test_that("prioritization_without_budget (feasible)", {
 
 test_that("prioritization_without_budget (infeasible)", {
   # data
-  parameters <- app_parameters()
+  parameters <- whatdataio::read_data_configuration()
   d <- simulate_data(
     n_sites = 5, n_features = 3, n_actions = 4, parameters = parameters
   )
