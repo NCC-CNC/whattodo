@@ -60,9 +60,12 @@ server_upload_spreadsheet <- quote({
       ### display alert
       output$alert_modal_title <-
         shiny::renderText("Oops: invalid Excel Spreadsheet")
-      output$alert_modal_msg <-
-        shiny::renderText(
-          "This Excel Spreadsheet wasn't generated using the NCC Data App.")
+      output$alert_modal_msg <- shiny::renderText(
+          paste(
+          "This Excel Spreadsheet wasn't generated using the Action Data",
+          "Template application."
+        )
+      )
       shinyBS::toggleModal(session, "alert_modal", toggle = "open")
       ### update app variables
       values$spreadsheet_data_present <- FALSE
@@ -98,17 +101,15 @@ server_upload_spreadsheet <- quote({
     values[["site_status_data"]] <- d$site_status_data
     values[["feature_data"]] <- d$feature_data
     values[["action_expectation_data"]] <- d$action_expectation_data
-    values[["action_colors"]] <-
-      actionmisc::default_colors(d$action_names, parameters)
+    values[["action_colors"]] <- default_colors(d$action_names, parameters)
     ### enable data done button if relevant
     if (
       ((isTRUE(values$shapefile_data_present) &&
         isTRUE(values$shapefile_data_required)) ||
-       (actionmisc::isFALSE(values$shapefile_data_required))) &&
+       (isFALSE(values$shapefile_data_required))) &&
       isTRUE(values$spreadsheet_data_present)) {
       shinyjs::enable("data_done_btn")
     }
   })
-
 
 })

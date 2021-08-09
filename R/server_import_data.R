@@ -109,25 +109,25 @@ server_import_data <- quote({
     values[["site_bbox"]] <-
       sf::st_bbox(values[["site_spatial_data"]])
     ## switch app from default state to primary state
-    values[["data_ui_data"]] <- actionmisc::primary_data_ui(
+    values[["data_ui_data"]] <- primary_data_ui(
       site_names = values$site_names,
       feature_names = values$feature_names,
       action_names = values$action_names,
       parameters = parameters
     )
-    values[["results_ui_data"]] <- actionmisc::primary_results_ui(
+    values[["results_ui_data"]] <- primary_results_ui(
       site_names = values$site_names,
       feature_names = values$feature_names,
       action_names = values$action_names,
       parameters = parameters
     )
-    values[["sidebar_ui_data"]] <- actionmisc::primary_sidebar_ui(
+    values[["sidebar_ui_data"]] <- primary_sidebar_ui(
       site_names = values$site_names,
       feature_names = values$feature_names,
       action_names = values$action_names,
       parameters = parameters
     )
-    values[["map_ui_data"]] <- actionmisc::primary_map_ui(
+    values[["map_ui_data"]] <- primary_map_ui(
       site_names = values$site_names,
       feature_names = values$feature_names,
       action_names = values$action_names,
@@ -135,25 +135,25 @@ server_import_data <- quote({
     )
     ## update tables
     output$site_data_widget <- rhandsontable::renderRHandsontable({
-      actionmisc::render_site_data(
+      render_site_data(
         values[["site_data"]]
       )
     })
     output$site_status_widget <- rhandsontable::renderRHandsontable({
-      actionmisc::render_site_status_data(
+      render_site_status_data(
         values[["site_status_data"]],
         parameters
       )
     })
     output$feature_data_widget <- rhandsontable::renderRHandsontable({
-      actionmisc::render_feature_data(
+      render_feature_data(
         values[["feature_data"]]
       )
     })
     lapply(seq_along(values$action_names), function(i) {
       output[[paste0("action_", i, "_widget")]] <-
         rhandsontable::renderRHandsontable(
-          actionmisc::render_action_expectation_data(
+          render_action_expectation_data(
             values[["action_expectation_data"]][[paste0("action_", i)]]
           )
         )

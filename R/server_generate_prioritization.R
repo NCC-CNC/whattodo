@@ -19,7 +19,7 @@ server_generate_prioritization <- quote({
     shinyjs::disable("solution_btn")
     # generate prioritization
     if (input$problem_widget < 0.5) {
-      solution <- actionmisc::prioritization_without_budget(
+      solution <- prioritization_without_budget(
         site_names = values$site_names,
         action_names = values$action_names,
         feature_names = values$feature_names,
@@ -31,7 +31,7 @@ server_generate_prioritization <- quote({
         parameters = parameters
       )
     } else {
-      solution <- actionmisc::prioritization_with_budget(
+      solution <- prioritization_with_budget(
         site_names = values$site_names,
         action_names = values$action_names,
         feature_names = values$feature_names,
@@ -53,13 +53,13 @@ server_generate_prioritization <- quote({
 
     # update widgets with results from prioritization
     output$summary_results_widget <- rhandsontable::renderRHandsontable({
-      actionmisc::render_summary_results_data(
+      render_summary_results_data(
         values[["summary_results_data"]],
         parameters
       )
     })
     output$site_results_widget <- rhandsontable::renderRHandsontable({
-      rhandsontable::holt_cols(
+      rhandsontable::hot_cols(
         rhandsontable::rhandsontable(
           values[["site_results_data"]],
           useTypes = TRUE
@@ -68,7 +68,7 @@ server_generate_prioritization <- quote({
       )
     })
     output$feature_results_widget <- rhandsontable::renderRHandsontable({
-      actionmisc::render_feature_results_data(
+      render_feature_results_data(
         values[["feature_results_data"]],
         parameters
       )

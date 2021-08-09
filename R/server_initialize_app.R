@@ -27,21 +27,21 @@ server_initialize_app <- quote({
     action_colors = NULL,
     ## spatial data
     site_spatial_data = NULL,
-    site_bbox = actionmisc::default_bbox(),
+    site_bbox = default_bbox(),
     ## data tables
-    site_data = actionmisc::default_tabular_data(),
-    site_status_data = actionmisc::default_tabular_data(),
-    feature_data = actionmisc::default_tabular_data(),
-    action_expectation_data = list(actionmisc::default_tabular_data()),
+    site_data = default_tabular_data(),
+    site_status_data = default_tabular_data(),
+    feature_data = default_tabular_data(),
+    action_expectation_data = list(default_tabular_data()),
     ## results tables
-    summary_results_data = actionmisc::default_tabular_data(),
-    site_results_data = actionmisc::default_tabular_data(),
-    feature_results_data = actionmisc::default_tabular_data(),
+    summary_results_data = default_tabular_data(),
+    site_results_data = default_tabular_data(),
+    feature_results_data = default_tabular_data(),
     ## ui components
-    data_ui_data = actionmisc::default_data_ui(),
-    results_ui_data = actionmisc::default_results_ui(),
-    sidebar_ui_data = actionmisc::default_sidebar_ui(),
-    map_ui_data = actionmisc::default_map_ui()
+    data_ui_data = initial_data_ui(),
+    results_ui_data = initial_results_ui(),
+    sidebar_ui_data = initial_sidebar_ui(),
+    map_ui_data = initial_map_ui()
   )
 
   # user interfaces
@@ -55,40 +55,31 @@ server_initialize_app <- quote({
 
   # data tables
   output$site_data_widget <- rhandsontable::renderRHandsontable({
-    actionmisc::render_site_data(default_tabular_data())
+    render_site_data(default_tabular_data())
   })
   output$site_status_widget <- rhandsontable::renderRHandsontable({
-    actionmisc::render_site_data(default_tabular_data())
+    render_site_data(default_tabular_data())
   })
   output$feature_data_widget <- rhandsontable::renderRHandsontable({
-    actionmisc::render_site_data(default_tabular_data())
+    render_site_data(default_tabular_data())
   })
 
   # results tables
   output$summary_results_widget <- rhandsontable::renderRHandsontable({
     rhandsontable::hot_cols(
-      rhandsontable::rhandsontable(
-        actionmisc::default_tabular_data(),
-        useTypes = TRUE
-      ),
+      rhandsontable::rhandsontable(default_tabular_data(), useTypes = TRUE),
       readOnly = TRUE
     )
   })
   output$site_results_widget <- rhandsontable::renderRHandsontable({
-    rhandsontable::holt_cols(
-      rhandsontable::rhandsontable(
-        actionmisc::default_tabular_data(),
-        useTypes = TRUE
-      ),
+    rhandsontable::hot_cols(
+      rhandsontable::rhandsontable(default_tabular_data(), useTypes = TRUE),
       readOnly = TRUE
     )
   })
   output$feature_results_widget <- rhandsontable::renderRHandsontable({
-    rhandsontable::holt_cols(
-      rhandsontable::rhandsontable(
-        actionmisc::default_tabular_data(),
-        useTypes = TRUE
-      ),
+    rhandsontable::hot_cols(
+      rhandsontable(default_tabular_data(), useTypes = TRUE),
       readOnly = TRUE
     )
   })
@@ -97,7 +88,7 @@ server_initialize_app <- quote({
   shiny::observe({
     if (!is.null(values$site_bbox)) {
       output$map_widget <- leaflet::renderLeaflet({
-        actionmisc::initialize_map(
+        initialize_map(
           values$site_bbox,
           site_spatial_data = values$site_spatial_data,
           parameters

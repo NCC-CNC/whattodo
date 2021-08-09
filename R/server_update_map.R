@@ -18,7 +18,7 @@ server_update_map <- quote({
     if (!is.null(values$site_spatial_data) &&
         !identical(
           values$site_results_data,
-          actionmisc::default_tabular_data()
+          default_tabular_data()
         )
       ) {
       ### if results have updated then...
@@ -27,7 +27,7 @@ server_update_map <- quote({
         parameters$error_sheets$name_header
       )) {
         ## update map with solution if valid result
-        actionmisc::update_map(
+        update_map(
           leaflet::leafletProxy("map_widget", session),
           feature_names = values$feature_names,
           site_spatial_data = values$site_spatial_data,
@@ -39,7 +39,7 @@ server_update_map <- quote({
         )
       } else {
         ## update map with no solution if invalid
-        actionmisc::reset_map(
+        reset_map(
           leaflet::leafletProxy("map_widget", session),
           site_spatial_data = values$site_spatial_data,
           legend_title = NULL,

@@ -6,24 +6,39 @@
 #' @noRd
 app_ui <- function(request) {
   shiny::tagList(
-    # Leave this function for adding external resources
+    # add external resources
     golem_add_external_resources(),
-    # Your application UI logic
+
+    # app content
     shiny::fluidPage(
+
+      ## suppress dependencies that fail to import correctly
+      htmltools::suppressDependencies("shinyBS"),
+
+      ## add tooltips
       shinyBS::bsTooltip(
         "data_tab",
         paste("Input data used to generate a prioritization")),
       shinyBS::bsTooltip(
         "results_tab",
         paste("Results associated with a prioritization")),
+
+      # sidebar layout
       shiny::sidebarLayout(
+
+        # sidebar content
         shiny::sidebarPanel(
           shiny::h3("What To Do"),
           shiny::br(),
           shiny::uiOutput("sidebar_ui")
         ),
+
+        # main panel content
         shiny::mainPanel(
+          ## map
           shiny::uiOutput("map_ui"),
+
+          ## alert modal
           shinyBS::bsModal(
             id = "alert_modal",
             trigger = "alert_modal_trigger",
@@ -31,24 +46,22 @@ app_ui <- function(request) {
             title = shiny::h4(shiny::textOutput("alert_modal_title")),
             shiny::p(shiny::textOutput("alert_modal_msg"))
           ),
+
+          ## tabset panel
           shiny::tabsetPanel(
             id = "main_tabset",
             type = "tabs",
+
+            ## data tab
             shiny::tabPanel(
-              shiny::span(
-                id = "data_tab",
-                "Data"
-              ),
+              shiny::span(id = "data_tab", "Data"),
               shiny::uiOutput("data_ui")
             ),
+
+            ## result tab
             shiny::tabPanel(
-              shiny::span(
-                id = "results_tab",
-                "Results"
-              ),
-              shiny::uiOutput(
-                "results_ui"
-              )
+              shiny::span(id = "results_tab", "Results"),
+              shiny::uiOutput("results_ui")
             )
           )
         )
