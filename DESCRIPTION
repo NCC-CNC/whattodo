@@ -94,5 +94,5 @@ Collate:
     'ui_primary_results_ui.R'
     'ui_primary_sidebar_ui.R'
     'ui_render_data.R'
-    'utils_misc.R'
     'utils_sf.R'
+    'utils_verification.R'
