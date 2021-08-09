@@ -21,7 +21,9 @@ prioritizations can also be downloaded for subsequent analysis.
 The application is [available online](TODO). **Please note that you must
 use [Google Chrome](https://www.google.com/chrome/) for it to work.**.
 Since this application requires data in a specific format, please refer
-to the [What Template Maker application](TODO) for preparing input data.
+to the [What Template Maker
+application](https://github.com/NCC-CNC/whattemplatemaker) for preparing
+input data.
 
 ## Installation
 
