@@ -145,8 +145,11 @@ naming conventions:
 
 ## Getting help
 
-If you have any questions about using the *What To Do* application or
-suggestions for improving it, please contact [Dr. Richard
+Thank you for checking out this application. If you encounter any
+software defects (e.g. application crashes, unexpected behavior, or
+spelling mistakes), please feel free to post them on the [issue
+tracker](https://github.com/NCC-CNC/whattodo/issues). If you have any
+questions about using this application, please contact [Dr. Richard
 Schuster](https://www.richard-schuster.com/)
 (<richard.schuster@natureconservancy.ca>) or [Prof. Joe
 Bennett](https://carleton.ca/bennett-lab/lab-members/)
