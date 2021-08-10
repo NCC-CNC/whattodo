@@ -92,10 +92,11 @@ instructions](https://docs.docker.com/get-docker/)) and Docker Compose
 After installing both programs, you can install the application by
 [cloning this
 repository](https://docs.github.com/en/github/creating-cloning-and-archiving-repositories/cloning-a-repository-from-github/cloning-a-repository)
-and then using the following system command:
+and then using the following system commands:
 
 ``` bash
-docker-compose up --build
+docker-compose pull
+docker-compose up -d
 ```
 
 You can then view the application by opening the following link in
