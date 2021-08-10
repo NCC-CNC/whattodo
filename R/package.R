@@ -21,9 +21,11 @@ NULL
 #' @docType package
 #'
 #' @examples
+#' \donttest{
 #  # launch application
 #' if (interactive()) {
 #' run_app()
+#' }
 #' }
 NULL
 

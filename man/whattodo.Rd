@@ -14,7 +14,9 @@ can be examined using summary statistics and tables. Finally, data and
 prioritizations can also be downloaded for subsequent analysis.
 }
 \examples{
+\donttest{
 if (interactive()) {
 run_app()
+}
 }
 }
