@@ -18,10 +18,10 @@ prioritizations can also be downloaded for subsequent analysis.
 
 ## Usage
 
-The application is [available online](TODO). **Please note that you must
-use [Google Chrome](https://www.google.com/chrome/) for it to work.**.
-Since this application requires data in a specific format, please refer
-to the [What Template Maker
+The application is [available online](https://ncc.carleton.ca). Please
+note that you must use [Google Chrome](https://www.google.com/chrome/)
+for it to work. Since this application requires data in a specific
+format, please refer to the [What Template Maker
 application](https://github.com/NCC-CNC/whattemplatemaker) for preparing
 input data.
 
