@@ -33,6 +33,8 @@ be downloaded for subsequent analysis.
 
 The application is [available online](https://ncc.carleton.ca). Please note that you must use [Google Chrome](https://www.google.com/chrome/) for it to work. Since this application requires data in a specific format, please refer to the [What Template Maker application](https://github.com/NCC-CNC/whattemplatemaker) for preparing input data.
 
+<table><tr><td><img class="screenshot" src="man/figures/screenshot.png" align="center" width="100%"/></td></tr></table>
+
 ## Installation
 
 The application is available as an online service provided by the [Nature Conservancy of Canada](https://natureconservancy.ca/en/). If you need to run the application on your own computer, then you can run it using the [R statistical computing environment](https://www.r-project.org/), [Docker](https://www.docker.com/), or [Docker Compose](https://docs.docker.com/compose/).

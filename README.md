@@ -30,6 +30,14 @@ format, please refer to the [What Template Maker
 application](https://github.com/NCC-CNC/whattemplatemaker) for preparing
 input data.
 
+<table>
+<tr>
+<td>
+<img class="screenshot" src="man/figures/screenshot.png" align="center" width="100%"/>
+</td>
+</tr>
+</table>
+
 ## Installation
 
 The application is available as an online service provided by the
