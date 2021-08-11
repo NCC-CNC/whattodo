@@ -21,6 +21,8 @@ prepare_for_shapefile_import <- function(x) {
   assertthat::assert_that(
     is.character(x), assertthat::noNA(x)
   )
+  # sanitize first file path
+  x[1] <- file.path(dirname(x[[1]]), basename(x[[1]]))
   # main processing
   out <- vapply(x[-1], FUN.VALUE = character(1), function(i) {
     # determine new file path

@@ -15,7 +15,6 @@ test_that("works", {
   output_path <- prepare_for_shapefile_import(input_path)
   # tests
   expect_true(all(file.exists(output_path)))
-  testthat::testthat_print(output_path)
   expect_equal(length(unique(tools::file_path_sans_ext(output_path))), 1)
   expect_equal(tools::file_ext(input_path), tools::file_ext(output_path))
 })
