@@ -25,8 +25,10 @@ prepare_for_shapefile_import <- function(x) {
   out <- vapply(x[-1], FUN.VALUE = character(1), function(i) {
     # determine new file path
     new_path <- paste0(
-      file.path(dirname(x[[1]]),
-      basename(tools::file_path_sans_ext(x[[1]]))),
+      file.path(
+        dirname(x[[1]]),
+        basename(tools::file_path_sans_ext(x[[1]]))
+      ),
       ".",
       tools::file_ext(i)
     )
