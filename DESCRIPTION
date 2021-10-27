@@ -64,7 +64,7 @@ Language: en-US
 Remotes:
   r-lib/pkgdown,
   dirkschumacher/rcbc,
-  NCC-CNC/whatdataio
+  NCC-CNC/whatdataio@v1.0.0
 Collate:
     'app_config.R'
     'app_global.R'
