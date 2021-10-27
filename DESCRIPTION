@@ -1,6 +1,6 @@
 Package: whattodo
 Title: Interactive Management Action Prioritization Application
-Version: 0.0.0.9000
+Version: 1.0.1
 Description:
     Launch an interactive web application for prioritizing management actions.
     Data can be uploaded using an Excel Spreadsheet and (optional) a shapefile
