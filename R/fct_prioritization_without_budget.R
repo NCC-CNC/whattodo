@@ -10,40 +10,28 @@ NULL
 #' @inherit prioritization_with_budget return
 #'
 #' @export
-prioritization_without_budget <- function(site_names, feature_names,
-                                          action_names,
-                                          site_data, site_status_data,
-                                          feature_data, action_expectation_data,
-                                          gap = 0, parameters) {
+prioritization_without_budget <- function(site_ids,
+                                          feature_ids,
+                                          action_ids,
+                                          pu_data,
+                                          zone_data,
+                                          goal_data,
+                                          locked_data,
+                                          parameters,
+                                          gap = 0) {
   # assert arguments are valid
   assertthat::assert_that(
-    inherits(site_data, "data.frame"),
-    inherits(site_status_data, "data.frame"),
-    inherits(feature_data, "data.frame"),
-    inherits(action_expectation_data, "list"),
+    inherits(pu_data, "data.frame"),
+    inherits(zone_data, "data.frame"),
+    inherits(goal_data, "data.frame"),
+    inherits(locked_data, "data.frame"),
     assertthat::is.number(gap),
-    isTRUE(gap >= 0),
-    is.list(parameters)
-  )
-
-  # prepare data for prioritization
-  pu_data <- whatdataio::format_pu_data(
-    site_names, feature_names, action_names,
-    site_data, action_expectation_data, parameters
-  )
-  zone_data <- whatdataio::format_zone_data(
-    site_names, feature_names, action_names, parameters
-  )
-  target_data <- whatdataio::format_target_data(
-    site_names, feature_names, action_names, feature_data, parameters
-  )
-  locked_data <- whatdataio::format_locked_data(
-    site_names, feature_names, action_names, site_status_data, parameters
+    isTRUE(gap >= 0)
   )
 
   # generate prioritization
   prb <-
-    prioritizr::problem(pu_data, zone_data, paste0("cost_", action_names)) %>%
+    prioritizr::problem(pu_data, zone_data, paste0("cost_", action_ids)) %>%
     prioritizr::add_min_set_objective() %>%
     prioritizr::add_manual_targets(target_data) %>%
     prioritizr::add_mandatory_allocation_constraints() %>%
@@ -58,14 +46,19 @@ prioritization_without_budget <- function(site_names, feature_names,
 
   # summarize results
   if (inherits(sol, "try-error")) {
-    out <- whatdataio::format_error_data(
-      site_names, feature_names, action_names, prb, parameters
-    )
+    out <- format_solution_error(parameters = parameters)
     out$solved <- FALSE
   } else {
-    out <- whatdataio::format_results_data(
-      site_names, feature_names, action_names,
-      pu_data, zone_data, target_data, sol, parameters
+    out <- format_solution_results(
+      site_ids = site_ids,
+      feature_ids = feature_ids,
+      action_ids =  action_ids,
+      pu_data = pu_data,
+      zone_data = zone_data,
+      target_data = target_data,
+      solution_data = sol,
+      budget = NA,
+      parameters = parameters
     )
     out$solved <- TRUE
   }

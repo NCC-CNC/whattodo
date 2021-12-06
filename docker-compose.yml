@@ -10,4 +10,7 @@ services:
       - "3838:3838"
     environment:
       # environmental variables defined in ./.env
-      - R_CONFIG_ACTIVE
+      - FORCE_DEFAULT_PROJECTS
+      - PROJECT_DIRECTORY
+    volumes:
+      - "${PROJECT_DIRECTORY}:/projects"

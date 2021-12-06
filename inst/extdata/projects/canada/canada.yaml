@@ -1,0 +1,6 @@
+name: Canada dataset
+author_name: Richard Schuster
+author_email: richard.schuster@natureconservancy.ca
+user_groups: public
+spreadsheet_path: canada.xlsx
+spatial_path: canada.shp

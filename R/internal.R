@@ -1,3 +1,40 @@
+#' All elements inherit
+#'
+#' Check if all elements in a `list` object inherit from a class.
+#'
+#' @param x `list` object.
+#'
+#' @param class `character` class name.
+#
+#' @return `logical` indicating if all elements in `x` inherit from `class`.
+#'
+#' @noRd
+all_list_elements_inherit <- function(x, class) {
+  assertthat::assert_that(
+    is.list(x),
+    is.character(class),
+    assertthat::noNA(class)
+  )
+  all(vapply(x, inherits, logical(1), class))
+}
+
+assertthat::on_failure(all_list_elements_inherit) <- function(call, env) {
+  paste0("all ", deparse(call$x), " do not inherit from", deparse(call$class))
+}
+
+#' Paste vector
+#'
+#' Paste a `character` vector of together for displaying messages.
+#'
+#' @param x `character` vector.
+#'
+#' @return `character` value.
+paste_vector <- function(x) {
+  assertthat::assert_that(inherits(x, "character"))
+  paste(paste0("\"", x, "\""), collapse = ", ")
+}
+
+
 #' Column widths
 #
 #' Find column widths for a table.
@@ -17,55 +54,18 @@ column_widths <- function(x) {
   pmax(n, n2)
 }
 
-#' Incorrect names
+#' Convert to identifier
 #'
-#' Print the difference between two character vectors.
+#' Convert a name to an identifier.
 #'
-#' @param x `character` object.
+#' @param x `character` value containing a name.
 #'
-#' @param y `character` object.
-#'
-#' @return `character` description of missing names.
-#'
-#' @noRd
-incorrect_names <- function(x, y) {
-  # assert valid arguments
+#' @return A `character` value.
+convert_to_id <- function(x) {
   assertthat::assert_that(
-    is.character(x), assertthat::noNA(x),
-    is.character(y), assertthat::noNA(y)
+    assertthat::is.string(x),
+    assertthat::noNA(x)
   )
-  # determine missing names from shapefile
-  n1 <- setdiff(x, y)
-  if (length(n1) == 0) {
-    out1 <- ""
-  } else {
-    out1 <- paste0(
-      "the shapefile is missing the following the names (that
-      are present in the Excel Spreadsheet): ",
-      paste0("\"", n1, "\""), "."
-    )
-  }
-  # determine extra names in shapefile
-  n2 <- setdiff(y, x)
-  if (length(n2) == 0) {
-    out2 <- ""
-  } else {
-    out2 <- paste0(
-      "the shapefile has the following extra names (that
-      are possibly misspelled from the Excel Spreadsheet): ",
-      paste0("\"", n2, "\""), "."
-    )
-  }
-  # create output message
-  if ((nchar(out1) == 0) && (nchar(out2) == 0)) {
-    out <- ""
-  } else if ((nchar(out1) > 0) && (nchar(out2) == 0)) {
-    out <- paste0("Specifically, ", out1)
-  } else if ((nchar(out1) == 0) && (nchar(out2) > 0)) {
-    out <- paste0("Specifically, ", out2)
-  } else if ((nchar(out1) > 0) && (nchar(out2) > 0)) {
-    out <- paste0("Specifically, ", out1, " Also, ", out2)
-  }
-  # return result
-  out
+  # replace spaces with underscores
+  gsub(" ", "_", x, fixed = TRUE)
 }

@@ -10,63 +10,54 @@ app_ui <- function(request) {
     golem_add_external_resources(),
 
     # app content
-    shiny::fluidPage(
+    shiny::fillPage(
 
       ## suppress dependencies that fail to import correctly
       htmltools::suppressDependencies("shinyBS"),
+      htmltools::suppressDependencies("bootstrap-select"),
 
-      ## add tooltips
-      shinyBS::bsTooltip(
-        id = "data_tab",
-        title = "Input data used to generate a prioritization"
-      ),
-      shinyBS::bsTooltip(
-        id = "results_tab",
-        title = "Results associated with a prioritization"
-      ),
-
-      # sidebar layout
-      shiny::sidebarLayout(
-
-        # sidebar content
-        shiny::sidebarPanel(
-          shiny::h3("What To Do"),
-          shiny::br(),
-          shiny::uiOutput("sidebar_ui")
-        ),
-
-        # main panel content
-        shiny::mainPanel(
-          ## map
-          shiny::uiOutput("map_ui"),
-
-          ## alert modal
-          shinyBS::bsModal(
-            id = "alert_modal",
-            trigger = "alert_modal_trigger",
-            size = "large",
-            title = shiny::h4(shiny::textOutput("alert_modal_title")),
-            shiny::p(shiny::textOutput("alert_modal_msg"))
-          ),
-
-          ## tabset panel
-          shiny::tabsetPanel(
-            id = "main_tabset",
-            type = "tabs",
-
-            ## data tab
-            shiny::tabPanel(
-              shiny::span(id = "data_tab", "Data"),
-              shiny::uiOutput("data_ui")
-            ),
-
-            ## result tab
-            shiny::tabPanel(
-              shiny::span(id = "results_tab", "Results"),
-              shiny::uiOutput("results_ui")
-            )
-          )
+      ## manually insert code dependencies so they import correctly
+      htmltools::tags$head(
+        ### shinyBS just doesn't work inside Docker containers
+        htmltools::tags$script(src = "www/shinyBS-copy.js"),
+        ### shinyWidgets has invalid SourceMap configuration
+        htmltools::tags$script(src = "www/bootstrap-select-copy.min.js"),
+        htmltools::tags$link(
+          rel = "stylesheet",
+          type = "text/css",
+          href = "www/bootstrap-select-copy.min.css"
         )
+      ),
+
+      ## start up screen
+      shinybusy::busy_start_up(
+        loader = shinybusy::spin_epic("scaling-squares", color = "#FFF"),
+        text = "Loading...",
+        mode = "auto",
+        color = "#FFF",
+        background = "#001329"
+      ),
+
+      ## leaflet map
+      leaflet::leafletOutput("map", width = "100%", height = "100%"),
+
+      ## help modal
+      helpModal("helpModal", trigger = "help_button"),
+
+      ## sidebar
+      leaflet.extras2::sidebar_tabs(
+        id = "mainSidebar",
+        iconList = list(
+          shiny::icon("rocket"),
+          shiny::icon("tachometer-alt"),
+          shiny::icon("download"),
+          shiny::icon("envelope"),
+          shiny::icon("heart")
+        ),
+        newSolutionSidebarPane(id = "newSolutionPane"),
+        solutionResultsSidebarPane(id = "solutionResultsPane"),
+        contactSidebarPane(id = "contactPane"),
+        acknowledgmentsSidebarPane(id = "acknowledgmentsPane")
       )
     )
   )
@@ -98,6 +89,9 @@ golem_add_external_resources <- function() {
     golem::favicon(),
 
     ## dependencies
-    shinyjs::useShinyjs()
+    shinyjs::useShinyjs(),
+    shinyjs::useShinyjs(),
+    shinyalert::useShinyalert()
+
   )
 }

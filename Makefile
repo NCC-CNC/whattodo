@@ -19,7 +19,7 @@ man:
 
 ## simulate data
 data:
-	R --slave -e "source('inst/scripts/simulate-data.R')"
+	R --slave -e "source('inst/scripts/builtin-data.R')"
 
 ## reubild readme
 readme:
