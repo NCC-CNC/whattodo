@@ -7,8 +7,8 @@ library(dplyr)
 library(tibble)
 
 ## define variables
-shp_path <- "inst/extdata/projects/canada/canada-data.shp"
-output_path <- "inst/extdata/projects/canada/canada-data.xlsx"
+shp_path <- "inst/extdata/projects/canada/canada.shp"
+output_path <- "inst/extdata/projects/canada/canada.xlsx"
 
 ## load parameters
 parameters <- whatdataio::read_data_configuration()
@@ -35,9 +35,6 @@ action_data <- tibble::tribble(
 )
 
 # Preliminary processing
-## load parameters
-parameters <-
-
 ## load spatial data
 spatial_data <- sf::read_sf(shp_path)
 assertthat::assert_that(
