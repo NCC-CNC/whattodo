@@ -1249,15 +1249,15 @@
     },
     "whatdataio": {
       "Package": "whatdataio",
-      "Version": "0.0.0.99999",
+      "Version": "1.0.0",
       "Source": "GitHub",
       "RemoteType": "github",
       "RemoteHost": "api.github.com",
       "RemoteRepo": "whatdataio",
       "RemoteUsername": "NCC-CNC",
-      "RemoteRef": "v2",
-      "RemoteSha": "fadabf8bab3c9b6b97feb362ffebd56aba358e57",
-      "Hash": "4b46e32d62d7d2d1d540f0c5ee71f542"
+      "RemoteRef": "HEAD",
+      "RemoteSha": "a684347f229453c6fc60c50f8c4cce9e7f1028d7",
+      "Hash": "7ee868663402ac67c927526ed3c0362f"
     },
     "whisker": {
       "Package": "whisker",
