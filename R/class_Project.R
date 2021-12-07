@@ -37,6 +37,9 @@ Project <- R6::R6Class(
     #' @field site_data `data.frame` object.
     site_data = NULL,
 
+    #' @field feature_data `data.frame` object.
+    feature_data = NULL,
+
     #' @field feasibility_data `data.frame` object.
     feasibility_data = NULL,
 
@@ -85,6 +88,7 @@ Project <- R6::R6Class(
     #' @param action_ids `character` vector
     #' @param action_descriptions `character` vector
     #' @param site_data `data.frame` object.
+    #' @param feature_data `data.frame` object.
     #' @param feasibility_data `data.frame` object.
     #' @param action_expectation_data `list` of `data.frame` objects.
     #' @param parameters `list` of parameters.
@@ -94,13 +98,14 @@ Project <- R6::R6Class(
                           feature_ids, feature_descriptions,
                           action_ids, action_descriptions,
                           site_data,
+                          feature_data,
                           feasibility_data,
                           action_expectation_data,
                           parameters) {
       # assert that arguments are valid
       assertthat::assert_that(
         ## ids
-        assertthat::is.string(site_ids),
+        assertthat::is.string(id),
         assertthat::noNA(id),
         is.character(site_ids),
         assertthat::noNA(site_ids),

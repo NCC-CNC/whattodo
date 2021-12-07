@@ -52,9 +52,11 @@ helpModal <- function(id, trigger) {
           ## body
           htmltools::tags$div(
             class = "modal-body",
-            shiny::includeMarkdown(
-              system.file(
-                "app", "text", "help.md", package = "whatodo"
+            suppressWarnings(
+              shiny::includeMarkdown(
+                system.file(
+                  "app", "text", "help.md", package = "whatodo"
+                )
               )
             )
           )

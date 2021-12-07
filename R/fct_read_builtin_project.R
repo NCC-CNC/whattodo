@@ -25,13 +25,11 @@ NULL
 #' # print project
 #' print(x)
 #' @export
-read_builtin_project <- function(path = NULL, parameters) {
+read_builtin_project <- function(path, parameters) {
   # assert arguments are valid
   assertthat::assert_that(
     assertthat::is.string(path),
     assertthat::noNA(path),
-    assertthat::is.string(mode),
-    assertthat::noNA(mode),
     is.list(parameters)
   )
 
@@ -48,6 +46,7 @@ read_builtin_project <- function(path = NULL, parameters) {
     spatial_path = spatial_path,
     name = x$name,
     author_name = x$author_name,
-    author_email = x$author_email
+    author_email = x$author_email,
+    parameters = parameters
   )
 }

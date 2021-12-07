@@ -15,7 +15,7 @@ leaflet_map <- function(sidebar_id) {
   # assert arguments are valid
   assertthat::assert_that(
     assertthat::is.string(sidebar_id),
-    assertthat::noNA(sidebar_ids)
+    assertthat::noNA(sidebar_id)
   )
 
   # prepare JS code for buttons
@@ -115,7 +115,7 @@ leaflet_map <- function(sidebar_id) {
   # add sidebars
   map <- leaflet.extras2::addSidebar(
     map,
-    id =  sidebar_ids[[1]],
+    id =  sidebar_id,
     options = list(position = "left", fit = FALSE)
   )
 

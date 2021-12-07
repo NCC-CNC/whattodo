@@ -37,16 +37,16 @@ is_valid_configuration_file <- function(x) {
   TRUE
 }
 
-#' Is valid spatial file?
+#' Is valid shapefile file?
 #'
-#' Verify if a file path corresponds to a valid spatial dataset.
+#' Verify if a file path corresponds to a valid ESRI Shapefile.
 #'
 #' @inheritParams is_valid_configuration_file
 #'
 #' @inherit is_valid_configuration_file return
 #'
 #' @export
-is_valid_spatial_file <- function(x) {
+is_valid_shapefile_file <- function(x) {
   # assert argument is valid
   assertthat::assert_that(is.character(x))
 
@@ -89,28 +89,9 @@ is_valid_spatial_file <- function(x) {
     ) {
       return("Error: coordinate reference system must be EPSG:4326")
     }
-  } else if (any(endsWith(x, ".tif"))) {
-    ## extract tif file
-    p <- x[endsWith(x, ".tif")]
-
-    ## verify that valid tiff file
-    f <- suppressWarnings(try(raster::raster(p), silent = FALSE))
-    if (inherits(f, "try-error")) {
-      return("Error: not valid GeoTIFF file format")
-    }
-
-    ## verify correct projection
-    if (
-      !raster::compareCRS(
-        methods::as(sf::st_crs(f), "CRS"),
-        methods::as(sf::st_crs(3857), "CRS")
-      )
-    ) {
-      return("Error: coordinate reference system must be EPSG:3857")
-    }
   } else {
-    ## throw error because file is not ESRI Shapefile or GeoTIFF
-    return("Error: not valid spatial data file format.")
+    ## throw error because file is not ESRI Shapefile
+    return("Error: not a valid ESRI Shapefile file format.")
   }
 
   # return success

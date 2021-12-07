@@ -5,6 +5,10 @@ NULL
 #'
 #' Constructs a modal for viewing and updating data.
 #'
+#' @param id `character` identifier for the modal.
+#'
+#' @param trigger `character` identifier for the widget to trigger the modal.
+#"
 #' @param action_ids `character` identifiers for actions.
 #'
 #' @param action_descriptions `character` descriptions of actions.
@@ -20,11 +24,19 @@ NULL
 #' }
 #'
 #' @export
-dataModal <- function(action_ids,
+dataModal <- function(id,
+                      trigger,
+                      action_ids,
                       action_descriptions,
                       parameters) {
   # assert arguments are valid
   assertthat::assert_that(
+    ## modal id
+    assertthat::is.string(id),
+    assertthat::noNA(id),
+    ## modal id
+    assertthat::is.string(trigger),
+    assertthat::noNA(trigger),
     ## action_ids
     is.character(action_ids),
     assertthat::noNA(action_ids),

@@ -121,6 +121,7 @@ read_manual_project <- function(spreadsheet_path,
       action_ids = spreadsheet_data$action_ids,
       action_descriptions = spreadsheet_data$action_descriptions,
       site_data = spreadsheet_data$site_data,
+      feature_data = spreadsheet_data$feature_data,
       feasibility_data = spreadsheet_data$feasibility_data,
       action_expectation_data = spreadsheet_data$action_expectation_data,
       site_geometry = spatial_data,
@@ -144,6 +145,6 @@ read_manual_project <- function(spreadsheet_path,
     name = name,
     author_name = author_name,
     author_email = author_email,
-    project = project,
+    project = project
   )
 }

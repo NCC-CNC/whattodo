@@ -25,9 +25,9 @@ NULL
 #' \item{id}{`character` identifier for the theme or weight.}
 #'
 #' \item{setting}{`character` name of the updated setting.
-#'   Available options include: `"status"`, `"factor"`, or `"goal"`.}
+#'   Available options include: `"factor"` or `"goal"`.}
 #'
-#' \item{value}{new `numeric` or `logical` values.}
+#' \item{value}{new `numeric` values.}
 #'
 #' \item{type}{`character` indicating if the updated setting corresponds
 #'   to a `theme` or `weight`.}
@@ -219,7 +219,7 @@ solutionSettings_html <- function(id, style, class, ...) {
         class = "parameter-setting-template",
         htmltools::tags$div(
           class = paste("parameter-setting solution-setting"),
-          ss_header_component_scaffold("parameter"),
+          header_component_scaffold("parameter"),
           htmltools::tags$div(
             class = "parameter-slider",
             `data-toggle` = "tooltip",
@@ -227,7 +227,7 @@ solutionSettings_html <- function(id, style, class, ...) {
             `data-container` = "body",
             `data-trigger` = "hover",
             title = "Set the parameter value",
-            ss_slider_component_scaffold()
+            slider_component_scaffold()
           )
         )
       )
@@ -241,17 +241,15 @@ solutionSettings_html <- function(id, style, class, ...) {
         class = "weight-setting-template",
         htmltools::tags$div(
           class = paste("weight-setting solution-setting"),
-          ss_header_component_scaffold("weight"),
+          header_component_scaffold("weight"),
           htmltools::tags$div(
             class = "weight-slider",
             `data-toggle` = "tooltip",
             `data-placement` = "bottom",
             `data-container` = "body",
             `data-trigger` = "hover",
-            title = paste(
-              "Set the factor.",
-            ),
-            ss_slider_component_scaffold()
+            title = "Set the factor",
+            slider_component_scaffold()
           ),
         )
       )
@@ -265,8 +263,8 @@ solutionSettings_html <- function(id, style, class, ...) {
         class = "theme-setting-template",
         htmltools::tags$div(
           class = "theme-setting solution-setting",
-          ss_header_component_scaffold("theme", reset_button = TRUE),
-          ss_goal_component_scaffold()
+          header_component_scaffold("theme", reset_button = TRUE),
+          goal_component_scaffold()
         )
       )
     )

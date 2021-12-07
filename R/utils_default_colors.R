@@ -23,7 +23,7 @@ default_colors <- function(x) {
   } else if (length(x) >= length(.colors)) {
     ## if all colors need to be used then do so
     out <- c("", ncol = n)
-    out <- c(.colors, rep("black", n - length(.colors)))
+    out <- c(.colors, rep("#000000", n - length(.colors)))
   } else {
     ## if only a subset of colors are needed, then find optimal color scheme
     rgb <- grDevices::col2rgb(.colors)
