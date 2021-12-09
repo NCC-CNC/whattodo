@@ -54,23 +54,64 @@ site_coords <-
   setNames(c("lon", "lat")) %>%
   tibble::as_tibble()
 
-## create workbook
-wb <- whatdataio::create_template_workbook(
-  site_ids = site_data$id,
-  site_descriptions = site_data$description,
-  feature_ids = feature_data$id,
-  feature_descriptions = feature_data$description,
-  action_ids = action_data$id,
-  action_descriptions = action_data$description,
-  parameters = parameters,
-  site_longitudes = site_coords$lon,
-  site_latitudes = site_coords$lat
+## create workbook to initialize data
+f1 <- tempfile(fileext = ".xlsx")
+openxlsx::saveWorkbook(
+  wb = whatdataio::create_template_workbook(
+    site_ids = site_data$id,
+    site_descriptions = site_data$description,
+    feature_ids = feature_data$id,
+    feature_descriptions = feature_data$description,
+    action_ids = action_data$id,
+    action_descriptions = action_data$description,
+    parameters = parameters,
+    site_longitudes = site_coords$lon,
+    site_latitudes = site_coords$lat
+  ),
+  file = f1,
+  overwrite = TRUE,
+  returnValue = FALSE
 )
+
+## import workbook
+wb <- read_spreadsheet_data(f1, parameters)
+
+## assign values to data
+### site data
+wb$site_data[[4]] <- sample(action_data$id, nrow(site_data), replace = TRUE)
+for (i in seq_len(nrow(action_data))) {
+  wb$site_data[[4 + i]] <- round(runif(nrow(site_data), i * 100, i * 200))
+}
+
+### feature data
+wb$feature_data[[2]] <- round(runif(nrow(feature_data), 1, 100))
+wb$feature_data[[3]] <- round(runif(nrow(feature_data), 1, 100))
+
+### action expectation data
+for (i in seq_len(nrow(action_data))) {
+  for (j in seq_len(nrow(feature_data))) {
+    wb$action_expectation_data[[i]][[j + 1]] <- round(
+      runif(nrow(site_data), 1, 100)
+    )
+  }
+}
 
 # Exports
 ## save workbook
 openxlsx::saveWorkbook(
-  wb = wb,
+  create_project_workbook(
+    site_ids = site_data$id,
+    site_descriptions = site_data$description,
+    feature_ids = feature_data$id,
+    feature_descriptions = feature_data$description,
+    action_ids = action_data$id,
+    action_descriptions = action_data$description,
+    site_data = wb$site_data,
+    feasibility_data = wb$feasibility_data,
+    feature_data = wb$feature_data,
+    action_expectation_data = wb$action_expectation_data,
+    parameters = parameters
+  ),
   file = output_path,
   overwrite = TRUE,
   returnValue = FALSE
