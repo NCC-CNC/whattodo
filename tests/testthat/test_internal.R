@@ -30,12 +30,12 @@ test_that("convert_to_id", {
 
 test_that("paste_vector", {
   expect_equal(paste_vector("a"), "\"a\"")
-  expect_equal(paste_vector(c("a", "b"), "\"a\", \"b\""))
+  expect_equal(paste_vector(c("a", "b")), "\"a\", \"b\"")
 })
 
 test_that("column_widths", {
   w <- column_widths(iris[, 1:3])
   expect_is(w, "numeric")
   expect_length(w, 3)
-  expect_true(all(w) > 0)
-}
+  expect_true(all(w > 0))
+})
