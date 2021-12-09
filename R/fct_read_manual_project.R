@@ -74,7 +74,8 @@ read_manual_project <- function(spreadsheet_path,
   ## attempt import
   spreadsheet_data <- try(
     whatdataio::read_spreadsheet_data(
-      x = spreadsheet_path, parameters = parameters
+      x = spreadsheet_path,
+      parameters = parameters
     ),
     silent = TRUE
   )
@@ -91,6 +92,15 @@ read_manual_project <- function(spreadsheet_path,
 
   # import spatial data
   if (!is.null(spatial_path)) {
+    ## unzip data if needed
+    if (endsWith(spatial_path, ".zip")) {
+      tmp_dir <- tempfile()
+      dir.create(tmp_dir, showWarnings = FALSE, recursive = TRUE)
+      utils::unzip(spatial_path, exdir = tmp_dir)
+      spatial_path <- dir(
+        tmp_dir, "^.*\\.shp", full.names = TRUE, recursive = TRUE
+      )
+    }
     ## attempt import
     spatial_data <- try(
       sf::read_sf(spatial_path),

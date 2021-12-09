@@ -1,9 +1,10 @@
 context("read_builtin_project")
 
-test_that("raw shapefile", {
+test_that("shapefile", {
   # create object
   f <- system.file(
-    "extdata", "projects", "canada", "canada.yaml", package = "whattodo"
+    "extdata", "projects", "simulated-data", "simulated-data.yaml",
+    package = "whattodo"
   )
   parameters <- whatdataio::read_data_configuration()
   x <- read_builtin_project(path = f, parameters = parameters)
@@ -12,8 +13,4 @@ test_that("raw shapefile", {
   expect_is(x$author_name, "character")
   expect_is(x$author_email, "character")
   expect_is(x$project, "Project")
-})
-
-test_that("zipped shapefile", {
-  # TODO
 })
