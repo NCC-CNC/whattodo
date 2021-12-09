@@ -50,7 +50,7 @@ is_valid_shapefile_file <- function(x) {
   # assert argument is valid
   assertthat::assert_that(is.character(x))
 
-  # check if is a vector or raster format
+  # check if contains recognized extensions
   if (any(endsWith(x, ".shp"))) {
     ## extract shp file
     p <- x[endsWith(x, ".shp")]
@@ -78,16 +78,6 @@ is_valid_shapefile_file <- function(x) {
     )
     if (inherits(f, "try-error")) {
       return("Error: not valid ESRI Shapefile format")
-    }
-
-    ## verify correct projection
-    if (
-      !raster::compareCRS(
-        methods::as(sf::st_crs(f), "CRS"),
-        methods::as(sf::st_crs(4326), "CRS")
-      )
-    ) {
-      return("Error: coordinate reference system must be EPSG:4326")
     }
   } else {
     ## throw error because file is not ESRI Shapefile
