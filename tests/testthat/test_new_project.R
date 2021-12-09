@@ -55,15 +55,26 @@ describe("new_project()", {
       p$get_action_feasibility(action_id = "action 2"),
       d$feasibility_data[["Feasibility of “action 2”"]]
     )
+    expect_equal(
+      p$get_bbox(native = TRUE, expand = FALSE),
+      as.list(sf::st_bbox(p$site_geometry))[c("xmin", "xmax", "ymin", "ymax")]
+    )
   })
   it("has set methods", {
     # TODO
   })
   it("has widget data methods", {
-    # TODO
+    expect_is(p$get_solution_settings_data(), "list")
+    expect_is(p$get_goals_settings_data(), "list")
+    expect_is(p$get_weights_settings_data(), "list")
+    expect_is(p$settings[[1]]$get_widget_data(), "list")
   })
   it ("has methods extracting optimization data", {
-    # TODO
+    expect_is(p$get_pu_data(), "tbl_df")
+    expect_is(p$get_zone_data(), "ZonesCharacter")
+    expect_is(p$get_goal_data(), "tbl_df")
+    expect_is(p$get_weight_data(), "tbl_df")
+    expect_is(p$get_locked_data(), "tbl_df")
   })
   it ("has map render methods", {
     expect_is(

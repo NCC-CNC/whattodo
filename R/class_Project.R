@@ -318,7 +318,7 @@ Project <- R6::R6Class(
             m <- vapply(
               seq_along(self$action_ids),
               FUN.VALUE = numeric(length(self$site_ids)),
-              function(j) action_expectation_data[[j]][[ii]]
+              function(j) self$action_expectation_data[[j]][[ii]]
             )
             sum(apply(m, 1, max, na.rm = TRUE))
           }
@@ -333,15 +333,16 @@ Project <- R6::R6Class(
       cost_data <- self$site_data[, self$site_cost_headers, drop = FALSE]
       ## extract action expectation data
       expectation_data <- lapply(seq_along(self$action_ids), function(i) {
-        out <- action_expectation_data[[i]]
+        out <- self$action_expectation_data[[i]]
         out <- out[, self$action_expectation_feature_headers, drop = FALSE]
         names(out) <- paste0(self$action_ids[i], "_", self$feature_ids)
+        out
       })
       ## return result
       do.call(
         dplyr::bind_cols,
         append(
-          list(tibble::tibble(site = selfsite_ids), cost_data),
+          list(tibble::tibble(site = self$site_ids), cost_data),
           expectation_data
         )
       )
@@ -357,7 +358,7 @@ Project <- R6::R6Class(
       ## append feature and zone names to object
       args <- append(
         args,
-        list(zone_names = self$action_ids, feature_names = feature_ids)
+        list(zone_names = self$action_ids, feature_names = self$feature_ids)
       )
       ## return zones object
       do.call(prioritizr::zones, args)
@@ -373,7 +374,7 @@ Project <- R6::R6Class(
         type = "absolute",
         sense = ">=",
         target = c(
-          feature_data[[self$feature_goal_header]] *
+          self$feature_data[[self$feature_goal_header]] *
           self$get_action_expectation_feature_maxima()$amount
         )
       )
@@ -383,8 +384,8 @@ Project <- R6::R6Class(
     #' Get weight data for optimization.
     get_weight_data = function() {
       tibble::tibble(
-        feature = feature_ids,
-        weight = feature_data[[self$feature_weight_header]]
+        feature = self$feature_ids,
+        weight = self$feature_data[[self$feature_weight_header]]
       )
     },
 
@@ -461,7 +462,7 @@ Project <- R6::R6Class(
       list(
         themes = self$get_goals_settings_data(),
         weights = self$get_weights_settings_data(),
-        parameters = lapply(self$settings, x$get_widget_data())
+        parameters = lapply(self$settings, function(x) x$get_widget_data())
       )
     },
 
@@ -472,7 +473,7 @@ Project <- R6::R6Class(
       nh <- self$parameters$feature_data_sheet$name_header
       th <- self$parameters$feature_data_sheet$target_header
       # generate data
-      lapply(seq_len(nrow(self$feature_data)), function(x) {
+      lapply(seq_len(nrow(self$feature_data)), function(i) {
         list(
           id = paste0("T", convert_to_id(self$feature_data[[nh]][[i]])),
           name = self$feature_data[[nh]][[i]],
@@ -498,7 +499,7 @@ Project <- R6::R6Class(
       nh <- self$parameters$feature_data_sheet$name_header
       wh <- self$parameters$feature_data_sheet$weight_header
       # generate data
-      lapply(seq_len(nrow(self$feature_data)), function(x) {
+      lapply(seq_len(nrow(self$feature_data)), function(i) {
         list(
           id = paste0("W", convert_to_id(self$feature_data[[nh]][[i]])),
           name = self$feature_data[[nh]][[i]],
