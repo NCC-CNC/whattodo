@@ -385,6 +385,13 @@
       "Repository": "CRAN",
       "Hash": "77bd60a6157420d4ffa93b27cf6a58b8"
     },
+    "fontawesome": {
+      "Package": "fontawesome",
+      "Version": "0.2.2",
+      "Source": "Repository",
+      "Repository": "CRAN",
+      "Hash": "55624ed409e46c5f358b2c060be87f67"
+    },
     "foreach": {
       "Package": "foreach",
       "Version": "1.5.1",
@@ -1037,6 +1044,13 @@
       "Repository": "CRAN",
       "Hash": "f895dafd39733c4a70d425f605a832e7"
     },
+    "shinyFeedback": {
+      "Package": "shinyFeedback",
+      "Version": "0.4.0",
+      "Source": "Repository",
+      "Repository": "CRAN",
+      "Hash": "88a6b7ff3d135195ad0011fec04336f2"
+    },
     "shinyalert": {
       "Package": "shinyalert",
       "Version": "2.0.0",
@@ -1256,8 +1270,8 @@
       "RemoteRepo": "whatdataio",
       "RemoteUsername": "NCC-CNC",
       "RemoteRef": "v2",
-      "RemoteSha": "2747129734a8787583c9013f1fda2f9c8215b990",
-      "Hash": "d2a7ae637859532473892273f50c0a67"
+      "RemoteSha": "78f17fb3c762f20ed63e5a5e0ace26a8872c33aa",
+      "Hash": "14226037129f5514f12e34facb1557a8"
     },
     "whisker": {
       "Package": "whisker",

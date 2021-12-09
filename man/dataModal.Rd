@@ -4,9 +4,13 @@
 \alias{dataModal}
 \title{Data modal}
 \usage{
-dataModal(action_ids, action_descriptions, parameters)
+dataModal(id, trigger, action_ids, action_descriptions, parameters)
 }
 \arguments{
+\item{id}{\code{character} identifier for the modal.}
+
+\item{trigger}{\code{character} identifier for the widget to trigger the modal.}
+
 \item{action_ids}{\code{character} identifiers for actions.}
 
 \item{action_descriptions}{\code{character} descriptions of actions.}

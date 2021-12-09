@@ -143,6 +143,7 @@ Project <- R6::R6Class(
       self$action_ids <- action_ids
       self$action_descriptions <- action_descriptions
       self$site_data <- site_data
+      self$feature_data <- feature_data
       self$feasibility_data <- feasibility_data
       self$action_expectation_data <- action_expectation_data
       self$parameters <- parameters
@@ -297,11 +298,13 @@ Project <- R6::R6Class(
         action_id %in% self$action_ids,
         assertthat::is.string(feature_id),
         assertthat::noNA(feature_id),
-        action_id %in% self$feature_ids
+        feature_id %in% self$feature_ids
       )
-      nm1 <- self$action_expectation_action_headers[[action_id]]
-      nm2 <- self$action_expectation_feature_headers[[feature_id]]
-      self$action_expectation_data[[nm1]][[nm2]]
+      i <- match(action_id, self$action_ids)
+      j <- match(feature_id, self$feature_ids)
+      j <- self$action_expectation_feature_headers[[j]]
+      self$action_expectation_feature_headers
+      self$action_expectation_data[[i]][[j]]
     },
 
     #' @description
@@ -453,165 +456,6 @@ Project <- R6::R6Class(
     },
 
     #' @description
-    #' Add to map.
-    #' @param map [leaflet::leaflet()] object.
-    #' @param data `character` name of dataset to show.
-    #' This should be equal to one of: `"location"`,
-    #' `"status"`,
-    #' one of the action identifiers with a "cost_" prefix,
-    #' one of the action identifiers with a "feasibility_" prefix,
-    #' or one of the action and feature identifiers with a "action_expectation_"
-    #' prefix.
-    #' For example, to show the cost of implementing action `"none"`,
-    #' then the argument to data should be `"cost_none"`
-    #' Additionally, to show the action expectation for the action
-    #' `"none"` and the feature `"SPP1"`, then the argument should be
-    #' `"action_expectation_data_none&&&&&&&&&&&&SPP2"`.
-    #' Defaults to `"location"` such that the location of sites is shown
-    #' by displaying all sites with the same color.
-    #' @param group `character` group name. Defaults to `"sites"`.
-    #' @return [leaflet::leaflet()] map.
-    add_to_map = function(map, data = "location", group = "sites") {
-      # assert that arguments are valid
-      assertthat::assert_that(
-        inherits(map, "leaflet"),
-        assertthat::is.string(data),
-        assertthat::noNA(data),
-        assertthat::is.string(group),
-        assertthat::noNA(group)
-      )
-
-      # prepare data for map
-      ## display location
-      if (identical(data, "location")) {
-        pal <- leaflet::colorFactor(
-          palette = default_colors("id")[[1]],
-          domain = "Sites",
-        )
-        vals <- rep("Sites", nrow(self$geometry_data))
-        popups <- setNames(
-          object = tibble::tibble(name = site_ids),
-          nm = self$parameters$site_data_sheet$name_header
-        )
-      ## display status
-      } else if (identical(data, "status")) {
-        pal <- leaflet::colorFactor(
-          palette = self$action_colors,
-          domain = names(self$action_ids),
-        )
-        popups <- setNames(
-          object = tibble::tibble(
-            name = site_ids,
-            action = self$site_data[[4]]
-          ),
-          nm = self$parameters$site_data_sheet$status_header
-        )
-        vals <- popups[[2]]
-      ## display cost
-      } else if (startsWith(data, "cost_")) {
-        # extract action if possible
-        curr_action <- gsub("cost_", "", data, fixed = TRUE)
-        pal <- leaflet::colorNumeric(
-          palette = "inferno",
-          domain = range(self$get_action_costs(curr_action))
-        )
-        popups <- setNames(
-          object = tibble::tibble(
-            name = site_ids,
-            cost = self$get_action_costs(curr_action)
-          ),
-          nm = c(
-            self$parameters$site_data_sheet$name_header,
-            glue::glue(
-              self$parameters$site_data_sheet$action_cost_header,
-              action_ids = curr_action
-            )
-          )
-        )
-        vals <- popups[[2]]
-      ## display feasibility
-      } else if (startsWith(data, "feasibility_")) {
-        curr_action <- gsub("feasibility_", "", data, fixed = TRUE)
-        pal <- leaflet::colorFactor(
-          palette = c(
-            self$parameters$true_style$bgFill,
-            self$parameters$false_style$bgFill
-          ),
-          domain = c("feasible", "infeasible"),
-        )
-        popups <- setNames(
-          object = tibble::tibble(
-            name = site_ids,
-            cost = self$get_action_costs(curr_action)
-          ),
-          nm = c(
-            self$parameters$site_data_sheet$name_header,
-            glue::glue(
-              self$parameters$feasibility_data_sheet$action_feasibility_header,
-              action_ids = curr_action
-            )
-          )
-        )
-        vals <- popups[[2]]
-      ## display action expectation data
-      } else if (startsWith(data, "action_expectation_")) {
-        curr_action <- gsub("action_expectation_", "", data, fixed = TRUE)
-        curr_action <- strsplit(curr_action, "&&&&&&&&&&&&")
-        asserrthat::assert_that(
-          length(curr_action) == 2,
-          msg = "invalid format for action expectation data"
-        )
-        curr_action <- curr_action[[1]]
-        curr_feature <- curr_feature[[2]]
-        pal <- leaflet::colorNumeric(
-          palette = "viridis",
-          domain = range(
-            self$get_action_expectations(curr_action, curr_feature)
-          )
-        )
-        popups <- setNames(
-          object = tibble::tibble(
-            name = site_ids,
-            value = self$get_action_expectations(curr_action, curr_feature)
-          ),
-          nm = c(
-            self$parameters$site_data_sheet$name_header,
-            glue::glue(
-              self$parameters$feasibility_data_sheet$action_feasibility_header,
-              action_ids = curr_action
-            )
-          )
-        )
-        vals <- popups[[2]]
-      } else {
-        stop("invalid argument to data")
-      }
-
-      # clear group from map
-      map <- leaflet::clearGroup(map, group)
-
-      # add data to map
-      map <- leafem::addFeatures(
-        map = map,
-        groupId = group,
-        color = pal(vals),
-        fillColor = pal(vals),
-        popup = site_popups
-      )
-
-      # add legend to map
-      map <- leaflet::addLegend(
-        pal = pal,
-        values = vals,
-        group = group,
-        position = "bottomright",
-      )
-
-      # return map
-      map
-    },
-
-    #' @description
     #' Get data for rendering the solution settings widget.
     get_solution_settings_data = function() {
       list(
@@ -746,16 +590,194 @@ Project <- R6::R6Class(
     },
 
     #' @description
+    #' Render on map.
+    #' @param map [leaflet::leaflet()] object.
+    #' @param data `character` name of dataset to show.
+    #' This should be equal to one of: `"location"`,
+    #' `"status"`,
+    #' one of the action identifiers with a "cost_" prefix,
+    #' one of the action identifiers with a "feasibility_" prefix,
+    #' or one of the action and feature identifiers with a "action_expectation_"
+    #' prefix.
+    #' For example, to show the cost of implementing action `"none"`,
+    #' then the argument to data should be `"cost_none"`
+    #' Additionally, to show the action expectation for the action
+    #' `"none"` and the feature `"SPP1"`, then the argument should be
+    #' `"action_expectation_data_none&&&&&&&&&&&&SPP2"`.
+    #' Defaults to `"location"` such that the location of sites is shown
+    #' by displaying all sites with the same color.
+    #' @param group `character` group name. Defaults to `"sites"`.
+    #' @return [leaflet::leaflet()] map.
+    render_on_map = function(
+      map, data = "location", group = "sites",
+      action_id = NULL, feature_id = NULL
+    ) {
+      # assert that arguments are valid
+      assertthat::assert_that(
+        inherits(map, "leaflet"),
+        assertthat::is.string(data),
+        assertthat::noNA(data),
+        assertthat::is.string(group),
+        assertthat::noNA(group)
+      )
+
+      # prepare data for map
+      ## display location
+      if (identical(data, "location")) {
+        pal <- leaflet::colorFactor(
+          palette = default_colors("id")[[1]],
+          domain = "Sites",
+        )
+        vals <- rep("Sites", length(self$site_ids))
+        popups <- setNames(
+          object = tibble::tibble(name = self$site_ids),
+          nm = self$parameters$site_data_sheet$name_header
+        )
+      ## display status
+      } else if (identical(data, "status")) {
+        pal <- leaflet::colorFactor(
+          palette = self$action_colors,
+          domain = names(self$action_ids),
+        )
+        popups <- setNames(
+          object = tibble::tibble(
+            name = self$site_ids,
+            action = self$site_data[[4]]
+          ),
+          nm = c(
+            self$parameters$site_data_sheet$name_header,
+            self$parameters$site_data_sheet$status_header
+          )
+        )
+        vals <- popups[[2]]
+      ## display cost
+    } else if (identical(data, "cost")) {
+        ### assert valid argument
+        assertthat::assert_that(
+          assertthat::is.string(action_id),
+          assertthat::noNA(action_id),
+          isTRUE(action_id %in% self$action_ids)
+        )
+        ### prepare data
+        v <- self$get_action_costs(action_id)
+        pal <- leaflet::colorNumeric(
+          palette = "inferno",
+          domain = range(v)
+        )
+        popups <- setNames(
+          object = tibble::tibble(name = self$site_ids, x = v),
+          nm = c(
+            self$parameters$site_data_sheet$name_header,
+            glue::glue(
+              self$parameters$site_data_sheet$action_cost_header,
+              action_ids = action_id
+            )
+          )
+        )
+        vals <- popups[[2]]
+      ## display feasibility
+      } else if (identical(data, "feasibility")) {
+        ### assert valid argument
+        assertthat::assert_that(
+          assertthat::is.string(action_id),
+          assertthat::noNA(action_id),
+          isTRUE(action_id %in% self$action_ids)
+        )
+        ### prepare data
+        pal <- leaflet::colorFactor(
+          palette = c(
+            self$parameters$true_style$bgFill,
+            self$parameters$false_style$bgFill
+          ),
+          domain = c("feasible", "infeasible"),
+        )
+        popups <- setNames(
+          object = tibble::tibble(
+            name = self$site_ids,
+            x = dplyr::if_else(
+              self$get_action_feasibility(action_id) > 0.5,
+              "feasible", "infeasible"
+            )
+          ),
+          nm = c(
+            self$parameters$site_data_sheet$name_header,
+            glue::glue(
+              self$parameters$feasibility_data_sheet$action_feasibility_header,
+              action_ids = action_id
+            )
+          )
+        )
+        vals <- popups[[2]]
+      ## display action expectation data
+      } else if (identical(data, "action_expectation")) {
+        ### assert valid argument
+        assertthat::assert_that(
+          assertthat::is.string(action_id),
+          assertthat::noNA(action_id),
+          isTRUE(action_id %in% self$action_ids),
+          assertthat::is.string(feature_id),
+          assertthat::noNA(feature_id),
+          isTRUE(feature_id %in% self$feature_ids)
+        )
+        v <- self$get_action_expectations_for_feature(action_id, feature_id)
+        pal <- leaflet::colorNumeric(
+          palette = "viridis",
+          domain = range(v)
+        )
+        h <- self$parameters$action_expectation_sheet$action_expectation_header
+        popups <- setNames(
+          object = tibble::tibble(name = self$site_ids, value = v),
+          nm = c(
+            self$parameters$site_data_sheet$name_header,
+            glue::glue(h, feature_ids = feature_id)
+          )
+        )
+        vals <- popups[[2]]
+      } else {
+        stop("invalid argument to data")
+      }
+
+      # clear group from map
+      map <- leaflet::clearGroup(map, group)
+
+      # add data to map
+      map <- leafem::addFeatures(
+        map = map,
+        data = self$site_geometry,
+        groupId = group,
+        color = pal(vals),
+        fillColor = pal(vals),
+        popup = leafpop::popupTable(
+          x = popups,
+          row.numbers = FALSE,
+          feature.id = FALSE
+        )
+      )
+
+      # add legend to map
+      map <- leaflet::addLegend(
+        map = map,
+        pal = pal,
+        values = vals,
+        group = group,
+        position = "bottomright",
+      )
+
+      # return map
+      map
+    },
+
+    #' @description
     #' Render site data using \pkg{rhandsontable}.
     render_site_data = function() {
       # initialize table
       r <- rhandsontable::rhandsontable(self$site_data, useTypes = TRUE)
       r <- rhandsontable::hot_col(r, col = c(1, 2, 3), readOnly = TRUE)
       r <- rhandsontable::hot_validate_character(
-        r, col = 4, choices = project$get_action_ids(), allowInvalid = FALSE
+        r, col = 4, choices = self$get_action_ids(), allowInvalid = FALSE
       )
       r <- rhandsontable::hot_validate_numeric(
-        r, seq(5, ncol(x)),
+        r, seq(5, ncol(self$site_data)),
         min = 0, max = 1e+6, allowInvalid = FALSE
       )
       # return table
@@ -783,10 +805,6 @@ Project <- R6::R6Class(
     #' @description
     #' Render feasibility data using \pkg{rhandsontable}.
     render_feasibility_data = function() {
-      # convert binary values to logical
-      for (i in seq(2, ncol(x))) {
-        x[[i]] <- as.logical(x[[i]])
-      }
       # initialize table
       r <- rhandsontable::rhandsontable(
         self$feasibility_data, useTypes = TRUE
@@ -794,7 +812,9 @@ Project <- R6::R6Class(
       r <- rhandsontable::hot_col(r, col = 1, readOnly = TRUE)
       r <- rhandsontable::hot_col(
         r,
-        col = seq(2, ncol(x)), type = "checkbox", renderer = paste0("
+        col = seq(2, ncol(self$feasibility_data)),
+        type = "checkbox",
+        renderer = paste0("
         function (instance, td, row, col, prop, value, cellProperties) {
            Handsontable.renderers.CheckboxRenderer.apply(this, arguments);
            if (instance.params) {
@@ -825,6 +845,7 @@ Project <- R6::R6Class(
         action_id %in% self$action_ids
       )
       # initialize table
+      x <- self$action_expectation_data[[match(action_id, self$action_ids)]]
       r <- rhandsontable::rhandsontable(x, useTypes = TRUE)
       r <- rhandsontable::hot_col(r, col = 1, readOnly = TRUE)
       r <- rhandsontable::hot_validate_numeric(
@@ -863,40 +884,17 @@ Project <- R6::R6Class(
           feasibility_data = self$feasibility_data,
           feature_data = self$feature_data,
           action_expectation_data = self$action_expectation_data,
-          ## comments
-          site_comments = template_site_comments(
-            site_descriptions = self$site_descriptions,
-            action_descriptions = self$action_descriptions,
-            parameters = self$parameters
-          ),
-          feasibility_comments = template_feasibility_comments(
-            site_descriptions = self$site_descriptions,
-            action_descriptions = self$action_descriptions,
-            parameters = self$parameters
-          ),
-          feature_comments = template_feature_comments(
-            feature_descriptions = self$feature_descriptions,
-            parameters = self$parameters
-          ),
-          action_expectation_comments = lapply(
-            self$action_ids, function(i) {
-              whatdataio::template_action_expectation_comments(
-                site_descriptions = self$site_descriptions,
-                feature_descriptions = self$feature_descriptions,
-                action_id = i,
-                parameters = self$parameters
-              )
-            }
-          ),
           ## parameters
           parameters = parameters
         ),
+        file = workbook_path,
+        overwrite = TRUE,
         returnValue = FALSE
       )
       # geometry data
-      if (inherits(self$geometry_data, "sf")) {
+      if (inherits(self$site_geometry, "sf")) {
         suppressWarnings({
-          sf::write_sf(self$geometry_data, spatial_path)
+          sf::write_sf(self$site_geometry, geometry_path)
         })
       }
       # return result
@@ -982,17 +980,16 @@ new_project <- function(site_ids,
       ncol(site_data) >= 4,
       nrow(site_data) >= 1,
       is.numeric(site_data[[2]]),
-      assertthat::assert_that(site_data[[2]]),
+      assertthat::noNA(site_data[[2]]),
       is.numeric(site_data[[3]]),
-      assertthat::assert_that(site_data[[3]]),
+      assertthat::noNA(site_data[[3]]),
       is.character(site_ids),
       assertthat::noNA(site_ids),
       length(site_ids) == nrow(site_data)
     )
     site_geometry <- sf::st_as_sf(
-      id = site_ids,
+      setNames(site_data[, c(1, 2, 3), drop = FALSE], c("id", "x", "y")),
       coords = c("x", "y"),
-      setNames(site_data[, c(2, 3), drop = FALSE], c("x", "y")),
       crs = 4326
     )
   }

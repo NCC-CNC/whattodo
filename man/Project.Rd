@@ -35,6 +35,8 @@ Definition for the Project class.
 
 \item{\code{site_data}}{\code{data.frame} object.}
 
+\item{\code{feature_data}}{\code{data.frame} object.}
+
 \item{\code{feasibility_data}}{\code{data.frame} object.}
 
 \item{\code{site_geometry}}{\code{\link[sf:sf]{sf::st_sf()}} object.}
@@ -115,6 +117,7 @@ Create a Project object.
   action_ids,
   action_descriptions,
   site_data,
+  feature_data,
   feasibility_data,
   action_expectation_data,
   parameters
@@ -141,6 +144,8 @@ Create a Project object.
 \item{\code{action_descriptions}}{\code{character} vector}
 
 \item{\code{site_data}}{\code{data.frame} object.}
+
+\item{\code{feature_data}}{\code{data.frame} object.}
 
 \item{\code{feasibility_data}}{\code{data.frame} object.}
 

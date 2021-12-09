@@ -4,7 +4,7 @@
 \alias{read_builtin_project}
 \title{Read builtin project}
 \usage{
-read_builtin_project(path = NULL, parameters)
+read_builtin_project(path, parameters)
 }
 \arguments{
 \item{path}{\code{character} file path for the project YAML metadata file.}

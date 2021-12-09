@@ -30,9 +30,9 @@ The widget sends a \code{list} with the following values to the server:
 \item{id}{\code{character} identifier for the theme or weight.}
 
 \item{setting}{\code{character} name of the updated setting.
-Available options include: \code{"status"}, \code{"factor"}, or \code{"goal"}.}
+Available options include: \code{"factor"} or \code{"goal"}.}
 
-\item{value}{new \code{numeric} or \code{logical} values.}
+\item{value}{new \code{numeric} values.}
 
 \item{type}{\code{character} indicating if the updated setting corresponds
 to a \code{theme} or \code{weight}.}

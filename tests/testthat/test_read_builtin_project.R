@@ -8,7 +8,10 @@ test_that("raw shapefile", {
   parameters <- whatdataio::read_data_configuration()
   x <- read_builtin_project(path = f, parameters = parameters)
   # tests
-  expect_is(x, "Project")
+  expect_is(x$name, "character")
+  expect_is(x$author_name, "character")
+  expect_is(x$author_email, "character")
+  expect_is(x$project, "Project")
 })
 
 test_that("zipped shapefile", {
