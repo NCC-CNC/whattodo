@@ -61,7 +61,34 @@ describe("new_project()", {
     )
   })
   it("has set methods", {
-    # TODO
+    ## set_feature_goal
+    expect_true(p$get_feature_goal("feature 2") != 0.5)
+    p$set_feature_goal("feature 2", 0.5)
+    expect_equal(p$get_feature_goal("feature 2"), 0.5)
+    ## set_feature_weight
+    expect_true(p$get_feature_weight("feature 2") != 11)
+    p$set_feature_weight("feature 2", 11)
+    expect_equal(p$get_feature_weight("feature 2"), 11)
+    ## set_site_data
+    nd <- d$site_data[1, , drop = FALSE]
+    p$set_site_data(nd)
+    expect_equal(p$site_data, nd)
+    p$set_site_data(d$site_data)
+    ## set_feature_data
+    nd <- d$feature_data[1, , drop = FALSE]
+    p$set_feature_data(nd)
+    expect_equal(p$feature_data, nd)
+    p$set_feature_data(d$feature_data)
+    ## set_feasibility_data
+    nd <- d$feasibility_data[1, , drop = FALSE]
+    p$set_feasibility_data(nd)
+    expect_equal(p$feasibility_data, nd)
+    p$set_feasibility_data(d$feasibility_data)
+    ## set_action_expectation_data
+    nd <- d$action_expectation_data[[2]][1, , drop = FALSE]
+    p$set_action_expectation_data(nd, "action 2")
+    expect_equal(p$action_expectation_data[[2]], nd)
+    p$set_action_expectation_data(d$action_expectation_data[[2]], "action 2")
   })
   it("has widget data methods", {
     expect_is(p$get_solution_settings_data(), "list")

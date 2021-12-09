@@ -253,6 +253,34 @@ Project <- R6::R6Class(
     },
 
     #' @description
+    #' Get feature goal.
+    #' @param feature_id`character` identifier for feature
+    #' @return `numeric` value.
+    get_feature_goal = function(feature_id) {
+      assertthat::assert_that(
+        assertthat::is.string(feature_id),
+        assertthat::noNA(feature_id),
+        feature_id %in% self$feature_ids
+      )
+      i <- match(feature_id, self$feature_ids)
+      self$feature_data[[self$feature_goal_header]][[i]]
+    },
+
+    #' @description
+    #' Get feature weight.
+    #' @param feature_id`character` identifier for feature
+    #' @return `numeric` value.
+    get_feature_weight = function(feature_id) {
+      assertthat::assert_that(
+        assertthat::is.string(feature_id),
+        assertthat::noNA(feature_id),
+        feature_id %in% self$feature_ids
+      )
+      i <- match(feature_id, self$feature_ids)
+      self$feature_data[[self$feature_weight_header]][[i]]
+    },
+
+    #' @description
     #' Get colors for actions.
     #' @param action_id `character` identifier for action.
     #' @return `character` vector.
@@ -522,6 +550,7 @@ Project <- R6::R6Class(
       )
       i <- which(self$feature_ids == feature_id)
       self$feature_data[[self$feature_goal_header]][[i]] <- value
+      invisible(self)
     },
 
     #' @description
@@ -537,6 +566,7 @@ Project <- R6::R6Class(
       )
       i <- which(self$feature_ids == feature_id)
       self$feature_data[[self$feature_weight_header]][[i]] <- value
+      invisible(self)
     },
 
     #' @description
@@ -545,9 +575,10 @@ Project <- R6::R6Class(
     set_site_data = function(x) {
       assertthat::assert_that(
         inherits(x, "data.frame"),
-        identical(names(x), self$site_data)
+        identical(names(x), names(self$site_data))
       )
       self$site_data <- tibble::as_tibble(x)
+      invisible(self)
     },
 
     #' @description
@@ -556,9 +587,10 @@ Project <- R6::R6Class(
     set_feature_data = function(x) {
       assertthat::assert_that(
         inherits(x, "data.frame"),
-        identical(names(x), self$feature_data)
+        identical(names(x), names(self$feature_data))
       )
       self$feature_data <- tibble::as_tibble(x)
+      invisible(self)
     },
 
     #' @description
@@ -567,9 +599,10 @@ Project <- R6::R6Class(
     set_feasibility_data = function(x) {
       assertthat::assert_that(
         inherits(x, "data.frame"),
-        identical(names(x), self$feasibility_data)
+        identical(names(x), names(self$feasibility_data))
       )
       self$feasibility_data <- tibble::as_tibble(x)
+      invisible(self)
     },
 
     #' @description
@@ -582,12 +615,13 @@ Project <- R6::R6Class(
         assertthat::noNA(action_id),
         action_id %in% self$action_ids
       )
-      i <- self$action_expectation_action_headers[[action_id]]
+      i <- match(action_id, self$action_ids)
       assertthat::assert_that(
         inherits(x, "data.frame"),
-        identical(names(x), self$action_expectation_data[[i]])
+        identical(names(x), names(self$action_expectation_data[[i]]))
       )
       self$action_expectation_data[[i]] <- tibble::as_tibble(x)
+      invisible(self)
     },
 
     #' @description
