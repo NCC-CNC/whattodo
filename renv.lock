@@ -623,6 +623,13 @@
       "Repository": "CRAN",
       "Hash": "d908914ae53b04d4c0c0fd72ecc35370"
     },
+    "leafem": {
+      "Package": "leafem",
+      "Version": "0.1.6",
+      "Source": "Repository",
+      "Repository": "CRAN",
+      "Hash": "39682b851cfb151d02be19c5575bdc00"
+    },
     "leaflet": {
       "Package": "leaflet",
       "Version": "2.0.4.1",
@@ -1270,8 +1277,8 @@
       "RemoteRepo": "whatdataio",
       "RemoteUsername": "NCC-CNC",
       "RemoteRef": "v2",
-      "RemoteSha": "78f17fb3c762f20ed63e5a5e0ace26a8872c33aa",
-      "Hash": "14226037129f5514f12e34facb1557a8"
+      "RemoteSha": "4b203660f052944d8d9c4b0b087a0f432da61bdb",
+      "Hash": "5d5f9a9dbcd80c0956c064893f780ed3"
     },
     "whisker": {
       "Package": "whisker",
