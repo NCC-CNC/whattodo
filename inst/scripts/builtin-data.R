@@ -7,8 +7,8 @@ library(dplyr)
 library(tibble)
 
 ## define variables
-shp_path <- "inst/extdata/projects/canada/canada.shp"
-output_path <- "inst/extdata/projects/canada/canada.xlsx"
+shp_path <- "inst/extdata/projects/simulated-data/simulated-data.shp"
+output_path <- "inst/extdata/projects/simulated-data/simulated-data.xlsx"
 
 ## load parameters
 parameters <- whatdataio::read_data_configuration()
