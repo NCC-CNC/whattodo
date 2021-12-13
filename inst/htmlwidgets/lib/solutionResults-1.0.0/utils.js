@@ -6,7 +6,7 @@ function newSolution(manager, x) {
     x.parameters,
     x.statistics,
     x.theme_results,
-    x.weight_results
+    x.solution_color
   );
 }
 

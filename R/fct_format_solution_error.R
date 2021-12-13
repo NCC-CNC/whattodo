@@ -10,7 +10,7 @@ NULL
 #' @inherit format_solution_results return
 #'
 #' @export
-format_error_data <- function(parameters) {
+format_solution_error <- function(parameters) {
   # assert arguments are valid
   assertthat::assert_that(
     is.list(parameters)

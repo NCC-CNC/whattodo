@@ -31,14 +31,14 @@ format_solution_results <- function(site_ids,
     is.character(action_ids),
     inherits(pu_data, "data.frame"),
     inherits(zone_data, "ZonesCharacter"),
-    inherits(target_data, "data.frame"),
+    inherits(goal_data, "data.frame"),
     inherits(locked_data, "data.frame"),
     inherits(solution_data, "data.frame"),
     is.list(parameters)
   )
 
   # declare parameters
-  sol_names <- paste0("solution_data_1_", action_ids)
+  sol_names <- paste0("solution_1_", action_ids)
   assertthat::assert_that(all(assertthat::has_name(solution_data, sol_names)))
 
   # summary results
@@ -123,6 +123,7 @@ format_solution_results <- function(site_ids,
   list(
     summary_results = summary_results,
     feature_results = feature_results,
-    site_results = site_results
+    site_results = site_results,
+    budget = budget
   )
 }

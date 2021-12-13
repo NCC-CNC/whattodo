@@ -21,19 +21,32 @@ prioritization_without_budget <- function(site_ids,
                                           gap = 0) {
   # assert arguments are valid
   assertthat::assert_that(
+    is.character(site_ids),
+    assertthat::noNA(site_ids),
+    is.character(feature_ids),
+    assertthat::noNA(feature_ids),
+    is.character(action_ids),
+    assertthat::noNA(action_ids),
     inherits(pu_data, "data.frame"),
-    inherits(zone_data, "data.frame"),
+    inherits(zone_data, "ZonesCharacter"),
     inherits(goal_data, "data.frame"),
     inherits(locked_data, "data.frame"),
     assertthat::is.number(gap),
-    isTRUE(gap >= 0)
+    isTRUE(gap >= 0),
+    is.list(parameters)
+  )
+
+  # process cost names
+  cost_names <- glue::glue(
+    parameters$site_data_sheet$action_cost_header,
+    action_ids = action_ids
   )
 
   # generate prioritization
   prb <-
-    prioritizr::problem(pu_data, zone_data, paste0("cost_", action_ids)) %>%
+    prioritizr::problem(pu_data, zone_data, cost_names) %>%
     prioritizr::add_min_set_objective() %>%
-    prioritizr::add_manual_targets(target_data) %>%
+    prioritizr::add_manual_targets(goal_data) %>%
     prioritizr::add_mandatory_allocation_constraints() %>%
     prioritizr::add_binary_decisions() %>%
     prioritizr::add_default_solver(gap = gap, verbose = FALSE)
@@ -55,7 +68,8 @@ prioritization_without_budget <- function(site_ids,
       action_ids =  action_ids,
       pu_data = pu_data,
       zone_data = zone_data,
-      target_data = target_data,
+      goal_data = goal_data,
+      locked_data = locked_data,
       solution_data = sol,
       budget = NA,
       parameters = parameters

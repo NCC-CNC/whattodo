@@ -43,26 +43,36 @@ prioritization_with_budget <- function(site_ids,
                                        parameters) {
   # assert arguments are valid
   assertthat::assert_that(
+    is.character(site_ids),
+    assertthat::noNA(site_ids),
+    is.character(feature_ids),
+    assertthat::noNA(feature_ids),
+    is.character(action_ids),
+    assertthat::noNA(action_ids),
     inherits(pu_data, "data.frame"),
-    inherits(zone_data, "data.frame"),
+    inherits(zone_data, "ZonesCharacter"),
     inherits(goal_data, "data.frame"),
     inherits(weight_data, "data.frame"),
     inherits(locked_data, "data.frame"),
     assertthat::is.number(budget),
     isTRUE(budget >= 0),
-    assertthat::is.flag(weights),
-    assertthat::noNA(weights),
     assertthat::is.number(gap),
     isTRUE(gap >= 0),
     is.list(parameters)
   )
 
+  # process cost names
+  cost_names <- glue::glue(
+    parameters$site_data_sheet$action_cost_header,
+    action_ids = action_ids
+  )
+
   # generate prioritization
   prb <-
-    prioritizr::problem(pu_data, zone_data, paste0("cost_", action_ids)) %>%
+    prioritizr::problem(pu_data, zone_data, cost_names) %>%
     prioritizr::add_min_shortfall_objective(budget = max(budget, 1e-5)) %>%
-    prioritizr::add_feature_weights(matrix(weights_data[[2]], ncol = 1)) %>%
-    prioritizr::add_manual_targets(target_data) %>%
+    prioritizr::add_feature_weights(matrix(weight_data[[2]], ncol = 1)) %>%
+    prioritizr::add_manual_targets(goal_data) %>%
     prioritizr::add_mandatory_allocation_constraints() %>%
     prioritizr::add_binary_decisions() %>%
     prioritizr::add_default_solver(gap = gap, verbose = FALSE)
@@ -84,7 +94,8 @@ prioritization_with_budget <- function(site_ids,
       action_ids =  action_ids,
       pu_data = pu_data,
       zone_data = zone_data,
-      target_data = target_data,
+      goal_data = goal_data,
+      locked_data = locked_data,
       solution_data = sol,
       budget = budget,
       parameters = parameters

@@ -168,7 +168,7 @@ Project <- R6::R6Class(
         action_ids
       )
       ## feature data headers
-      self$feature_goal_header <- parameters$feature_data_sheet$target_header
+      self$feature_goal_header <- parameters$feature_data_sheet$goal_header
       self$feature_weight_header <- parameters$feature_data_sheet$weight_header
       ## action expectation data headers
       self$action_expectation_feature_headers <- setNames(
@@ -254,7 +254,7 @@ Project <- R6::R6Class(
 
     #' @description
     #' Get feature goal.
-    #' @param feature_id`character` identifier for feature
+    #' @param feature_id `character` identifier for feature
     #' @return `numeric` value.
     get_feature_goal = function(feature_id) {
       assertthat::assert_that(
@@ -268,7 +268,7 @@ Project <- R6::R6Class(
 
     #' @description
     #' Get feature weight.
-    #' @param feature_id`character` identifier for feature
+    #' @param feature_id `character` identifier for feature
     #' @return `numeric` value.
     get_feature_weight = function(feature_id) {
       assertthat::assert_that(
@@ -329,15 +329,13 @@ Project <- R6::R6Class(
         feature_id %in% self$feature_ids
       )
       i <- match(action_id, self$action_ids)
-      j <- match(feature_id, self$feature_ids)
-      j <- self$action_expectation_feature_headers[[j]]
-      self$action_expectation_feature_headers
+      j <- self$action_expectation_feature_headers[[feature_id]]
       self$action_expectation_data[[i]][[j]]
     },
 
     #' @description
     #' Get the highest amount for each feature.
-    get_action_expectation_feature_maxima = function() {
+    get_max_feature_expectation = function() {
       tibble::tibble(
         feature_id = self$feature_ids,
         amount = vapply(
@@ -349,6 +347,30 @@ Project <- R6::R6Class(
               function(j) self$action_expectation_data[[j]][[ii]]
             )
             sum(apply(m, 1, max, na.rm = TRUE))
+          }
+        )
+      )
+    },
+
+    #' @description
+    #' Get the current expected amount for each feature.
+    get_current_feature_expectation = function() {
+      ss <- self$get_site_statuses()
+      tibble::tibble(
+        feature_id = self$feature_ids,
+        amount = vapply(
+          self$feature_ids,
+          FUN.VALUE = numeric(1),
+          function(i) {
+            sum(
+              vapply(
+                seq_along(self$site_ids),
+                FUN.VALUE = numeric(1),
+                function(j) {
+                  self$get_action_expectations_for_feature(ss[[j]], i)[[j]]
+                }
+              )
+            )
           }
         )
       )
@@ -403,7 +425,7 @@ Project <- R6::R6Class(
         sense = ">=",
         target = c(
           self$feature_data[[self$feature_goal_header]] *
-          self$get_action_expectation_feature_maxima()$amount
+          self$get_max_feature_expectation()$amount
         )
       )
     },
@@ -499,20 +521,24 @@ Project <- R6::R6Class(
     get_goals_settings_data = function() {
       # extract column names from parameters
       nh <- self$parameters$feature_data_sheet$name_header
-      th <- self$parameters$feature_data_sheet$target_header
+      th <- self$parameters$feature_data_sheet$goal_header
+      mx <- self$get_max_feature_expectation()
+      cr <- self$get_current_feature_expectation()
       # generate data
       lapply(seq_len(nrow(self$feature_data)), function(i) {
+        id <- self$get_feature_ids()[[i]]
+
         list(
-          id = paste0("T", convert_to_id(self$feature_data[[nh]][[i]])),
-          name = self$feature_data[[nh]][[i]],
-          feature_name = self$feature_data[[nh]][[i]],
-          feature_id = paste0("F", convert_to_id(self$feature_data[[nh]][[i]])),
+          id = paste0("T", convert_to_id(id)),
+          name = id,
+          feature_name = id,
+          feature_id = paste0("F", convert_to_id(id)),
           feature_status = isTRUE(self$feature_data[[th]][[i]] > 1e-10),
-          feature_total_amount = self$current_data$total[[i]],
-          feature_current_held = self$current_data$held[[i]],
+          feature_total_amount = mx$amount[[i]],
+          feature_current_held = cr$amount[[i]] / mx$amount[[i]],
           feature_min_goal = 0,
           feature_max_goal = 1,
-          feature_goal = self$feature_data[[th]][[i]],
+          feature_goal = self$feature_data[[th]][[i]] / 100,
           feature_limit_goal = 0,
           feature_step_goal = 0.01,
           units = "units"
@@ -642,6 +668,8 @@ Project <- R6::R6Class(
     #' Defaults to `"location"` such that the location of sites is shown
     #' by displaying all sites with the same color.
     #' @param group `character` group name. Defaults to `"sites"`.
+    #' @param action_id `character` (optional) identifier for action.
+    #' @param feature_id `character` (optional) identifier for feature.
     #' @return [leaflet::leaflet()] map.
     render_on_map = function(
       map, data = "location", group = "sites",

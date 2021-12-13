@@ -44,6 +44,9 @@ app_ui <- function(request) {
       ## help modal
       helpModal("helpModal", trigger = "help_button"),
 
+      ## error modal
+      errorModal("errorModal", trigger = "error_button"),
+
       ## sidebar
       leaflet.extras2::sidebar_tabs(
         id = "mainSidebar",

@@ -72,18 +72,20 @@ Definition for the Project class.
 \item \href{#method-get_site_ids}{\code{Project$get_site_ids()}}
 \item \href{#method-get_feature_ids}{\code{Project$get_feature_ids()}}
 \item \href{#method-get_action_ids}{\code{Project$get_action_ids()}}
+\item \href{#method-get_feature_goal}{\code{Project$get_feature_goal()}}
+\item \href{#method-get_feature_weight}{\code{Project$get_feature_weight()}}
 \item \href{#method-get_site_statuses}{\code{Project$get_site_statuses()}}
 \item \href{#method-get_action_costs}{\code{Project$get_action_costs()}}
 \item \href{#method-get_action_feasibility}{\code{Project$get_action_feasibility()}}
 \item \href{#method-get_action_expectations_for_feature}{\code{Project$get_action_expectations_for_feature()}}
-\item \href{#method-get_action_expectation_feature_maxima}{\code{Project$get_action_expectation_feature_maxima()}}
+\item \href{#method-get_max_feature_expectation}{\code{Project$get_max_feature_expectation()}}
+\item \href{#method-get_current_feature_expectation}{\code{Project$get_current_feature_expectation()}}
 \item \href{#method-get_pu_data}{\code{Project$get_pu_data()}}
 \item \href{#method-get_zone_data}{\code{Project$get_zone_data()}}
 \item \href{#method-get_goal_data}{\code{Project$get_goal_data()}}
 \item \href{#method-get_weight_data}{\code{Project$get_weight_data()}}
 \item \href{#method-get_locked_data}{\code{Project$get_locked_data()}}
 \item \href{#method-get_bbox}{\code{Project$get_bbox()}}
-\item \href{#method-add_to_map}{\code{Project$add_to_map()}}
 \item \href{#method-get_solution_settings_data}{\code{Project$get_solution_settings_data()}}
 \item \href{#method-get_goals_settings_data}{\code{Project$get_goals_settings_data()}}
 \item \href{#method-get_weights_settings_data}{\code{Project$get_weights_settings_data()}}
@@ -93,6 +95,7 @@ Definition for the Project class.
 \item \href{#method-set_feature_data}{\code{Project$set_feature_data()}}
 \item \href{#method-set_feasibility_data}{\code{Project$set_feasibility_data()}}
 \item \href{#method-set_action_expectation_data}{\code{Project$set_action_expectation_data()}}
+\item \href{#method-render_on_map}{\code{Project$render_on_map()}}
 \item \href{#method-render_site_data}{\code{Project$render_site_data()}}
 \item \href{#method-render_feature_data}{\code{Project$render_feature_data()}}
 \item \href{#method-render_feasibility_data}{\code{Project$render_feasibility_data()}}
@@ -229,6 +232,46 @@ Get action identifiers.
 }
 }
 \if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-get_feature_goal"></a>}}
+\if{latex}{\out{\hypertarget{method-get_feature_goal}{}}}
+\subsection{Method \code{get_feature_goal()}}{
+Get feature goal.
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{Project$get_feature_goal(feature_id)}\if{html}{\out{</div>}}
+}
+
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{feature_id}}{\code{character} identifier for feature}
+}
+\if{html}{\out{</div>}}
+}
+\subsection{Returns}{
+\code{numeric} value.
+}
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-get_feature_weight"></a>}}
+\if{latex}{\out{\hypertarget{method-get_feature_weight}{}}}
+\subsection{Method \code{get_feature_weight()}}{
+Get feature weight.
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{Project$get_feature_weight(feature_id)}\if{html}{\out{</div>}}
+}
+
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{feature_id}}{\code{character} identifier for feature}
+}
+\if{html}{\out{</div>}}
+}
+\subsection{Returns}{
+\code{numeric} value.
+}
+}
+\if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-get_site_statuses"></a>}}
 \if{latex}{\out{\hypertarget{method-get_site_statuses}{}}}
 \subsection{Method \code{get_site_statuses()}}{
@@ -311,12 +354,22 @@ Get action expectation data for features.
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-get_action_expectation_feature_maxima"></a>}}
-\if{latex}{\out{\hypertarget{method-get_action_expectation_feature_maxima}{}}}
-\subsection{Method \code{get_action_expectation_feature_maxima()}}{
+\if{html}{\out{<a id="method-get_max_feature_expectation"></a>}}
+\if{latex}{\out{\hypertarget{method-get_max_feature_expectation}{}}}
+\subsection{Method \code{get_max_feature_expectation()}}{
 Get the highest amount for each feature.
 \subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{Project$get_action_expectation_feature_maxima()}\if{html}{\out{</div>}}
+\if{html}{\out{<div class="r">}}\preformatted{Project$get_max_feature_expectation()}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-get_current_feature_expectation"></a>}}
+\if{latex}{\out{\hypertarget{method-get_current_feature_expectation}{}}}
+\subsection{Method \code{get_current_feature_expectation()}}{
+Get the current expected amount for each feature.
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{Project$get_current_feature_expectation()}\if{html}{\out{</div>}}
 }
 
 }
@@ -393,43 +446,6 @@ re-projected to longitude/latitude?}
 \subsection{Returns}{
 \code{list} object with \code{"xmin"}, \code{"xmax"}, \code{"ymin"}, and \code{"ymax"}
 elements.
-}
-}
-\if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-add_to_map"></a>}}
-\if{latex}{\out{\hypertarget{method-add_to_map}{}}}
-\subsection{Method \code{add_to_map()}}{
-Add to map.
-\subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{Project$add_to_map(map, data = "location", group = "sites")}\if{html}{\out{</div>}}
-}
-
-\subsection{Arguments}{
-\if{html}{\out{<div class="arguments">}}
-\describe{
-\item{\code{map}}{\code{\link[leaflet:leaflet]{leaflet::leaflet()}} object.}
-
-\item{\code{data}}{\code{character} name of dataset to show.
-This should be equal to one of: \code{"location"},
-\code{"status"},
-one of the action identifiers with a "cost_" prefix,
-one of the action identifiers with a "feasibility_" prefix,
-or one of the action and feature identifiers with a "action_expectation_"
-prefix.
-For example, to show the cost of implementing action \code{"none"},
-then the argument to data should be \code{"cost_none"}
-Additionally, to show the action expectation for the action
-\code{"none"} and the feature \code{"SPP1"}, then the argument should be
-\code{"action_expectation_data_none&&&&&&&&&&&&SPP2"}.
-Defaults to \code{"location"} such that the location of sites is shown
-by displaying all sites with the same color.}
-
-\item{\code{group}}{\code{character} group name. Defaults to \code{"sites"}.}
-}
-\if{html}{\out{</div>}}
-}
-\subsection{Returns}{
-\code{\link[leaflet:leaflet]{leaflet::leaflet()}} map.
 }
 }
 \if{html}{\out{<hr>}}
@@ -568,6 +584,53 @@ Set action expectation data.
 \item{\code{action_id}}{\code{character} identifier for action.}
 }
 \if{html}{\out{</div>}}
+}
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-render_on_map"></a>}}
+\if{latex}{\out{\hypertarget{method-render_on_map}{}}}
+\subsection{Method \code{render_on_map()}}{
+Render on map.
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{Project$render_on_map(
+  map,
+  data = "location",
+  group = "sites",
+  action_id = NULL,
+  feature_id = NULL
+)}\if{html}{\out{</div>}}
+}
+
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{map}}{\code{\link[leaflet:leaflet]{leaflet::leaflet()}} object.}
+
+\item{\code{data}}{\code{character} name of dataset to show.
+This should be equal to one of: \code{"location"},
+\code{"status"},
+one of the action identifiers with a "cost_" prefix,
+one of the action identifiers with a "feasibility_" prefix,
+or one of the action and feature identifiers with a "action_expectation_"
+prefix.
+For example, to show the cost of implementing action \code{"none"},
+then the argument to data should be \code{"cost_none"}
+Additionally, to show the action expectation for the action
+\code{"none"} and the feature \code{"SPP1"}, then the argument should be
+\code{"action_expectation_data_none&&&&&&&&&&&&SPP2"}.
+Defaults to \code{"location"} such that the location of sites is shown
+by displaying all sites with the same color.}
+
+\item{\code{group}}{\code{character} group name. Defaults to \code{"sites"}.}
+
+\item{\code{action_id}}{\code{character} (optional) identifier for action.}
+
+\item{\code{feature_id}}{\code{character} (optional) identifier for feature.}
+}
+\if{html}{\out{</div>}}
+}
+\subsection{Returns}{
+\code{\link[leaflet:leaflet]{leaflet::leaflet()}} map.
 }
 }
 \if{html}{\out{<hr>}}

@@ -21,6 +21,11 @@ test_that("helpModal", {
   expect_is(x, "shiny.tag")
 })
 
+test_that("errorModal", {
+  x <- errorModal("id", "trigger_id")
+  expect_is(x, "shiny.tag")
+})
+
 test_that("importModal", {
   x <- importModal("id")
   expect_is(x, "shiny.tag")

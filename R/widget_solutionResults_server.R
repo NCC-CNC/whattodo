@@ -24,7 +24,7 @@ addSolutionResults <- function(session = shiny::getDefaultReactiveDomain(),
   # pass data to widget
   session$sendCustomMessage(
     "solutionResults:addSolution",
-    list(id = inputId, value = value$get_solution_results_widget_data())
+    list(id = inputId, value = value$get_solution_results_data())
   )
 }
 

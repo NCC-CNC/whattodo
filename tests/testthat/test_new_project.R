@@ -59,6 +59,14 @@ describe("new_project()", {
       p$get_bbox(native = TRUE, expand = FALSE),
       as.list(sf::st_bbox(p$site_geometry))[c("xmin", "xmax", "ymin", "ymax")]
     )
+    expect_is(
+      p$get_max_feature_expectation(),
+      "data.frame"
+    )
+    expect_is(
+      p$get_current_feature_expectation(),
+      "data.frame"
+    )
   })
   it("has set methods", {
     ## set_feature_goal

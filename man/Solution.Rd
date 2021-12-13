@@ -21,11 +21,15 @@ Definition for the Solution class.
 
 \item{\code{project}}{\link{Project} object.}
 
+\item{\code{settings}}{\code{list} of \link{Parameter} objects.}
+
 \item{\code{summary_results}}{\code{data.frame} object.}
 
 \item{\code{site_results}}{\code{data.frame} object.}
 
 \item{\code{feature_results}}{\code{data.frame} object.}
+
+\item{\code{solved}}{\code{logical} value.}
 }
 \if{html}{\out{</div>}}
 }
@@ -38,10 +42,13 @@ Definition for the Solution class.
 \item \href{#method-get_site_ids}{\code{Solution$get_site_ids()}}
 \item \href{#method-get_feature_ids}{\code{Solution$get_feature_ids()}}
 \item \href{#method-get_action_ids}{\code{Solution$get_action_ids()}}
+\item \href{#method-get_bbox}{\code{Solution$get_bbox()}}
+\item \href{#method-is_solved}{\code{Solution$is_solved()}}
+\item \href{#method-render_on_map}{\code{Solution$render_on_map()}}
+\item \href{#method-get_solution_results_data}{\code{Solution$get_solution_results_data()}}
 \item \href{#method-render_summary_results}{\code{Solution$render_summary_results()}}
 \item \href{#method-render_site_results}{\code{Solution$render_site_results()}}
 \item \href{#method-render_feature_results}{\code{Solution$render_feature_results()}}
-\item \href{#method-get_bbox}{\code{Solution$get_bbox()}}
 \item \href{#method-write}{\code{Solution$write()}}
 \item \href{#method-clone}{\code{Solution$clone()}}
 }
@@ -52,7 +59,15 @@ Definition for the Solution class.
 \subsection{Method \code{new()}}{
 Create a Solution object.
 \subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{Solution$new(id, project, summary_results, site_results, feature_results)}\if{html}{\out{</div>}}
+\if{html}{\out{<div class="r">}}\preformatted{Solution$new(
+  id,
+  project,
+  settings,
+  summary_results,
+  site_results,
+  feature_results,
+  solved
+)}\if{html}{\out{</div>}}
 }
 
 \subsection{Arguments}{
@@ -62,11 +77,15 @@ Create a Solution object.
 
 \item{\code{project}}{\code{character} identifier.}
 
+\item{\code{settings}}{\code{list} of \link{Parameter} objects.}
+
 \item{\code{summary_results}}{\code{data.frame} object.}
 
 \item{\code{site_results}}{\code{data.frame} object.}
 
 \item{\code{feature_results}}{\code{data.frame} object.}
+
+\item{\code{solved}}{\code{logical} value.}
 }
 \if{html}{\out{</div>}}
 }
@@ -144,6 +163,76 @@ Get action identifiers.
 }
 }
 \if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-get_bbox"></a>}}
+\if{latex}{\out{\hypertarget{method-get_bbox}{}}}
+\subsection{Method \code{get_bbox()}}{
+Get the bounding box.
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{Solution$get_bbox(native = TRUE, expand = FALSE)}\if{html}{\out{</div>}}
+}
+
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{native}}{\code{logical} indicating if the bounding box should
+be in (\code{TRUE}) the native coordinate reference system or (\code{FALSE})
+re-projected to longitude/latitude?}
+
+\item{\code{expand}}{\code{FALSE} should the bounding box be expanded by 10\%?}
+}
+\if{html}{\out{</div>}}
+}
+\subsection{Returns}{
+\code{list} object with \code{"xmin"}, \code{"xmax"}, \code{"ymin"}, and \code{"ymax"}
+elements.
+}
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-is_solved"></a>}}
+\if{latex}{\out{\hypertarget{method-is_solved}{}}}
+\subsection{Method \code{is_solved()}}{
+Is solved?
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{Solution$is_solved()}\if{html}{\out{</div>}}
+}
+
+\subsection{Returns}{
+\code{logical} value.
+}
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-render_on_map"></a>}}
+\if{latex}{\out{\hypertarget{method-render_on_map}{}}}
+\subsection{Method \code{render_on_map()}}{
+Render on map.
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{Solution$render_on_map(map, group = "sites")}\if{html}{\out{</div>}}
+}
+
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{map}}{\code{\link[leaflet:leaflet]{leaflet::leaflet()}} object.}
+
+\item{\code{group}}{\code{character} group name. Defaults to \code{"sites"}.}
+}
+\if{html}{\out{</div>}}
+}
+\subsection{Returns}{
+\code{\link[leaflet:leaflet]{leaflet::leaflet()}} map.
+}
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-get_solution_results_data"></a>}}
+\if{latex}{\out{\hypertarget{method-get_solution_results_data}{}}}
+\subsection{Method \code{get_solution_results_data()}}{
+Get data for rendering widget to display results.
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{Solution$get_solution_results_data()}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-render_summary_results"></a>}}
 \if{latex}{\out{\hypertarget{method-render_summary_results}{}}}
 \subsection{Method \code{render_summary_results()}}{
@@ -172,31 +261,6 @@ Display feature results data using \pkg{rhandontable}.
 \if{html}{\out{<div class="r">}}\preformatted{Solution$render_feature_results()}\if{html}{\out{</div>}}
 }
 
-}
-\if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-get_bbox"></a>}}
-\if{latex}{\out{\hypertarget{method-get_bbox}{}}}
-\subsection{Method \code{get_bbox()}}{
-Get the bounding box.
-\subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{Solution$get_bbox(native = TRUE, expand = FALSE)}\if{html}{\out{</div>}}
-}
-
-\subsection{Arguments}{
-\if{html}{\out{<div class="arguments">}}
-\describe{
-\item{\code{native}}{\code{logical} indicating if the bounding box should
-be in (\code{TRUE}) the native coordinate reference system or (\code{FALSE})
-re-projected to longitude/latitude?}
-
-\item{\code{expand}}{\code{FALSE} should the bounding box be expanded by 10\%?}
-}
-\if{html}{\out{</div>}}
-}
-\subsection{Returns}{
-\code{list} object with \code{"xmin"}, \code{"xmax"}, \code{"ymin"}, and \code{"ymax"}
-elements.
-}
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-write"></a>}}

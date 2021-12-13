@@ -16,6 +16,9 @@ Solution <- R6::R6Class(
     #' @field project [Project] object.
     project = NULL,
 
+    #' @field settings `list` of [Parameter] objects.
+    settings = NULL,
+
     #' @field summary_results `data.frame` object.
     summary_results = NULL,
 
@@ -25,38 +28,48 @@ Solution <- R6::R6Class(
     #' @field feature_results `data.frame` object.
     feature_results = NULL,
 
+    #' @field solved `logical` value.
+    solved = NA,
+
     #' @description
     #' Create a Solution object.
     #' @param id `character` identifier.
     #' @param project `character` identifier.
+    #' @param settings `list` of [Parameter] objects.
     #' @param summary_results `data.frame` object.
     #' @param site_results `data.frame` object.
     #' @param feature_results `data.frame` object.
+    #' @param solved `logical` value.
     #' @return A new Solution object.
     initialize = function(id,
                           project,
+                          settings,
                           summary_results,
                           site_results,
-                          feature_results) {
+                          feature_results,
+                          solved) {
       # assert that arguments are valid
       assertthat::assert_that(
-        ## ids
         assertthat::is.string(id),
         assertthat::noNA(id),
-        ## project
+        is.list(settings),
+        all_list_elements_inherit(settings, "Parameter"),
         inherits(project, "Project"),
-        ## results
         inherits(summary_results, "data.frame"),
         inherits(site_results, "data.frame"),
         inherits(feature_results, "data.frame"),
+        assertthat::is.flag(solved),
+        assertthat::noNA(solved)
       )
 
       # assign fields
       self$id <- id
       self$project <- project
+      self$settings <- settings
       self$summary_results <- summary_results
       self$site_results <- site_results
       self$feature_results <- feature_results
+      self$solved <- solved
 
     },
 
@@ -70,6 +83,7 @@ Solution <- R6::R6Class(
       message("  features: ", paste_vector(self$project$feature_ids))
       message("  actions:  ", paste_vector(self$project$action_ids))
       message("  geometry: ", inherits(self$project$site_geometry, "sf"))
+      message("  solved: ", self$solved)
       invisible(self)
     },
 
@@ -100,6 +114,119 @@ Solution <- R6::R6Class(
     #' @return `character` vector.
     get_action_ids = function() {
       self$project$action_ids
+    },
+
+    #' @description
+    #' Get the bounding box.
+    #' @param native `logical` indicating if the bounding box should
+    #'   be in (`TRUE`) the native coordinate reference system or (`FALSE`)
+    #'   re-projected to longitude/latitude?
+    #' @param expand `FALSE` should the bounding box be expanded by 10%?
+    #' @return `list` object with `"xmin"`, `"xmax"`, `"ymin"`, and `"ymax"`
+    #'   elements.
+    get_bbox = function(native = TRUE, expand = FALSE) {
+      self$project$get_bbox(native = native, expand = expand)
+    },
+
+    #' @description
+    #' Is solved?
+    #' @return `logical` value.
+    is_solved = function() {
+      self$solved
+    },
+
+    #' @description
+    #' Render on map.
+    #' @param map [leaflet::leaflet()] object.
+    #' @param group `character` group name. Defaults to `"sites"`.
+    #' @return [leaflet::leaflet()] map.
+    render_on_map = function(map, group = "sites") {
+      # assert that argument is valid
+      assertthat::assert_that(inherits(map, "leaflet"))
+      # prepare data for map
+      if (self$solved) {
+        ## if object does contain a solution, then add it to the map
+        pal <- leaflet::colorFactor(
+          palette = self$project$action_colors,
+          domain = names(self$project$action_ids),
+        )
+        popups <- self$site_results
+        vals <- popups[[2]]
+
+        ## clear group from map
+        map <- leaflet::clearGroup(map, group)
+
+        ## add data to map
+        map <- leafem::addFeatures(
+          map = map,
+          data = self$project$site_geometry,
+          groupId = group,
+          color = pal(vals),
+          fillColor = pal(vals),
+          popup = leafpop::popupTable(
+            x = popups,
+            row.numbers = FALSE,
+            feature.id = FALSE
+          )
+        )
+
+        ## add legend to map
+        map <- leaflet::addLegend(
+          map = map,
+          pal = pal,
+          values = vals,
+          group = group,
+          position = "bottomright",
+        )
+      } else {
+        ## if object does not contain a solution, then simply show sites
+        map <- self$project$render_on_map(map, data = "location", group = group)
+      }
+      map
+    },
+
+    #' @description
+    #' Get data for rendering widget to display results.
+    get_solution_results_data = function() {
+      # extract variables
+      nh <- self$project$parameters$feature_data_sheet$name_header
+      th <- self$project$parameters$feature_data_sheet$goal_header
+      tah <- self$project$parameters$feature_results_sheet$total_amount_header
+      # return data
+      list(
+        id = self$id,
+        name = "solution",
+        parameters = lapply(self$settings, function(x) x$get_widget_data()),
+        statistics = lapply(seq_len(nrow(self$summary_results)), function(i) {
+          list(
+            name = self$summary_results[[1]][[i]],
+            value = self$summary_results[[2]][[i]],
+            units = "units",
+            proportion = ""
+          )
+        }),
+        theme_results = lapply(
+          seq_len(nrow(self$feature_results)), function(i) {
+            id <- self$get_feature_ids()[[i]]
+            list(
+              id = paste0("T", convert_to_id(id)),
+              name = id,
+              feature_name = id,
+              feature_id = paste0("F", convert_to_id(id)),
+              feature_status = isTRUE(self$feature_data[[th]][[i]] > 1e-10),
+              feature_total_amount = self$project$current_data$total[[i]],
+              feature_current_held = self$project$current_data$held[[i]],
+              feature_goal = self$project$feature_data[[th]][[i]],
+              feature_solution_held = c(
+                self$feature_results[[tah]][[i]] /
+                self$project$current_data$total[[i]]
+              ),
+              units = "units"
+            )
+          }
+        ),
+        solution_color = "#FF0000"
+      )
     },
 
     #' @description
@@ -148,18 +275,6 @@ Solution <- R6::R6Class(
     },
 
     #' @description
-    #' Get the bounding box.
-    #' @param native `logical` indicating if the bounding box should
-    #'   be in (`TRUE`) the native coordinate reference system or (`FALSE`)
-    #'   re-projected to longitude/latitude?
-    #' @param expand `FALSE` should the bounding box be expanded by 10%?
-    #' @return `list` object with `"xmin"`, `"xmax"`, `"ymin"`, and `"ymax"`
-    #'   elements.
-    get_bbox = function(native = TRUE, expand = FALSE) {
-      self$project$get_bbox(native = native, expand = expand)
-    },
-
-    #' @description
     #' Write the data to disk.
     #' @param workbook_path `character` file path.
     #' @param geometry_path `character` file path.
@@ -187,34 +302,15 @@ Solution <- R6::R6Class(
           feasibility_data = self$project$feasibility_data,
           feature_data = self$project$feature_data,
           action_expectation_data = self$project$action_expectation_data,
-          ## data comments
-          site_comments = whatdataio::template_site_comments(
-            site_descriptions = self$project$site_descriptions,
-            action_descriptions = self$project$action_descriptions,
-            parameters = self$project$parameters
-          ),
-          feasibility_comments = whatdataio::template_feasibility_comments(
-            site_descriptions = self$project$site_descriptions,
-            action_descriptions = self$project$action_descriptions,
-            parameters = self$project$parameters
-          ),
-          feature_comments = whatdataio::template_feature_comments(
-            feature_descriptions = self$project$feature_descriptions,
-            parameters = self$project$parameters
-          ),
-          action_expectation_comments = lapply(
-            self$action_ids, function(i) {
-              whatdataio::template_action_expectation_comments(
-                site_descriptions = self$project$site_descriptions,
-                feature_descriptions = self$project$feature_descriptions,
-                action_id = i,
-                parameters = self$project$parameters
-              )
-            }
-          ),
+          ## results
+          summary_results_data = self$summary_results,
+          site_results_data = self$site_results,
+          feature_results_data = self$feature_results,
           ## parameters
           parameters = self$project$parameters
         ),
+        file = workbook_path,
+        overwrite = TRUE,
         returnValue = FALSE
       )
       # geometry data
@@ -236,11 +332,16 @@ Solution <- R6::R6Class(
 #'
 #' @param project [Project] object.
 #'
+#' @param settings `list` of [Parameter] objects.
+#'
 #' @param summary_results `data.frame` containing the summary results.
 #'
 #' @param site_results `data.frame` containing the site results.
 #'
 #' @param feature_results `data.frame` containing the feature results.
+#'
+#' @param solved `logical` indicating if the results correspond to a
+#'  feasible solution.
 #'
 #' @inheritParams new_project
 #'
@@ -250,15 +351,20 @@ Solution <- R6::R6Class(
 #' #TODO
 #' @export
 new_solution <- function(project,
+                         settings,
                          summary_results,
                          site_results,
                          feature_results,
+                         solved,
                          id = uuid::UUIDgenerate()) {
   # create new dataset
   Solution$new(
     id = id,
     project = project,
+    settings = settings,
+    summary_results = summary_results,
     site_results = site_results,
-    feature_results = feature_results
+    feature_results = feature_results,
+    solved = solved
   )
 }

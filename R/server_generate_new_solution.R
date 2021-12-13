@@ -189,54 +189,75 @@ server_generate_new_solution <- quote({
       previous_s_id <- NULL
     }
 
+    ## create budget parameter to store settings
+    curr_budget_settings <- app_data$project$settings[[1]]$clone(deep = TRUE)
+    curr_budget_settings$status <- is.na(r$budget)
+    curr_budget_settings$status <- ifelse(is.na(r$budget), 0, r$budget)
+
     ## generate solution from result
     app_data$solution <- new_solution(
       id = uuid::UUIDgenerate(),
       project = app_data$project$clone(deep = TRUE),
+      settings = list(curr_budget_settings),
       summary_results = r$summary_results,
       site_results = r$site_results,
-      feature_results = r$feature_results
+      feature_results = r$feature_results,
+      solved = r$solved
     )
     rm(r)
 
-    ## make leaflet proxy
-    map <- leaflet::leafletProxy("map")
+    ## if solution is valid then update the app to show it...
+    if (isTRUE(app_data$solution$is_solved())) {
 
-    ## add new solution to the map
-    app_data$solution$render_on_map(map)
+      ### make leaflet proxy
+      map <- leaflet::leafletProxy("map")
 
-    ## add new solution to solution results widget
-    addSolutionResults(
-      session = session,
-      inputId = "solutionResultsPane_results",
-      value = app_data$solution
-    )
+      ### add new solution to the map
+      app_data$solution$render_on_map(map)
 
-    ## add new solution on the results widget
-    showSolutionResults(
-      session = session,
-      inputId = "solutionResultsPane_results",
-      value = s
-    )
-
-    ## drop previous solution from results widget
-    if (!is.null(previous_s_id)) {
-      dropSolutionResults(
+      ### add new solution to solution results widget
+      addSolutionResults(
         session = session,
         inputId = "solutionResultsPane_results",
-        value = previous_s_id
+        value = app_data$solution
       )
-    }
 
-    ## show solution results sidebar
-    leaflet.extras2::openSidebar(
-      map,
-      id = "solutionResultsPane", sidebar_id = "mainSidebar"
-    )
+      ### add new solution on the results widget
+      showSolutionResults(
+        session = session,
+        inputId = "solutionResultsPane_results",
+        value = s
+      )
 
-    ## enable solution results modal button after generating first solution
-    if (is.null(previous_s_id)) {
-      enable_html_css_selector("#mainSidebar li:nth-child(2)")
+      ### drop previous solution from results widget
+      if (!is.null(previous_s_id)) {
+        dropSolutionResults(
+          session = session,
+          inputId = "solutionResultsPane_results",
+          value = previous_s_id
+        )
+      }
+
+      ### show solution results sidebar
+      leaflet.extras2::openSidebar(
+        map,
+        id = "solutionResultsPane", sidebar_id = "mainSidebar"
+      )
+
+      ### enable solution results modal button after generating first solution
+      if (is.null(previous_s_id)) {
+        enable_html_css_selector("#mainSidebar li:nth-child(2)")
+      }
+    } else {
+      ## if solution is not feasible, then...
+      ## display modal with an error
+      shinyBS::toggleModal(session, "errorModal", toggle = "open")
+      ## and prevent solution download
+      shinyjs::disable("export_btn")
+      shinyBS::addTooltip(
+        session, "export_btn_div",
+        "Please generate a valid prioritization to download the results."
+      )
     }
 
     ## reset buttons and input widgets

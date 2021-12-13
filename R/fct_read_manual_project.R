@@ -109,7 +109,7 @@ read_manual_project <- function(spreadsheet_path,
     ## throw error if needed
     if (inherits(spatial_data, "try-error")) {
       error_msg <- c(
-        "Failed to import spreadsheet data:",
+        "Failed to import spatial data:",
         as.character(spatial_data),
         ""
       )

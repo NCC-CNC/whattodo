@@ -11,11 +11,7 @@ class ThemeResults {
     feature_current_held,
     feature_goal,
     feature_solution_held,
-    feature_provenance,
     units,
-    mandatory,
-    round,
-    icon,
     solution_color
   ) {
     // declare fields
