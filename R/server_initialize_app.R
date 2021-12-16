@@ -56,6 +56,16 @@ server_initialize_app <- quote({
     disable_html_element("importModal_builtin_button")
   }
 
+  # initialize export options
+  shiny::updateSelectizeInput(
+    session = session,
+    inputId = "exportPane_select",
+    selected = app_data$project_data_id,
+    choices = c(
+      stats::setNames(app_data$project_data_id, "Project data")
+    )
+  )
+
   # disable buttons that require inputs
   disable_html_element("importModal_manual_button")
   shinyjs::disable("newSolutionPane_settings_stop_button")

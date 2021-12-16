@@ -13,27 +13,42 @@
 #' @noRd
 server_export_data <- quote({
   # observer for exporting results
-  output$export_btn <- downloadHandler(
+  output$exportPane_button <- downloadHandler(
     filename = function() {
-      paste0("prioritization-", Sys.Date(), ".xlsx")
+      ## create default filename based on download option
+      if (identical(input$exportPane_select, app_data$project_data_id)) {
+        out <- paste0("project-data", Sys.Date(), ".zip")
+      } else {
+        proj <- which(input$exportPane_select == app_data$solution_ids)
+        proj <- names(app_data$solution_ids[proj])
+        out <- paste0("solution-", proj, "-", Sys.Date(), ".zip")
+      }
+      out
     },
     content = function(con) {
-      # create workbook
-      w <- whatdataio::create_export_workbook(
-        site_names = values$site_names,
-        feature_names = values$feature_names,
-        action_names = values$action_names,
-        site_data = values$site_data,
-        site_status_data = values$site_status_data,
-        feature_data = values$feature_data,
-        action_expectation_data = values$action_expectation_data,
-        summary_results_data = values$summary_results_data,
-        site_results_data = values$site_results_data,
-        feature_results_data = values$feature_results_data,
-        parameters = parameters
-      )
-      # save workbook to disk
-      openxlsx::saveWorkbook(w, con, returnValue = FALSE)
+      ## create file names
+      d <- tempfile()
+      dir.create(d, showWarnings = FALSE, recursive = TRUE)
+      ## save files to disk
+      if (identical(input$exportPane_select, app_data$project_data_id)) {
+        app_data$project$write(
+          file.path(d, "project.xlsx"),
+          file.path(d, "project.shp")
+        )
+      } else {
+        ## find solution
+        i <- which(input$exportPane_select == app_data$solution_ids)
+        app_data$solution[[i]]$write(
+          file.path(d, "solution.xlsx"),
+          file.path(d, "solution.shp")
+        )
+      }
+      ## create zip file with all files
+      withr::with_dir(d, {
+        utils::zip(zipfile = con, files = dir(), flags = c("-r9X", "-qq"))
+      })
+      ## clean up
+      unlink(d, force = FALSE, recursive = TRUE)
     }
   )
 })

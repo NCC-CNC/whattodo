@@ -381,9 +381,9 @@ Solution <- R6::R6Class(
         returnValue = FALSE
       )
       # geometry data
-      if (inherits(self$project$geometry_data, "sf")) {
+      if (inherits(self$project$site_geometry, "sf")) {
         suppressWarnings({
-          sf::write_sf(self$project$geometry_data, spatial_path)
+          sf::write_sf(self$project$site_geometry, geometry_path)
         })
       }
       # return result

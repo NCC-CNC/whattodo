@@ -218,9 +218,9 @@ server_generate_new_solution <- quote({
     )
 
     ## add new solution to export sidebar
-    shiny::updateSelectizeInput(
+    shiny::updateSelectInput(
       session = session,
-      inputId = "exportPane_fields",
+      inputId = "exportPane_select",
       choices = c(
         stats::setNames(app_data$project_data_id, "Project data"),
         app_data$solution_ids

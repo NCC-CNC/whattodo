@@ -41,12 +41,11 @@ exportSidebarPane <- function(id) {
         htmltools::tags$div(
           class = "generic-container",
           ## select data
-          shiny::selectizeInput(
-            inputId = paste0(id, "_fields"),
+          shiny::selectInput(
+            inputId = paste0(id, "_select"),
             label = "Select download option",
-            choices = c(),
-            multiple = TRUE,
-            options = list(placeholder = "select data (required)"),
+            choices = "NA",
+            multiple = FALSE,
             width = "100%"
           ),
           ## download button
