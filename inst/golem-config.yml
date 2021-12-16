@@ -27,6 +27,8 @@ default:
 
 dev:
   golem_wd: !expr here::here()
+  verbose: true
+  monitor: true
 
 production:
   app_prod: yes

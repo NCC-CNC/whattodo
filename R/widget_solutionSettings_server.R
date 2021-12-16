@@ -137,23 +137,18 @@ updateSolutionSettings <- function(session = shiny::getDefaultReactiveDomain(),
   # assert value contains valid settings
   ## define valid setting names and value classes
   assertthat::assert_that(
-    value$type %in% c("weight", "theme", "include", "parameter")
+    value$type %in% c("weight", "theme", "parameter")
   )
   if (identical(value$type, "theme")) {
     param_names <- c(
-      "name", "status", "view",
-      "group_goal", "feature_goal", "feature_status", "feature_current"
+      "name", "feature_goal", "feature_current", "feature_max"
     )
     param_classes <- c(
-      "character", "logical", "character",
-      "numeric", "numeric", "logical", "numeric"
+      "character", "numeric", "numeric", "numeric"
     )
   } else if (identical(value$type, "weight")) {
-    param_names <- c("name", "status", "factor")
-    param_classes <- c("character", "logical", "numeric")
-  } else if (identical(value$type, "include")) {
-    param_names <- c("name", "status")
-    param_classes <- c("character", "logical")
+    param_names <- c("name", "factor")
+    param_classes <- c("character", "numeric")
   } else if (identical(value$type, "parameter")) {
     param_names <- c("name", "status", "value")
     param_classes <- c("character", "logical", "numeric")
@@ -191,15 +186,6 @@ updateSolutionSettings <- function(session = shiny::getDefaultReactiveDomain(),
       " `value`"
     )
   )
-  if (identical(value$setting, "view")) {
-    assertthat::assert_that(
-      value$value %in% c("single", "group"),
-      msg = paste0(
-        "the \"view\" setting must have a \"single\" ",
-        "or \"group\" `value`."
-      )
-    )
-  }
 
   # pass data to widget
   session$sendCustomMessage(

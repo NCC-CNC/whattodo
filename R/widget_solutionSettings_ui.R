@@ -118,64 +118,111 @@ renderSolutionSettings <- function(expr, env = parent.frame(), quoted = FALSE) {
 # Add custom HTML for the widget (automatically used by htmlwidgets)
 solutionSettings_html <- function(id, style, class, ...) {
   # HTML scaffold
-  x <-
-    htmltools::tags$div(
-      id = id, class = class, style = style,
-      htmltools::div(
-        class = "solution-settings",
-        shinyBS::bsCollapse(
-          id = paste0(id, "_collapse"),
-          multiple = FALSE,
-          open = paste0(id, "_collapseThemePanel"),
-          shinyBS::bsCollapsePanel(
-            title = htmltools::tags$span(
-              shinyBS::tipify(
-                el = htmltools::tags$span(
-                  shiny::icon("star"),
-                  "Goals"
-                ),
-                title = paste(
-                  "Themes describe facets of biodiversity that are important",
-                  "for conservation (e.g. species, habitats, ecosystems).",
-                  "To help safeguard them,",
-                  "you can set goals for themes to increase the expected",
-                  "amount that would result following a solution."
-                ),
-                options = list(container = "body")
-              )
-            ),
-            value = paste0(id, "_collapseThemePanel"),
-            htmltools::tags$div(
-              class = "panel-content-inner",
-              htmltools::tags$div(class = "themes")
+  x <- htmltools::tags$div(
+    id = id, class = class, style = style,
+    htmltools::div(
+      class = "solution-settings",
+      shinyBS::bsCollapse(
+        id = paste0(id, "_collapse"),
+        multiple = FALSE,
+        open = paste0(id, "_collapseThemePanel"),
+        shinyBS::bsCollapsePanel(
+          title = htmltools::tags$span(
+            shinyBS::tipify(
+              el = htmltools::tags$span(
+                shiny::icon("star"),
+                "Goals"
+              ),
+              title = paste(
+                "Themes describe facets of biodiversity that are important",
+                "for conservation (e.g. species, habitats, ecosystems).",
+                "To help safeguard them,",
+                "you can set goals for themes to increase the expected",
+                "amount that would result following a solution."
+              ),
+              options = list(container = "body")
             )
           ),
-          shinyBS::bsCollapsePanel(
-            title = htmltools::tags$span(
-              shinyBS::tipify(
-                el = htmltools::tags$span(
-                  shiny::icon("weight-hanging"),
-                  "Weights"
-                ),
-                title = paste(
-                  "Weights describe the relative importance of meeting",
-                  "goals for each of the themes."
-                ),
-                options = list(container = "body")
-              )
-            ),
-            value = paste0(id, "_collapseWeightPanel"),
-            htmltools::tags$div(
-              class = "panel-content-inner",
-              htmltools::tags$div(class = "weights")
+          value = paste0(id, "_collapseThemePanel"),
+          htmltools::tags$div(
+            class = "panel-content-inner",
+            htmltools::tags$div(class = "themes")
+          )
+        ),
+        shinyBS::bsCollapsePanel(
+          title = htmltools::tags$span(
+            shinyBS::tipify(
+              el = htmltools::tags$span(
+                shiny::icon("weight-hanging"),
+                "Weights"
+              ),
+              title = paste(
+                "Weights describe the relative importance of meeting",
+                "goals for each of the themes."
+              ),
+              options = list(container = "body")
             )
+          ),
+          value = paste0(id, "_collapseWeightPanel"),
+          htmltools::tags$div(
+            class = "panel-content-inner",
+            htmltools::tags$div(class = "weights")
+          )
+        ),
+        shinyBS::bsCollapsePanel(
+          title = htmltools::tags$span(
+            shinyBS::tipify(
+              el = htmltools::tags$span(
+                shiny::icon("cog"),
+                "Settings"
+              ),
+              title = paste(
+                "Settings control the behavior of the optimization process."
+              ),
+              options = list(container = "body")
+            )
+          ),
+          value = paste0(id, "_collapseParametersPanel"),
+          htmltools::tags$div(
+            class = "panel-content-inner",
+            htmltools::tags$div(class = "parameters")
           )
         )
-      ),
-
-      ### footer
+      )
+    ),
+    ### footer
+    htmltools::tags$div(
+      class = "solution-footer",
       htmltools::tags$div(
-        class = "solution-footer",
+        class = "solution-footer-name",
+        `data-toggle` = "tooltip",
+        `data-placement` = "top",
+        `data-container` = "body",
+        `data-trigger` = "hover",
+        title = "Specify a name for the new solution",
+        shiny::textInput(
+          inputId = paste0(id, "_name"),
+          NULL,
+          value = "",
+          width = "100%",
+          placeholder = "enter name (required)"
+        ),
+      ),
+      htmltools::tags$div(
+        htmltools::tags$div(
+          class = "solution-footer-data-button",
+          `data-toggle` = "tooltip",
+          `data-placement` = "top",
+          `data-container` = "body",
+          `data-trigger` = "hover",
+          title = "Edit data",
+          shinyBS::bsButton(
+            inputId = paste0(id, "_edit_button"),
+            label = "",
+            icon = shiny::icon("table"),
+            style = "primary"
+          )
+        ),
         htmltools::tags$div(
           class = "solution-footer-start-button",
           `data-toggle` = "tooltip",
@@ -191,24 +238,25 @@ solutionSettings_html <- function(id, style, class, ...) {
             class = "btn btn-primary",
             loadingLabel = "",
             style = "width: 86px;"
-          ),
-          htmltools::tags$div(
-            class = "solution-footer-stop-button",
-            `data-toggle` = "tooltip",
-            `data-placement` = "top",
-            `data-container` = "body",
-            `data-trigger` = "hover",
-            title = "Stop optimizing",
-            shinyBS::bsButton(
-              inputId = paste0(id, "_stop_button"),
-              label = "",
-              icon = shiny::icon("ban"),
-              style = "danger"
-            )
+          )
+        ),
+        htmltools::tags$div(
+          class = "solution-footer-stop-button",
+          `data-toggle` = "tooltip",
+          `data-placement` = "top",
+          `data-container` = "body",
+          `data-trigger` = "hover",
+          title = "Stop optimizing",
+          shinyBS::bsButton(
+            inputId = paste0(id, "_stop_button"),
+            label = "",
+            icon = shiny::icon("ban"),
+            style = "danger"
           )
         )
       )
     )
+  )
 
   # add HTML template scaffolds for dynamic content
   ## parameter
@@ -219,7 +267,7 @@ solutionSettings_html <- function(id, style, class, ...) {
         class = "parameter-setting-template",
         htmltools::tags$div(
           class = paste("parameter-setting solution-setting"),
-          header_component_scaffold("parameter"),
+          header_component_scaffold("parameter", status_button = TRUE),
           htmltools::tags$div(
             class = "parameter-slider",
             `data-toggle` = "tooltip",

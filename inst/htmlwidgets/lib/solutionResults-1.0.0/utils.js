@@ -47,11 +47,7 @@ function newThemeResults(manager, x, solution_color) {
       x.feature_current_held,
       x.feature_goal,
       x.feature_solution_held,
-      x.feature_provenance[0],
       x.units || "units",
-      x.mandatory,
-      x.round,
-      x.icon,
       solution_color
     );
 }

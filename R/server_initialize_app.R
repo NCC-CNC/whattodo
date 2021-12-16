@@ -12,6 +12,20 @@
 #'
 #' @noRd
 server_initialize_app <- quote({
+
+  # define application data
+  ## note that we use an environment here because they are mutable objects and
+  ## so we don't have to worry about using the super-assignment operator
+  app_data <- list2env(
+    list(
+      project = NULL,
+      project_data_id = uuid::UUIDgenerate(),
+      solution = list(),
+      solution_ids = c(),
+      parameters = whatdataio::read_data_configuration()
+    )
+  )
+
   # activate start up mode
   ## hides leaflet buttons + scalebar
   shinyjs::runjs("document.body.classList.add('startup');")
@@ -44,7 +58,7 @@ server_initialize_app <- quote({
 
   # disable buttons that require inputs
   disable_html_element("importModal_manual_button")
-  shinyjs::disable("exportPane_button")
+  shinyjs::disable("newSolutionPane_settings_stop_button")
 
   # disable solution results sidebar button
   disable_html_css_selector("#mainSidebar li:nth-child(2)")

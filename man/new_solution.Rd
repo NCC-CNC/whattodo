@@ -6,16 +6,18 @@
 \usage{
 new_solution(
   project,
+  name,
   settings,
   summary_results,
   site_results,
   feature_results,
-  solved,
   id = uuid::UUIDgenerate()
 )
 }
 \arguments{
 \item{project}{\link{Project} object.}
+
+\item{name}{\code{character} value with name for solution.}
 
 \item{settings}{\code{list} of \link{Parameter} objects.}
 
@@ -24,9 +26,6 @@ new_solution(
 \item{site_results}{\code{data.frame} containing the site results.}
 
 \item{feature_results}{\code{data.frame} containing the feature results.}
-
-\item{solved}{\code{logical} indicating if the results correspond to a
-feasible solution.}
 
 \item{id}{\code{character} identifier for object.}
 }

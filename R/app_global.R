@@ -3,9 +3,6 @@ app_global <- quote({
   # set seed for reproducibility
   set.seed(200)
 
-  # load parameters for data handling
-  parameters <- whatdataio::read_data_configuration()
-
   # print initial memory usage
   if (isTRUE(whattodo::get_golem_config("monitor"))) {
       cli::cli_rule()
@@ -47,7 +44,7 @@ app_global <- quote({
     project_dir <- whattodo::get_golem_config("projects")
   }
 
-  # import projects
+  # find projects
   project_data <- whattodo::find_projects(project_dir, user_groups)
 
 })

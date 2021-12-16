@@ -30,15 +30,16 @@ describe("new_solution()", {
     locked_data = p$get_locked_data(),
     budget = 1500,
     gap = 0,
-    parameters = parameters
+    parameters = parameters,
+    verbose = FALSE
   )
   x <- new_solution(
     project = p,
+    name = "sol",
     settings = p$settings,
     summary_results = s$summary_results,
     site_results = s$site_results,
-    feature_results = s$feature_results,
-    solved = TRUE
+    feature_results = s$feature_results
   )
   it("initializes", {
     expect_is(x, "Solution")
@@ -68,9 +69,13 @@ describe("new_solution()", {
     )
   })
   it ("has data render methods", {
-    expect_is(x$render_site_results(), "rhandsontable")
-    expect_is(x$render_summary_results(), "rhandsontable")
-    expect_is(x$render_feature_results(), "rhandsontable")
+    expect_is(x$render_site_data(), "rhandsontable")
+    expect_is(x$render_feature_data(), "rhandsontable")
+    expect_is(x$render_feasibility_data(), "rhandsontable")
+    expect_is(x$render_action_expectation_data("action 1"), "rhandsontable")
+    expect_is(x$render_site_results(), "datatables")
+    expect_is(x$render_summary_results(), "datatables")
+    expect_is(x$render_feature_results(), "datatables")
   })
   it ("has write method", {
     # create temp file paths

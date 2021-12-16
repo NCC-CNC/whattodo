@@ -4,28 +4,16 @@
 \alias{dataModal}
 \title{Data modal}
 \usage{
-dataModal(id, trigger, action_ids, action_descriptions, parameters)
+dataModal(id, trigger)
 }
 \arguments{
 \item{id}{\code{character} identifier for the modal.}
 
 \item{trigger}{\code{character} identifier for the widget to trigger the modal.}
-
-\item{action_ids}{\code{character} identifiers for actions.}
-
-\item{action_descriptions}{\code{character} descriptions of actions.}
-
-\item{parameters}{\code{list} object with parameters for customizing appearance.}
 }
 \description{
-Constructs a modal for viewing and updating data.
+Constructs a modal for viewing and editing data.
 }
 \examples{
-\dontrun{
-# run Shiny app to demo the sidebar pane
-if (interactive()) {
-  runExample("dataModal")
-}
-}
-
+#TODO
 }

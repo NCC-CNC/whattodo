@@ -1,9 +1,12 @@
 #' @include internal.R
 NULL
 
-#' @importFrom magrittr %>%
+#' @import promises
 #' @import shinyBS
 #' @import sf
+#' @import R6
+#' @importFrom magrittr %>%
+
 NULL
 
 #' whattodo: Interactive management action prioritization application
@@ -29,5 +32,15 @@ NULL
 #' }
 NULL
 
+# define global variables to pass package checks
+## these variables are used in lazy evaluation or the shiny application
+utils::globalVariables(
+  c(
+    "input"
+  )
+)
+
 # define functions for internally used packages to pass checks
+tmp1 <- R.utils::gzip
 tmp1 <- rcbc::cbc_solve
+tmp1 <- Rsymphony::Rsymphony_solve_LP

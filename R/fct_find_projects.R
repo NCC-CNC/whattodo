@@ -35,7 +35,7 @@ find_projects <- function(x, user_groups = "public") {
 
   # find project files
   out <- tibble::tibble(
-    path = dir(x, "^.*\\.yaml", full.names = TRUE, recursive = TRUE)
+    path = dir(x, "^.*\\.yaml$", full.names = TRUE, recursive = TRUE)
   )
 
   # import project data

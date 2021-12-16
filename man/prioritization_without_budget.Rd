@@ -13,7 +13,9 @@ prioritization_without_budget(
   goal_data,
   locked_data,
   parameters,
-  gap = 0
+  gap = 0,
+  verbose = TRUE,
+  time_limit = .Machine$integer.max
 )
 }
 \arguments{
@@ -33,7 +35,14 @@ prioritization_without_budget(
 
 \item{parameters}{\code{list} object with configuration parameters.}
 
-\item{gap}{\code{numeric} optimality gap.}
+\item{gap}{\code{numeric} optimality gap. Defaults to 0.}
+
+\item{verbose}{\code{logical} display information during optimization?
+Defaults to \code{TRUE}.}
+
+\item{time_limit}{\code{integer} Maximum amount of time (seconds) to spend
+during optimization.
+Defaults to the maximum integer value.}
 }
 \value{
 \code{list} object containing results of prioritization.

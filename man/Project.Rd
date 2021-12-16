@@ -25,6 +25,8 @@ Definition for the Project class.
 
 \item{\code{feature_ids}}{\code{character} vector}
 
+\item{\code{feature_html_ids}}{\code{character} vector}
+
 \item{\code{feature_descriptions}}{\code{character} vector}
 
 \item{\code{action_ids}}{\code{character} vector}
@@ -71,6 +73,7 @@ Definition for the Project class.
 \item \href{#method-repr}{\code{Project$repr()}}
 \item \href{#method-get_site_ids}{\code{Project$get_site_ids()}}
 \item \href{#method-get_feature_ids}{\code{Project$get_feature_ids()}}
+\item \href{#method-get_feature_ids_from_html_id}{\code{Project$get_feature_ids_from_html_id()}}
 \item \href{#method-get_action_ids}{\code{Project$get_action_ids()}}
 \item \href{#method-get_feature_goal}{\code{Project$get_feature_goal()}}
 \item \href{#method-get_feature_weight}{\code{Project$get_feature_weight()}}
@@ -214,6 +217,26 @@ Get feature identifiers.
 \if{html}{\out{<div class="r">}}\preformatted{Project$get_feature_ids()}\if{html}{\out{</div>}}
 }
 
+\subsection{Returns}{
+\code{character} vector.
+}
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-get_feature_ids_from_html_id"></a>}}
+\if{latex}{\out{\hypertarget{method-get_feature_ids_from_html_id}{}}}
+\subsection{Method \code{get_feature_ids_from_html_id()}}{
+Get feature HTML identifiers.
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{Project$get_feature_ids_from_html_id(feature_html_id)}\if{html}{\out{</div>}}
+}
+
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{feature_html_id}}{\code{character} vector of feature identifiers.}
+}
+\if{html}{\out{</div>}}
+}
 \subsection{Returns}{
 \code{character} vector.
 }
@@ -402,6 +425,9 @@ Get goal data for optimization.
 \if{html}{\out{<div class="r">}}\preformatted{Project$get_goal_data()}\if{html}{\out{</div>}}
 }
 
+\subsection{Returns}{
+\code{data.frame} object.
+}
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-get_weight_data"></a>}}
@@ -412,6 +438,9 @@ Get weight data for optimization.
 \if{html}{\out{<div class="r">}}\preformatted{Project$get_weight_data()}\if{html}{\out{</div>}}
 }
 
+\subsection{Returns}{
+\code{data.frame} object.
+}
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-get_locked_data"></a>}}
@@ -422,6 +451,9 @@ Get locked data for optimization.
 \if{html}{\out{<div class="r">}}\preformatted{Project$get_locked_data()}\if{html}{\out{</div>}}
 }
 
+\subsection{Returns}{
+\code{data.frame} object.
+}
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-get_bbox"></a>}}
@@ -429,16 +461,12 @@ Get locked data for optimization.
 \subsection{Method \code{get_bbox()}}{
 Get the bounding box.
 \subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{Project$get_bbox(native = TRUE, expand = FALSE)}\if{html}{\out{</div>}}
+\if{html}{\out{<div class="r">}}\preformatted{Project$get_bbox(expand = FALSE)}\if{html}{\out{</div>}}
 }
 
 \subsection{Arguments}{
 \if{html}{\out{<div class="arguments">}}
 \describe{
-\item{\code{native}}{\code{logical} indicating if the bounding box should
-be in (\code{TRUE}) the native coordinate reference system or (\code{FALSE})
-re-projected to longitude/latitude?}
-
 \item{\code{expand}}{\code{FALSE} should the bounding box be expanded by 10\%?}
 }
 \if{html}{\out{</div>}}
@@ -457,6 +485,9 @@ Get data for rendering the solution settings widget.
 \if{html}{\out{<div class="r">}}\preformatted{Project$get_solution_settings_data()}\if{html}{\out{</div>}}
 }
 
+\subsection{Returns}{
+\code{list} object.
+}
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-get_goals_settings_data"></a>}}
@@ -467,6 +498,9 @@ Get data for rendering widget to specify goals.
 \if{html}{\out{<div class="r">}}\preformatted{Project$get_goals_settings_data()}\if{html}{\out{</div>}}
 }
 
+\subsection{Returns}{
+\code{list} object.
+}
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-get_weights_settings_data"></a>}}
@@ -477,6 +511,9 @@ Get data for rendering widget to specify weights.
 \if{html}{\out{<div class="r">}}\preformatted{Project$get_weights_settings_data()}\if{html}{\out{</div>}}
 }
 
+\subsection{Returns}{
+\code{list} object.
+}
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-set_feature_goal"></a>}}
@@ -637,37 +674,46 @@ by displaying all sites with the same color.}
 \if{html}{\out{<a id="method-render_site_data"></a>}}
 \if{latex}{\out{\hypertarget{method-render_site_data}{}}}
 \subsection{Method \code{render_site_data()}}{
-Render site data using \pkg{rhandsontable}.
+Render site data.
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{Project$render_site_data()}\if{html}{\out{</div>}}
 }
 
+\subsection{Returns}{
+\link[rhandsontable:rhandsontable]{rhandsontable::rhandsontable} object.
+}
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-render_feature_data"></a>}}
 \if{latex}{\out{\hypertarget{method-render_feature_data}{}}}
 \subsection{Method \code{render_feature_data()}}{
-Render feature data using \pkg{rhandsontable}.
+Render feature data.
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{Project$render_feature_data()}\if{html}{\out{</div>}}
 }
 
+\subsection{Returns}{
+\link[rhandsontable:rhandsontable]{rhandsontable::rhandsontable} object.
+}
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-render_feasibility_data"></a>}}
 \if{latex}{\out{\hypertarget{method-render_feasibility_data}{}}}
 \subsection{Method \code{render_feasibility_data()}}{
-Render feasibility data using \pkg{rhandsontable}.
+Render feasibility data.
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{Project$render_feasibility_data()}\if{html}{\out{</div>}}
 }
 
+\subsection{Returns}{
+\link[rhandsontable:rhandsontable]{rhandsontable::rhandsontable} object.
+}
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-render_action_expectation_data"></a>}}
 \if{latex}{\out{\hypertarget{method-render_action_expectation_data}{}}}
 \subsection{Method \code{render_action_expectation_data()}}{
-Render action expectation data using \pkg{rhandsontable}.
+Render action expectation data.
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{Project$render_action_expectation_data(action_id)}\if{html}{\out{</div>}}
 }
@@ -678,6 +724,9 @@ Render action expectation data using \pkg{rhandsontable}.
 \item{\code{action_id}}{\code{character} identifier for action.}
 }
 \if{html}{\out{</div>}}
+}
+\subsection{Returns}{
+\link[rhandsontable:rhandsontable]{rhandsontable::rhandsontable} object.
 }
 }
 \if{html}{\out{<hr>}}

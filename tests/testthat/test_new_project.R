@@ -56,8 +56,12 @@ describe("new_project()", {
       d$feasibility_data[["Feasibility of “action 2”"]]
     )
     expect_equal(
-      p$get_bbox(native = TRUE, expand = FALSE),
+      p$get_bbox(expand = FALSE),
       as.list(sf::st_bbox(p$site_geometry))[c("xmin", "xmax", "ymin", "ymax")]
+    )
+    expect_is(
+      p$get_bbox(expand = TRUE),
+      "list"
     )
     expect_is(
       p$get_max_feature_expectation(),

@@ -1,6 +1,6 @@
 name: Simulated dataset
 author_name: Richard Schuster
 author_email: richard.schuster@natureconservancy.ca
-user_groups: admin
+user_groups: public
 spreadsheet_path: simulated-data.xlsx
 spatial_path: simulated-data.shp

@@ -24,15 +24,14 @@ A \code{list} containing the following elements:
 Read a project from disk.
 }
 \examples{
-# specify file paths
+# specify file path
 f1 <- system.file(
-  "extdata", "projects", "canada", "canada.yaml",
+  "extdata", "projects", "simulated-data", "simulated-data.yaml",
   package = "whattodo"
 )
-f2 <- system.file("extdata",  "config.toml", package = "whatdataio")
 
 # read project
-x <- read_project(f1, yaml::yaml.load_file(f2))
+x <- read_builtin_project(f1, whatdataio::read_data_configuration())
 
 # print project
 print(x)

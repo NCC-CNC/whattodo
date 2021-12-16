@@ -21,6 +21,7 @@ addSolutionResults <- function(session = shiny::getDefaultReactiveDomain(),
     assertthat::noNA(inputId),
     inherits(value, "Solution")
   )
+
   # pass data to widget
   session$sendCustomMessage(
     "solutionResults:addSolution",

@@ -19,24 +19,37 @@ server_update_solution_settings <- quote({
     shiny::req(input$newSolutionPane_settings)
 
     ## extract new setting
-    new_setting <- input$newSolutionPane_settings$setting
+    new_setting <- input$newSolutionPane_settings
 
-    ## update setting
-    if (identical(new_setting$setting, "feature_goal")) {
-      project$set_feature_goal(
-        feature_id = new_setting$id,
-        value = new_setting$value
-      )
-    } else if (identical(new_setting$setting, "feature_weight")) {
-      project$set_feature_weight(
-        feature_id = new_setting$id,
+    ## update settings
+    if (identical(new_setting$type, "parameter")) {
+      ### update budget setting
+      app_data$project$settings[[1]]$set_setting(
+        name = new_setting$setting,
         value = new_setting$value
       )
     } else {
-      warning(
-        paste0("setting not recognized: ", new_setting$setting),
-        immediate. = TRUE
+      ### extract feature id
+      id <- app_data$project$get_feature_ids_from_html_id(
+        substring(new_setting$id, 2)
       )
+      ### update feature setting
+      if (identical(new_setting$type, "theme")) {
+        app_data$project$set_feature_goal(
+          feature_id = id,
+          value = new_setting$value * 100
+        )
+      } else if (identical(new_setting$type, "weight")) {
+        app_data$project$set_feature_weight(
+          feature_id = id,
+          value = new_setting$value
+        )
+      } else {
+        warning(
+          paste0("setting not recognized: ", new_setting$setting),
+          immediate. = TRUE
+        )
+      }
     }
 
   })

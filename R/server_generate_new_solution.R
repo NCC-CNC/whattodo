@@ -9,7 +9,7 @@
 #' Within the [app_server] function, it should be called like this:
 #'
 #' ```
-#' eval(server_export_spreadsheets)
+#' eval(server_generate_new_solution)
 #' ```
 #'
 #' @noRd
@@ -34,7 +34,7 @@ server_generate_new_solution <- quote({
 
       ## reset buttons and input widgets
       shinyFeedback::resetLoadingButton("newSolutionPane_settings_start_button")
-      enable_html_element("newSolutionPane_settings_start_button")
+      enable_html_element("newSolutionPane_settings_name")
       shinyjs::disable("newSolutionPane_settings_stop_button")
     }
   })
@@ -43,18 +43,23 @@ server_generate_new_solution <- quote({
   shiny::observeEvent(input$newSolutionPane_settings_start_button, {
     ## specify dependencies
     shiny::req(input$newSolutionPane_settings_start_button)
+    shiny::req(input$newSolutionPane_settings_name)
 
     ## update generate solution inputs
     disable_html_element("newSolutionPane_settings_start_button")
+    disable_html_element("newSolutionPane_settings_name")
 
     ## generate id and store it in app_data
     curr_id <- uuid::UUIDgenerate()
     app_data$new_solution_id <- curr_id
+    app_data$new_solution_data <- app_data$project$clone(deep = TRUE)
 
     ## extract values for generating result
     ### settings
     curr_budget <- app_data$project$settings[[1]]$get_value()
     curr_type <- app_data$project$settings[[1]]$status
+    curr_name <- input$newSolutionPane_settings_name
+
     ### ids
     curr_site_ids <- app_data$project$site_ids
     curr_feature_ids <- app_data$project$feature_ids
@@ -90,9 +95,10 @@ server_generate_new_solution <- quote({
             weight_data = curr_weight_data,
             locked_data = curr_locked_data,
             budget = curr_budget,
+            parameters = curr_parameters,
             verbose = curr_verbose,
             gap = curr_gap,
-            time_limit = curr_time_limit
+            time_limit = curr_time_limit,
           ),
           silent = TRUE
         )
@@ -107,6 +113,7 @@ server_generate_new_solution <- quote({
             zone_data = curr_zone_data,
             goal_data = curr_goal_data,
             locked_data = curr_locked_data,
+            parameters = curr_parameters,
             verbose = curr_verbose,
             gap = curr_gap,
             time_limit = curr_time_limit
@@ -115,7 +122,7 @@ server_generate_new_solution <- quote({
         )
       }
       ## return result
-      list(id = curr_id, result = r)
+      list(id = curr_id, name = curr_name, result = r)
     })
 
     ## add promises to handle result once asynchronous task finished
@@ -148,24 +155,23 @@ server_generate_new_solution <- quote({
       return()
     }
 
-    ## disable stop button
-    shinyjs::disable("newSolutionPane_settings_stop_button")
-
     ## extract result
     r <- new_user_result()
 
     ## if failed to generate solution...
-    if (!isTRUE(r$solved)) {
+    if (inherits(r$result, "try-error")) {
       ### throw warning in development mode
       if (golem::app_dev()) {
-        whereami::whereami()
+        if (requireNamespace("whereami", quietly = TRUE)) {
+          whereami::whereami()
+        }
         cli::cli_verbatim(r$result)
         cli::rule()
       }
       ### display modal
       shinyalert::shinyalert(
         title = "Oops",
-        text = msg,
+        text = "Something went wrong, please try again.",
         size = "s",
         closeOnEsc = TRUE,
         closeOnClickOutside = TRUE,
@@ -178,92 +184,106 @@ server_generate_new_solution <- quote({
       )
       ### reset button
       shinyFeedback::resetLoadingButton("newSolutionPane_settings_start_button")
+      enable_html_element("newSolutionPane_settings_name")
       ## exit
       return()
-    }
-
-    ## store id for old solution
-    if (!is.null(app_data$solution)) {
-      previous_s_id <- app_data$solution$id
-    } else {
-      previous_s_id <- NULL
     }
 
     ## create budget parameter to store settings
     curr_budget_settings <- app_data$project$settings[[1]]$clone(deep = TRUE)
     curr_budget_settings$status <- is.na(r$budget)
-    curr_budget_settings$status <- ifelse(is.na(r$budget), 0, r$budget)
+    curr_budget_settings$value <- ifelse(is.na(r$budget), 0, r$budget)
 
     ## generate solution from result
-    app_data$solution <- new_solution(
+    s <- new_solution(
       id = uuid::UUIDgenerate(),
-      project = app_data$project$clone(deep = TRUE),
+      name = r$name,
+      project = app_data$new_solution_data,
       settings = list(curr_budget_settings),
-      summary_results = r$summary_results,
-      site_results = r$site_results,
-      feature_results = r$feature_results,
-      solved = r$solved
+      summary_results = r$result$summary_results,
+      site_results = r$result$site_results,
+      feature_results = r$result$feature_results
     )
-    rm(r)
 
-    ## if solution is valid then update the app to show it...
-    if (isTRUE(app_data$solution$is_solved())) {
+    ## store solution
+    app_data$solution <- append(
+      app_data$solution,
+      stats::setNames(list(s), s$id)
+    )
 
-      ### make leaflet proxy
-      map <- leaflet::leafletProxy("map")
+    ## store solution id and names
+    app_data$solution_ids <- c(
+      app_data$solution_ids,
+      stats::setNames(s$id, s$name)
+    )
 
-      ### add new solution to the map
-      app_data$solution$render_on_map(map)
-
-      ### add new solution to solution results widget
-      addSolutionResults(
-        session = session,
-        inputId = "solutionResultsPane_results",
-        value = app_data$solution
+    ## add new solution to export sidebar
+    shiny::updateSelectizeInput(
+      session = session,
+      inputId = "exportPane_fields",
+      choices = c(
+        stats::setNames(app_data$project_data_id, "Project data"),
+        app_data$solution_ids
       )
+    )
 
-      ### add new solution on the results widget
-      showSolutionResults(
-        session = session,
-        inputId = "solutionResultsPane_results",
-        value = s
-      )
+    ### add new solution to solution results widget
+    addSolutionResults(
+      session = session,
+      inputId = "solutionResultsPane_results",
+      value = s
+    )
 
-      ### drop previous solution from results widget
-      if (!is.null(previous_s_id)) {
-        dropSolutionResults(
-          session = session,
-          inputId = "solutionResultsPane_results",
-          value = previous_s_id
-        )
-      }
+    ## show solution in sidebar
+    shinyWidgets::updatePickerInput(
+      session = session,
+      inputId = "solutionResultsPane_results_select",
+      choices = app_data$solution_ids,
+      selected = dplyr::last(app_data$solution_ids)
+    )
+    showSolutionResults(
+      session = session,
+      inputId = "solutionResultsPane_results",
+      value = s$id
+    )
 
-      ### show solution results sidebar
-      leaflet.extras2::openSidebar(
-        map,
-        id = "solutionResultsPane", sidebar_id = "mainSidebar"
-      )
+    ## add new solution to solution results modal
+    shinyWidgets::updatePickerInput(
+      session = session,
+      inputId = "solutionModal_select",
+      choices = app_data$solution_ids,
+      selected = dplyr::last(app_data$solution_ids)
+    )
 
-      ### enable solution results modal button after generating first solution
-      if (is.null(previous_s_id)) {
-        enable_html_css_selector("#mainSidebar li:nth-child(2)")
-      }
-    } else {
-      ## if solution is not feasible, then...
-      ## display modal with an error
-      shinyBS::toggleModal(session, "errorModal", toggle = "open")
-      ## and prevent solution download
-      shinyjs::disable("export_btn")
-      shinyBS::addTooltip(
-        session, "export_btn_div",
-        "Please generate a valid prioritization to download the results."
-      )
+    ### make leaflet proxy
+    map <- leaflet::leafletProxy("map")
+
+    ### add new solution to the map
+    s$render_on_map(map)
+
+    ### show solution results sidebar
+    leaflet.extras2::openSidebar(
+      map = map,
+      id = "solutionResultsPane",
+      sidebar_id = "mainSidebar"
+    )
+
+    ## reset solution name
+    shiny::updateTextInput(
+      session = session,
+      inputId = "newSolutionPane_settings_name",
+      value = ""
+    )
+
+    ### enable solution results modal button after generating first solution
+    if (length(app_data$solution) == 1) {
+      enable_html_css_selector("#mainSidebar li:nth-child(2)")
     }
 
     ## reset buttons and input widgets
+    disable_html_element("newSolutionPane_settings_stop_button")
     shinyFeedback::resetLoadingButton("newSolutionPane_settings_start_button")
-    disable_html_element("newSolutionPane_setting_stop_button")
-
+    enable_html_element("newSolutionPane_settings_name")
   })
 
 })

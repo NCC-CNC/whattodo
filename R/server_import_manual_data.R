@@ -31,7 +31,7 @@ server_import_manual_data <- quote({
       read_manual_project(
         spreadsheet_path = app_data$spreadsheet_path,
         spatial_path = app_data$spatial_path,
-        parameters = parameters
+        parameters = app_data$parameters
       ),
       silent = TRUE
     )

@@ -22,6 +22,9 @@ Project <- R6::R6Class(
     #' @field feature_ids `character` vector
     feature_ids = NA_character_,
 
+    #' @field feature_html_ids `character` vector
+    feature_html_ids = NA_character_,
+
     #' @field feature_descriptions `character` vector
     feature_descriptions = NA_character_,
 
@@ -139,6 +142,9 @@ Project <- R6::R6Class(
       self$site_ids <- site_ids
       self$site_descriptions <- site_descriptions
       self$feature_ids <- feature_ids
+      self$feature_html_ids <- stats::setNames(
+        convert_to_html_id(feature_ids), feature_ids
+      )
       self$feature_descriptions <- feature_descriptions
       self$action_ids <- action_ids
       self$action_descriptions <- action_descriptions
@@ -151,7 +157,7 @@ Project <- R6::R6Class(
 
       # assign fields derived from parameters
       ## site data headers
-      self$site_cost_headers <- setNames(
+      self$site_cost_headers <- stats::setNames(
         glue::glue(
           parameters$site_data_sheet$action_cost_header,
           action_ids = action_ids
@@ -160,7 +166,7 @@ Project <- R6::R6Class(
       )
       self$site_status_header <- parameters$site_data_sheet$status_header
       ## action data headers
-      self$action_feasibility_headers <- setNames(
+      self$action_feasibility_headers <- stats::setNames(
         glue::glue(
           parameters$feasibility_data_sheet$action_feasibility_header,
           action_ids = action_ids
@@ -171,14 +177,14 @@ Project <- R6::R6Class(
       self$feature_goal_header <- parameters$feature_data_sheet$goal_header
       self$feature_weight_header <- parameters$feature_data_sheet$weight_header
       ## action expectation data headers
-      self$action_expectation_feature_headers <- setNames(
+      self$action_expectation_feature_headers <- stats::setNames(
         glue::glue(
           parameters$action_expectation_sheet$action_expectation_header,
           feature_ids = feature_ids
         ),
         feature_ids
       )
-      self$action_expectation_action_headers <- setNames(
+      self$action_expectation_action_headers <- stats::setNames(
         glue::glue(
           parameters$action_expectation_sheet$sheet_name,
           action_ids = action_ids
@@ -243,6 +249,20 @@ Project <- R6::R6Class(
     #' @return `character` vector.
     get_feature_ids = function() {
       self$feature_ids
+    },
+
+    #' @description
+    #' Get feature HTML identifiers.
+    #' @param feature_html_id `character` vector of feature identifiers.
+    #' @return `character` vector.
+    get_feature_ids_from_html_id = function(feature_html_id) {
+      assertthat::assert_that(
+        is.character(feature_html_id),
+        assertthat::noNA(feature_html_id),
+        all(feature_html_id %in% self$feature_html_ids)
+      )
+      i <- match(feature_html_id, self$feature_html_ids)
+      names(self$feature_html_ids[i])
     },
 
     #' @description
@@ -414,9 +434,9 @@ Project <- R6::R6Class(
       do.call(prioritizr::zones, args)
     },
 
-
     #' @description
     #' Get goal data for optimization.
+    #' @return `data.frame` object.
     get_goal_data = function() {
       tibble::tibble(
         feature = self$feature_ids,
@@ -424,7 +444,7 @@ Project <- R6::R6Class(
         type = "absolute",
         sense = ">=",
         target = c(
-          self$feature_data[[self$feature_goal_header]] *
+          (self$feature_data[[self$feature_goal_header]] / 100) *
           self$get_max_feature_expectation()$amount
         )
       )
@@ -432,6 +452,7 @@ Project <- R6::R6Class(
 
     #' @description
     #' Get weight data for optimization.
+    #' @return `data.frame` object.
     get_weight_data = function() {
       tibble::tibble(
         feature = self$feature_ids,
@@ -441,6 +462,7 @@ Project <- R6::R6Class(
 
     #' @description
     #' Get locked data for optimization.
+    #' @return `data.frame` object.
     get_locked_data = function() {
       # prepare data
       d <- self$feasibility_data
@@ -455,31 +477,17 @@ Project <- R6::R6Class(
 
     #' @description
     #' Get the bounding box.
-    #' @param native `logical` indicating if the bounding box should
-    #'   be in (`TRUE`) the native coordinate reference system or (`FALSE`)
-    #'   re-projected to longitude/latitude?
     #' @param expand `FALSE` should the bounding box be expanded by 10%?
     #' @return `list` object with `"xmin"`, `"xmax"`, `"ymin"`, and `"ymax"`
     #'   elements.
-    get_bbox = function(native = TRUE, expand = FALSE) {
+    get_bbox = function(expand = FALSE) {
       # assert arguments are valid
       assertthat::assert_that(
-        assertthat::is.flag(native),
-        assertthat::noNA(native),
         assertthat::is.flag(expand),
         assertthat::noNA(expand)
       )
       # generate extent object
-      if (native) {
-        # if native then extract extent
-        ext <- as.list(sf::st_bbox(self$site_geometry))
-      } else {
-        # if not native, then reproject data and extract extent
-        ext <- sf::st_as_sf(
-          sf::st_bbox(self$site_geometry), crs = sf::st_crs(self$site_geometry)
-        )
-        ext <- as.list(sf::st_bbox(sf::st_transform(ext, 4326)))
-      }
+      ext <- as.list(sf::st_bbox(self$site_geometry))
       # expand bounding box if needed
       if (expand) {
         out <- list()
@@ -496,18 +504,17 @@ Project <- R6::R6Class(
         )
       }
       # if using lon/lat CRS, then ensure valid extent
-      if (!native) {
-        out$xmin <- max(out$xmin, -180)
-        out$xmax <- min(out$xmax, 180)
-        out$ymin <- max(out$ymin, -90)
-        out$ymax <- min(out$ymax, 90)
-      }
+      out$xmin <- max(out$xmin, -180)
+      out$xmax <- min(out$xmax, 180)
+      out$ymin <- max(out$ymin, -90)
+      out$ymax <- min(out$ymax, 90)
       # return result
       out
     },
 
     #' @description
     #' Get data for rendering the solution settings widget.
+    #' @return `list` object.
     get_solution_settings_data = function() {
       list(
         themes = self$get_goals_settings_data(),
@@ -518,6 +525,7 @@ Project <- R6::R6Class(
 
     #' @description
     #' Get data for rendering widget to specify goals.
+    #' @return `list` object.
     get_goals_settings_data = function() {
       # extract column names from parameters
       nh <- self$parameters$feature_data_sheet$name_header
@@ -526,20 +534,16 @@ Project <- R6::R6Class(
       cr <- self$get_current_feature_expectation()
       # generate data
       lapply(seq_len(nrow(self$feature_data)), function(i) {
-        id <- self$get_feature_ids()[[i]]
-
         list(
-          id = paste0("T", convert_to_id(id)),
-          name = id,
-          feature_name = id,
-          feature_id = paste0("F", convert_to_id(id)),
-          feature_status = isTRUE(self$feature_data[[th]][[i]] > 1e-10),
+          id = paste0("T", self$feature_html_ids[[i]]),
+          name = self$feature_ids[[i]],
+          feature_name = self$feature_ids[[i]],
+          feature_id = paste0("F", self$feature_html_ids[[i]]),
           feature_total_amount = mx$amount[[i]],
           feature_current_held = cr$amount[[i]] / mx$amount[[i]],
           feature_min_goal = 0,
           feature_max_goal = 1,
           feature_goal = self$feature_data[[th]][[i]] / 100,
-          feature_limit_goal = 0,
           feature_step_goal = 0.01,
           units = "units"
         )
@@ -548,6 +552,7 @@ Project <- R6::R6Class(
 
     #' @description
     #' Get data for rendering widget to specify weights.
+    #' @return `list` object.
     get_weights_settings_data = function() {
       # extract column names from parameters
       nh <- self$parameters$feature_data_sheet$name_header
@@ -555,8 +560,10 @@ Project <- R6::R6Class(
       # generate data
       lapply(seq_len(nrow(self$feature_data)), function(i) {
         list(
-          id = paste0("W", convert_to_id(self$feature_data[[nh]][[i]])),
+          id = paste0("W", self$feature_html_ids[[i]]),
           name = self$feature_data[[nh]][[i]],
+          min_factor = 0,
+          max_factor = 100,
           factor = self$feature_data[[wh]][[i]],
           step_factor = 1
         )
@@ -571,6 +578,7 @@ Project <- R6::R6Class(
       assertthat::assert_that(
         assertthat::is.string(feature_id),
         assertthat::noNA(feature_id),
+        isTRUE(feature_id %in% self$feature_ids),
         assertthat::is.number(value),
         assertthat::noNA(value)
       )
@@ -587,6 +595,7 @@ Project <- R6::R6Class(
       assertthat::assert_that(
         assertthat::is.string(feature_id),
         assertthat::noNA(feature_id),
+        isTRUE(feature_id %in% self$feature_ids),
         assertthat::is.number(value),
         assertthat::noNA(value)
       )
@@ -677,7 +686,7 @@ Project <- R6::R6Class(
     ) {
       # assert that arguments are valid
       assertthat::assert_that(
-        inherits(map, "leaflet"),
+        inherits(map, c("leaflet", "leaflet_proxy")),
         assertthat::is.string(data),
         assertthat::noNA(data),
         assertthat::is.string(group),
@@ -692,7 +701,7 @@ Project <- R6::R6Class(
           domain = "Sites",
         )
         vals <- rep("Sites", length(self$site_ids))
-        popups <- setNames(
+        popups <- stats::setNames(
           object = tibble::tibble(name = self$site_ids),
           nm = self$parameters$site_data_sheet$name_header
         )
@@ -702,7 +711,7 @@ Project <- R6::R6Class(
           palette = self$action_colors,
           domain = names(self$action_ids),
         )
-        popups <- setNames(
+        popups <- stats::setNames(
           object = tibble::tibble(
             name = self$site_ids,
             action = self$site_data[[4]]
@@ -727,7 +736,7 @@ Project <- R6::R6Class(
           palette = "inferno",
           domain = range(v)
         )
-        popups <- setNames(
+        popups <- stats::setNames(
           object = tibble::tibble(name = self$site_ids, x = v),
           nm = c(
             self$parameters$site_data_sheet$name_header,
@@ -754,7 +763,7 @@ Project <- R6::R6Class(
           ),
           domain = c("feasible", "infeasible"),
         )
-        popups <- setNames(
+        popups <- stats::setNames(
           object = tibble::tibble(
             name = self$site_ids,
             x = dplyr::if_else(
@@ -788,7 +797,7 @@ Project <- R6::R6Class(
           domain = range(v)
         )
         h <- self$parameters$action_expectation_sheet$action_expectation_header
-        popups <- setNames(
+        popups <- stats::setNames(
           object = tibble::tibble(name = self$site_ids, value = v),
           nm = c(
             self$parameters$site_data_sheet$name_header,
@@ -802,6 +811,7 @@ Project <- R6::R6Class(
 
       # clear group from map
       map <- leaflet::clearGroup(map, group)
+      map <- leaflet::removeControl(map, "legend")
 
       # add data to map
       map <- leafem::addFeatures(
@@ -819,10 +829,10 @@ Project <- R6::R6Class(
 
       # add legend to map
       map <- leaflet::addLegend(
+        layerId = "legend",
         map = map,
         pal = pal,
         values = vals,
-        group = group,
         position = "bottomright",
       )
 
@@ -831,7 +841,8 @@ Project <- R6::R6Class(
     },
 
     #' @description
-    #' Render site data using \pkg{rhandsontable}.
+    #' Render site data.
+    #' @return [rhandsontable::rhandsontable] object.
     render_site_data = function() {
       # initialize table
       r <- rhandsontable::rhandsontable(self$site_data, useTypes = TRUE)
@@ -848,14 +859,15 @@ Project <- R6::R6Class(
     },
 
     #' @description
-    #' Render feature data using \pkg{rhandsontable}.
+    #' Render feature data.
+    #' @return [rhandsontable::rhandsontable] object.
     render_feature_data = function() {
       # initialize table
       r <- rhandsontable::rhandsontable(self$feature_data, useTypes = TRUE)
       r <- rhandsontable::hot_col(r, col = 1, readOnly = TRUE)
       r <- rhandsontable::hot_validate_numeric(
         r, 2,
-        min = 0, max = 1e+6, allowInvalid = FALSE
+        min = 0, max = 100, allowInvalid = FALSE
       )
       r <- rhandsontable::hot_validate_numeric(
         r, 3,
@@ -866,7 +878,8 @@ Project <- R6::R6Class(
     },
 
     #' @description
-    #' Render feasibility data using \pkg{rhandsontable}.
+    #' Render feasibility data.
+    #' @return [rhandsontable::rhandsontable] object.
     render_feasibility_data = function() {
       # initialize table
       r <- rhandsontable::rhandsontable(
@@ -898,8 +911,9 @@ Project <- R6::R6Class(
     },
 
     #' @description
-    #' Render action expectation data using \pkg{rhandsontable}.
+    #' Render action expectation data.
     #' @param action_id `character` identifier for action.
+    #' @return [rhandsontable::rhandsontable] object.
     render_action_expectation_data = function(action_id) {
       # assert arguments are valid
       assertthat::assert_that(
@@ -948,7 +962,7 @@ Project <- R6::R6Class(
           feature_data = self$feature_data,
           action_expectation_data = self$action_expectation_data,
           ## parameters
-          parameters = parameters
+          parameters = self$parameters
         ),
         file = workbook_path,
         overwrite = TRUE,
@@ -1051,10 +1065,15 @@ new_project <- function(site_ids,
       length(site_ids) == nrow(site_data)
     )
     site_geometry <- sf::st_as_sf(
-      setNames(site_data[, c(1, 2, 3), drop = FALSE], c("id", "x", "y")),
+      stats::setNames(site_data[, c(1, 2, 3), drop = FALSE], c("id", "x", "y")),
       coords = c("x", "y"),
       crs = 4326
     )
+  }
+
+  # reproject geometry data if needed
+  if (sf::st_crs(site_geometry) != sf::st_crs(4326)) {
+    site_geometry <- sf::st_transform(site_geometry, sf::st_crs(4326))
   }
 
   # create new dataset

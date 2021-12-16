@@ -18,7 +18,9 @@ prioritization_without_budget <- function(site_ids,
                                           goal_data,
                                           locked_data,
                                           parameters,
-                                          gap = 0) {
+                                          gap = 0,
+                                          verbose = TRUE,
+                                          time_limit = .Machine$integer.max) {
   # assert arguments are valid
   assertthat::assert_that(
     is.character(site_ids),
@@ -33,7 +35,9 @@ prioritization_without_budget <- function(site_ids,
     inherits(locked_data, "data.frame"),
     assertthat::is.number(gap),
     isTRUE(gap >= 0),
-    is.list(parameters)
+    is.list(parameters),
+    assertthat::is.count(time_limit),
+    assertthat::noNA(time_limit)
   )
 
   # process cost names
@@ -49,33 +53,29 @@ prioritization_without_budget <- function(site_ids,
     prioritizr::add_manual_targets(goal_data) %>%
     prioritizr::add_mandatory_allocation_constraints() %>%
     prioritizr::add_binary_decisions() %>%
-    prioritizr::add_default_solver(gap = gap, verbose = FALSE)
+    prioritizr::add_default_solver(
+      gap = gap, verbose = verbose, time_limit = time_limit
+    )
   if (nrow(locked_data) > 0) {
     prb <-
       prb %>%
       prioritizr::add_manual_locked_constraints(locked_data)
   }
-  sol <- try(prioritizr::solve(prb), silent = TRUE)
+  sol <- prioritizr::solve(prb)
 
   # summarize results
-  if (inherits(sol, "try-error")) {
-    out <- format_solution_error(parameters = parameters)
-    out$solved <- FALSE
-  } else {
-    out <- format_solution_results(
-      site_ids = site_ids,
-      feature_ids = feature_ids,
-      action_ids =  action_ids,
-      pu_data = pu_data,
-      zone_data = zone_data,
-      goal_data = goal_data,
-      locked_data = locked_data,
-      solution_data = sol,
-      budget = NA,
-      parameters = parameters
-    )
-    out$solved <- TRUE
-  }
+  out <- format_solution_results(
+    site_ids = site_ids,
+    feature_ids = feature_ids,
+    action_ids =  action_ids,
+    pu_data = pu_data,
+    zone_data = zone_data,
+    goal_data = goal_data,
+    locked_data = locked_data,
+    solution_data = sol,
+    budget = NA,
+    parameters = parameters
+  )
 
   # return results
   out

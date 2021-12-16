@@ -127,8 +127,10 @@ slider_component_scaffold <- function(bar = NULL) {
 #' @return `shiny.tag` object.
 #'
 #' @noRd
-header_component_scaffold <- function(
-  type, reset_button = FALSE, id = uuid::UUIDgenerate()) {
+header_component_scaffold <- function(type,
+                                      status_button = FALSE,
+                                      reset_button = FALSE,
+                                      id = uuid::UUIDgenerate()) {
   # assert arguments are valid
   assertthat::assert_that(
     assertthat::is.string(type),
@@ -136,6 +138,7 @@ header_component_scaffold <- function(
     assertthat::is.flag(reset_button)
   )
 
+  # set text for reset button
   if (reset_button) {
     if (type == "theme") {
       reset_button_text <- "Reset to default goal"
@@ -147,27 +150,29 @@ header_component_scaffold <- function(
   # HTML scaffold
   htmltools::tags$div(
     class = "header",
-    htmltools::tags$label(
-      class = "el-switch",
-      htmltools::tags$input(
-        type = "checkbox",
-        class = "status-checkbox status",
-        id = id
-      ),
-      htmltools::tags$span(
-        class = "el-switch-style",
-        `data-toggle` = "tooltip",
-        `data-placement` = "top",
-        `data-container` = "body",
-        `data-trigger` = "hover",
-        title = paste(
-          "Enable/disable the ",
-          tools::toTitleCase(type),
-          " when generating a solution"
+    if (status_button) {
+      htmltools::tags$label(
+        class = "el-switch",
+        htmltools::tags$input(
+          type = "checkbox",
+          class = "status-checkbox status",
+          id = id
         ),
-        `for` = id
+        htmltools::tags$span(
+          class = "el-switch-style",
+          `data-toggle` = "tooltip",
+          `data-placement` = "top",
+          `data-container` = "body",
+          `data-trigger` = "hover",
+          title = paste(
+            "Enable/disable the ",
+            tools::toTitleCase(type),
+            " when generating a solution"
+          ),
+          `for` = id
+        )
       )
-    ),
+    },
     if (reset_button) {
       htmltools::tags$button(
         class = "reset-button disable-if-inactive",

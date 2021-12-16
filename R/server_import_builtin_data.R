@@ -26,13 +26,16 @@ server_import_builtin_data <- quote({
     x <- try(
       read_builtin_project(
         path = input$importModal_name,
-        parameters = parameters
+        parameters = app_data$parameters
       ),
       silent = TRUE
     )
 
     ## throw error if needed
     if (inherits(x, c("try-error", "error"))) {
+      ## print error
+      golem::print_dev("Error importing data:")
+      golem::print_dev(x)
 
       ## try to parse project author details
       project_config <- try(

@@ -11,7 +11,6 @@ class ThemeSetting {
     feature_min_goal,
     feature_max_goal,
     feature_goal,
-    feature_limit_goal,
     feature_step_goal,
     units
   ) {
@@ -63,12 +62,6 @@ class ThemeSetting {
 
     // set listeners to update user interface
     if (HTMLWidgets.shinyMode) {
-      /// enforce minimum limit
-      this.goal_el.noUiSlider.on("change", function (values, handle) {
-        if (values[handle] < that.limit) {
-          that.goal_el.noUiSlider.set(that.limit);
-        }
-      });
       /// update goal label
       this.goal_el.noUiSlider.on("update", function (values, handle) {
         goal_label_el.innerText = goal_label_text(
@@ -84,15 +77,12 @@ class ThemeSetting {
     if (HTMLWidgets.shinyMode) {
       /// goal
       this.goal_el.noUiSlider.on("update", function(values, handle) {
-        let v = parseFloat(values[handle]);
-        if (v >= feature_limit_goal) {
-          Shiny.setInputValue(manager, {
-            id: id,
-            setting: "feature_goal",
-            value: v,
-            type: "theme"
-          });
-        }
+        Shiny.setInputValue(manager, {
+          id: id,
+          setting: "feature_goal",
+          value: parseFloat(values[handle]),
+          type: "theme"
+        });
       });
     }
   }

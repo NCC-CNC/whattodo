@@ -80,13 +80,6 @@ class ThemeResults {
 
     // render chart on HTML element
     chart.render(this.el);
-
-    // add provenance
-    createProvenance(
-      this.el.querySelector(".provenance-container label"), feature_provenance
-    );
-    $(this.el).find('[data-toggle="tooltip"]').tooltip()
-
   }
 
   /* render method */

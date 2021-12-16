@@ -23,11 +23,6 @@ test_that("st_geometry_data_type", {
   expect_equal(st_geometry_data_type(s5), "MULTILINESTRING")
 })
 
-test_that("convert_to_id", {
-  expect_equal(convert_to_id("asdf"), "asdf")
-  expect_equal(convert_to_id("a s df"), "a_s_df")
-})
-
 test_that("paste_vector", {
   expect_equal(paste_vector("a"), "\"a\"")
   expect_equal(paste_vector(c("a", "b")), "\"a\", \"b\"")

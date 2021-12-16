@@ -30,12 +30,12 @@ test_that("works", {
     locked_data = p$get_locked_data(),
     budget = 1500,
     gap = 0,
-    parameters = parameters
+    parameters = parameters,
+    verbose = FALSE
   )
   # tests
   expect_is(x, "list")
   expect_is(x$summary_results, "data.frame")
   expect_is(x$feature_results, "data.frame")
   expect_is(x$site_results, "data.frame")
-  expect_true(x$solved)
 })

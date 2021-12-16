@@ -13,6 +13,9 @@ Solution <- R6::R6Class(
     #' @field id `character` identifier.
     id = NA_character_,
 
+    #' @field name `character` name.
+    name = NA_character_,
+
     #' @field project [Project] object.
     project = NULL,
 
@@ -28,48 +31,45 @@ Solution <- R6::R6Class(
     #' @field feature_results `data.frame` object.
     feature_results = NULL,
 
-    #' @field solved `logical` value.
-    solved = NA,
-
     #' @description
     #' Create a Solution object.
     #' @param id `character` identifier.
+    #' @param name `character` value.
     #' @param project `character` identifier.
     #' @param settings `list` of [Parameter] objects.
     #' @param summary_results `data.frame` object.
     #' @param site_results `data.frame` object.
     #' @param feature_results `data.frame` object.
-    #' @param solved `logical` value.
     #' @return A new Solution object.
     initialize = function(id,
+                          name,
                           project,
                           settings,
                           summary_results,
                           site_results,
-                          feature_results,
-                          solved) {
+                          feature_results) {
       # assert that arguments are valid
       assertthat::assert_that(
         assertthat::is.string(id),
         assertthat::noNA(id),
+        assertthat::is.string(name),
+        assertthat::noNA(name),
         is.list(settings),
         all_list_elements_inherit(settings, "Parameter"),
         inherits(project, "Project"),
         inherits(summary_results, "data.frame"),
         inherits(site_results, "data.frame"),
-        inherits(feature_results, "data.frame"),
-        assertthat::is.flag(solved),
-        assertthat::noNA(solved)
+        inherits(feature_results, "data.frame")
       )
 
       # assign fields
       self$id <- id
+      self$name <- name
       self$project <- project
       self$settings <- settings
       self$summary_results <- summary_results
       self$site_results <- site_results
       self$feature_results <- feature_results
-      self$solved <- solved
 
     },
 
@@ -79,11 +79,11 @@ Solution <- R6::R6Class(
     print = function(...) {
       message("Solution")
       message("  id:       ", self$id)
+      message("  name:     ", self$name)
       message("  sites:    ", paste_vector(self$project$site_ids))
       message("  features: ", paste_vector(self$project$feature_ids))
       message("  actions:  ", paste_vector(self$project$action_ids))
       message("  geometry: ", inherits(self$project$site_geometry, "sf"))
-      message("  solved: ", self$solved)
       invisible(self)
     },
 
@@ -118,21 +118,11 @@ Solution <- R6::R6Class(
 
     #' @description
     #' Get the bounding box.
-    #' @param native `logical` indicating if the bounding box should
-    #'   be in (`TRUE`) the native coordinate reference system or (`FALSE`)
-    #'   re-projected to longitude/latitude?
     #' @param expand `FALSE` should the bounding box be expanded by 10%?
     #' @return `list` object with `"xmin"`, `"xmax"`, `"ymin"`, and `"ymax"`
     #'   elements.
-    get_bbox = function(native = TRUE, expand = FALSE) {
-      self$project$get_bbox(native = native, expand = expand)
-    },
-
-    #' @description
-    #' Is solved?
-    #' @return `logical` value.
-    is_solved = function() {
-      self$solved
+    get_bbox = function(expand = FALSE) {
+      self$project$get_bbox(expand = expand)
     },
 
     #' @description
@@ -142,46 +132,44 @@ Solution <- R6::R6Class(
     #' @return [leaflet::leaflet()] map.
     render_on_map = function(map, group = "sites") {
       # assert that argument is valid
-      assertthat::assert_that(inherits(map, "leaflet"))
+      assertthat::assert_that(inherits(map, c("leaflet", "leaflet_proxy")))
+
       # prepare data for map
-      if (self$solved) {
-        ## if object does contain a solution, then add it to the map
-        pal <- leaflet::colorFactor(
-          palette = self$project$action_colors,
-          domain = names(self$project$action_ids),
-        )
-        popups <- self$site_results
-        vals <- popups[[2]]
+      pal <- leaflet::colorFactor(
+        palette = self$project$action_colors,
+        domain = names(self$project$action_ids),
+      )
+      popups <- self$site_results
+      vals <- popups[[2]]
 
-        ## clear group from map
-        map <- leaflet::clearGroup(map, group)
+      # clear group from map
+      map <- leaflet::clearGroup(map, group)
+      map <- leaflet::removeControl(map, "legend")
 
-        ## add data to map
-        map <- leafem::addFeatures(
-          map = map,
-          data = self$project$site_geometry,
-          groupId = group,
-          color = pal(vals),
-          fillColor = pal(vals),
-          popup = leafpop::popupTable(
-            x = popups,
-            row.numbers = FALSE,
-            feature.id = FALSE
-          )
+      # add data to map
+      map <- leafem::addFeatures(
+        map = map,
+        data = self$project$site_geometry,
+        groupId = group,
+        color = pal(vals),
+        fillColor = pal(vals),
+        popup = leafpop::popupTable(
+          x = popups,
+          row.numbers = FALSE,
+          feature.id = FALSE
         )
+      )
 
-        ## add legend to map
-        map <- leaflet::addLegend(
-          map = map,
-          pal = pal,
-          values = vals,
-          group = group,
-          position = "bottomright",
-        )
-      } else {
-        ## if object does not contain a solution, then simply show sites
-        map <- self$project$render_on_map(map, data = "location", group = group)
-      }
+      # add legend to map
+      map <- leaflet::addLegend(
+        layerId = "legend",
+        map = map,
+        pal = pal,
+        values = vals,
+        position = "bottomright",
+      )
+
+      # return result
       map
     },
 
@@ -201,26 +189,31 @@ Solution <- R6::R6Class(
           list(
             name = self$summary_results[[1]][[i]],
             value = self$summary_results[[2]][[i]],
-            units = "units",
+            units = dplyr::case_when(
+              endsWith(self$summary_results[[1]][[i]], "cost") ~ "CAD",
+              startsWith(self$summary_results[[1]][[i]], "Number") ~ "sites",
+              TRUE ~ ""
+            ),
             proportion = ""
           )
         }),
         theme_results = lapply(
           seq_len(nrow(self$feature_results)), function(i) {
-            id <- self$get_feature_ids()[[i]]
+            ## extract values
+            max_held <- self$project$get_max_feature_expectation()$amount
+            curr_held <- self$project$get_current_feature_expectation()$amount
+            sol_held <- rowSums(as.matrix(self$feature_results[, -1]))
+            ## return result
             list(
-              id = paste0("T", convert_to_id(id)),
-              name = id,
-              feature_name = id,
-              feature_id = paste0("F", convert_to_id(id)),
+              id = paste0("T", self$project$feature_html_ids[[i]]),
+              name = self$project$feature_ids[[i]],
+              feature_id = paste0("F", self$project$feature_html_ids[[i]]),
+              feature_name = self$project$feature_ids[[i]],
               feature_status = isTRUE(self$feature_data[[th]][[i]] > 1e-10),
-              feature_total_amount = self$project$current_data$total[[i]],
-              feature_current_held = self$project$current_data$held[[i]],
+              feature_total_amount = max_held[[i]],
+              feature_current_held = curr_held[[i]] / max_held[[i]],
               feature_goal = self$project$feature_data[[th]][[i]],
-              feature_solution_held = c(
-                self$feature_results[[tah]][[i]] /
-                self$project$current_data$total[[i]]
-              ),
+              feature_solution_held = sol_held[[i]] / max_held[[i]],
               units = "units"
             )
           }
@@ -230,47 +223,121 @@ Solution <- R6::R6Class(
     },
 
     #' @description
-    #' Display summary results data using \pkg{rhandontable}.
+    #' Render site data.
+    #' @return [rhandsontable::rhandsontable] object.
+    render_site_data = function() {
+      rhandsontable::hot_cols(
+        self$project$render_site_data(),
+        readOnly = TRUE
+      )
+    },
+
+    #' @description
+    #' Render feature data.
+    #' @return [rhandsontable::rhandsontable] object.
+    render_feature_data = function() {
+      rhandsontable::hot_cols(
+        self$project$render_feature_data(),
+        readOnly = TRUE
+      )
+    },
+
+    #' @description
+    #' Render feasibility data.
+    #' @return [rhandsontable::rhandsontable] object.
+    render_feasibility_data = function() {
+      rhandsontable::hot_cols(
+        self$project$render_feasibility_data(),
+        readOnly = TRUE
+      )
+    },
+
+    #' @description
+    #' Render action expectation data.
+    #' @param action_id `character` identifier for action.
+    #' @return [rhandsontable::rhandsontable] object.
+    render_action_expectation_data = function(action_id) {
+      rhandsontable::hot_cols(
+        self$project$render_action_expectation_data(action_id = action_id),
+        readOnly = TRUE
+      )
+    },
+
+    #' @description
+    #' Display summary results data.
+    #' @return [DT::datatable()] object.
     render_summary_results = function() {
-      is_error <- identical(
-        self$summary_results_data[[1]][[1]],
-        self$project$parameters$error_sheets$main_message
+      d <- self$summary_results
+      DT::datatable(
+        d,
+        rownames = FALSE,
+        escape = FALSE,
+        editable = FALSE,
+        selection = "none",
+        fillContainer = TRUE,
+        options = list(
+          ### align columns
+          columnDefs = list(
+            list(className = "dt-left", targets = 0),
+            list(className = "dt-center", targets = seq(1, ncol(d) - 1))
+          ),
+          ### disable paging
+          paging = FALSE,
+          scrollY = "calc(100vh - 295px)",
+          scrollCollapse = TRUE
+        )
       )
-      if (is_error) {
-        # use defaults if not showing specific error message
-        out <-
-          rhandsontable::hot_cols(
-            rhandsontable::rhandsontable(self$summary_results, useTypes = TRUE),
-            readOnly = TRUE
-          )
-      } else {
-        # manually specify column width
-        out <-
-          rhandsontable::hot_cols(
-            rhandsontable::rhandsontable(self$summary_results, useTypes = TRUE),
-            readOnly = TRUE, colWidths = rep(300, ncol(self$summary_results))
-          )
-      }
-      out
     },
 
     #' @description
-    #' Display site results data using \pkg{rhandontable}.
+    #' Display site results data.
+    #' @return [DT::datatable()] object.
     render_site_results = function() {
-      rhandsontable::hot_cols(
-        rhandsontable::rhandsontable(self$site_results, useTypes = TRUE),
-        readOnly = TRUE,
-        colWidths = c(300, rep(200, ncol(self$site_results) - 1))
+      d <- self$site_results
+      DT::datatable(
+        d,
+        rownames = FALSE,
+        escape = FALSE,
+        editable = FALSE,
+        selection = "none",
+        fillContainer = TRUE,
+        options = list(
+          ### align columns
+          columnDefs = list(
+            list(className = "dt-left", targets = 0),
+            list(className = "dt-center", targets = seq(1, ncol(d) - 1))
+          ),
+          ### disable paging
+          paging = FALSE,
+          scrollY = "calc(100vh - 295px)",
+          scrollCollapse = TRUE
+        )
       )
     },
 
     #' @description
-    #' Display feature results data using \pkg{rhandontable}.
+    #' Display feature results data.
+    #' @return [DT::datatable()] object.
     render_feature_results = function() {
-      rhandsontable::hot_cols(
-        rhandsontable::rhandsontable(self$feature_results, useTypes = TRUE),
-        readOnly = TRUE,
-        colWidths = c(300, rep(200, ncol(self$feature_results) - 1))
+      d <- self$feature_results
+      DT::datatable(
+        d,
+        rownames = FALSE,
+        escape = FALSE,
+        editable = FALSE,
+        selection = "none",
+        fillContainer = TRUE,
+        options = list(
+          ### align columns
+          columnDefs = list(
+            list(className = "dt-left", targets = 0),
+            list(className = "dt-center", targets = seq(1, ncol(d) - 1))
+          ),
+          ### disable paging
+          paging = FALSE,
+          scrollY = "calc(100vh - 295px)",
+          scrollCollapse = TRUE
+        )
       )
     },
 
@@ -332,6 +399,8 @@ Solution <- R6::R6Class(
 #'
 #' @param project [Project] object.
 #'
+#' @param name `character` value with name for solution.
+#'
 #' @param settings `list` of [Parameter] objects.
 #'
 #' @param summary_results `data.frame` containing the summary results.
@@ -339,9 +408,6 @@ Solution <- R6::R6Class(
 #' @param site_results `data.frame` containing the site results.
 #'
 #' @param feature_results `data.frame` containing the feature results.
-#'
-#' @param solved `logical` indicating if the results correspond to a
-#'  feasible solution.
 #'
 #' @inheritParams new_project
 #'
@@ -351,20 +417,20 @@ Solution <- R6::R6Class(
 #' #TODO
 #' @export
 new_solution <- function(project,
+                         name,
                          settings,
                          summary_results,
                          site_results,
                          feature_results,
-                         solved,
                          id = uuid::UUIDgenerate()) {
   # create new dataset
   Solution$new(
     id = id,
+    name = name,
     project = project,
     settings = settings,
     summary_results = summary_results,
     site_results = site_results,
-    feature_results = feature_results,
-    solved = solved
+    feature_results = feature_results
   )
 }

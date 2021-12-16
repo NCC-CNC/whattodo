@@ -45,17 +45,16 @@ Read a project from disk.
 \examples{
 # specify file paths
 f1 <- system.file(
-  "extdata", "projects", "canada", "canada.xlsx",
+  "extdata", "projects", "simulated-data", "simulated-data.xlsx",
   package = "whattodo"
 )
 f2 <- system.file(
-  "extdata",  "projects", "canada", "canada.shp",
+  "extdata",  "projects", "simulated-data", "simulated-data.shp",
   package = "whattodo"
 )
-f3 <- system.file("extdata",  "config.toml", package = "whatdataio")
 
 # read project
-x <- read_project(f1, yaml::yaml.load_file(f2), f3)
+x <- read_manual_project(f1, whatdataio::read_data_configuration(), f2)
 
 # print project
 print(x)

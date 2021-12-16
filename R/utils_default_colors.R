@@ -33,7 +33,7 @@ default_colors <- function(x) {
   }
 
   # return colors
-  setNames(out, x)
+  stats::setNames(out, x)
 }
 
 # internal character vector containing color codes

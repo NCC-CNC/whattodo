@@ -48,9 +48,7 @@
   max-height: calc(100vh - 312px);
 }
 
-.solution-results .themes-results,
-.solution-results .weights-results,
-.solution-results .includes-results {
+.solution-results .themes-results {
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
@@ -64,10 +62,7 @@
 }
 
 /* widgets */
-.solution-results .single-theme-result,
-.solution-results .multi-theme-result,
-.solution-results .weight-result,
-.solution-results .include-result {
+.solution-results .theme-result {
   padding: 5px;
   display: flex;
   flex-direction: column;

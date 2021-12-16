@@ -19,6 +19,8 @@ Definition for the Solution class.
 \describe{
 \item{\code{id}}{\code{character} identifier.}
 
+\item{\code{name}}{\code{character} name.}
+
 \item{\code{project}}{\link{Project} object.}
 
 \item{\code{settings}}{\code{list} of \link{Parameter} objects.}
@@ -28,8 +30,6 @@ Definition for the Solution class.
 \item{\code{site_results}}{\code{data.frame} object.}
 
 \item{\code{feature_results}}{\code{data.frame} object.}
-
-\item{\code{solved}}{\code{logical} value.}
 }
 \if{html}{\out{</div>}}
 }
@@ -43,9 +43,12 @@ Definition for the Solution class.
 \item \href{#method-get_feature_ids}{\code{Solution$get_feature_ids()}}
 \item \href{#method-get_action_ids}{\code{Solution$get_action_ids()}}
 \item \href{#method-get_bbox}{\code{Solution$get_bbox()}}
-\item \href{#method-is_solved}{\code{Solution$is_solved()}}
 \item \href{#method-render_on_map}{\code{Solution$render_on_map()}}
 \item \href{#method-get_solution_results_data}{\code{Solution$get_solution_results_data()}}
+\item \href{#method-render_site_data}{\code{Solution$render_site_data()}}
+\item \href{#method-render_feature_data}{\code{Solution$render_feature_data()}}
+\item \href{#method-render_feasibility_data}{\code{Solution$render_feasibility_data()}}
+\item \href{#method-render_action_expectation_data}{\code{Solution$render_action_expectation_data()}}
 \item \href{#method-render_summary_results}{\code{Solution$render_summary_results()}}
 \item \href{#method-render_site_results}{\code{Solution$render_site_results()}}
 \item \href{#method-render_feature_results}{\code{Solution$render_feature_results()}}
@@ -61,12 +64,12 @@ Create a Solution object.
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{Solution$new(
   id,
+  name,
   project,
   settings,
   summary_results,
   site_results,
-  feature_results,
-  solved
+  feature_results
 )}\if{html}{\out{</div>}}
 }
 
@@ -74,6 +77,8 @@ Create a Solution object.
 \if{html}{\out{<div class="arguments">}}
 \describe{
 \item{\code{id}}{\code{character} identifier.}
+
+\item{\code{name}}{\code{character} value.}
 
 \item{\code{project}}{\code{character} identifier.}
 
@@ -84,8 +89,6 @@ Create a Solution object.
 \item{\code{site_results}}{\code{data.frame} object.}
 
 \item{\code{feature_results}}{\code{data.frame} object.}
-
-\item{\code{solved}}{\code{logical} value.}
 }
 \if{html}{\out{</div>}}
 }
@@ -168,16 +171,12 @@ Get action identifiers.
 \subsection{Method \code{get_bbox()}}{
 Get the bounding box.
 \subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{Solution$get_bbox(native = TRUE, expand = FALSE)}\if{html}{\out{</div>}}
+\if{html}{\out{<div class="r">}}\preformatted{Solution$get_bbox(expand = FALSE)}\if{html}{\out{</div>}}
 }
 
 \subsection{Arguments}{
 \if{html}{\out{<div class="arguments">}}
 \describe{
-\item{\code{native}}{\code{logical} indicating if the bounding box should
-be in (\code{TRUE}) the native coordinate reference system or (\code{FALSE})
-re-projected to longitude/latitude?}
-
 \item{\code{expand}}{\code{FALSE} should the bounding box be expanded by 10\%?}
 }
 \if{html}{\out{</div>}}
@@ -185,19 +184,6 @@ re-projected to longitude/latitude?}
 \subsection{Returns}{
 \code{list} object with \code{"xmin"}, \code{"xmax"}, \code{"ymin"}, and \code{"ymax"}
 elements.
-}
-}
-\if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-is_solved"></a>}}
-\if{latex}{\out{\hypertarget{method-is_solved}{}}}
-\subsection{Method \code{is_solved()}}{
-Is solved?
-\subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{Solution$is_solved()}\if{html}{\out{</div>}}
-}
-
-\subsection{Returns}{
-\code{logical} value.
 }
 }
 \if{html}{\out{<hr>}}
@@ -233,34 +219,102 @@ Get data for rendering widget to display results.
 
 }
 \if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-render_site_data"></a>}}
+\if{latex}{\out{\hypertarget{method-render_site_data}{}}}
+\subsection{Method \code{render_site_data()}}{
+Render site data.
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{Solution$render_site_data()}\if{html}{\out{</div>}}
+}
+
+\subsection{Returns}{
+\link[rhandsontable:rhandsontable]{rhandsontable::rhandsontable} object.
+}
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-render_feature_data"></a>}}
+\if{latex}{\out{\hypertarget{method-render_feature_data}{}}}
+\subsection{Method \code{render_feature_data()}}{
+Render feature data.
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{Solution$render_feature_data()}\if{html}{\out{</div>}}
+}
+
+\subsection{Returns}{
+\link[rhandsontable:rhandsontable]{rhandsontable::rhandsontable} object.
+}
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-render_feasibility_data"></a>}}
+\if{latex}{\out{\hypertarget{method-render_feasibility_data}{}}}
+\subsection{Method \code{render_feasibility_data()}}{
+Render feasibility data.
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{Solution$render_feasibility_data()}\if{html}{\out{</div>}}
+}
+
+\subsection{Returns}{
+\link[rhandsontable:rhandsontable]{rhandsontable::rhandsontable} object.
+}
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-render_action_expectation_data"></a>}}
+\if{latex}{\out{\hypertarget{method-render_action_expectation_data}{}}}
+\subsection{Method \code{render_action_expectation_data()}}{
+Render action expectation data.
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{Solution$render_action_expectation_data(action_id)}\if{html}{\out{</div>}}
+}
+
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{action_id}}{\code{character} identifier for action.}
+}
+\if{html}{\out{</div>}}
+}
+\subsection{Returns}{
+\link[rhandsontable:rhandsontable]{rhandsontable::rhandsontable} object.
+}
+}
+\if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-render_summary_results"></a>}}
 \if{latex}{\out{\hypertarget{method-render_summary_results}{}}}
 \subsection{Method \code{render_summary_results()}}{
-Display summary results data using \pkg{rhandontable}.
+Display summary results data.
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{Solution$render_summary_results()}\if{html}{\out{</div>}}
 }
 
+\subsection{Returns}{
+\code{\link[DT:datatable]{DT::datatable()}} object.
+}
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-render_site_results"></a>}}
 \if{latex}{\out{\hypertarget{method-render_site_results}{}}}
 \subsection{Method \code{render_site_results()}}{
-Display site results data using \pkg{rhandontable}.
+Display site results data.
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{Solution$render_site_results()}\if{html}{\out{</div>}}
 }
 
+\subsection{Returns}{
+\code{\link[DT:datatable]{DT::datatable()}} object.
+}
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-render_feature_results"></a>}}
 \if{latex}{\out{\hypertarget{method-render_feature_results}{}}}
 \subsection{Method \code{render_feature_results()}}{
-Display feature results data using \pkg{rhandontable}.
+Display feature results data.
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{Solution$render_feature_results()}\if{html}{\out{</div>}}
 }
 
+\subsection{Returns}{
+\code{\link[DT:datatable]{DT::datatable()}} object.
+}
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-write"></a>}}

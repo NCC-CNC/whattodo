@@ -55,14 +55,14 @@ column_widths <- function(x) {
 
 #' Convert to identifier
 #'
-#' Convert a name to an identifier.
+#' Convert a name to a HTML identifier.
 #'
-#' @param x `character` value containing a name.
+#' @param x `character` vector containing identifiers.
 #'
 #' @return A `character` value.
-convert_to_id <- function(x) {
+convert_to_html_id <- function(x) {
   assertthat::assert_that(
-    assertthat::is.string(x),
+    is.character(x),
     assertthat::noNA(x)
   )
   # replace spaces with underscores

@@ -44,8 +44,16 @@ app_ui <- function(request) {
       ## help modal
       helpModal("helpModal", trigger = "help_button"),
 
+      ## data modal
+      dataModal("dataModal", trigger = "newSolutionPane_settings_edit_button"),
+
       ## error modal
       errorModal("errorModal", trigger = "error_button"),
+
+      ## solution modal
+      solutionModal(
+        "solutionModal", trigger = "solutionResultsPane_results_button"
+      ),
 
       ## sidebar
       leaflet.extras2::sidebar_tabs(
@@ -59,6 +67,7 @@ app_ui <- function(request) {
         ),
         newSolutionSidebarPane(id = "newSolutionPane"),
         solutionResultsSidebarPane(id = "solutionResultsPane"),
+        exportSidebarPane(id = "exportPane"),
         contactSidebarPane(id = "contactPane"),
         acknowledgmentsSidebarPane(id = "acknowledgmentsPane")
       )
