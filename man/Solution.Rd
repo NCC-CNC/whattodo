@@ -42,6 +42,7 @@ Definition for the Solution class.
 \item \href{#method-get_site_ids}{\code{Solution$get_site_ids()}}
 \item \href{#method-get_feature_ids}{\code{Solution$get_feature_ids()}}
 \item \href{#method-get_action_ids}{\code{Solution$get_action_ids()}}
+\item \href{#method-get_map_layers}{\code{Solution$get_map_layers()}}
 \item \href{#method-get_bbox}{\code{Solution$get_bbox()}}
 \item \href{#method-render_on_map}{\code{Solution$render_on_map()}}
 \item \href{#method-get_solution_results_data}{\code{Solution$get_solution_results_data()}}
@@ -166,6 +167,16 @@ Get action identifiers.
 }
 }
 \if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-get_map_layers"></a>}}
+\if{latex}{\out{\hypertarget{method-get_map_layers}{}}}
+\subsection{Method \code{get_map_layers()}}{
+Get layer names for rendering data on map
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{Solution$get_map_layers()}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-get_bbox"></a>}}
 \if{latex}{\out{\hypertarget{method-get_bbox}{}}}
 \subsection{Method \code{get_bbox()}}{
@@ -192,13 +203,16 @@ elements.
 \subsection{Method \code{render_on_map()}}{
 Render on map.
 \subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{Solution$render_on_map(map, group = "sites")}\if{html}{\out{</div>}}
+\if{html}{\out{<div class="r">}}\preformatted{Solution$render_on_map(map, data = "location", group = "sites")}\if{html}{\out{</div>}}
 }
 
 \subsection{Arguments}{
 \if{html}{\out{<div class="arguments">}}
 \describe{
 \item{\code{map}}{\code{\link[leaflet:leaflet]{leaflet::leaflet()}} object.}
+
+\item{\code{data}}{\code{character} name of dataset to show.
+Argument must be a valid layer name (see \code{self$get_map_layers()}).}
 
 \item{\code{group}}{\code{character} group name. Defaults to \code{"sites"}.}
 }

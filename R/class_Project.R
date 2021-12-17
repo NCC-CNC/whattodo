@@ -397,6 +397,44 @@ Project <- R6::R6Class(
     },
 
     #' @description
+    #' Get layer names for rendering data on map
+    get_map_layers = function() {
+      d <- expand.grid(x = self$action_ids, y = self$feature_ids)
+      stats::setNames(
+        object = c(
+          "location",
+          "status",
+          glue::glue("cost_{x}", x = self$action_ids),
+          glue::glue("feasibility_{x}", x = self$action_ids),
+          glue::glue("action_expectation_{x}_{y}", x = d$x, y = d$y)
+        ),
+        nm = c(
+          "Location",
+          self$parameters$site_data_sheet$status_header,
+          glue::glue(
+            self$parameters$site_data_sheet$action_cost_header,
+            action_ids = self$action_ids
+          ),
+          glue::glue(
+            self$parameters$feasibility_data_sheet$action_feasibility_header,
+            action_ids = self$action_ids
+          ),
+          paste0(
+            glue::glue(
+              self$parameters$action_expectation_sheet$sheet_name,
+              action_ids = d$x,
+            ),
+            ": ",
+            glue::glue(
+              self$parameters$action_expectation_sheet$action_expectation_header,
+              feature_ids = d$y,
+            )
+          )
+        )
+      )
+    },
+
+    #' @description
     #' Get planning unit data for optimization.
     get_pu_data = function() {
       ## extract cost
@@ -663,27 +701,10 @@ Project <- R6::R6Class(
     #' Render on map.
     #' @param map [leaflet::leaflet()] object.
     #' @param data `character` name of dataset to show.
-    #' This should be equal to one of: `"location"`,
-    #' `"status"`,
-    #' one of the action identifiers with a "cost_" prefix,
-    #' one of the action identifiers with a "feasibility_" prefix,
-    #' or one of the action and feature identifiers with a "action_expectation_"
-    #' prefix.
-    #' For example, to show the cost of implementing action `"none"`,
-    #' then the argument to data should be `"cost_none"`
-    #' Additionally, to show the action expectation for the action
-    #' `"none"` and the feature `"SPP1"`, then the argument should be
-    #' `"action_expectation_data_none&&&&&&&&&&&&SPP2"`.
-    #' Defaults to `"location"` such that the location of sites is shown
-    #' by displaying all sites with the same color.
+    #'   Argument must be a valid layer name (see `self$get_map_layers()`).
     #' @param group `character` group name. Defaults to `"sites"`.
-    #' @param action_id `character` (optional) identifier for action.
-    #' @param feature_id `character` (optional) identifier for feature.
     #' @return [leaflet::leaflet()] map.
-    render_on_map = function(
-      map, data = "location", group = "sites",
-      action_id = NULL, feature_id = NULL
-    ) {
+    render_on_map = function(map, data = "location", group = "sites") {
       # assert that arguments are valid
       assertthat::assert_that(
         inherits(map, c("leaflet", "leaflet_proxy")),
@@ -723,8 +744,10 @@ Project <- R6::R6Class(
         )
         vals <- popups[[2]]
       ## display cost
-    } else if (identical(data, "cost")) {
-        ### assert valid argument
+    } else if (startsWith(data, "cost")) {
+        ### extract id
+        action_id <- unglue::unglue_vec(data, "cost_{x}")
+        ### validate id
         assertthat::assert_that(
           assertthat::is.string(action_id),
           assertthat::noNA(action_id),
@@ -748,8 +771,10 @@ Project <- R6::R6Class(
         )
         vals <- popups[[2]]
       ## display feasibility
-      } else if (identical(data, "feasibility")) {
-        ### assert valid argument
+      } else if (startsWith(data, "feasibility")) {
+        ### extract id
+        action_id <- unglue::unglue_vec(data, "feasibility_{x}")
+        ### valid id
         assertthat::assert_that(
           assertthat::is.string(action_id),
           assertthat::noNA(action_id),
@@ -781,14 +806,16 @@ Project <- R6::R6Class(
         )
         vals <- popups[[2]]
       ## display action expectation data
-      } else if (identical(data, "action_expectation")) {
-        ### assert valid argument
+      } else if (startsWith(data, "action_expectation")) {
+        ### extract ids
+        d <- unglue::unglue_data(data, pattern = "action_expectation_{x}_{y}")
+        action_id <- d$x
+        feature_id <- d$y
+        ### validate ids
         assertthat::assert_that(
           assertthat::is.string(action_id),
-          assertthat::noNA(action_id),
-          isTRUE(action_id %in% self$action_ids),
           assertthat::is.string(feature_id),
-          assertthat::noNA(feature_id),
+          isTRUE(action_id %in% self$action_ids),
           isTRUE(feature_id %in% self$feature_ids)
         )
         v <- self$get_action_expectations_for_feature(action_id, feature_id)

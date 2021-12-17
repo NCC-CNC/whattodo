@@ -29,6 +29,22 @@ app_ui <- function(request) {
         )
       ),
 
+      ## map user interface
+      htmltools::tags$div(
+        id = "map_control",
+        class = "leaflet-data-control",
+        shiny::selectInput(
+          inputId = "map_dataset",
+          label = "Select dataset",
+          choices = "NA"
+        ),
+        shiny::selectInput(
+          inputId = "map_layer",
+          label = "Select layer",
+          choices = "NA"
+        )
+      ),
+
       ## start up screen
       shinybusy::busy_start_up(
         loader = shinybusy::spin_epic("scaling-squares", color = "#FFF"),
@@ -72,6 +88,7 @@ app_ui <- function(request) {
         acknowledgmentsSidebarPane(id = "acknowledgmentsPane")
       )
     )
+
   )
 }
 

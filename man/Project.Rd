@@ -83,6 +83,7 @@ Definition for the Project class.
 \item \href{#method-get_action_expectations_for_feature}{\code{Project$get_action_expectations_for_feature()}}
 \item \href{#method-get_max_feature_expectation}{\code{Project$get_max_feature_expectation()}}
 \item \href{#method-get_current_feature_expectation}{\code{Project$get_current_feature_expectation()}}
+\item \href{#method-get_map_layers}{\code{Project$get_map_layers()}}
 \item \href{#method-get_pu_data}{\code{Project$get_pu_data()}}
 \item \href{#method-get_zone_data}{\code{Project$get_zone_data()}}
 \item \href{#method-get_goal_data}{\code{Project$get_goal_data()}}
@@ -397,6 +398,16 @@ Get the current expected amount for each feature.
 
 }
 \if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-get_map_layers"></a>}}
+\if{latex}{\out{\hypertarget{method-get_map_layers}{}}}
+\subsection{Method \code{get_map_layers()}}{
+Get layer names for rendering data on map
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{Project$get_map_layers()}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-get_pu_data"></a>}}
 \if{latex}{\out{\hypertarget{method-get_pu_data}{}}}
 \subsection{Method \code{get_pu_data()}}{
@@ -629,13 +640,7 @@ Set action expectation data.
 \subsection{Method \code{render_on_map()}}{
 Render on map.
 \subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{Project$render_on_map(
-  map,
-  data = "location",
-  group = "sites",
-  action_id = NULL,
-  feature_id = NULL
-)}\if{html}{\out{</div>}}
+\if{html}{\out{<div class="r">}}\preformatted{Project$render_on_map(map, data = "location", group = "sites")}\if{html}{\out{</div>}}
 }
 
 \subsection{Arguments}{
@@ -644,25 +649,9 @@ Render on map.
 \item{\code{map}}{\code{\link[leaflet:leaflet]{leaflet::leaflet()}} object.}
 
 \item{\code{data}}{\code{character} name of dataset to show.
-This should be equal to one of: \code{"location"},
-\code{"status"},
-one of the action identifiers with a "cost_" prefix,
-one of the action identifiers with a "feasibility_" prefix,
-or one of the action and feature identifiers with a "action_expectation_"
-prefix.
-For example, to show the cost of implementing action \code{"none"},
-then the argument to data should be \code{"cost_none"}
-Additionally, to show the action expectation for the action
-\code{"none"} and the feature \code{"SPP1"}, then the argument should be
-\code{"action_expectation_data_none&&&&&&&&&&&&SPP2"}.
-Defaults to \code{"location"} such that the location of sites is shown
-by displaying all sites with the same color.}
+Argument must be a valid layer name (see \code{self$get_map_layers()}).}
 
 \item{\code{group}}{\code{character} group name. Defaults to \code{"sites"}.}
-
-\item{\code{action_id}}{\code{character} (optional) identifier for action.}
-
-\item{\code{feature_id}}{\code{character} (optional) identifier for feature.}
 }
 \if{html}{\out{</div>}}
 }

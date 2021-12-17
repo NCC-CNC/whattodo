@@ -56,7 +56,8 @@ test_that("zipfile", {
     system.file("extdata", "projects", "simulated-data", package = "whattodo"),
     utils::zip(
       zipfile = f2,
-      files = paste0("simulated-data", c(".shp", ".shx", ".prj", ".dbf"))
+      files = paste0("simulated-data", c(".shp", ".shx", ".prj", ".dbf")),
+      flags = c("-r9X", "-qq")
     )
   )
   parameters <- whatdataio::read_data_configuration()

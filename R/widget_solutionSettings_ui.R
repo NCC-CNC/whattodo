@@ -209,8 +209,9 @@ solutionSettings_html <- function(id, style, class, ...) {
         ),
       ),
       htmltools::tags$div(
+        class = "button-group",
         htmltools::tags$div(
-          class = "solution-footer-data-button",
+          class = "solution-footer-edit-button",
           `data-toggle` = "tooltip",
           `data-placement` = "top",
           `data-container` = "body",

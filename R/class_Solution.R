@@ -117,6 +117,15 @@ Solution <- R6::R6Class(
     },
 
     #' @description
+    #' Get layer names for rendering data on map
+    get_map_layers = function() {
+      c(
+        self$project$get_map_layers(),
+        "Priority actions" = "priority_actions"
+      )
+    },
+
+    #' @description
     #' Get the bounding box.
     #' @param expand `FALSE` should the bounding box be expanded by 10%?
     #' @return `list` object with `"xmin"`, `"xmax"`, `"ymin"`, and `"ymax"`
@@ -128,47 +137,55 @@ Solution <- R6::R6Class(
     #' @description
     #' Render on map.
     #' @param map [leaflet::leaflet()] object.
+    #' @param data `character` name of dataset to show.
+    #'   Argument must be a valid layer name (see `self$get_map_layers()`).
     #' @param group `character` group name. Defaults to `"sites"`.
     #' @return [leaflet::leaflet()] map.
-    render_on_map = function(map, group = "sites") {
+    render_on_map = function(map, data = "location", group = "sites") {
       # assert that argument is valid
       assertthat::assert_that(inherits(map, c("leaflet", "leaflet_proxy")))
-
-      # prepare data for map
-      pal <- leaflet::colorFactor(
-        palette = self$project$action_colors,
-        domain = names(self$project$action_ids),
-      )
-      popups <- self$site_results
-      vals <- popups[[2]]
-
-      # clear group from map
-      map <- leaflet::clearGroup(map, group)
-      map <- leaflet::removeControl(map, "legend")
-
-      # add data to map
-      map <- leafem::addFeatures(
-        map = map,
-        data = self$project$site_geometry,
-        groupId = group,
-        color = pal(vals),
-        fillColor = pal(vals),
-        popup = leafpop::popupTable(
-          x = popups,
-          row.numbers = FALSE,
-          feature.id = FALSE
+      # update map
+      if (!identical(data, "priority_actions")) {
+        ## update with project data
+        map <- self$project$render_on_map(
+          map = map,
+          data = data,
+          group = group
         )
-      )
-
-      # add legend to map
-      map <- leaflet::addLegend(
-        layerId = "legend",
-        map = map,
-        pal = pal,
-        values = vals,
-        position = "bottomright",
-      )
-
+      } else {
+        ## update with solution
+        #### prepare data for map
+        pal <- leaflet::colorFactor(
+          palette = self$project$action_colors,
+          domain = names(self$project$action_ids),
+        )
+        popups <- self$site_results
+        vals <- popups[[2]]
+        ### clear group from map
+        map <- leaflet::clearGroup(map, group)
+        map <- leaflet::removeControl(map, "legend")
+        ### add data to map
+        map <- leafem::addFeatures(
+          map = map,
+          data = self$project$site_geometry,
+          groupId = group,
+          color = pal(vals),
+          fillColor = pal(vals),
+          popup = leafpop::popupTable(
+            x = popups,
+            row.numbers = FALSE,
+            feature.id = FALSE
+          )
+        )
+        ### add legend to map
+        map <- leaflet::addLegend(
+          layerId = "legend",
+          map = map,
+          pal = pal,
+          values = vals,
+          position = "bottomright",
+        )
+      }
       # return result
       map
     },

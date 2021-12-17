@@ -43,6 +43,7 @@ describe("new_project()", {
     expect_equal(p$get_site_ids(), d$site_ids)
     expect_equal(p$get_feature_ids(), d$feature_ids)
     expect_equal(p$get_action_ids(), d$action_ids)
+    expect_is(p$get_map_layers(), "character")
     expect_equal(
       p$get_site_statuses(),
       d$site_data[["Current status"]]
@@ -116,27 +117,10 @@ describe("new_project()", {
     expect_is(p$get_locked_data(), "tbl_df")
   })
   it ("has map render methods", {
-    expect_is(
-      p$render_on_map(leaflet::leaflet(), data = "location"),
-      "leaflet"
-    )
-    expect_is(
-      p$render_on_map(leaflet::leaflet(), data = "status"),
-      "leaflet"
-    )
-    expect_is(
-      p$render_on_map(
-        leaflet::leaflet(), data = "feasibility", action_id = "action 1"
-      ),
-      "leaflet"
-    )
-    expect_is(
-      p$render_on_map(
-        leaflet::leaflet(), data = "cost", action_id = "action 1"
-      ),
-      "leaflet"
-    )
-
+    l <- leaflet::leaflet()
+    for (i in p$get_map_layers()) {
+      expect_is(p$render_on_map(l, i), "leaflet")
+    }
   })
   it ("has data render methods", {
     expect_is(p$render_site_data(), "rhandsontable")

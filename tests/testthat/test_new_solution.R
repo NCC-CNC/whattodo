@@ -55,6 +55,7 @@ describe("new_solution()", {
     expect_equal(x$get_feature_ids(), p$get_feature_ids())
     expect_equal(x$get_action_ids(), p$get_action_ids())
     expect_equal(x$get_bbox(), p$get_bbox())
+    expect_is(p$get_map_layers(), "character")
   })
   it("has widget data methods", {
     expect_is(
@@ -63,10 +64,10 @@ describe("new_solution()", {
     )
   })
   it ("has map render methods", {
-    expect_is(
-      x$render_on_map(leaflet::leaflet()),
-      "leaflet"
-    )
+    l <- leaflet::leaflet()
+    for (i in x$get_map_layers()) {
+      expect_is(x$render_on_map(l, i), "leaflet")
+    }
   })
   it ("has data render methods", {
     expect_is(x$render_site_data(), "rhandsontable")

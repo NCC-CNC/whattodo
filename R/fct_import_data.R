@@ -52,6 +52,18 @@ import_data <- function(x) {
   )
   app_data$project$render_on_map(map, data = "status")
 
+  # update map data control
+  shiny::updateSelectInput(
+    session = session,
+    inputId = "map_dataset",
+    choices = stats::setNames(app_data$project_data_id, "Project data")
+  )
+  shiny::updateSelectInput(
+    session = session,
+    inputId = "map_layer",
+    choices = app_data$project$get_map_layers()
+  )
+
   # update tables with project data
   output$data_modal_site_table <- rhandsontable::renderRHandsontable({
     app_data$project$render_site_data()
@@ -103,6 +115,9 @@ import_data <- function(x) {
 
   # make sidebars visible
   shinyjs::runjs("$('#mainSidebar').css('display','block');")
+
+  # make layer control visible
+  shinyjs::runjs("$('#map_control').css('display','block');")
 
   # open sidebars
   leaflet.extras2::openSidebar(

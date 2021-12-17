@@ -1,6 +1,7 @@
 /* hide leaflet controls on app start up */
 .startup .leaflet-top,
-.startup .leaflet-bottom {
+.startup .leaflet-bottom,
+.startup .leaflet-data-control{
   visibility: hidden;
 }
 
@@ -120,4 +121,28 @@
 }
 .leaflet-retina .leaflet-control-layers-toggle  {
   background-image: url(globe-americas-solid.png) !important;
+}
+
+/* data control */
+.leaflet-data-control {
+  display: none;
+  z-index: 9995;
+  position: absolute;
+  top: 0;
+  right: 0;
+  margin-top: 10px;
+  margin-right: 10px;
+  background: #fff;
+  padding: 5px;
+  border-radius: 4px;
+  border: 2px solid rgba(0,0,0,0.2);
+  background-clip: padding-box;
+}
+
+.leaflet-data-control div:nth-of-type(2) {
+  margin-bottom: 0px !important;
+}
+
+#map_layer + .plugin-selectize-plugin-a11y{
+  margin-bottom: 0px !important;
 }
