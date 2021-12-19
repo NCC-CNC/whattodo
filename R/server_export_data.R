@@ -19,7 +19,7 @@ server_export_data <- quote({
       if (identical(input$exportPane_select, app_data$project_data_id)) {
         out <- paste0("project-data", Sys.Date(), ".zip")
       } else {
-        proj <- which(input$exportPane_select == app_data$solution_ids)
+        proj <- which(app_data$solution_ids == input$exportPane_select)
         proj <- names(app_data$solution_ids[proj])
         out <- paste0("solution-", proj, "-", Sys.Date(), ".zip")
       }
@@ -37,7 +37,7 @@ server_export_data <- quote({
         )
       } else {
         ## find solution
-        i <- which(input$exportPane_select == app_data$solution_ids)
+        i <- which(app_data$solution_ids == input$exportPane_select)
         app_data$solution[[i]]$write(
           file.path(d, "solution.xlsx"),
           file.path(d, "solution.shp")
