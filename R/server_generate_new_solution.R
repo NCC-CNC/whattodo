@@ -255,17 +255,28 @@ server_generate_new_solution <- quote({
       selected = dplyr::last(app_data$solution_ids)
     )
 
-    ### make leaflet proxy
-    map <- leaflet::leafletProxy("map")
-
-    ### add new solution to the map
-    s$render_on_map(map)
-
-    ### show solution results sidebar
+    ## show solution results sidebar
     leaflet.extras2::openSidebar(
-      map = map,
+      map = leaflet::leafletProxy("map"),
       id = "solutionResultsPane",
       sidebar_id = "mainSidebar"
+    )
+
+    ## show solution on map
+    shiny::updateSelectInput(
+      session = session,
+      inputId = "map_dataset",
+      choices = c(
+        stats::setNames(app_data$project_data_id, "Project data"),
+        app_data$solution_ids
+      ),
+      select = dplyr::last(app_data$solution_ids)
+    )
+    shiny::updateSelectInput(
+      session = session,
+      inputId = "map_layer",
+      choices = dplyr::last(app_data$solution)$get_map_layers(),
+      select = "priority_actions"
     )
 
     ## reset solution name

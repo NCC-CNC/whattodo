@@ -41,53 +41,65 @@ server_update_map <- quote({
     )
   })
 
-  # update map layer control when dataset changes
+  shiny::observeEvent(input$map_layer, {
+    shiny::req(input$map_layer)
+    map_listener(runif(1))
+  })
+
   shiny::observeEvent(input$map_dataset, {
     shiny::req(input$map_dataset)
-    if (identical(input$map_dataset, "NA")) {
+    map_listener(runif(1))
+  })
+
+  # update map layer control when dataset changes
+  shiny::observeEvent(map_listener(), ignoreInit = TRUE, {
+    ## specify dependencies
+    shiny::req(input$map_layer)
+    shiny::req(input$map_dataset)
+    shiny::req(app_data$project)
+    if (identical(input$map_dataset, "NA") ||
+        identical(input$map_layer, "NA")
+    ) {
       return()
     }
+
     ## get layer names
     if (identical(input$map_dataset, app_data$project_data_id)) {
       nm <- app_data$project$get_map_layers()
     } else {
-      i <- which(input$map_dataset == app_data$solution_ids)
+      i <- which(app_data$solution_ids == input$map_dataset)
       nm <- app_data$solution[[i]]$get_map_layers()
     }
+
     ## see if layer name needs to change
     if (isTRUE(input$map_layer %in% nm)) {
       l <- input$map_layer
     } else {
       l <- nm[1]
     }
+
     ## update select input
     shiny::updateSelectInput(
       session = session,
       inputId = "map_layer",
       choices = nm,
-      select = l
+      select = unname(l)
     )
-  })
 
-  # update layer shown on map when map layer changes
-  shiny::observeEvent(input$map_layer, {
-    shiny::req(input$map_dataset)
-    shiny::req(input$map_layer)
-    if (identical(input$map_dataset, "NA")) {
-      return()
-    }
     ## extract data to render on map
     if (identical(input$map_dataset, app_data$project_data_id)) {
       d <- app_data$project
     } else {
-      i <- which(input$map_dataset == app_data$solution_ids)
+      i <- which(app_data$solution_ids == input$map_dataset)
       d <- app_data$solution[[i]]
     }
+
     ## render data on map
     d$render_on_map(
       map = leaflet::leafletProxy("map"),
-      data = input$map_layer
+      data = unname(l)
     )
+
   })
 
 })

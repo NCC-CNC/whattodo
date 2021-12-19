@@ -113,6 +113,23 @@ import_data <- function(x) {
     })
   }
 
+  # define listener for map
+  map_data_listener <- shiny::reactive({
+    append(
+      list(
+        input$data_modal_site_table,
+        input$data_modal_feasibility_table
+      ),
+      lapply(seq_along(app_data$project$get_action_ids()), function(i) {
+       input[[paste0("data_action_", i, "_table")]]
+     })
+   )
+  })
+  shiny::observeEvent(map_data_listener(), {
+    shiny::req(map_data_listener())
+    map_listener(runif(1))
+  })
+
   # make sidebars visible
   shinyjs::runjs("$('#mainSidebar').css('display','block');")
 

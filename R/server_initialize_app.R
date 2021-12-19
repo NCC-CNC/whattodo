@@ -44,6 +44,9 @@ server_initialize_app <- quote({
     solutionResults()
   })
 
+  # initialize listener
+  map_listener <- shiny::reactiveVal(runif(1))
+
   # initialize built in projects
   if (nrow(project_data) > 0) {
     ## update select input with project names

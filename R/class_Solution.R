@@ -120,8 +120,8 @@ Solution <- R6::R6Class(
     #' Get layer names for rendering data on map
     get_map_layers = function() {
       c(
-        self$project$get_map_layers(),
-        "Priority actions" = "priority_actions"
+        "Priority actions" = "priority_actions",
+        self$project$get_map_layers()
       )
     },
 

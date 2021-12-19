@@ -79,7 +79,6 @@ Project <- R6::R6Class(
     #' @field action_expectation_feature_headers `character` named vector.
     action_expectation_feature_headers = NA_character_,
 
-
     #' @description
     #' Create a Project object.
     #' @param id `character` value.
