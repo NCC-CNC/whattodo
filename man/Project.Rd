@@ -81,6 +81,8 @@ Definition for the Project class.
 \item \href{#method-get_action_costs}{\code{Project$get_action_costs()}}
 \item \href{#method-get_action_feasibility}{\code{Project$get_action_feasibility()}}
 \item \href{#method-get_action_expectations_for_feature}{\code{Project$get_action_expectations_for_feature()}}
+\item \href{#method-get_min_budget}{\code{Project$get_min_budget()}}
+\item \href{#method-get_max_budget}{\code{Project$get_max_budget()}}
 \item \href{#method-get_max_feature_expectation}{\code{Project$get_max_feature_expectation()}}
 \item \href{#method-get_current_feature_expectation}{\code{Project$get_current_feature_expectation()}}
 \item \href{#method-get_map_layers}{\code{Project$get_map_layers()}}
@@ -378,6 +380,32 @@ Get action expectation data for features.
 }
 }
 \if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-get_min_budget"></a>}}
+\if{latex}{\out{\hypertarget{method-get_min_budget}{}}}
+\subsection{Method \code{get_min_budget()}}{
+Get the cost of the cheapest solution.
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{Project$get_min_budget()}\if{html}{\out{</div>}}
+}
+
+\subsection{Returns}{
+\code{numeric} value.
+}
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-get_max_budget"></a>}}
+\if{latex}{\out{\hypertarget{method-get_max_budget}{}}}
+\subsection{Method \code{get_max_budget()}}{
+Get the cost of the most expensive solution.
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{Project$get_max_budget()}\if{html}{\out{</div>}}
+}
+
+\subsection{Returns}{
+\code{numeric} value.
+}
+}
+\if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-get_max_feature_expectation"></a>}}
 \if{latex}{\out{\hypertarget{method-get_max_feature_expectation}{}}}
 \subsection{Method \code{get_max_feature_expectation()}}{
@@ -386,6 +414,9 @@ Get the highest amount for each feature.
 \if{html}{\out{<div class="r">}}\preformatted{Project$get_max_feature_expectation()}\if{html}{\out{</div>}}
 }
 
+\subsection{Returns}{
+\code{data.frame} containing a \code{feature_id} and \code{amount} columns.
+}
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-get_current_feature_expectation"></a>}}
@@ -396,16 +427,22 @@ Get the current expected amount for each feature.
 \if{html}{\out{<div class="r">}}\preformatted{Project$get_current_feature_expectation()}\if{html}{\out{</div>}}
 }
 
+\subsection{Returns}{
+\code{data.frame} containing a \code{feature_id} and \code{amount} columns.
+}
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-get_map_layers"></a>}}
 \if{latex}{\out{\hypertarget{method-get_map_layers}{}}}
 \subsection{Method \code{get_map_layers()}}{
-Get layer names for rendering data on map
+Get layer names for rendering data on map.
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{Project$get_map_layers()}\if{html}{\out{</div>}}
 }
 
+\subsection{Returns}{
+\code{character} vector of layer names.
+}
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-get_pu_data"></a>}}
@@ -416,6 +453,9 @@ Get planning unit data for optimization.
 \if{html}{\out{<div class="r">}}\preformatted{Project$get_pu_data()}\if{html}{\out{</div>}}
 }
 
+\subsection{Returns}{
+\code{data.frame} object.
+}
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-get_zone_data"></a>}}
@@ -426,6 +466,9 @@ Get zone data for optimization.
 \if{html}{\out{<div class="r">}}\preformatted{Project$get_zone_data()}\if{html}{\out{</div>}}
 }
 
+\subsection{Returns}{
+\code{data.frame} object.
+}
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-get_goal_data"></a>}}

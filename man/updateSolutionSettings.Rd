@@ -116,6 +116,21 @@ This controls the slider shown for the feature.
 \item{type}{\code{"weight"}}
 }
 }
+
+\subsection{Parameter}{
+
+Here we detail all possible settings that can be updated for the parameter.
+
+\strong{Update the parameter.}
+This controls the highest possible value for the slider.
+
+\describe{
+\item{id}{\code{"PARAMETERID"}}
+\item{setting}{\code{"value"}}
+\item{value}{\code{9999}}
+\item{type}{\code{"parameter"}}
+}
+}
 }
 \seealso{
 \code{\link[=solutionSettings]{solutionSettings()}}.

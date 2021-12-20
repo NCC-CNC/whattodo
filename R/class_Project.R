@@ -195,21 +195,19 @@ Project <- R6::R6Class(
       self$action_colors <- default_colors(action_ids)
 
       # add field for total budget setting
-      ## calculate maximum total cost
-      max_cost <- site_data[, unname(self$site_cost_headers), drop = FALSE]
-      max_cost <- sum(apply(as.matrix(max_cost), 1, max, na.rm = TRUE))
-      ## add setting to control budget
+      ## compute values
+      mn <- self$get_min_budget()
+      mx <- self$get_max_budget()
+      ## create settings
       self$settings <- list(
         new_parameter(
           name = "Total budget",
           status = FALSE,
-          value = 1,
-          min_value = 1,
-          max_value = 100,
+          value = mn,
+          min_value = mn,
+          max_value = mx,
           step_value = 1,
-          units = "%",
-          reference_value = max_cost,
-          reference_units = "CAD",
+          units = "",
           hide = TRUE,
           id = "budget_parameter"
         )
@@ -353,7 +351,40 @@ Project <- R6::R6Class(
     },
 
     #' @description
+    #' Get the cost of the cheapest solution.
+    #' @return `numeric` value.
+    get_min_budget = function() {
+      sum(
+        apply(
+          X = as.matrix(
+            self$site_data[, unname(self$site_cost_headers), drop = FALSE]
+          ),
+          MARGIN = 1,
+          FUN = min,
+          na.rm = TRUE
+        )
+      )
+    },
+
+    #' @description
+    #' Get the cost of the most expensive solution.
+    #' @return `numeric` value.
+    get_max_budget = function() {
+      sum(
+        apply(
+          X = as.matrix(
+            self$site_data[, unname(self$site_cost_headers), drop = FALSE]
+          ),
+          MARGIN = 1,
+          FUN = max,
+          na.rm = TRUE
+        )
+      )
+    },
+
+    #' @description
     #' Get the highest amount for each feature.
+    #' @return `data.frame` containing a `feature_id` and `amount` columns.
     get_max_feature_expectation = function() {
       tibble::tibble(
         feature_id = self$feature_ids,
@@ -373,6 +404,7 @@ Project <- R6::R6Class(
 
     #' @description
     #' Get the current expected amount for each feature.
+    #' @return `data.frame` containing a `feature_id` and `amount` columns.
     get_current_feature_expectation = function() {
       ss <- self$get_site_statuses()
       tibble::tibble(
@@ -396,7 +428,8 @@ Project <- R6::R6Class(
     },
 
     #' @description
-    #' Get layer names for rendering data on map
+    #' Get layer names for rendering data on map.
+    #' @return `character` vector of layer names.
     get_map_layers = function() {
       d <- expand.grid(x = self$action_ids, y = self$feature_ids)
       stats::setNames(
@@ -435,6 +468,7 @@ Project <- R6::R6Class(
 
     #' @description
     #' Get planning unit data for optimization.
+    #' @return `data.frame` object.
     get_pu_data = function() {
       ## extract cost
       cost_data <- self$site_data[, self$site_cost_headers, drop = FALSE]
@@ -457,6 +491,7 @@ Project <- R6::R6Class(
 
     #' @description
     #' Get zone data for optimization.
+    #' @return `data.frame` object.
     get_zone_data = function() {
       ## create zone name column
       args <- lapply(
@@ -650,6 +685,8 @@ Project <- R6::R6Class(
         identical(names(x), names(self$site_data))
       )
       self$site_data <- tibble::as_tibble(x)
+      self$settings[[1]]$min_value <- self$get_min_budget()
+      self$settings[[1]]$max_value <- self$get_max_budget()
       invisible(self)
     },
 

@@ -89,6 +89,19 @@ import_data <- function(x) {
     app_data$project$set_site_data(
       rhandsontable::hot_to_r(input$data_modal_site_table)
     )
+    updateSolutionSettings(
+      session = session,
+      inputId = "newSolutionPane_settings",
+      value = list(
+        id = app_data$project$settings[[1]]$id,
+        setting = "range",
+        value = c(
+          app_data$project$get_min_budget(),
+          app_data$project$get_max_budget()
+        ),
+        type = "parameter"
+      )
+    )
   })
   shiny::observeEvent(input$data_modal_feature_table, {
     shiny::req(input$data_modal_feature_table)

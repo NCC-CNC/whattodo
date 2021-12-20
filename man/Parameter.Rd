@@ -34,10 +34,6 @@ Definition for the Parameter class.
 \item{\code{hide}}{\code{logical} value.}
 
 \item{\code{units}}{\code{character} value.}
-
-\item{\code{reference_value}}{\code{numeric} reference value.}
-
-\item{\code{reference_units}}{\code{character} units for reference value.}
 }
 \if{html}{\out{</div>}}
 }
@@ -74,9 +70,7 @@ Create a new Parameter object.
   max_value,
   step_value,
   hide,
-  units,
-  reference_value,
-  reference_units
+  units
 )}\if{html}{\out{</div>}}
 }
 
@@ -100,10 +94,6 @@ Create a new Parameter object.
 \item{\code{hide}}{\code{logical} value.}
 
 \item{\code{units}}{\code{character} value.}
-
-\item{\code{reference_value}}{\code{numeric} value.}
-
-\item{\code{reference_units}}{\code{character} value.}
 }
 \if{html}{\out{</div>}}
 }

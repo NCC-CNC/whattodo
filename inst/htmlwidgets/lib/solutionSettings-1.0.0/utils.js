@@ -9,9 +9,7 @@ function newParameterSetting(manager, x) {
     x.max_value,
     x.step_value,
     x.hide,
-    x.units,
-    x.reference_value,
-    x.reference_units
+    x.units
   );
 }
 

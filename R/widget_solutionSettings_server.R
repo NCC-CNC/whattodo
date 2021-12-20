@@ -108,7 +108,18 @@ NULL
 #' \item{type}{`"weight"`}
 #' }
 #'
+#' ## Parameter
+#' Here we detail all possible settings that can be updated for the parameter.
 #'
+#' **Update the parameter.**
+#' This controls the highest possible value for the slider.
+#'
+#' \describe{
+#' \item{id}{`"PARAMETERID"`}
+#' \item{setting}{`"value"`}
+#' \item{value}{`9999`}
+#' \item{type}{`"parameter"`}
+#' }
 #'
 #' @seealso [solutionSettings()].
 #'
@@ -150,8 +161,8 @@ updateSolutionSettings <- function(session = shiny::getDefaultReactiveDomain(),
     param_names <- c("name", "factor")
     param_classes <- c("character", "numeric")
   } else if (identical(value$type, "parameter")) {
-    param_names <- c("name", "status", "value")
-    param_classes <- c("character", "logical", "numeric")
+    param_names <- c("name", "status", "value", "range")
+    param_classes <- c("character", "logical", "numeric", "numeric")
   }
 
   ## sanity check
