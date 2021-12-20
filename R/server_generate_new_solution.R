@@ -122,7 +122,7 @@ server_generate_new_solution <- quote({
         )
       }
       ## return result
-      list(id = curr_id, name = curr_name, result = r)
+      list(id = curr_id, name = curr_name, type = curr_type, result = r)
     })
 
     ## add promises to handle result once asynchronous task finished
@@ -171,8 +171,19 @@ server_generate_new_solution <- quote({
       ### display modal
       shinyalert::shinyalert(
         title = "Oops",
-        text = "Something went wrong, please try again.",
+        text = shiny::includeMarkdown(
+          ifelse(
+            r$type,
+            system.file(
+              "app", "text", "error_with_budget.md", package = "whattodo"
+            ),
+            system.file(
+              "app", "text", "error_without_budget.md", package = "whattodo"
+            )
+          )
+        ),
         size = "s",
+        html = TRUE,
         closeOnEsc = TRUE,
         closeOnClickOutside = TRUE,
         type = "error",
@@ -294,6 +305,7 @@ server_generate_new_solution <- quote({
     ## reset buttons and input widgets
     disable_html_element("newSolutionPane_settings_stop_button")
     shinyFeedback::resetLoadingButton("newSolutionPane_settings_start_button")
+    disable_html_element("newSolutionPane_settings_start_button")
     enable_html_element("newSolutionPane_settings_name")
   })
 
