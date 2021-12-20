@@ -98,7 +98,7 @@ server_generate_new_solution <- quote({
             parameters = curr_parameters,
             verbose = curr_verbose,
             gap = curr_gap,
-            time_limit = curr_time_limit,
+            time_limit = curr_time_limit
           ),
           silent = TRUE
         )
