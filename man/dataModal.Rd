@@ -12,7 +12,8 @@ dataModal(id, trigger)
 \item{trigger}{\code{character} identifier for the widget to trigger the modal.}
 }
 \description{
-Constructs a modal for viewing and editing data.
+Constructs a modal for viewing and editing project data, and examining the
+performance of solutions.
 }
 \examples{
 #TODO

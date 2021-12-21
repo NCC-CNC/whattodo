@@ -258,12 +258,17 @@ server_generate_new_solution <- quote({
       value = s$id
     )
 
-    ## add new solution to solution results modal
+    ## add new solution to data modal
     shinyWidgets::updatePickerInput(
       session = session,
-      inputId = "solutionModal_select",
-      choices = app_data$solution_ids,
-      selected = dplyr::last(app_data$solution_ids)
+      inputId = "dataModal_select",
+      choices = c(
+        stats::setNames(
+          app_data$project_data_id,
+          "Project data"
+        ),
+        app_data$solution_ids
+      )
     )
 
     ## show solution results sidebar
@@ -278,7 +283,10 @@ server_generate_new_solution <- quote({
       session = session,
       inputId = "map_dataset",
       choices = c(
-        stats::setNames(app_data$project_data_id, "Project data"),
+        stats::setNames(
+          app_data$project_data_id,
+          "Project data"
+        ),
         app_data$solution_ids
       ),
       select = dplyr::last(app_data$solution_ids)
@@ -297,7 +305,7 @@ server_generate_new_solution <- quote({
       value = ""
     )
 
-    ### enable solution results modal button after generating first solution
+    ### enable solution results sidebar after generating first solution
     if (length(app_data$solution) == 1) {
       enable_html_css_selector("#mainSidebar li:nth-child(2)")
     }

@@ -18,27 +18,195 @@ import_data <- function(x) {
     solutionSettings(app_data$project)
   )
 
-  # add modal to edit project data
+  # set select input for data modal
+  shinyWidgets::updatePickerInput(
+    session = session,
+    inputId = "dataModal_select",
+    selected = app_data$project_data_id,
+    choices = stats::setNames(app_data$project_data_id, "Data for new solution")
+  )
+
+  # add project data tabset to data modal
   shiny::insertUI(
-    selector = "#dataModal_pane",
+    selector = "#dataModal_project_tab",
     where = "beforeBegin",
-    ui = dataModalPane(
+    ui = dataModalProjectTab(
       action_ids = app_data$project$action_ids,
       action_descriptions = app_data$project$action_descriptions,
       parameters = app_data$parameters
     )
   )
 
-  # add modal to show solution data and results
+  # add results modal tabset to data modal
   shiny::insertUI(
-    selector = "#solutionModal_pane",
+    selector = "#dataModal_results_tab",
     where = "beforeBegin",
-    ui = solutionModalPane(
+    ui = dataModalResultsTab(
       action_ids = app_data$project$action_ids,
       action_descriptions = app_data$project$action_descriptions,
       parameters = app_data$parameters
     )
   )
+
+  # add listener to update tables based on selected dataset
+  shiny::observeEvent(input$dataModal_select, ignoreInit = TRUE, {
+    ## specify dependencies
+    shiny::req(input$dataModal_select)
+
+    ## prepare for rendering data
+    if (identical(input$dataModal_select, app_data$project_data_id)) {
+      ### set dataset
+      d <- app_data$project
+      ### update tab titles
+      shinyjs::runjs(
+        paste0(
+          "document.querySelector('",
+          "#dataModal_project_title').innerHTML = ",
+          "'Data for generating new solution';"
+        )
+      )
+      shinyjs::runjs(
+        paste0(
+          "document.querySelector('",
+          "#dataModal_results_title').innerHTML = ",
+          "'Not applicable';"
+        )
+      )
+      ### make second tab invisible
+      shinyjs::runjs(
+        paste0(
+          "document.querySelector('",
+          "#dataModal_tabset li:nth-child(2)').style.display = 'none';"
+        )
+      )
+      ### ensure first tab selected
+      shiny::updateTabsetPanel(
+        session = session,
+        inputId = "dataModal_tabset",
+        selected = "data_tab"
+      )
+    } else if (input$dataModal_select %in% app_data$solution_ids) {
+      ### set dataset
+      i <- which(app_data$solution_ids == input$dataModal_select)
+      d <- app_data$solution[[i]]
+      ### update tab titles
+      shinyjs::runjs(
+        paste0(
+          "document.querySelector('",
+          "#dataModal_project_title').innerHTML = ",
+          "'Data used to generate solution';"
+        )
+      )
+      shinyjs::runjs(
+        paste0(
+          "document.querySelector('",
+          "#dataModal_results_title').innerHTML = ",
+          "'Statistics describing solution';"
+        )
+      )
+      ### make second tab visible
+      shinyjs::runjs(
+        paste0(
+          "document.querySelector('",
+          "#dataModal_tabset li:nth-child(2)').style.display = 'block';"
+        )
+      )
+    } else {
+      stop("Dataset not found for data modal")
+    }
+
+    ## render dataset
+    output$data_modal_project_site_table <-
+      rhandsontable::renderRHandsontable({
+        d$render_site_data()
+      })
+    output$data_modal_project_feature_table <-
+      rhandsontable::renderRHandsontable({
+        d$render_feature_data()
+      })
+    output$data_modal_project_feasibility_table <-
+      rhandsontable::renderRHandsontable({
+        d$render_feasibility_data()
+      })
+    lapply(seq_along(app_data$project$get_action_ids()), function(i) {
+      output[[paste0("data_modal_project_action_", i, "_table")]] <-
+        rhandsontable::renderRHandsontable({
+          d$render_action_expectation_data(
+            action_id = d$get_action_ids()[[i]]
+          )
+        })
+    })
+    if (inherits(d, "Solution")) {
+      output$data_modal_results_summary_table <- DT::renderDT({
+        d$render_summary_results()
+      })
+      output$data_modal_results_site_table <- DT::renderDT({
+        d$render_site_results()
+      })
+      output$data_modal_results_feature_table <- DT::renderDT({
+        d$render_feature_results()
+      })
+    } else {
+      output$data_modal_results_summary_table <- DT::renderDT({
+        tibble::tibble(Message = "Not applicable")
+      })
+      output$data_modal_results_site_table <- DT::renderDT({
+        tibble::tibble(Message = "Not applicable")
+      })
+      output$data_modal_results_site_table <- DT::renderDT({
+        tibble::tibble(Message = "Not applicable")
+      })
+    }
+  })
+
+  # add listeners for updating new solution data
+  shiny::observeEvent(input$data_modal_project_site_table, {
+    shiny::req(input$data_modal_project_site_table)
+    if (!identical(input$dataModal_select, app_data$project_data_id)) return()
+    app_data$project$set_site_data(
+      rhandsontable::hot_to_r(input$data_modal_project_site_table)
+    )
+    updateSolutionSettings(
+      session = session,
+      inputId = "newSolutionPane_settings",
+      value = list(
+        id = app_data$project$settings[[1]]$id,
+        setting = "range",
+        value = c(
+          app_data$project$get_min_budget(),
+          app_data$project$get_max_budget()
+        ),
+        type = "parameter"
+      )
+    )
+  })
+  shiny::observeEvent(input$data_modal_project_feature_table, {
+    shiny::req(input$data_modal_project_feature_table)
+    if (!identical(input$dataModal_select, app_data$project_data_id)) return()
+    app_data$project$set_feature_data(
+      rhandsontable::hot_to_r(input$data_modal_project_feature_table)
+    )
+  })
+  shiny::observeEvent(input$data_modal_project_feasibility_table, {
+    shiny::req(input$data_modal_project_feasibility_table)
+    if (!identical(input$dataModal_select, app_data$project_data_id)) return()
+    app_data$project$set_feasibility_data(
+      rhandsontable::hot_to_r(input$data_modal_project_feasibility_table)
+    )
+  })
+
+  lapply(seq_along(app_data$project$get_action_ids()), function(i) {
+    shiny::observeEvent(
+      input[[paste0("data_modal_project_action_", i, "_table")]],  {
+      x <- input[[paste0("data_modal_project_action_", i, "_table")]]
+      shiny::req(x)
+      if (!identical(input$dataModal_select, app_data$project_data_id)) return()
+      app_data$project$set_action_expectation_data(
+        rhandsontable::hot_to_r(x),
+        action_id = app_data$project$get_action_ids()[[i]]
+      )
+    })
+  })
 
   # update map
   map <- leaflet::leafletProxy("map")
@@ -56,7 +224,7 @@ import_data <- function(x) {
   shiny::updateSelectInput(
     session = session,
     inputId = "map_dataset",
-    choices = stats::setNames(app_data$project_data_id, "Project data")
+    choices = stats::setNames(app_data$project_data_id, "Data for new solution")
   )
   shiny::updateSelectInput(
     session = session,
@@ -64,77 +232,15 @@ import_data <- function(x) {
     choices = app_data$project$get_map_layers()
   )
 
-  # update tables with project data
-  output$data_modal_site_table <- rhandsontable::renderRHandsontable({
-    app_data$project$render_site_data()
-  })
-  output$data_modal_feature_table <- rhandsontable::renderRHandsontable({
-    app_data$project$render_feature_data()
-  })
-  output$data_modal_feasibility_table <- rhandsontable::renderRHandsontable({
-    app_data$project$render_feasibility_data()
-  })
-  lapply(seq(app_data$project$get_action_ids()), function(i) {
-    output[[paste0("data_action_", i, "_table")]] <-
-      rhandsontable::renderRHandsontable({
-        app_data$project$render_action_expectation_data(
-          action_id = app_data$project$get_action_ids()[[i]]
-        )
-      })
-  })
-
-  # add listeners for project data
-  shiny::observeEvent(input$data_modal_site_table, {
-    shiny::req(input$data_modal_site_table)
-    app_data$project$set_site_data(
-      rhandsontable::hot_to_r(input$data_modal_site_table)
-    )
-    updateSolutionSettings(
-      session = session,
-      inputId = "newSolutionPane_settings",
-      value = list(
-        id = app_data$project$settings[[1]]$id,
-        setting = "range",
-        value = c(
-          app_data$project$get_min_budget(),
-          app_data$project$get_max_budget()
-        ),
-        type = "parameter"
-      )
-    )
-  })
-  shiny::observeEvent(input$data_modal_feature_table, {
-    shiny::req(input$data_modal_feature_table)
-    app_data$project$set_feature_data(
-      rhandsontable::hot_to_r(input$data_modal_feature_table)
-    )
-  })
-  shiny::observeEvent(input$data_modal_feasibility_table, {
-    shiny::req(input$data_modal_feasibility_table)
-    app_data$project$set_feasibility_data(
-      rhandsontable::hot_to_r(input$data_modal_feasibility_table)
-    )
-  })
-  for (i in seq_along(app_data$project$get_action_ids())) {
-    shiny::observeEvent(input[[paste0("data_action_", i, "_table")]], {
-      x <- input[[paste0("data_action_", i, "_table")]]
-      shiny::req(x)
-      app_data$project$set_action_expectation_data(
-        rhandsontable::hot_to_r(x),
-        action_id = app_data$project$get_action_ids()[[i]]
-      )
-    })
-  }
-
   # define listener for map
   map_data_listener <- shiny::reactive({
     append(
       list(
-        input$data_modal_site_table,
-        input$data_modal_feasibility_table
+        input$data_modal_project_site_table,
+        input$data_modal_project_feasibility_table
       ),
       lapply(seq_along(app_data$project$get_action_ids()), function(i) {
-       input[[paste0("data_action_", i, "_table")]]
+       input[[paste0("data_modal_project_action_", i, "_table")]]
      })
    )
   })
@@ -157,7 +263,7 @@ import_data <- function(x) {
   )
 
   # remove startup mode
-  ## this makes the buttons and scalebar visible
+  ## this makes the buttons and scale bar visible
   shinyjs::runjs("document.body.classList.remove('startup');")
 
   # return success

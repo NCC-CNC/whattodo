@@ -83,4 +83,40 @@ server_initialize_app <- quote({
     )
   })
 
+  # add data modal trigger for new solution data
+  observeEvent(input$newSolutionPane_settings_edit_button, {
+    ## specify dependencies
+    shiny::req(input$newSolutionPane_settings_edit_button)
+
+    ## update select input so that tables for new solution data are shown
+    shinyWidgets::updatePickerInput(
+      session = session,
+      inputId = "dataModal_select",
+      selected = app_data$project_data_id
+    )
+
+    ## open modal
+    shinyBS::toggleModal(
+      session = session, modalId = "dataModal", toggle = "open"
+    )
+  })
+
+  # add data modal trigger for existing solution data
+  observeEvent(input$solutionResultsPane_results_button, {
+    ## specify dependencies
+    shiny::req(input$solutionResultsPane_results_button)
+
+    ## update select input so that tables for new solution data are shown
+    shinyWidgets::updatePickerInput(
+      session = session,
+      inputId = "dataModal_select",
+      selected = input$solutionResultsPane_results_select
+    )
+
+    ## open modal
+    shinyBS::toggleModal(
+      session = session, modalId = "dataModal", toggle = "open"
+    )
+  })
+
 })

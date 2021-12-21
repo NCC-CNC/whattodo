@@ -61,15 +61,10 @@ app_ui <- function(request) {
       helpModal("helpModal", trigger = "help_button"),
 
       ## data modal
-      dataModal("dataModal", trigger = "newSolutionPane_settings_edit_button"),
+      dataModal("dataModal", trigger = "data_button"),
 
       ## error modal
       errorModal("errorModal", trigger = "error_button"),
-
-      ## solution modal
-      solutionModal(
-        "solutionModal", trigger = "solutionResultsPane_results_button"
-      ),
 
       ## sidebar
       leaflet.extras2::sidebar_tabs(

@@ -1,26 +1,26 @@
 /* overall widget styling */
 
 /* modal header */
-.solution-modal .modal-header-content {
+.data-modal .modal-header-content {
   display: flex;
 }
 
 /* -- modal content */
-.solution-modal .modal-content {
+.data-modal .modal-content {
   height: calc(100vh - 50px);
 }
 
 /* select input */
-.solution-modal .select-container .dropdown {
+.data-modal .select-container .dropdown {
   width: 400px !important;
 }
 
-.solution-modal .select-container .bs-caret {
+.data-modal .select-container .bs-caret {
   margin-left: 95% !important;
 }
 
 /* tables */
-.solution-modal .spacer {
+.data-modal .spacer {
   width: 5px;
   font-size: 0 !important;
   padding-left: 0 !important;
