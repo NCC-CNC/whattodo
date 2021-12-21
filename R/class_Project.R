@@ -685,6 +685,9 @@ Project <- R6::R6Class(
         identical(names(x), names(self$site_data))
       )
       self$site_data <- tibble::as_tibble(x)
+      self$site_data <- dplyr::mutate_if(
+        self$site_data, is.factor, as.character
+      )
       self$settings[[1]]$min_value <- self$get_min_budget()
       self$settings[[1]]$max_value <- self$get_max_budget()
       invisible(self)
@@ -907,15 +910,31 @@ Project <- R6::R6Class(
     #' Render site data.
     #' @return [rhandsontable::rhandsontable] object.
     render_site_data = function() {
+      # convert status column to factor
+      d <- self$site_data
+      d[[self$site_status_header]] <- factor(
+        x = d[[self$site_status_header]],
+        levels = self$get_action_ids()
+      )
       # initialize table
-      r <- rhandsontable::rhandsontable(self$site_data, useTypes = TRUE)
-      r <- rhandsontable::hot_col(r, col = c(1, 2, 3), readOnly = TRUE)
+      r <- rhandsontable::rhandsontable(d, useTypes = TRUE)
+      r <- rhandsontable::hot_col(
+        hot = r,
+        col = c(1, 2, 3),
+        readOnly = TRUE
+      )
       r <- rhandsontable::hot_validate_character(
-        r, col = 4, choices = self$get_action_ids(), allowInvalid = FALSE
+        hot = r,
+        col = 4,
+        choices = self$get_action_ids(),
+        allowInvalid = FALSE
       )
       r <- rhandsontable::hot_validate_numeric(
-        r, seq(5, ncol(self$site_data)),
-        min = 0, max = 1e+6, allowInvalid = FALSE
+        hot = r,
+        cols = seq(5, ncol(d)),
+        min = 0,
+        max = 1e+6,
+        allowInvalid = FALSE
       )
       # return table
       r
