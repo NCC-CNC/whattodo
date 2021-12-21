@@ -10,29 +10,6 @@
   display: none;
 }
 
-/* minimap + scale bar container */
-.leaflet-bottom.leaflet-left {
-  margin-bottom: 15px;
-  left: 50%;
-  -ms-transform: translateX(-50%);
-  -webkit-transform: translate(-50%);
-  transform: translate(-50%);
-}
-
-/* minimap */
-.leaflet-control-minimap.leaflet-container {
-  margin-left: 0;
-}
-
-/* scalebar */
-.leaflet-control-scale.leaflet-control {
-  margin-left: 0;
-  left: 50%;
-  -ms-transform: translateX(-50%);
-  -webkit-transform: translate(-50%);
-  transform: translate(-50%);
-}
-
 /* map control buttons */
 .leaflet-top.leaflet-left {
   display: flex;
@@ -56,25 +33,6 @@
 .leaflet-control-zoom.leaflet-bar.leaflet-control {
   margin-left: 0px;
   display: flex;
-}
-
-#hideAllLayers {
-  /* border radius */
-  border-top-left-radius: 2px !important;
-  border-bottom-left-radius: 2px !important;
-  border-top-right-radius: 0px !important;
-  border-bottom-right-radius: 0px !important;
-  /* border colors */
-  border-bottom: 0;
-  border-right: 1px solid #ccc;
-}
-
-#showAllLayers {
-  /* border radius */
-  border-top-left-radius: 0px !important;
-  border-bottom-left-radius: 0px !important;
-  border-top-right-radius: 2px !important;
-  border-bottom-right-radius: 2px !important;
 }
 
 /* zoom in button */
