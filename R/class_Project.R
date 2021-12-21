@@ -761,10 +761,8 @@ Project <- R6::R6Class(
           domain = "Sites",
         )
         vals <- rep("Sites", length(self$site_ids))
-        popups <- stats::setNames(
-          object = tibble::tibble(name = self$site_ids),
-          nm = self$parameters$site_data_sheet$name_header
-        )
+        popups <- data.frame(tibble::tibble(name = self$site_ids))
+        names(popups) <- self$parameters$site_data_sheet$name_header
       ## display status
       } else if (identical(data, "status")) {
         pal <- leaflet::colorFactor(
