@@ -766,8 +766,9 @@ Project <- R6::R6Class(
       ## display status
       } else if (identical(data, "status")) {
         pal <- leaflet::colorFactor(
-          palette = self$action_colors,
-          domain = names(self$action_ids),
+          palette = unname(self$action_colors),
+          domain = self$action_ids,
+          levels = self$action_ids
         )
         popups <- stats::setNames(
           object = tibble::tibble(
@@ -823,7 +824,7 @@ Project <- R6::R6Class(
             self$parameters$true_style$bgFill,
             self$parameters$false_style$bgFill
           ),
-          domain = c("feasible", "infeasible"),
+          domain = c("feasible", "infeasible")
         )
         popups <- stats::setNames(
           object = tibble::tibble(

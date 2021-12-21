@@ -157,7 +157,7 @@ Solution <- R6::R6Class(
         #### prepare data for map
         pal <- leaflet::colorFactor(
           palette = self$project$action_colors,
-          domain = names(self$project$action_ids),
+          domain = self$project$action_ids,
         )
         popups <- self$site_results
         vals <- popups[[2]]
