@@ -26,3 +26,18 @@
   padding-left: 0 !important;
   padding-right: 0 !important;
 }
+
+/* tabs */
+#dataModal_tabset + div {
+  padding-top: 5px;
+  padding-left: 5px;
+  padding-bottom: 10px;
+  border-right: 1px solid #ddd;
+  border-left: 1px solid #ddd;
+  border-bottom: 1px solid #ddd;
+}
+
+#data_modal_project_tabset_panels,
+#data_modal_results_tabset_panels {
+  padding-bottom: 5px;
+}

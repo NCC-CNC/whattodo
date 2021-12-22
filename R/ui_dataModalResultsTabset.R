@@ -67,7 +67,10 @@ dataModalResultsTab <- function(action_ids,
   # build tabset
   tabset <- do.call(
     shiny::tabsetPanel,
-    append(list(id = "data_modal_results_tabset_panels"), panels)
+    append(
+      list(id = "data_modal_results_tabset_panels", type = "pills"),
+      panels
+    )
   )
 
   # make tooltips

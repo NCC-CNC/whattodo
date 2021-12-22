@@ -85,7 +85,10 @@ dataModalProjectTab <- function(action_ids,
   # build tabset
   tabset <- do.call(
     shiny::tabsetPanel,
-    append(list(id = "data_modal_project_tabset_panels"), panels)
+    append(
+      list(id = "data_modal_project_tabset_panels", type = "pills"),
+      panels
+    )
   )
 
   # return result
