@@ -23,9 +23,7 @@ app_global <- quote({
     }
   }
   ## set future settings
-  options(
-    future.wait.timeout = whattodo::get_golem_config("worker_time_out")
-  )
+  options(future.wait.timeout = whattodo::get_golem_config("worker_time_out"))
   ## implement strategy
   golem::print_dev(paste("plan strategy:", strategy))
   assertthat::assert_that(
