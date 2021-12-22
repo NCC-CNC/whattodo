@@ -10,6 +10,30 @@ app_global <- quote({
       golem::print_dev(pryr::mem_used())
   }
 
+  # initialize asynchronous processing
+  ## identify strategy
+  strategy <- whattodo::get_golem_config("strategy")
+  if (identical(strategy, "auto")) {
+    if (identical(Sys.getenv("R_CONFIG_ACTIVE"), "shinyapps")) {
+      strategy <- "multicore"
+    } else if (identical(.Platform$OS.type, "unix")) {
+      strategy <- "multicore"
+    } else {
+      strategy <- "multisession"
+    }
+  }
+  ## set future settings
+  options(
+    future.wait.timeout = whattodo::get_golem_config("worker_time_out")
+  )
+  ## implement strategy
+  golem::print_dev(paste("plan strategy:", strategy))
+  assertthat::assert_that(
+    strategy %in% c("sequential", "cluster", "multicore", "multisession"),
+    msg = "not a valid strategy"
+  )
+  suppressWarnings(future::plan(strategy, workers = 2))
+
   # find built-in projects
   # if environmental variable "FORCE_DEFAULT_PROJECTS=true":
   #   then use built-in projects distributed with shiny app

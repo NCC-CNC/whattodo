@@ -4,6 +4,13 @@ default:
   golem_version: 0.0.0.9000
   app_prod: no
 
+  ## future plan strategy
+  ### if "auto", then:
+  ###   if on Shiny apps (per R_CONFIG_ACTIVE variable): "multicore"
+  ###   else if on Unix systems: "multicore"
+  ###   else "multisession"
+  strategy: "auto"
+
   ## directory containing the projects
   ## "default" = system.file("extdata", "projects", package = "wheretowork")
   projects: "default"
