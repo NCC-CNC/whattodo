@@ -87,10 +87,10 @@ for (i in seq_len(nrow(action_data))) {
 wb$feature_data[[2]] <- round(runif(nrow(feature_data), 1, 100))
 wb$feature_data[[3]] <- round(runif(nrow(feature_data), 1, 100))
 
-### action expectation data
+### consequence data
 for (i in seq_len(nrow(action_data))) {
   for (j in seq_len(nrow(feature_data))) {
-    wb$action_expectation_data[[i]][[j + 1]] <- round(
+    wb$consequence_data[[i]][[j + 1]] <- round(
       runif(nrow(site_data), 1, 100)
     )
   }
@@ -109,7 +109,7 @@ openxlsx::saveWorkbook(
     site_data = wb$site_data,
     feasibility_data = wb$feasibility_data,
     feature_data = wb$feature_data,
-    action_expectation_data = wb$action_expectation_data,
+    consequence_data = wb$consequence_data,
     parameters = parameters
   ),
   file = output_path,

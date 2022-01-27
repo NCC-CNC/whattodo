@@ -217,8 +217,8 @@ Solution <- R6::R6Class(
         theme_results = lapply(
           seq_len(nrow(self$feature_results)), function(i) {
             ## extract values
-            max_held <- self$project$get_max_feature_expectation()$amount
-            curr_held <- self$project$get_current_feature_expectation()$amount
+            max_held <- self$project$get_max_feature_consequence()$amount
+            curr_held <- self$project$get_current_feature_consequence()$amount
             sol_held <- rowSums(as.matrix(self$feature_results[, -1]))
             ## return result
             list(
@@ -270,12 +270,12 @@ Solution <- R6::R6Class(
     },
 
     #' @description
-    #' Render action expectation data.
+    #' Render consequence data.
     #' @param action_id `character` identifier for action.
     #' @return [rhandsontable::rhandsontable] object.
-    render_action_expectation_data = function(action_id) {
+    render_consequence_data = function(action_id) {
       rhandsontable::hot_cols(
-        self$project$render_action_expectation_data(action_id = action_id),
+        self$project$render_consequence_data(action_id = action_id),
         readOnly = TRUE
       )
     },
@@ -385,7 +385,7 @@ Solution <- R6::R6Class(
           site_data = self$project$site_data,
           feasibility_data = self$project$feasibility_data,
           feature_data = self$project$feature_data,
-          action_expectation_data = self$project$action_expectation_data,
+          consequence_data = self$project$consequence_data,
           ## results
           summary_results_data = self$summary_results,
           site_results_data = self$site_results,

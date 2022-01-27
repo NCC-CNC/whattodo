@@ -70,7 +70,7 @@ dataModalProjectTab <- function(action_ids,
   panels <- append(panels, lapply(seq_along(action_ids), function(i) {
     ### determine name of sheet
     n <- as.character(glue::glue(
-      parameters$action_expectation_sheet$sheet_name,
+      parameters$consequence_sheet$sheet_name,
       action_ids = action_ids[[i]]
     ))
     ## return panel

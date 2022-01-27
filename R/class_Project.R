@@ -55,8 +55,8 @@ Project <- R6::R6Class(
     #' @field settings `list` of `Parameter` objects.
     settings = list(),
 
-    #' @field action_expectation_data `list` of `data.frame` objects.
-    action_expectation_data = NULL,
+    #' @field consequence_data `list` of `data.frame` objects.
+    consequence_data = NULL,
 
     #' @field site_cost_headers `character` vector with names.
     site_cost_headers = NA_character_,
@@ -73,11 +73,11 @@ Project <- R6::R6Class(
     #' @field feature_weight_header `character` value.
     feature_weight_header = NA_character_,
 
-    #' @field action_expectation_action_headers `character` named vector.
-    action_expectation_action_headers = NA_character_,
+    #' @field consequence_action_headers `character` named vector.
+    consequence_action_headers = NA_character_,
 
-    #' @field action_expectation_feature_headers `character` named vector.
-    action_expectation_feature_headers = NA_character_,
+    #' @field consequence_feature_headers `character` named vector.
+    consequence_feature_headers = NA_character_,
 
     #' @description
     #' Create a Project object.
@@ -92,7 +92,7 @@ Project <- R6::R6Class(
     #' @param site_data `data.frame` object.
     #' @param feature_data `data.frame` object.
     #' @param feasibility_data `data.frame` object.
-    #' @param action_expectation_data `list` of `data.frame` objects.
+    #' @param consequence_data `list` of `data.frame` objects.
     #' @param parameters `list` of parameters.
     #' @return A new Project object.
     initialize = function(id,
@@ -102,7 +102,7 @@ Project <- R6::R6Class(
                           site_data,
                           feature_data,
                           feasibility_data,
-                          action_expectation_data,
+                          consequence_data,
                           parameters) {
       # assert that arguments are valid
       assertthat::assert_that(
@@ -129,7 +129,7 @@ Project <- R6::R6Class(
         inherits(site_data, "data.frame"),
         inherits(feasibility_data, "data.frame"),
         inherits(feature_data, "data.frame"),
-        inherits(action_expectation_data, "list"),
+        inherits(consequence_data, "list"),
         ## parameters
         is.list(parameters),
         ## geometry
@@ -150,7 +150,7 @@ Project <- R6::R6Class(
       self$site_data <- site_data
       self$feature_data <- feature_data
       self$feasibility_data <- feasibility_data
-      self$action_expectation_data <- action_expectation_data
+      self$consequence_data <- consequence_data
       self$parameters <- parameters
       self$site_geometry <- site_geometry
 
@@ -175,17 +175,17 @@ Project <- R6::R6Class(
       ## feature data headers
       self$feature_goal_header <- parameters$feature_data_sheet$goal_header
       self$feature_weight_header <- parameters$feature_data_sheet$weight_header
-      ## action expectation data headers
-      self$action_expectation_feature_headers <- stats::setNames(
+      ## consequence data headers
+      self$consequence_feature_headers <- stats::setNames(
         glue::glue(
-          parameters$action_expectation_sheet$action_expectation_header,
+          parameters$consequence_sheet$consequence_header,
           feature_ids = feature_ids
         ),
         feature_ids
       )
-      self$action_expectation_action_headers <- stats::setNames(
+      self$consequence_action_headers <- stats::setNames(
         glue::glue(
-          parameters$action_expectation_sheet$sheet_name,
+          parameters$consequence_sheet$sheet_name,
           action_ids = action_ids
         ),
         action_ids
@@ -332,11 +332,11 @@ Project <- R6::R6Class(
     },
 
     #' @description
-    #' Get action expectation data for features.
+    #' Get consequence data for features.
     #' @param action_id `character` identifier for action.
     #' @param feature_id `character` identifier for feature.
     #' @return `numeric` vector.
-    get_action_expectations_for_feature = function(action_id, feature_id) {
+    get_consequences_for_feature = function(action_id, feature_id) {
       assertthat::assert_that(
         assertthat::is.string(action_id),
         assertthat::noNA(action_id),
@@ -346,8 +346,8 @@ Project <- R6::R6Class(
         feature_id %in% self$feature_ids
       )
       i <- match(action_id, self$action_ids)
-      j <- self$action_expectation_feature_headers[[feature_id]]
-      self$action_expectation_data[[i]][[j]]
+      j <- self$consequence_feature_headers[[feature_id]]
+      self$consequence_data[[i]][[j]]
     },
 
     #' @description
@@ -385,16 +385,16 @@ Project <- R6::R6Class(
     #' @description
     #' Get the highest amount for each feature.
     #' @return `data.frame` containing a `feature_id` and `amount` columns.
-    get_max_feature_expectation = function() {
+    get_max_feature_consequence = function() {
       tibble::tibble(
         feature_id = self$feature_ids,
         amount = vapply(
           seq_along(self$feature_ids), FUN.VALUE = numeric(1), function(i) {
-            ii <- self$action_expectation_feature_headers[[i]]
+            ii <- self$consequence_feature_headers[[i]]
             m <- vapply(
               seq_along(self$action_ids),
               FUN.VALUE = numeric(length(self$site_ids)),
-              function(j) self$action_expectation_data[[j]][[ii]]
+              function(j) self$consequence_data[[j]][[ii]]
             )
             sum(apply(m, 1, max, na.rm = TRUE))
           }
@@ -405,7 +405,7 @@ Project <- R6::R6Class(
     #' @description
     #' Get the current expected amount for each feature.
     #' @return `data.frame` containing a `feature_id` and `amount` columns.
-    get_current_feature_expectation = function() {
+    get_current_feature_consequence = function() {
       ss <- self$get_site_statuses()
       tibble::tibble(
         feature_id = self$feature_ids,
@@ -418,7 +418,7 @@ Project <- R6::R6Class(
                 seq_along(self$site_ids),
                 FUN.VALUE = numeric(1),
                 function(j) {
-                  self$get_action_expectations_for_feature(ss[[j]], i)[[j]]
+                  self$get_consequences_for_feature(ss[[j]], i)[[j]]
                 }
               )
             )
@@ -438,7 +438,7 @@ Project <- R6::R6Class(
           "status",
           glue::glue("cost_{x}", x = self$action_ids),
           glue::glue("feasibility_{x}", x = self$action_ids),
-          glue::glue("action_expectation_{x}_{y}", x = d$x, y = d$y)
+          glue::glue("consequence_{x}_{y}", x = d$x, y = d$y)
         ),
         nm = c(
           "Location",
@@ -453,12 +453,12 @@ Project <- R6::R6Class(
           ),
           paste0(
             glue::glue(
-              self$parameters$action_expectation_sheet$sheet_name,
+              self$parameters$consequence_sheet$sheet_name,
               action_ids = d$x,
             ),
             ": ",
             glue::glue(
-              self$parameters$action_expectation_sheet$action_expectation_header,
+              self$parameters$consequence_sheet$consequence_header,
               feature_ids = d$y,
             )
           )
@@ -472,10 +472,10 @@ Project <- R6::R6Class(
     get_pu_data = function() {
       ## extract cost
       cost_data <- self$site_data[, self$site_cost_headers, drop = FALSE]
-      ## extract action expectation data
-      expectation_data <- lapply(seq_along(self$action_ids), function(i) {
-        out <- self$action_expectation_data[[i]]
-        out <- out[, self$action_expectation_feature_headers, drop = FALSE]
+      ## extract consequence data
+      consequence_data <- lapply(seq_along(self$action_ids), function(i) {
+        out <- self$consequence_data[[i]]
+        out <- out[, self$consequence_feature_headers, drop = FALSE]
         names(out) <- paste0(self$action_ids[i], "_", self$feature_ids)
         out
       })
@@ -484,7 +484,7 @@ Project <- R6::R6Class(
         dplyr::bind_cols,
         append(
           list(tibble::tibble(site = self$site_ids), cost_data),
-          expectation_data
+          consequence_data
         )
       )
     },
@@ -517,7 +517,7 @@ Project <- R6::R6Class(
         sense = ">=",
         target = c(
           (self$feature_data[[self$feature_goal_header]] / 100) *
-          self$get_max_feature_expectation()$amount
+          self$get_max_feature_consequence()$amount
         )
       )
     },
@@ -602,8 +602,8 @@ Project <- R6::R6Class(
       # extract column names from parameters
       nh <- self$parameters$feature_data_sheet$name_header
       th <- self$parameters$feature_data_sheet$goal_header
-      mx <- self$get_max_feature_expectation()
-      cr <- self$get_current_feature_expectation()
+      mx <- self$get_max_feature_consequence()
+      cr <- self$get_current_feature_consequence()
       # generate data
       lapply(seq_len(nrow(self$feature_data)), function(i) {
         list(
@@ -718,10 +718,10 @@ Project <- R6::R6Class(
     },
 
     #' @description
-    #' Set action expectation data.
+    #' Set consequence data.
     #' @param x `data.frame` containing new data.
     #' @param action_id `character` identifier for action.
-    set_action_expectation_data = function(x, action_id) {
+    set_consequence_data = function(x, action_id) {
       assertthat::assert_that(
         assertthat::is.string(action_id),
         assertthat::noNA(action_id),
@@ -730,9 +730,9 @@ Project <- R6::R6Class(
       i <- match(action_id, self$action_ids)
       assertthat::assert_that(
         inherits(x, "data.frame"),
-        identical(names(x), names(self$action_expectation_data[[i]]))
+        identical(names(x), names(self$consequence_data[[i]]))
       )
-      self$action_expectation_data[[i]] <- tibble::as_tibble(x)
+      self$consequence_data[[i]] <- tibble::as_tibble(x)
       invisible(self)
     },
 
@@ -843,10 +843,10 @@ Project <- R6::R6Class(
           )
         )
         vals <- popups[[2]]
-      ## display action expectation data
-      } else if (startsWith(data, "action_expectation")) {
+      ## display consequence data
+      } else if (startsWith(data, "consequence")) {
         ### extract ids
-        d <- unglue::unglue_data(data, pattern = "action_expectation_{x}_{y}")
+        d <- unglue::unglue_data(data, pattern = "consequence_{x}_{y}")
         action_id <- d$x
         feature_id <- d$y
         ### validate ids
@@ -856,12 +856,12 @@ Project <- R6::R6Class(
           isTRUE(action_id %in% self$action_ids),
           isTRUE(feature_id %in% self$feature_ids)
         )
-        v <- self$get_action_expectations_for_feature(action_id, feature_id)
+        v <- self$get_consequences_for_feature(action_id, feature_id)
         pal <- leaflet::colorNumeric(
           palette = "viridis",
           domain = range(v)
         )
-        h <- self$parameters$action_expectation_sheet$action_expectation_header
+        h <- self$parameters$consequence_sheet$consequence_header
         popups <- stats::setNames(
           object = tibble::tibble(name = self$site_ids, value = v),
           nm = c(
@@ -992,10 +992,10 @@ Project <- R6::R6Class(
     },
 
     #' @description
-    #' Render action expectation data.
+    #' Render consequence data.
     #' @param action_id `character` identifier for action.
     #' @return [rhandsontable::rhandsontable] object.
-    render_action_expectation_data = function(action_id) {
+    render_consequence_data = function(action_id) {
       # assert arguments are valid
       assertthat::assert_that(
         assertthat::is.string(action_id),
@@ -1003,7 +1003,7 @@ Project <- R6::R6Class(
         action_id %in% self$action_ids
       )
       # initialize table
-      x <- self$action_expectation_data[[match(action_id, self$action_ids)]]
+      x <- self$consequence_data[[match(action_id, self$action_ids)]]
       r <- rhandsontable::rhandsontable(x, useTypes = TRUE)
       r <- rhandsontable::hot_col(r, col = 1, readOnly = TRUE)
       r <- rhandsontable::hot_validate_numeric(
@@ -1041,7 +1041,7 @@ Project <- R6::R6Class(
           site_data = self$site_data,
           feasibility_data = self$feasibility_data,
           feature_data = self$feature_data,
-          action_expectation_data = self$action_expectation_data,
+          consequence_data = self$consequence_data,
           ## parameters
           parameters = self$parameters
         ),
@@ -1100,8 +1100,8 @@ Project <- R6::R6Class(
 #'
 #' @param feature_data `data.frame` containing feature data.
 #'
-#' @param action_expectation_data `list` of `data.frame` objects
-#'   containing expectation data.
+#' @param consequence_data `list` of `data.frame` objects
+#'   containing consequence data.
 #'
 #' @param parameters `list` object containing parameters to customize
 #'  appearance of worksheet.
@@ -1127,7 +1127,7 @@ new_project <- function(site_ids,
                         site_data,
                         feature_data,
                         feasibility_data,
-                        action_expectation_data,
+                        consequence_data,
                         parameters,
                         site_geometry = NULL,
                         id = uuid::UUIDgenerate()) {
@@ -1170,7 +1170,7 @@ new_project <- function(site_ids,
     site_data = site_data,
     feature_data = feature_data,
     feasibility_data = feasibility_data,
-    action_expectation_data = action_expectation_data,
+    consequence_data = consequence_data,
     parameters = parameters
   )
 }

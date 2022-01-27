@@ -47,7 +47,7 @@ Definition for the Project class.
 
 \item{\code{settings}}{\code{list} of \code{Parameter} objects.}
 
-\item{\code{action_expectation_data}}{\code{list} of \code{data.frame} objects.}
+\item{\code{consequence_data}}{\code{list} of \code{data.frame} objects.}
 
 \item{\code{site_cost_headers}}{\code{character} vector with names.}
 
@@ -59,9 +59,9 @@ Definition for the Project class.
 
 \item{\code{feature_weight_header}}{\code{character} value.}
 
-\item{\code{action_expectation_action_headers}}{\code{character} named vector.}
+\item{\code{consequence_action_headers}}{\code{character} named vector.}
 
-\item{\code{action_expectation_feature_headers}}{\code{character} named vector.}
+\item{\code{consequence_feature_headers}}{\code{character} named vector.}
 }
 \if{html}{\out{</div>}}
 }
@@ -80,11 +80,11 @@ Definition for the Project class.
 \item \href{#method-get_site_statuses}{\code{Project$get_site_statuses()}}
 \item \href{#method-get_action_costs}{\code{Project$get_action_costs()}}
 \item \href{#method-get_action_feasibility}{\code{Project$get_action_feasibility()}}
-\item \href{#method-get_action_expectations_for_feature}{\code{Project$get_action_expectations_for_feature()}}
+\item \href{#method-get_consequences_for_feature}{\code{Project$get_consequences_for_feature()}}
 \item \href{#method-get_min_budget}{\code{Project$get_min_budget()}}
 \item \href{#method-get_max_budget}{\code{Project$get_max_budget()}}
-\item \href{#method-get_max_feature_expectation}{\code{Project$get_max_feature_expectation()}}
-\item \href{#method-get_current_feature_expectation}{\code{Project$get_current_feature_expectation()}}
+\item \href{#method-get_max_feature_consequence}{\code{Project$get_max_feature_consequence()}}
+\item \href{#method-get_current_feature_consequence}{\code{Project$get_current_feature_consequence()}}
 \item \href{#method-get_map_layers}{\code{Project$get_map_layers()}}
 \item \href{#method-get_pu_data}{\code{Project$get_pu_data()}}
 \item \href{#method-get_zone_data}{\code{Project$get_zone_data()}}
@@ -100,12 +100,12 @@ Definition for the Project class.
 \item \href{#method-set_site_data}{\code{Project$set_site_data()}}
 \item \href{#method-set_feature_data}{\code{Project$set_feature_data()}}
 \item \href{#method-set_feasibility_data}{\code{Project$set_feasibility_data()}}
-\item \href{#method-set_action_expectation_data}{\code{Project$set_action_expectation_data()}}
+\item \href{#method-set_consequence_data}{\code{Project$set_consequence_data()}}
 \item \href{#method-render_on_map}{\code{Project$render_on_map()}}
 \item \href{#method-render_site_data}{\code{Project$render_site_data()}}
 \item \href{#method-render_feature_data}{\code{Project$render_feature_data()}}
 \item \href{#method-render_feasibility_data}{\code{Project$render_feasibility_data()}}
-\item \href{#method-render_action_expectation_data}{\code{Project$render_action_expectation_data()}}
+\item \href{#method-render_consequence_data}{\code{Project$render_consequence_data()}}
 \item \href{#method-write}{\code{Project$write()}}
 \item \href{#method-clone}{\code{Project$clone()}}
 }
@@ -128,7 +128,7 @@ Create a Project object.
   site_data,
   feature_data,
   feasibility_data,
-  action_expectation_data,
+  consequence_data,
   parameters
 )}\if{html}{\out{</div>}}
 }
@@ -158,7 +158,7 @@ Create a Project object.
 
 \item{\code{feasibility_data}}{\code{data.frame} object.}
 
-\item{\code{action_expectation_data}}{\code{list} of \code{data.frame} objects.}
+\item{\code{consequence_data}}{\code{list} of \code{data.frame} objects.}
 
 \item{\code{parameters}}{\code{list} of parameters.}
 }
@@ -358,12 +358,12 @@ Get feasibility data for implementing an action within each site.
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-get_action_expectations_for_feature"></a>}}
-\if{latex}{\out{\hypertarget{method-get_action_expectations_for_feature}{}}}
-\subsection{Method \code{get_action_expectations_for_feature()}}{
-Get action expectation data for features.
+\if{html}{\out{<a id="method-get_consequences_for_feature"></a>}}
+\if{latex}{\out{\hypertarget{method-get_consequences_for_feature}{}}}
+\subsection{Method \code{get_consequences_for_feature()}}{
+Get consequence data for features.
 \subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{Project$get_action_expectations_for_feature(action_id, feature_id)}\if{html}{\out{</div>}}
+\if{html}{\out{<div class="r">}}\preformatted{Project$get_consequences_for_feature(action_id, feature_id)}\if{html}{\out{</div>}}
 }
 
 \subsection{Arguments}{
@@ -406,12 +406,12 @@ Get the cost of the most expensive solution.
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-get_max_feature_expectation"></a>}}
-\if{latex}{\out{\hypertarget{method-get_max_feature_expectation}{}}}
-\subsection{Method \code{get_max_feature_expectation()}}{
+\if{html}{\out{<a id="method-get_max_feature_consequence"></a>}}
+\if{latex}{\out{\hypertarget{method-get_max_feature_consequence}{}}}
+\subsection{Method \code{get_max_feature_consequence()}}{
 Get the highest amount for each feature.
 \subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{Project$get_max_feature_expectation()}\if{html}{\out{</div>}}
+\if{html}{\out{<div class="r">}}\preformatted{Project$get_max_feature_consequence()}\if{html}{\out{</div>}}
 }
 
 \subsection{Returns}{
@@ -419,12 +419,12 @@ Get the highest amount for each feature.
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-get_current_feature_expectation"></a>}}
-\if{latex}{\out{\hypertarget{method-get_current_feature_expectation}{}}}
-\subsection{Method \code{get_current_feature_expectation()}}{
+\if{html}{\out{<a id="method-get_current_feature_consequence"></a>}}
+\if{latex}{\out{\hypertarget{method-get_current_feature_consequence}{}}}
+\subsection{Method \code{get_current_feature_consequence()}}{
 Get the current expected amount for each feature.
 \subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{Project$get_current_feature_expectation()}\if{html}{\out{</div>}}
+\if{html}{\out{<div class="r">}}\preformatted{Project$get_current_feature_consequence()}\if{html}{\out{</div>}}
 }
 
 \subsection{Returns}{
@@ -659,12 +659,12 @@ Set feasibility data.
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-set_action_expectation_data"></a>}}
-\if{latex}{\out{\hypertarget{method-set_action_expectation_data}{}}}
-\subsection{Method \code{set_action_expectation_data()}}{
-Set action expectation data.
+\if{html}{\out{<a id="method-set_consequence_data"></a>}}
+\if{latex}{\out{\hypertarget{method-set_consequence_data}{}}}
+\subsection{Method \code{set_consequence_data()}}{
+Set consequence data.
 \subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{Project$set_action_expectation_data(x, action_id)}\if{html}{\out{</div>}}
+\if{html}{\out{<div class="r">}}\preformatted{Project$set_consequence_data(x, action_id)}\if{html}{\out{</div>}}
 }
 
 \subsection{Arguments}{
@@ -742,12 +742,12 @@ Render feasibility data.
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-render_action_expectation_data"></a>}}
-\if{latex}{\out{\hypertarget{method-render_action_expectation_data}{}}}
-\subsection{Method \code{render_action_expectation_data()}}{
-Render action expectation data.
+\if{html}{\out{<a id="method-render_consequence_data"></a>}}
+\if{latex}{\out{\hypertarget{method-render_consequence_data}{}}}
+\subsection{Method \code{render_consequence_data()}}{
+Render consequence data.
 \subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{Project$render_action_expectation_data(action_id)}\if{html}{\out{</div>}}
+\if{html}{\out{<div class="r">}}\preformatted{Project$render_consequence_data(action_id)}\if{html}{\out{</div>}}
 }
 
 \subsection{Arguments}{

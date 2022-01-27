@@ -15,7 +15,7 @@ test_that("feasible problem", {
     site_data = d$site_data,
     feature_data = d$feature_data,
     feasibility_data = d$feasibility_data,
-    action_expectation_data = d$action_expectation_data,
+    consequence_data = d$consequence_data,
     parameters = parameters,
     site_geometry = NULL
   )

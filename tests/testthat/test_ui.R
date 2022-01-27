@@ -13,32 +13,6 @@ test_that("dataModal", {
   expect_is(x, "shiny.tag")
 })
 
-test_that("dataModalPane", {
-  x <- dataModalPane(
-    action_ids = c("action_1", "action2"),
-    action_descriptions = c("A1", "A2"),
-    parameters = whatdataio::read_data_configuration()
-  )
-  expect_is(x, "shiny.tag.list")
-})
-
-test_that("solutionModal", {
-  x <- solutionModal(
-    id = "id",
-    trigger = "trig"
-  )
-  expect_is(x, "shiny.tag")
-})
-
-test_that("solutionModalPane", {
-  x <- solutionModalPane(
-    action_ids = c("action_1", "action2"),
-    action_descriptions = c("A1", "A2"),
-    parameters = whatdataio::read_data_configuration()
-  )
-  expect_is(x, "shiny.tag.list")
-})
-
 test_that("helpModal", {
   x <- helpModal("id", "trigger_id")
   expect_is(x, "shiny.tag")

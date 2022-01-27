@@ -15,7 +15,7 @@ describe("new_project()", {
     site_data = d$site_data,
     feature_data = d$feature_data,
     feasibility_data = d$feasibility_data,
-    action_expectation_data = d$action_expectation_data,
+    consequence_data = d$consequence_data,
     parameters = parameters,
     site_geometry = NULL
   )
@@ -31,7 +31,7 @@ describe("new_project()", {
     expect_equal(p$site_data, d$site_data)
     expect_equal(p$feature_data, d$feature_data)
     expect_equal(p$feasibility_data, d$feasibility_data)
-    expect_equal(p$action_expectation_data, d$action_expectation_data)
+    expect_equal(p$consequence_data, d$consequence_data)
     expect_equal(p$parameters, parameters)
     expect_is(p$site_geometry, "sf")
     expect_named(p$site_geometry, c("id", "geometry"))
@@ -65,11 +65,11 @@ describe("new_project()", {
       "list"
     )
     expect_is(
-      p$get_max_feature_expectation(),
+      p$get_max_feature_consequence(),
       "data.frame"
     )
     expect_is(
-      p$get_current_feature_expectation(),
+      p$get_current_feature_consequence(),
       "data.frame"
     )
   })
@@ -97,11 +97,11 @@ describe("new_project()", {
     p$set_feasibility_data(nd)
     expect_equal(p$feasibility_data, nd)
     p$set_feasibility_data(d$feasibility_data)
-    ## set_action_expectation_data
-    nd <- d$action_expectation_data[[2]][1, , drop = FALSE]
-    p$set_action_expectation_data(nd, "action 2")
-    expect_equal(p$action_expectation_data[[2]], nd)
-    p$set_action_expectation_data(d$action_expectation_data[[2]], "action 2")
+    ## set_consequence_data
+    nd <- d$consequence_data[[2]][1, , drop = FALSE]
+    p$set_consequence_data(nd, "action 2")
+    expect_equal(p$consequence_data[[2]], nd)
+    p$set_consequence_data(d$consequence_data[[2]], "action 2")
   })
   it("has widget data methods", {
     expect_is(p$get_solution_settings_data(), "list")
@@ -127,7 +127,7 @@ describe("new_project()", {
     expect_is(p$render_feature_data(), "rhandsontable")
     expect_is(p$render_feasibility_data(), "rhandsontable")
     expect_is(
-      p$render_action_expectation_data(action_id = "action 1"),
+      p$render_consequence_data(action_id = "action 1"),
       "rhandsontable"
     )
   })

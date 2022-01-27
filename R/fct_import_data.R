@@ -131,7 +131,7 @@ import_data <- function(x) {
     lapply(seq_along(app_data$project$get_action_ids()), function(i) {
       output[[paste0("data_modal_project_action_", i, "_table")]] <-
         rhandsontable::renderRHandsontable({
-          d$render_action_expectation_data(
+          d$render_consequence_data(
             action_id = d$get_action_ids()[[i]]
           )
         })
@@ -201,7 +201,7 @@ import_data <- function(x) {
       x <- input[[paste0("data_modal_project_action_", i, "_table")]]
       shiny::req(x)
       if (!identical(input$dataModal_select, app_data$project_data_id)) return()
-      app_data$project$set_action_expectation_data(
+      app_data$project$set_consequence_data(
         rhandsontable::hot_to_r(x),
         action_id = app_data$project$get_action_ids()[[i]]
       )
@@ -246,7 +246,7 @@ import_data <- function(x) {
   })
   shiny::observeEvent(map_data_listener(), {
     shiny::req(map_data_listener())
-    map_listener(runif(1))
+    map_listener(stats::runif(1))
   })
 
   # make sidebars visible

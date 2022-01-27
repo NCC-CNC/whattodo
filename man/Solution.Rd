@@ -49,7 +49,7 @@ Definition for the Solution class.
 \item \href{#method-render_site_data}{\code{Solution$render_site_data()}}
 \item \href{#method-render_feature_data}{\code{Solution$render_feature_data()}}
 \item \href{#method-render_feasibility_data}{\code{Solution$render_feasibility_data()}}
-\item \href{#method-render_action_expectation_data}{\code{Solution$render_action_expectation_data()}}
+\item \href{#method-render_consequence_data}{\code{Solution$render_consequence_data()}}
 \item \href{#method-render_summary_results}{\code{Solution$render_summary_results()}}
 \item \href{#method-render_site_results}{\code{Solution$render_site_results()}}
 \item \href{#method-render_feature_results}{\code{Solution$render_feature_results()}}
@@ -272,12 +272,12 @@ Render feasibility data.
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-render_action_expectation_data"></a>}}
-\if{latex}{\out{\hypertarget{method-render_action_expectation_data}{}}}
-\subsection{Method \code{render_action_expectation_data()}}{
-Render action expectation data.
+\if{html}{\out{<a id="method-render_consequence_data"></a>}}
+\if{latex}{\out{\hypertarget{method-render_consequence_data}{}}}
+\subsection{Method \code{render_consequence_data()}}{
+Render consequence data.
 \subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{Solution$render_action_expectation_data(action_id)}\if{html}{\out{</div>}}
+\if{html}{\out{<div class="r">}}\preformatted{Solution$render_consequence_data(action_id)}\if{html}{\out{</div>}}
 }
 
 \subsection{Arguments}{

@@ -15,7 +15,7 @@ describe("new_solution()", {
     site_data = d$site_data,
     feature_data = d$feature_data,
     feasibility_data = d$feasibility_data,
-    action_expectation_data = d$action_expectation_data,
+    consequence_data = d$consequence_data,
     parameters = parameters,
     site_geometry = NULL
   )
@@ -73,7 +73,7 @@ describe("new_solution()", {
     expect_is(x$render_site_data(), "rhandsontable")
     expect_is(x$render_feature_data(), "rhandsontable")
     expect_is(x$render_feasibility_data(), "rhandsontable")
-    expect_is(x$render_action_expectation_data("action 1"), "rhandsontable")
+    expect_is(x$render_consequence_data("action 1"), "rhandsontable")
     expect_is(x$render_site_results(), "datatables")
     expect_is(x$render_summary_results(), "datatables")
     expect_is(x$render_feature_results(), "datatables")

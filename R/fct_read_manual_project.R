@@ -132,7 +132,7 @@ read_manual_project <- function(spreadsheet_path,
       site_data = spreadsheet_data$site_data,
       feature_data = spreadsheet_data$feature_data,
       feasibility_data = spreadsheet_data$feasibility_data,
-      action_expectation_data = spreadsheet_data$action_expectation_data,
+      consequence_data = spreadsheet_data$consequence_data,
       site_geometry = spatial_data,
       parameters = parameters
     ),

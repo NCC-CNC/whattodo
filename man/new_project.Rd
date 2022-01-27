@@ -14,7 +14,7 @@ new_project(
   site_data,
   feature_data,
   feasibility_data,
-  action_expectation_data,
+  consequence_data,
   parameters,
   site_geometry = NULL,
   id = uuid::UUIDgenerate()
@@ -52,8 +52,8 @@ one value.}
 
 \item{feasibility_data}{\code{data.frame}containing feasibility data.}
 
-\item{action_expectation_data}{\code{list} of \code{data.frame} objects
-containing expectation data.}
+\item{consequence_data}{\code{list} of \code{data.frame} objects
+containing consequence data.}
 
 \item{parameters}{\code{list} object containing parameters to customize
 appearance of worksheet.}

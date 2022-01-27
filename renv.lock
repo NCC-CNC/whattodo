@@ -1,6 +1,6 @@
 {
   "R": {
-    "Version": "4.1.0",
+    "Version": "4.1.2",
     "Repositories": [
       {
         "Name": "CRAN",
@@ -426,13 +426,6 @@
       "Source": "Repository",
       "Repository": "CRAN",
       "Hash": "e32cfc0973caba11b65b1fa691b4d8c9"
-    },
-    "foreign": {
-      "Package": "foreign",
-      "Version": "0.8-81",
-      "Source": "Repository",
-      "Repository": "CRAN",
-      "Hash": "74628ea7a3be5ee8a7b5bb0a8e84882e"
     },
     "fs": {
       "Package": "fs",
@@ -1030,13 +1023,6 @@
       "Repository": "CRAN",
       "Hash": "fcd94e00cc409b25d07ca50f7bf339f5"
     },
-    "rpart": {
-      "Package": "rpart",
-      "Version": "4.1-15",
-      "Source": "Repository",
-      "Repository": "CRAN",
-      "Hash": "9787c1fcb680e655d062e7611cadf78e"
-    },
     "rprojroot": {
       "Package": "rprojroot",
       "Version": "2.0.2",
@@ -1354,8 +1340,8 @@
       "RemoteRepo": "whatdataio",
       "RemoteUsername": "NCC-CNC",
       "RemoteRef": "v2",
-      "RemoteSha": "7bdd67163dddcde6e842ec48e5356157204e9920",
-      "Hash": "f3f3fa806567833793b0a815bb1240e9"
+      "RemoteSha": "51ea75dfb9790c6a88ed7f27150f529efbb57d52",
+      "Hash": "8d5b48863dd88d5932c4fc858274ea0a"
     },
     "whereami": {
       "Package": "whereami",

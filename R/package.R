@@ -36,7 +36,9 @@ NULL
 ## these variables are used in lazy evaluation or the shiny application
 utils::globalVariables(
   c(
-    "input"
+    "input",
+    "session",
+    "map_listener"
   )
 )
 
