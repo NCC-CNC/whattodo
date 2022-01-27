@@ -753,6 +753,9 @@ Project <- R6::R6Class(
         assertthat::noNA(group)
       )
 
+      # clear map
+      map <- leaflet::clearShapes(map)
+
       # prepare data for map
       ## display location
       if (identical(data, "location")) {

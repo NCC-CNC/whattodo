@@ -163,6 +163,7 @@ Solution <- R6::R6Class(
         vals <- popups[[2]]
         ### clear group from map
         map <- leaflet::clearGroup(map, group)
+        map <- leaflet::clearShapes(map)
         map <- leaflet::removeControl(map, "legend")
         ### add data to map
         map <- leafem::addFeatures(
