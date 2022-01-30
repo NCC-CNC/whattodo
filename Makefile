@@ -19,7 +19,8 @@ man:
 
 ## simulate data
 data:
-	R --slave -e "source('inst/scripts/builtin-data.R')"
+	R --slave -e "source('inst/scripts/simulated-data.R')"
+	R --slave -e "source('inst/scripts/test-data.R')"
 
 ## rebubild readme
 readme:

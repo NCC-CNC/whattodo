@@ -1,0 +1,6 @@
+name: Test dataset
+author_name: Richard Schuster
+author_email: richard.schuster@natureconservancy.ca
+user_groups: admin
+spreadsheet_path: test-data.xlsx
+spatial_path: test-data.shp
