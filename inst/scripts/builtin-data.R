@@ -30,8 +30,8 @@ feature_data <- tibble::tribble(
 action_data <- tibble::tribble(
   ~id, ~description,
   "Maintain", "Maintenance actions",
-  "Restore", "Restoration actions to improve ecological integrity",
-  "Signage", "Add signs to informing of local catch quotas"
+  "Signage", "Add signs to informing of local catch quotas",
+  "Restore", "Restoration actions to improve ecological integrity"
 )
 
 # Preliminary processing
@@ -80,7 +80,9 @@ wb <- read_spreadsheet_data(f1, parameters)
 ### site data
 wb$site_data[[4]] <- sample(action_data$id, nrow(site_data), replace = TRUE)
 for (i in seq_len(nrow(action_data))) {
-  wb$site_data[[4 + i]] <- round(runif(nrow(site_data), i * 100, i * 200))
+  wb$site_data[[4 + i]] <- round(
+    runif(nrow(site_data), i * 100, i * 200)
+  )
 }
 
 ### feature data
@@ -91,7 +93,7 @@ wb$feature_data[[3]] <- round(runif(nrow(feature_data), 1, 100))
 for (i in seq_len(nrow(action_data))) {
   for (j in seq_len(nrow(feature_data))) {
     wb$consequence_data[[i]][[j + 1]] <- round(
-      runif(nrow(site_data), 1, 100)
+      (i * 101) + (i * runif(nrow(site_data), 1, 100))
     )
   }
 }

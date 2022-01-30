@@ -21,7 +21,7 @@ man:
 data:
 	R --slave -e "source('inst/scripts/builtin-data.R')"
 
-## reubild readme
+## rebubild readme
 readme:
 	R --slave -e "rmarkdown::render('README.Rmd')"
 
