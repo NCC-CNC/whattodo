@@ -220,17 +220,20 @@ Solution <- R6::R6Class(
             ## extract values
             max_held <- self$project$get_max_feature_consequence()$amount
             curr_held <- self$project$get_current_feature_consequence()$amount
-            sol_held <- rowSums(as.matrix(self$feature_results[, -1]))
+            goal_held <- self$project$feature_data[[th]][[i]] / 100
+            sol_held <- self$feature_results[[tah]]
             ## return result
             list(
               id = paste0("T", self$project$feature_html_ids[[i]]),
               name = self$project$feature_ids[[i]],
               feature_id = paste0("F", self$project$feature_html_ids[[i]]),
               feature_name = self$project$feature_ids[[i]],
-              feature_status = isTRUE(self$feature_data[[th]][[i]] > 1e-10),
+              feature_status = isTRUE(
+                self$project$feature_data[[th]][[i]] > 1e-10
+              ),
               feature_total_amount = max_held[[i]],
               feature_current_held = curr_held[[i]] / max_held[[i]],
-              feature_goal = self$project$feature_data[[th]][[i]],
+              feature_goal = goal_held,
               feature_solution_held = sol_held[[i]] / max_held[[i]],
               units = "units"
             )

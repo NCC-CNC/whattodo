@@ -58,10 +58,21 @@ describe("new_solution()", {
     expect_is(p$get_map_layers(), "character")
   })
   it("has widget data methods", {
-    expect_is(
-      x$get_solution_results_data(),
-      "list"
+    s <- x$get_solution_results_data()
+    expect_is(s, "list")
+    expect_named(
+      s,
+      c(
+        "id", "name", "parameters", "statistics", "theme_results",
+        "solution_color"
+      )
     )
+    expect_is(s$id, "character")
+    expect_is(s$name, "character")
+    expect_is(s$parameters, "list")
+    expect_is(s$statistics, "list")
+    expect_is(s$theme_results, "list")
+    expect_is(s$solution_color, "character")
   })
   it("has map render methods", {
     l <- leaflet::leaflet()

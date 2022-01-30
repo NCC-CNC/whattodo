@@ -46,8 +46,15 @@ format_solution_results <- function(site_ids,
   summary_cost_name <- parameters$summary_results_sheet$cost_statistic_name
   summary_cost_value <-
     sum(vapply(seq_along(action_ids), FUN.VALUE = numeric(1), function(i) {
-      sum(solution_data[[sol_names[[i]]]] *
-        pu_data[[paste0("cost_", action_ids[i])]])
+      sum(
+        solution_data[[sol_names[[i]]]] *
+        pu_data[[
+          glue::glue(
+            parameters$site_data_sheet$action_cost_header,
+            action_ids = action_ids[i]
+          )
+        ]]
+      )
     }))
 
   ## calculate number of sites allocated to each action
@@ -56,7 +63,7 @@ format_solution_results <- function(site_ids,
     action_ids = action_ids
   ))
   summary_n_action_value <-
-    vapply(sol_names, FUN.VALUE = numeric(1), function(x) {
+    vapply(sol_names, USE.NAMES = FALSE, FUN.VALUE = numeric(1), function(x) {
       sum(solution_data[[x]])
     })
   ## prepare summary
@@ -74,6 +81,7 @@ format_solution_results <- function(site_ids,
     vapply(
       seq_along(sol_names),
       FUN.VALUE = numeric(length(feature_ids)),
+      USE.NAMES = FALSE,
       function(i) {
         # extract rij values for action
         rij <- as.matrix(pu_data[, zone_data[[i]], drop = FALSE])
@@ -89,7 +97,7 @@ format_solution_results <- function(site_ids,
   if (!is.matrix(feature_results)) {
     feature_results <- matrix(feature_results, nrow = length(feature_ids))
   }
-  feature_totals <- rowSums(feature_results)
+  feature_totals <- unname(rowSums(feature_results))
   feature_results <- tibble::as_tibble(as.data.frame(feature_results))
 
   names(feature_results) <- action_ids
