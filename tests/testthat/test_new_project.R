@@ -109,20 +109,20 @@ describe("new_project()", {
     expect_is(p$get_weights_settings_data(), "list")
     expect_is(p$settings[[1]]$get_widget_data(), "list")
   })
-  it ("has methods extracting optimization data", {
+  it("has methods extracting optimization data", {
     expect_is(p$get_pu_data(), "tbl_df")
     expect_is(p$get_zone_data(), "ZonesCharacter")
     expect_is(p$get_goal_data(), "tbl_df")
     expect_is(p$get_weight_data(), "tbl_df")
     expect_is(p$get_locked_data(), "tbl_df")
   })
-  it ("has map render methods", {
+  it("has map render methods", {
     l <- leaflet::leaflet()
     for (i in p$get_map_layers()) {
       expect_is(p$render_on_map(l, i), "leaflet")
     }
   })
-  it ("has data render methods", {
+  it("has data render methods", {
     expect_is(p$render_site_data(), "rhandsontable")
     expect_is(p$render_feature_data(), "rhandsontable")
     expect_is(p$render_feasibility_data(), "rhandsontable")
@@ -131,7 +131,7 @@ describe("new_project()", {
       "rhandsontable"
     )
   })
-  it ("has write method", {
+  it("has write method", {
     # create temp file paths
     tmp_dir <- tempfile()
     dir.create(tmp_dir, showWarnings = FALSE, recursive = TRUE)

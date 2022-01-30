@@ -63,13 +63,13 @@ describe("new_solution()", {
       "list"
     )
   })
-  it ("has map render methods", {
+  it("has map render methods", {
     l <- leaflet::leaflet()
     for (i in x$get_map_layers()) {
       expect_is(x$render_on_map(l, i), "leaflet")
     }
   })
-  it ("has data render methods", {
+  it("has data render methods", {
     expect_is(x$render_site_data(), "rhandsontable")
     expect_is(x$render_feature_data(), "rhandsontable")
     expect_is(x$render_feasibility_data(), "rhandsontable")
@@ -78,7 +78,7 @@ describe("new_solution()", {
     expect_is(x$render_summary_results(), "datatables")
     expect_is(x$render_feature_results(), "datatables")
   })
-  it ("has write method", {
+  it("has write method", {
     # create temp file paths
     tmp_dir <- tempfile()
     dir.create(tmp_dir, showWarnings = FALSE, recursive = TRUE)
