@@ -33,7 +33,7 @@ study_area_data <-
   sf::st_cast("POLYGON") %>%
   sf::st_sf() %>%
   filter(sf::st_area(.) == max(sf::st_area(.))) %>%
-  sf::st_transform(4326) %>%
+  sf::st_transform(3857) %>%
   sf::st_make_valid()
 
 ### create grid cells for sites
@@ -42,7 +42,7 @@ grid_data <-
   sf::st_make_grid(n = 20) %>%
   sf::st_set_crs(NA) %>%
   sf::st_intersection(x = sf::st_set_crs(study_area_data, NA)) %>%
-  sf::st_set_crs(4326)
+  sf::st_set_crs(3857)
 
 ### sample sites based on grid cells
 site_data <-
@@ -50,7 +50,7 @@ site_data <-
 
 # Exports
 ## save workbook
-output_path <- paste0(output_dir, "/test-data.xslx")
+output_path <- paste0(output_dir, "/test-data.xlsx")
 openxlsx::saveWorkbook(
   create_project_workbook(
     site_ids = d$site_ids,
