@@ -307,7 +307,8 @@ Solution <- R6::R6Class(
           scrollY = "calc(100vh - 295px)",
           scrollCollapse = TRUE
         )
-      )
+      ) %>%
+      DT::formatRound(2, 2)
     },
 
     #' @description
@@ -359,7 +360,8 @@ Solution <- R6::R6Class(
           scrollY = "calc(100vh - 295px)",
           scrollCollapse = TRUE
         )
-      )
+      ) %>%
+      DT::formatRound(seq(2, ncol(d)), 2)
     },
 
     #' @description
