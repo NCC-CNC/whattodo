@@ -62,10 +62,10 @@ quicksite:
 # commands to launch app
 ## launch local version using system libraries
 debug:
-	R -e "options(golem.app.prod = FALSE); golem::run_dev()"
+	R -e "Sys.setenv('SHINYPROXY_USERGROUPS'='admin'); options(golem.app.prod = FALSE); golem::run_dev()"
 
 quick-debug:
-	R -e "options(golem.app.prod = FALSE, quick = TRUE); golem::run_dev()"
+	R -e "Sys.setenv('SHINYPROXY_USERGROUPS'='admin'); options(golem.app.prod = FALSE, quick = TRUE); golem::run_dev()"
 
 ## launch local version inside Docker container
 demo:
