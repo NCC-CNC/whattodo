@@ -1,0 +1,168 @@
+/* overall widget */
+.solutionResults {
+  padding-right: 3px;
+  height: 100%;
+  overflow-y: hidden;
+}
+
+/* header */
+/* -- container */
+.solution-results .solution-results-header {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 3px;
+  margin-bottom: 5px;
+  gap: 3px;
+}
+
+/* -- select input */
+.solution-results .solution-results-header .input-group {
+  flex-grow: 1;
+}
+
+.solution-results .solution-results-header .bs-caret {
+  margin-left: 95% !important;
+}
+
+/* --- button */
+.solution-results .solution-results-header .action-button i {
+  margin-right: 0px !important;
+}
+
+/* panel titles */
+.solution-results .panel-title span {
+  display: flex;
+}
+
+.solution-results .panel-title i {
+  margin-right: 5px;
+}
+
+.solution-results .panel-body {
+  padding: 0;
+}
+
+.solution-results .panel-content-inner {
+  overflow-y: scroll;
+  overflow-x: hidden;
+  max-height: calc(100vh - 312px);
+}
+
+.solution-results .themes-results {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: space-evenly;
+  align-items: stretch;
+}
+
+.solution-results .statistics-results,
+.solution-results .parameters-results {
+  padding: 10px;
+}
+
+/* widgets */
+.solution-results .theme-result {
+  padding: 5px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  align-items: center;
+}
+
+/* empty result */
+.solution-results .empty-result {
+  width: 100%;
+}
+
+.solution-results .empty-result label {
+  margin-right: auto;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  margin-left: 10px;
+  font-weight: 400;
+}
+
+/* summary panel */
+.solution-results .statistics-columns,
+.solution-results .parameters-columns {
+  display: flex;
+  flex-direction: row;
+}
+
+.solution-results .statistics-columns .names,
+.solution-results .statistics-columns .values,
+.solution-results .parameters-columns .names,
+.solution-results .parameters-columns .values {
+  display: flex;
+  flex-direction: column;
+}
+
+.solution-results .statistics-columns .names,
+.solution-results .parameters-columns .names {
+  min-width: 180px;
+}
+
+.solution-results .panel-content-inner h4,
+.solution-results .panel-content-inner h4 {
+  margin-left: 10px;
+  margin-bottom: 0px;
+}
+
+.solution-results .statistics-results .values label,
+.solution-results .parameters-results .values label {
+  margin-left: 5px;
+  font-weight: 400 !important;
+}
+
+/* legends */
+.solution-results .legend {
+  display: flex;
+  align-items: center;
+  margin-bottom: 0px;
+  padding-top: 2px;
+  padding-left: 5px;
+  padding-right: 5px;
+  justify-content: center;
+  margin-top: 2px;
+  margin-bottom: 2px;
+  gap: 10px;
+}
+
+.solution-results .legend .legend-current-symbol {
+  background-color: var(--current);
+  color: var(--current);
+}
+
+.solution-results .legend .legend-goal-symbol {
+  background-color: var(--slider);
+  color: var(--slider);
+}
+
+.solution-results .legend-item {
+  display: flex;
+  align-items: center;
+  gap: 3px;
+}
+
+.solution-results .legend label {
+  font-weight: 400;
+  margin: 0;
+}
+
+.solution-results .legend .legend-current-symbol,
+.solution-results .legend .legend-goal-symbol,
+.solution-results .legend .legend-solution-symbol {
+  width: 12px;
+  height: 12px;
+  display:inline-block;
+  box-sizing: border-box;
+  border-radius: 4px;
+  border: 1px solid var(--symbol-border);
+  box-sizing: border-box;
+}
+
+.solution-results .provenance-container i {
+  font-size: 12px;
+  padding-left: 2px;
+}

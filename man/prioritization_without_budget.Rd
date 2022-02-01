@@ -5,36 +5,44 @@
 \title{Prioritization without budget}
 \usage{
 prioritization_without_budget(
-  site_names,
-  feature_names,
-  action_names,
-  site_data,
-  site_status_data,
-  feature_data,
-  action_expectation_data,
+  site_ids,
+  feature_ids,
+  action_ids,
+  pu_data,
+  zone_data,
+  goal_data,
+  locked_data,
+  parameters,
   gap = 0,
-  parameters
+  verbose = TRUE,
+  time_limit = .Machine$integer.max
 )
 }
 \arguments{
-\item{site_names}{\code{character} names of sites.}
+\item{site_ids}{\code{character} site identifiers.}
 
-\item{feature_names}{\code{character} names of features.}
+\item{feature_ids}{\code{character} feature identifiers.}
 
-\item{action_names}{\code{character} names of actions.}
+\item{action_ids}{\code{character} action identifiers.}
 
-\item{site_data}{\code{data.frame} with site data.}
+\item{pu_data}{\code{dat.frame} containing planning unit data.}
 
-\item{site_status_data}{\code{data.frame} with site status data.}
+\item{zone_data}{\code{dat.frame} containing zone data.}
 
-\item{feature_data}{\code{data.frame} with feature data.}
+\item{goal_data}{\code{dat.frame} containing goal data.}
 
-\item{action_expectation_data}{\code{list} of \code{data.frame} objects with
-the expected amount of each feature given each action.}
-
-\item{gap}{\code{numeric} optimality gap.}
+\item{locked_data}{\code{dat.frame} containing locked out data.}
 
 \item{parameters}{\code{list} object with configuration parameters.}
+
+\item{gap}{\code{numeric} optimality gap. Defaults to 0.}
+
+\item{verbose}{\code{logical} display information during optimization?
+Defaults to \code{TRUE}.}
+
+\item{time_limit}{\code{integer} Maximum amount of time (seconds) to spend
+during optimization.
+Defaults to the maximum integer value.}
 }
 \value{
 \code{list} object containing results of prioritization.

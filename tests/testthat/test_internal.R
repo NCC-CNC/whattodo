@@ -23,8 +23,14 @@ test_that("st_geometry_data_type", {
   expect_equal(st_geometry_data_type(s5), "MULTILINESTRING")
 })
 
-test_that("isFALSE", {
-  expect_true(isFALSE(FALSE))
-  expect_false(isFALSE(NULL))
-  expect_false(isFALSE(c(FALSE, FALSE)))
+test_that("paste_vector", {
+  expect_equal(paste_vector("a"), "\"a\"")
+  expect_equal(paste_vector(c("a", "b")), "\"a\", \"b\"")
+})
+
+test_that("column_widths", {
+  w <- column_widths(iris[, 1:3])
+  expect_is(w, "numeric")
+  expect_length(w, 3)
+  expect_true(all(w > 0))
 })

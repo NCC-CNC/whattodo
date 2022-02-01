@@ -21,38 +21,52 @@ Imports:
     stats,
     methods,
     assertthat (>= 0.2.0),
+    yaml (>= 2.2.1),
     tibble (>= 2.1.3),
+    R.utils (>= 2.10.1),
     openxlsx (>= 4.2.3),
     shiny (>= 1.5.0),
     leaflet (>= 2.0.3),
     rhandsontable (>= 0.3.7),
     golem (>= 0.3.1),
     rcbc (>= 0.1.0.9001),
+    Rsymphony (>= 0.1.31),
     cluster (>= 2.1.2),
     config (>= 0.3.1),
     geojsonsf (>= 2.0.1),
     glue (>= 1.4.2),
     htmltools (>= 0.5.1.1),
     htmlwidgets (>= 1.5.3),
+    shinyWidgets (>= 0.6.0),
+    shinyFeedback (>= 0.3.0),
+    shinybusy (>= 0.2.2),
+    shinyalert (>= 2.0.0),
+    DT (>= 0.18),
     leafpop (>= 0.0.6),
+    leaflet.extras2 (>= 1.1.0),
+    leafem (>= 0.1.6),
     prioritizr (>= 7.0.1),
     shinyjs (>= 2.0.0),
     tidyr (>= 1.1.3),
     withr (>= 2.4.1),
     RcppTOML (>= 0.1.7),
     magrittr (>= 2.0.1),
+    future (>= 1.23.0),
     whatdataio
 Suggests:
     testthat (>= 2.0.1),
     knitr (>= 1.2.0),
     roxygen2 (>= 6.1.1),
     rmarkdown (>= 1.10),
-    gurobi (>= 9.1.2),
+    whereami (>= 0.1.9),
     xml2 (>= 1.3.2),
     dplyr (>= 1.0.5),
+    rsconnect (>= 0.8.25)
 Depends:
     R (>= 4.0.0),
     shinyBS (>= 0.6.1),
+    promises (>= 1.2.0.1),
+    R6 (>= 2.5.0),
     sf (>= 0.9-8),
 License: GPL-3
 Encoding: UTF-8
@@ -64,33 +78,57 @@ Language: en-US
 Remotes:
   r-lib/pkgdown,
   dirkschumacher/rcbc,
-  NCC-CNC/whatdataio@v1.0.0
+  NCC-CNC/whatdataio@v2,
+  NCC-CNC/leaflet.extras2,
+  NCC-CNC/leaflet@pane-extra,
 Collate:
     'app_config.R'
     'app_global.R'
     'app_server.R'
     'app_ui.R'
     'internal.R'
-    'fct_defaults.R'
-    'fct_is_valid_shapefile.R'
-    'fct_prepare_for_shapefile_import.R'
+    'class_Parameter.R'
+    'class_Project.R'
+    'class_Solution.R'
+    'fct_find_projects.R'
+    'fct_format_solution_error.R'
+    'fct_format_solution_results.R'
+    'fct_import_data.R'
     'fct_prioritization_with_budget.R'
     'fct_prioritization_without_budget.R'
+    'fct_read_builtin_project.R'
+    'fct_read_manual_project.R'
+    'horizontalPickerInput.R'
     'package.R'
-    'parse_data.R'
     'run_app.R'
     'server_export_data.R'
-    'server_generate_prioritization.R'
-    'server_import_data.R'
+    'server_generate_new_solution.R'
+    'server_import_builtin_data.R'
+    'server_import_manual_data.R'
     'server_initialize_app.R'
     'server_update_map.R'
-    'server_upload_shapefile.R'
-    'server_upload_spreadsheet.R'
-    'ui_initial_ui.R'
-    'ui_map.R'
-    'ui_primary_data_ui.R'
-    'ui_primary_map_ui.R'
-    'ui_primary_results_ui.R'
-    'ui_primary_sidebar_ui.R'
-    'ui_render_data.R'
-    'utils_sf.R'
+    'server_update_solution_results.R'
+    'server_update_solution_settings.R'
+    'widget_solutionSettings_ui.R'
+    'ui_acknowledgmentsSidebarPane.R'
+    'ui_contactSidebarPane.R'
+    'ui_dataModal.R'
+    'ui_dataModalProjectTabset.R'
+    'ui_dataModalResultsTabset.R'
+    'widget_solutionResults_ui.R'
+    'ui_errorModal.R'
+    'ui_exportSidebarPane.R'
+    'ui_helpModal.R'
+    'ui_importModal.R'
+    'ui_leaflet_map.R'
+    'ui_newSolutionSidebarPane.R'
+    'ui_solutionResultsSidebarPane.R'
+    'utils_acknowledge_packages.R'
+    'utils_default_colors.R'
+    'utils_file_validation.R'
+    'utils_prepare_for_shapefile_import.R'
+    'utils_shinyjs.R'
+    'utils_validation.R'
+    'widget_solutionResults_server.R'
+    'widget_solutionSettings_html.R'
+    'widget_solutionSettings_server.R'

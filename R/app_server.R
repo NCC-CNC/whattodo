@@ -9,15 +9,18 @@ app_server <- function(input, output, session) {
   # initialize application
   eval(server_initialize_app)
 
-  # file upload
-  eval(server_upload_shapefile)
-  eval(server_upload_spreadsheet)
-
   # data import
-  eval(server_import_data)
+  eval(server_import_manual_data)
+  eval(server_import_builtin_data)
+
+  # solution settings
+  eval(server_update_solution_settings)
+
+  # solution results
+  eval(server_update_solution_results)
 
   # prioritizations
-  eval(server_generate_prioritization)
+  eval(server_generate_new_solution)
 
   # map behavior
   eval(server_update_map)

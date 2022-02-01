@@ -19,9 +19,10 @@ man:
 
 ## simulate data
 data:
-	R --slave -e "source('inst/scripts/simulate-data.R')"
+	R --slave -e "source('inst/scripts/simulated-data.R')"
+	R --slave -e "source('inst/scripts/test-data.R')"
 
-## reubild readme
+## rebubild readme
 readme:
 	R --slave -e "rmarkdown::render('README.Rmd')"
 
@@ -61,10 +62,10 @@ quicksite:
 # commands to launch app
 ## launch local version using system libraries
 debug:
-	R -e "options(golem.app.prod = FALSE); golem::run_dev()"
+	R -e "Sys.setenv('SHINYPROXY_USERGROUPS'='admin'); options(golem.app.prod = FALSE); golem::run_dev()"
 
 quick-debug:
-	R -e "options(golem.app.prod = FALSE, quick = TRUE); golem::run_dev()"
+	R -e "Sys.setenv('SHINYPROXY_USERGROUPS'='admin'); options(golem.app.prod = FALSE, quick = TRUE); golem::run_dev()"
 
 ## launch local version inside Docker container
 demo:
@@ -96,8 +97,13 @@ reset:
 	docker rmi -f $(docker images -aq)
 
 # renv commands
+## update deps
+updatedeps:
+	R --slave -e "remotes::install_github('NCC-CNC/whatdataio@v2', force = TRUE, upgrade = 'never')"
+	R --slave -e "renv::snapshot()"
+
 ## snapshot R package dependencies
 snapshot:
 	R -e "renv::snapshot()"
 
-.PHONY: clean data readme test check install man spellcheck examples site quicksite snapshot deploy demo demo-kill image debug snapshot
+.PHONY: clean data readme test check install man spellcheck examples site quicksite snapshot deploy demo demo-kill image debug snapshot updatedeps

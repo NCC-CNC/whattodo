@@ -1,0 +1,22 @@
+/* fix width for modal dialog */
+[id = 'shiny-modal-wrapper'] .modal-dialog {
+  width: 330px;
+}
+
+/* -- modal */
+.modal.sbs-modal {
+  overflow-y: hidden;
+  z-index: 999999;
+}
+
+/* -- define modal-xl class for wide modal */
+@media (min-width: 768px) {
+  .modal-xl {
+    width: 90%;
+    max-width : 1200px;
+  }
+}
+
+.sbs-modal-backdrop {
+  z-index: 999998;
+}

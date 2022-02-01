@@ -1,0 +1,106 @@
+/* hide leaflet controls on app start up */
+.startup .leaflet-top,
+.startup .leaflet-bottom,
+.startup .leaflet-data-control{
+  visibility: hidden;
+}
+
+/* hide easy print button */
+.leaflet-control-easyPrint {
+  display: none;
+}
+
+/* map control buttons */
+.leaflet-top.leaflet-left {
+  display: flex;
+  left: 50%;
+  -ms-transform: translateX(-50%);
+  -webkit-transform: translate(-50%);
+  transform: translate(-50%);
+}
+
+.leaflet-top.leaflet-left .leaflet-control {
+  margin-left: 5px !important;
+  margin-right: 5px !important;
+}
+
+/* display show/hide buttons horizontally */
+.leaflet-bar.easy-button-container.leaflet-control{
+  display: flex;
+}
+
+/* display zoom buttons horizontally */
+.leaflet-control-zoom.leaflet-bar.leaflet-control {
+  margin-left: 0px;
+  display: flex;
+}
+
+/* zoom in button */
+.leaflet-touch .leaflet-bar a:first-child {
+  /* border radius */
+  border-top-left-radius: 2px !important;
+  border-bottom-left-radius: 2px !important;
+  border-top-right-radius: 0px !important;
+  border-bottom-right-radius: 0px !important;
+  /* border colors */
+  border-bottom: 0;
+  border-right: 1px solid #ccc;
+}
+
+/* zoom out button */
+.leaflet-touch .leaflet-bar a:last-child {
+  /* border radius */
+  border-top-left-radius: 0px !important;
+  border-bottom-left-radius: 0px !important;
+  border-top-right-radius: 2px !important;
+  border-bottom-right-radius: 2px !important;
+}
+
+/* style home button */
+.easy-button-container {
+  margin-left: 1px;
+  margin-right: 1px;
+}
+
+.easy-button-button {
+  font-size: large;
+}
+
+/* button sizing */
+.leaflet-control {
+  align-self:flex-start;
+}
+
+.leaflet-touch .leaflet-control-layers-toggle {
+  height: 30px !important;
+  width: 30px !important;
+  background-image: url(globe-americas-solid.png) !important;
+  background-size: 20px 20px !important;
+}
+.leaflet-retina .leaflet-control-layers-toggle  {
+  background-image: url(globe-americas-solid.png) !important;
+}
+
+/* data control */
+.leaflet-data-control {
+  display: none;
+  z-index: 9995;
+  position: absolute;
+  top: 0;
+  right: 0;
+  margin-top: 10px;
+  margin-right: 10px;
+  background: #fff;
+  padding: 5px;
+  border-radius: 4px;
+  border: 2px solid rgba(0,0,0,0.2);
+  background-clip: padding-box;
+}
+
+.leaflet-data-control div:nth-of-type(2) {
+  margin-bottom: 0px !important;
+}
+
+#map_layer + .plugin-selectize-plugin-a11y{
+  margin-bottom: 0px !important;
+}

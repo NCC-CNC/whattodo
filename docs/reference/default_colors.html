@@ -38,6 +38,8 @@
 
 
 
+  <link href="../extra.css" rel="stylesheet">
+  
 
 <meta property="og:title" content="Default colors — default_colors" />
 <meta property="og:description" content="Generate a set of colors." />
@@ -80,7 +82,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">whattodo</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.0.9000</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.0.1</span>
       </span>
     </div>
 
@@ -114,7 +116,7 @@
   <div class="col-md-9 contents">
     <div class="page-header">
     <h1>Default colors</h1>
-    <small class="dont-index">Source: <a href='https://github.com/NCC-CNC/whattodo/blob/master/R/fct_defaults.R'><code>R/fct_defaults.R</code></a></small>
+    <small class="dont-index">Source: <a href='https://github.com/NCC-CNC/whattodo/blob/master/R/utils_default_colors.R'><code>R/utils_default_colors.R</code></a></small>
     <div class="hidden name"><code>default_colors.Rd</code></div>
     </div>
 
@@ -122,7 +124,7 @@
     <p>Generate a set of colors.</p>
     </div>
 
-    <div class="ref-usage sourceCode"><pre class='sourceCode r'><code><span class='fu'>default_colors</span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>parameters</span><span class='op'>)</span></code></pre></div>
+    <div class="ref-usage sourceCode"><pre class='sourceCode r'><code><span class='fu'>default_colors</span><span class='op'>(</span><span class='va'>x</span><span class='op'>)</span></code></pre></div>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -131,15 +133,11 @@
       <th>x</th>
       <td><p><code>character</code> vector of elements that require colors.</p></td>
     </tr>
-    <tr>
-      <th>parameters</th>
-      <td><p><code>list</code> object.</p></td>
-    </tr>
     </table>
 
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p><code>character</code> vector of colors (one for each element in <code>x</code>)</p>
+    <p><code>character</code> vector of colors (one for each element in <code>x</code>).</p>
 
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">

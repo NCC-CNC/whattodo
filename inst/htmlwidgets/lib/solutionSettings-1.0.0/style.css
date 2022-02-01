@@ -1,0 +1,459 @@
+/* overall widget */
+.solutionSettings {
+  height: 100%;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  flex: 1 1 auto;
+  overflow-y: hidden;
+  line-height: 1.1;
+}
+
+/* solution-settings */
+.solution-settings {
+  flex: 3;
+  display: flex;
+  max-height: 86vh;
+}
+
+.new-solution-pane {
+  height: 100%;
+}
+
+/* hide certain elements under beginner mode */
+/* -- hide option to select group or single view */
+.beginner .multi-theme-setting .main .tabbable ul {
+  display: none;
+}
+
+/* -- slidebars for weights */
+.beginner .weight-setting .weight-slider {
+  display: none;
+}
+
+/* panel title */
+.solution-settings .panel-title span {
+  display: flex;
+}
+
+.solution-settings .panel-title i {
+  margin-right: 5px;
+}
+
+/* panels */
+.solution-settings .panel-body {
+  padding: 0;
+  background: #e9ecef; /*  $gray-200 */
+}
+
+.solution-settings .panel.panel-default>.panel-heading {
+  border-top-right-radius: 0px;
+  background: #ced4da; /* $gray-400 */
+}
+
+/* panels  group */
+.solution-settings .panel-group {
+  flex: 1 1 auto;
+  flex-direction: column;
+  overflow-y: hidden;
+  margin-bottom: 2px !important;
+  padding-right: 4px;
+}
+
+.solution-settings .panel-content-inner {
+  overflow-y: scroll;
+  max-height: calc(100vh - 290px);
+}
+
+/* footer */
+/* -- container*/
+.solution-footer {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  margin: 0;
+  width: 100%;
+  padding-right: 5px;
+  overflow-x: hide;
+  flex-wrap: wrap;
+  left: 20px;
+  gap: 3px;
+}
+
+/* -- items*/
+.solution-footer .form-group.shiny-input-container {
+  margin-bottom: 0px;
+}
+
+.solution-footer .button-group {
+  display: flex;
+  gap: 3px;
+}
+
+.solution-footer-stop-button button {
+  padding-left: 6px;
+  padding-right: 6px;
+}
+
+.solution-footer-edit-button i {
+  margin-right: 0px !important;
+}
+
+/* reset button */
+.solution-settings .reset-button {
+  padding: 0;
+  margin-left: 0px;
+  margin-top: 0px;
+  border: 0;
+  padding-top: 2px;
+  font-size: 11px;
+  background: #fff;
+}
+
+/* solution name input */
+.solution-footer-name {
+  flex-grow: 1;
+}
+
+/* view containers */
+.solution-setting {
+  width: calc(100% - 15px);
+  border: 1px var(--border) solid;
+  border-radius: 5px 5px 5px 5px;
+  margin: 10px;
+  padding-bottom: 0px;
+  background: white;
+}
+
+.empty-setting.solution-setting label {
+  margin-top: 5px;
+  margin-left: 5px;
+  margin-bottom: 5px;
+  font-weight: 400;
+}
+
+.weight-setting.solution-setting,
+.parameter-setting.solution-setting {
+  padding-bottom: 5px;
+}
+
+/* -- add disabled mouse cursor to any element with the .disable-mouse class */
+.solution-setting .disable-mouse *:hover {
+  cursor: not-allowed;
+}
+
+.solution-setting .single-view {
+  overflow-y: auto;
+  max-height: 150px;
+}
+
+.solution-setting .main {
+  max-height: 100%;
+}
+
+/* header and sub-header containers */
+.solution-setting .header,
+.solution-setting .sub-header {
+  padding-top: 5px;
+  padding-left: 5px;
+  padding-bottom: 0px;
+  display: flex;
+  align-items: flex-start;
+  gap: 3px;
+}
+
+/* header container */
+.solution-setting .status {
+  margin-top: 0px;
+}
+
+.solution-setting .header .name-label {
+  font-size: 14px;
+  margin: 0px;
+  margin-right: auto;
+  word-break: break-all;
+}
+
+.solution-setting .header .el-switch {
+  font-size: 9px;
+  font-weight: 700;
+  padding-bottom: 0;
+  margin-bottom: 0;
+}
+
+.solution-setting .header .provenance-container {
+  font-size: 14px;
+  margin-right: 3px;
+  padding-bottom: 0;
+  margin-bottom: 0;
+}
+
+/* sub-header container */
+.solution-setting .sub-header .name-label {
+  font-size: 12px;
+  font-weight: 700;
+  margin-bottom: 0px;
+  margin-right: auto;
+  word-break: break-all;
+}
+
+.solution-setting .sub-header .el-switch {
+  font-size: 7px;
+  margin-bottom: 0;
+  padding-bottom: 0;
+}
+
+.solution-setting .sub-header .provenance-container {
+  font-size: 12px;
+  margin-right: 3px;
+  padding-bottom: 0;
+  margin-bottom: 0;
+}
+
+/* icon and sub-icon containers */
+.solution-setting .icon,
+.solution-setting .sub-icon {
+  float: right;
+  padding-right: 10px;
+  padding-bottom: 0px;
+  padding-top: 0px;
+}
+
+/* tabs */
+.solution-setting .tabbable {
+  padding-top: 2px;
+}
+
+.solution-setting a[role = "tab"] {
+  padding-top: 2px;
+  padding-bottom: 2px;
+}
+
+/* status info */
+/* -- containers */
+.solution-setting .status-info {
+  display: flex;
+  align-items: center;
+  margin-bottom: 0px;
+  margin-top: 2px;
+  padding-left: 5px;
+  padding-right: 5px;
+  flex-basis: 50%;
+}
+
+.solution-setting .single-container {
+  width: calc(100% - 6px);
+  margin: 3px;
+  border: 1px var(--border) solid;
+  border-radius: 5px 5px 5px 5px;
+}
+
+.solution-setting .single-container .status-info {
+  padding-top: 0px;
+}
+
+.solution-setting .sub-status-info {
+  display: flex;
+  align-items: center;
+  flex-basis: 50%;
+  box-sizing: border-box;
+  width: 100%;
+  gap: 2px;
+}
+
+/* --  labels */
+.solution-setting .status-info label {
+  font-size: 12px;
+  font-weight: 400;
+  margin-bottom: 0px;
+}
+
+/* --  symbols */
+.solution-setting .current-symbol,
+.solution-setting .slider-symbol {
+  width: 12px;
+  height: 12px;
+  display:inline-block;
+  box-sizing: border-box;
+  border-radius: 4px;
+  border: 1px solid var(--symbol-border);
+  box-sizing: border-box;
+}
+
+.solution-setting .slider-symbol {
+  background-color: var(--slider);
+  color: var(--slider);
+}
+
+.solution-setting .current-symbol {
+  background-color: var(--current);
+  color: var(--current);
+}
+
+/* -- inactive styling */
+.solution-setting label[disabled],
+.solution-setting i[disabled],
+.solution-setting button[disabled] {
+  color: var(--inactive) !important;
+}
+
+.solution-setting .status-info div[disabled] {
+  background-color: var(--inactive) !important;
+  color: var(--inactive) !important;
+}
+
+/* slider styling (current bar and widget) */
+.solution-setting .slider {
+  width: 100%;
+  display: inline-flex;
+  align-items: center;
+  position: relative;
+  padding-top: 2px;
+  padding-left: 5px;
+}
+
+.solution-setting .bar-cap,
+.solution-setting .current-bar,
+.solution-setting .current-min-bar,
+.solution-setting .current-max-bar {
+  width: 0%;
+  height: 12px;
+  padding-top: 12px;
+  padding-bottom: 12px;
+  padding-left: 0px;
+  padding-right: 0px;
+}
+
+.solution-setting .current-bar,
+.solution-setting .current-min-bar,
+.solution-setting .current-max-bar {
+  position: absolute;
+}
+
+.solution-setting .bar-cap {
+  color: var(--current);
+  background-color: var(--current);
+  padding-left: 5px;
+  border-radius: 5px 0px 0px 5px;
+}
+
+.solution-setting .current-bar,
+.solution-setting .current-min-bar {
+  color: var(--current);
+  background-color: var(--current);
+}
+
+.solution-setting .current-max-bar {
+  background-color: var(--current-transparent);
+}
+
+.solution-setting .bars,
+.solution-setting .widget {
+  width: 95%;
+  position: absolute;
+  padding-right: 0px;
+  margin-right: 0px;
+}
+
+.solution-setting .bars {
+  display: inline-flex;
+  align-items: center;
+}
+
+/* specify padding if there is a current bar */
+.solution-setting .slider .has-current-bar {
+  margin-left: 5px;
+}
+
+/* specify padding if there isn't a current bar */
+.solution-setting .widget.no-current-bar {
+  margin-left: 5px;
+}
+
+.solution-setting .weight-slider,
+.solution-setting .parameter-slider {
+  margin-top: 32px;
+  margin-bottom: 5px;
+}
+
+/* noUiSlider settings */
+.solution-setting .noUi-connect {
+  background: var(--slider);
+}
+
+.solution-setting .nav > li > a {
+  padding: 2px 5px;
+}
+
+/* -- add extra padding if there is a current bar */
+.solution-setting .noUiSlider-widget {
+  width: 100%;
+  z-index: 10;
+}
+
+.solution-setting [disabled] .noUi-connect {
+  background: #B8B8B8 !important;
+}
+
+/* -- main bar */
+.noUi-horizontal {
+  height: 10px;
+}
+
+/* -- handle */
+.noUi-horizontal .noUi-handle {
+  width: 14px;
+  height: 20px;
+  right: -7px;
+}
+
+/* -- notches */
+.noUi-handle:before,
+.noUi-handle:after {
+  height: 6px;
+  left: 4px;
+}
+.noUi-handle:after {
+  left: 7px;
+}
+
+/* el-widget styling */
+.el-switch.el-switch > input[type="checkbox"]:checked + .el-switch-style {
+  background-color: var(--active);
+}
+.el-switch.el-switch > input[type="checkbox"]:checked[disabled] + .el-switch-style {
+  background-color: var(--inactive);
+}
+.el-switch > input[type="checkbox"]:checked[disabled] + .el-switch-style {
+  background-color: var(--inactive);
+}
+.el-switch > input[type="checkbox"][disabled] + .el-switch-style {
+  background-color: var(--inactive);
+}
+.el-radio.el-radio > input[type="radio"] + label:hover:before,
+.el-checkbox.el-checkbox > input[type="checkbox"] + label:hover:before,
+.el-radio.el-radio > input[type="radio"]:checked + label:before,
+.el-checkbox.el-checkbox > input[type="checkbox"]:checked + label:before {
+  border-color: var(--active);
+}
+.el-checkbox.el-checkbox > input[type="checkbox"]:checked + label:before,
+.el-radio.el-radio > input[type="radio"] + label:after {
+  background: var(--active);
+}
+.el-radio.el-radio > input[type="radio"][disabled] + label:hover:before,
+.el-checkbox.el-checkbox > input[type="checkbox"][disabled] + label:hover:before {
+  border-color: var(--inactive);
+}
+.el-checkbox.el-checkbox > input[type="checkbox"]:checked[disabled] + label:before,
+.el-radio.el-radio > input[type="radio"]:checked[disabled] + label:before {
+  border-color: var(--inactive);
+}
+.el-checkbox.el-checkbox > input[type="checkbox"][disabled]:checked + label:before,
+.el-radio.el-radio > input[type="radio"]:checked[disabled] + label:after {
+  background: var(--inactive);
+}
+.el-switch .el-switch-style {
+  background: var(--inactive);
+}

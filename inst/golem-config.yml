@@ -4,24 +4,41 @@ default:
   golem_version: 0.0.0.9000
   app_prod: no
 
-  # map variables
-  basemap_name: ["Satellite", "Topographic"]
-  basemap_key: ["Esri.WorldImagery", "Esri.WorldTopoMap"]
+  ## future plan strategy
+  ### if "auto", then:
+  ###   if on Shiny apps (per R_CONFIG_ACTIVE variable): "multicore"
+  ###   else if on Unix systems: "multicore"
+  ###   else "multisession"
+  strategy: "auto"
 
-  # default colors
-  ## note that color names and codes refer to hard-coded options in leaflet
-  ## so you can't simply add new colors how ever you like
-  default_color_name: "blue"
-  default_color_code: "#37a7d9"
+  ## directory containing the projects
+  ## "default" = system.file("extdata", "projects", package = "wheretowork")
+  projects: "default"
 
-  # colors to display different actions
-  ## note that color names and codes refer to hard-coded options in leaflet
-  ## so you can't simply add new colors how ever you like
-  action_color_names: ["red", "darkred", "lightred", "orange", "beige", "green", "darkgreen", "lightgreen", "blue", "darkblue", "lightblue", "purple", "darkpurple", "pink", "cadetblue", "gray", "lightgray"]
-  action_color_codes: ["#d63e2a", "#a23336", "#ff8e7f", "#ef932f", "#ffc990", "#72af26", "#6e7d22", "#bbf970", "#37a7d9", "#00639f", "#8adaff", "#d152b8", "#5a386a", "#ff90e9", "#436978", "#575757", "#a3a3a3"]
+  ## verbosity
+  verbose: false
 
-production:
-  app_prod: yes
+  ## monitor memory usage
+  monitor: false
+
+  ## optimality gap
+  solver_gap: 0.1 # 10% from optimality for optimization
+
+  ## time limit (seconds) for generating solutions
+  ## i.e. maximum time that users should wait for when generating solutions
+  solver_time_limit: 3600 # one hour for generating solution
+
+  ## contact details
+  default_project_name: "Richard Schuster"
+  default_project_email: "richard.schuster@natureconservancy.ca"
 
 dev:
   golem_wd: !expr here::here()
+  verbose: true
+  monitor: true
+
+production:
+  app_prod: yes
+  projects: "/projects"
+  verbose: false
+  monitor: false

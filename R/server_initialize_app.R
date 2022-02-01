@@ -13,92 +13,111 @@
 #' @noRd
 server_initialize_app <- quote({
 
-  # initialize data
-  values <- shiny::reactiveValues(
-    ## app state variables
-    spreadsheet_data_present = FALSE,
-    shapefile_data_present = FALSE,
-    shapefile_data_required = FALSE,
-    data_ready = FALSE,
-    ## data variables
-    site_names = character(0),
-    feature_names = character(0),
-    action_names = character(0),
-    action_colors = NULL,
-    ## spatial data
-    site_spatial_data = NULL,
-    site_bbox = default_bbox(),
-    ## data tables
-    site_data = default_tabular_data(),
-    site_status_data = default_tabular_data(),
-    feature_data = default_tabular_data(),
-    action_expectation_data = list(default_tabular_data()),
-    ## results tables
-    summary_results_data = default_tabular_data(),
-    site_results_data = default_tabular_data(),
-    feature_results_data = default_tabular_data(),
-    ## ui components
-    data_ui_data = initial_data_ui(),
-    results_ui_data = initial_results_ui(),
-    sidebar_ui_data = initial_sidebar_ui(),
-    map_ui_data = initial_map_ui()
+  # define application data
+  ## note that we use an environment here because they are mutable objects and
+  ## so we don't have to worry about using the super-assignment operator
+  app_data <- list2env(
+    list(
+      project = NULL,
+      project_data_id = uuid::UUIDgenerate(),
+      solution = list(),
+      solution_ids = c(),
+      parameters = whatdataio::read_data_configuration(),
+      bd = c(0, 0)
+    )
   )
 
-  # user interfaces
-  output$map_ui <- shiny::renderUI(values[["map_ui_data"]])
-  output$sidebar_ui <- shiny::renderUI(values[["sidebar_ui_data"]])
-  output$data_ui <- shiny::renderUI(values[["data_ui_data"]])
-  output$results_ui <- shiny::renderUI(values[["results_ui_data"]])
+  # activate start up mode
+  ## hides leaflet buttons + scalebar
+  shinyjs::runjs("document.body.classList.add('startup');")
 
-  # disable buttons
-  shinyjs::disable("data_done_btn")
+  # make sidebars hidden
+  shinyjs::runjs("$('#mainSidebar').css('display','none');")
 
-  # data tables
-  output$site_data_widget <- rhandsontable::renderRHandsontable({
-    render_site_data(default_tabular_data())
-  })
-  output$site_status_widget <- rhandsontable::renderRHandsontable({
-    render_site_data(default_tabular_data())
-  })
-  output$feature_data_widget <- rhandsontable::renderRHandsontable({
-    render_site_data(default_tabular_data())
+  # display import modal on start up
+  shiny::showModal(importModal(id = "importModal"))
+
+  # initialize map
+  output$map <- leaflet::renderLeaflet(leaflet_map("mainSidebar"))
+
+  # initialize widgets
+  output$solutionResultsPane_results <- renderSolutionResults({
+    solutionResults()
   })
 
-  # results tables
-  output$summary_results_widget <- rhandsontable::renderRHandsontable({
-    rhandsontable::hot_cols(
-      rhandsontable::rhandsontable(default_tabular_data(), useTypes = TRUE),
-      readOnly = TRUE
+  # initialize listener
+  map_listener <- shiny::reactiveVal(runif(1))
+
+  # initialize built in projects
+  if (nrow(project_data) > 0) {
+    ## update select input with project names
+    shiny::updateSelectInput(
+      inputId = "importModal_name",
+      choices = stats::setNames(project_data$path, project_data$name)
+    )
+  } else {
+    ## disable import button since no available projects
+    disable_html_element("importModal_builtin_button")
+  }
+
+  # initialize export options
+  shiny::updateSelectizeInput(
+    session = session,
+    inputId = "exportPane_select",
+    selected = app_data$project_data_id,
+    choices = c(
+      stats::setNames(app_data$project_data_id, "Project data")
+    )
+  )
+
+  # disable buttons that require inputs
+  disable_html_element("importModal_manual_button")
+  shinyjs::disable("newSolutionPane_settings_stop_button")
+
+  # disable solution results sidebar button
+  disable_html_css_selector("#mainSidebar li:nth-child(2)")
+
+  # add help modal button trigger
+  observeEvent(input$help_button, {
+    shinyBS::toggleModal(
+      session = session, modalId = "helpModal", toggle = "open"
     )
   })
-  output$site_results_widget <- rhandsontable::renderRHandsontable({
-    rhandsontable::hot_cols(
-      rhandsontable::rhandsontable(default_tabular_data(), useTypes = TRUE),
-      readOnly = TRUE
+
+  # add data modal trigger for new solution data
+  observeEvent(input$newSolutionPane_settings_edit_button, {
+    ## specify dependencies
+    shiny::req(input$newSolutionPane_settings_edit_button)
+
+    ## update select input so that tables for new solution data are shown
+    shinyWidgets::updatePickerInput(
+      session = session,
+      inputId = "dataModal_select",
+      selected = app_data$project_data_id
     )
-  })
-  output$feature_results_widget <- rhandsontable::renderRHandsontable({
-    rhandsontable::hot_cols(
-      rhandsontable::rhandsontable(default_tabular_data(), useTypes = TRUE),
-      readOnly = TRUE
+
+    ## open modal
+    shinyBS::toggleModal(
+      session = session, modalId = "dataModal", toggle = "open"
     )
   })
 
-  # leaflet map
-  shiny::observe({
-    if (!is.null(values$site_bbox)) {
-      output$map_widget <- leaflet::renderLeaflet({
-        initialize_map(
-          values$site_bbox,
-          site_spatial_data = values$site_spatial_data,
-          parameters
-        )
-      })
-    }
-  })
+  # add data modal trigger for existing solution data
+  observeEvent(input$solutionResultsPane_results_button, {
+    ## specify dependencies
+    shiny::req(input$solutionResultsPane_results_button)
 
-  # alert modal
-  output$alert_modal_title <- shiny::renderText("Error")
-  output$alert_modal_msg <- shiny::renderText("Something went horribly wrong!")
+    ## update select input so that tables for new solution data are shown
+    shinyWidgets::updatePickerInput(
+      session = session,
+      inputId = "dataModal_select",
+      selected = input$solutionResultsPane_results_select
+    )
+
+    ## open modal
+    shinyBS::toggleModal(
+      session = session, modalId = "dataModal", toggle = "open"
+    )
+  })
 
 })

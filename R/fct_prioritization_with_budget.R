@@ -5,104 +5,112 @@ NULL
 #'
 #' Generate a prioritization without a budget.
 #'
-#' @param site_names `character` names of sites.
+#' @param site_ids `character` site identifiers.
 #'
-#' @param feature_names `character` names of features.
+#' @param feature_ids `character` feature identifiers.
 #'
-#' @param action_names `character` names of actions.
+#' @param action_ids `character` action identifiers.
 #'
-#' @param site_data `data.frame` with site data.
+#' @param pu_data `dat.frame` containing planning unit data.
 #'
-#' @param action_expectation_data `list` of `data.frame` objects with
-#'  the expected amount of each feature given each action.
+#' @param zone_data `dat.frame` containing zone data.
 #'
-#' @param feature_data `data.frame` with feature data.
+#' @param goal_data `dat.frame` containing goal data.
 #'
-#' @param site_status_data `data.frame` with site status data.
+#' @param weight_data `dat.frame` containing weight data.
+#'
+#' @param locked_data `dat.frame` containing locked out data.
 #'
 #' @param budget `numeric` budget.
 #'
-#' @param weights `logical` use weights?
-#'
-#' @param gap `numeric` optimality gap.
-#'
 #' @param parameters `list` object with configuration parameters.
+#'
+#' @param gap `numeric` optimality gap. Defaults to 0.
+#'
+#' @param verbose `logical` display information during optimization?
+#'  Defaults to `TRUE`.
+#'
+#' @param time_limit `integer` Maximum amount of time (seconds) to spend
+#'  during optimization.
+#'  Defaults to the maximum integer value.
 #'
 #' @return `list` object containing results of prioritization.
 #'
 #' @export
-prioritization_with_budget <- function(site_names, feature_names, action_names,
-                                       site_data, site_status_data,
-                                       feature_data, action_expectation_data,
-                                       budget, weights = TRUE, gap = 0,
-                                       parameters) {
+prioritization_with_budget <- function(site_ids,
+                                       feature_ids,
+                                       action_ids,
+                                       pu_data,
+                                       zone_data,
+                                       goal_data,
+                                       weight_data,
+                                       locked_data,
+                                       budget,
+                                       parameters,
+                                       gap = 0,
+                                       verbose = TRUE,
+                                       time_limit = .Machine$integer.max) {
   # assert arguments are valid
   assertthat::assert_that(
-    inherits(site_data, "data.frame"),
-    inherits(site_status_data, "data.frame"),
-    inherits(feature_data, "data.frame"),
-    inherits(action_expectation_data, "list"),
+    is.character(site_ids),
+    assertthat::noNA(site_ids),
+    is.character(feature_ids),
+    assertthat::noNA(feature_ids),
+    is.character(action_ids),
+    assertthat::noNA(action_ids),
+    inherits(pu_data, "data.frame"),
+    inherits(zone_data, "ZonesCharacter"),
+    inherits(goal_data, "data.frame"),
+    inherits(weight_data, "data.frame"),
+    inherits(locked_data, "data.frame"),
     assertthat::is.number(budget),
     isTRUE(budget >= 0),
-    assertthat::is.flag(weights),
-    assertthat::noNA(weights),
     assertthat::is.number(gap),
     isTRUE(gap >= 0),
-    is.list(parameters)
+    is.list(parameters),
+    assertthat::is.flag(verbose),
+    assertthat::noNA(verbose),
+    assertthat::is.count(time_limit),
+    assertthat::noNA(time_limit)
   )
 
-  # prepare data for prioritization
-  pu_data <- whatdataio::format_pu_data(
-    site_names, feature_names, action_names,
-    site_data, action_expectation_data, parameters
+  # process cost names
+  cost_names <- glue::glue(
+    parameters$site_data_sheet$action_cost_header,
+    action_ids = action_ids
   )
-  zone_data <- whatdataio::format_zone_data(
-    site_names, feature_names, action_names, parameters
-  )
-  target_data <- whatdataio::format_target_data(
-    site_names, feature_names, action_names, feature_data, parameters
-  )
-  weights_data <- whatdataio::format_weights_data(
-    site_names, feature_names, action_names, feature_data, parameters
-  )
-  locked_data <- whatdataio::format_locked_data(
-    site_names, feature_names, action_names, site_status_data, parameters
-  )
-
-  # manually set weights to equal if weights == FALSE
-  if (!isTRUE(weights)) {
-    weights_data[[2]] <- 1
-  }
 
   # generate prioritization
   prb <-
-    prioritizr::problem(pu_data, zone_data, paste0("cost_", action_names)) %>%
+    prioritizr::problem(pu_data, zone_data, cost_names) %>%
     prioritizr::add_min_shortfall_objective(budget = max(budget, 1e-5)) %>%
-    prioritizr::add_feature_weights(matrix(weights_data[[2]], ncol = 1)) %>%
-    prioritizr::add_manual_targets(target_data) %>%
+    prioritizr::add_feature_weights(matrix(weight_data[[2]], ncol = 1)) %>%
+    prioritizr::add_manual_targets(goal_data) %>%
     prioritizr::add_mandatory_allocation_constraints() %>%
     prioritizr::add_binary_decisions() %>%
-    prioritizr::add_default_solver(gap = gap, verbose = FALSE)
+    prioritizr::add_default_solver(
+      gap = gap, verbose = verbose, time_limit = time_limit
+    )
   if (nrow(locked_data) > 0) {
     prb <-
       prb %>%
       prioritizr::add_manual_locked_constraints(locked_data)
   }
-  sol <- try(prioritizr::solve(prb), silent = TRUE)
+  sol <- prioritizr::solve(prb)
 
   # summarize results
-  if (inherits(sol, "try-error")) {
-    out <- whatdataio::format_error_data(
-      site_names, feature_names, action_names, prb, parameters
-    )
-    out$solved <- FALSE
-  } else {
-    out <- whatdataio::format_results_data(
-      site_names, feature_names, action_names,
-      pu_data, zone_data, target_data, sol, parameters
-    )
-    out$solved <- TRUE
-  }
+  out <- format_solution_results(
+    site_ids = site_ids,
+    feature_ids = feature_ids,
+    action_ids =  action_ids,
+    pu_data = pu_data,
+    zone_data = zone_data,
+    goal_data = goal_data,
+    locked_data = locked_data,
+    solution_data = sol,
+    budget = budget,
+    parameters = parameters
+  )
 
   # return results
   out

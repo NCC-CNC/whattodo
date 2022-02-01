@@ -38,6 +38,8 @@
 
 
 
+  <link href="../extra.css" rel="stylesheet">
+  
 
 <meta property="og:title" content="Prioritization without budget — prioritization_without_budget" />
 <meta property="og:description" content="Generate a prioritization without a budget." />
@@ -80,7 +82,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">whattodo</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.0.9000</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.0.1</span>
       </span>
     </div>
 
@@ -123,56 +125,68 @@
     </div>
 
     <div class="ref-usage sourceCode"><pre class='sourceCode r'><code><span class='fu'>prioritization_without_budget</span><span class='op'>(</span>
-  <span class='va'>site_names</span>,
-  <span class='va'>feature_names</span>,
-  <span class='va'>action_names</span>,
-  <span class='va'>site_data</span>,
-  <span class='va'>site_status_data</span>,
-  <span class='va'>feature_data</span>,
-  <span class='va'>action_expectation_data</span>,
+  <span class='va'>site_ids</span>,
+  <span class='va'>feature_ids</span>,
+  <span class='va'>action_ids</span>,
+  <span class='va'>pu_data</span>,
+  <span class='va'>zone_data</span>,
+  <span class='va'>goal_data</span>,
+  <span class='va'>locked_data</span>,
+  <span class='va'>parameters</span>,
   gap <span class='op'>=</span> <span class='fl'>0</span>,
-  <span class='va'>parameters</span>
+  verbose <span class='op'>=</span> <span class='cn'>TRUE</span>,
+  time_limit <span class='op'>=</span> <span class='va'>.Machine</span><span class='op'>$</span><span class='va'>integer.max</span>
 <span class='op'>)</span></code></pre></div>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
-      <th>site_names</th>
-      <td><p><code>character</code> names of sites.</p></td>
+      <th>site_ids</th>
+      <td><p><code>character</code> site identifiers.</p></td>
     </tr>
     <tr>
-      <th>feature_names</th>
-      <td><p><code>character</code> names of features.</p></td>
+      <th>feature_ids</th>
+      <td><p><code>character</code> feature identifiers.</p></td>
     </tr>
     <tr>
-      <th>action_names</th>
-      <td><p><code>character</code> names of actions.</p></td>
+      <th>action_ids</th>
+      <td><p><code>character</code> action identifiers.</p></td>
     </tr>
     <tr>
-      <th>site_data</th>
-      <td><p><code>data.frame</code> with site data.</p></td>
+      <th>pu_data</th>
+      <td><p><code>dat.frame</code> containing planning unit data.</p></td>
     </tr>
     <tr>
-      <th>site_status_data</th>
-      <td><p><code>data.frame</code> with site status data.</p></td>
+      <th>zone_data</th>
+      <td><p><code>dat.frame</code> containing zone data.</p></td>
     </tr>
     <tr>
-      <th>feature_data</th>
-      <td><p><code>data.frame</code> with feature data.</p></td>
+      <th>goal_data</th>
+      <td><p><code>dat.frame</code> containing goal data.</p></td>
     </tr>
     <tr>
-      <th>action_expectation_data</th>
-      <td><p><code>list</code> of <code>data.frame</code> objects with
-the expected amount of each feature given each action.</p></td>
-    </tr>
-    <tr>
-      <th>gap</th>
-      <td><p><code>numeric</code> optimality gap.</p></td>
+      <th>locked_data</th>
+      <td><p><code>dat.frame</code> containing locked out data.</p></td>
     </tr>
     <tr>
       <th>parameters</th>
       <td><p><code>list</code> object with configuration parameters.</p></td>
+    </tr>
+    <tr>
+      <th>gap</th>
+      <td><p><code>numeric</code> optimality gap. Defaults to 0.</p></td>
+    </tr>
+    <tr>
+      <th>verbose</th>
+      <td><p><code>logical</code> display information during optimization?
+Defaults to <code>TRUE</code>.</p></td>
+    </tr>
+    <tr>
+      <th>time_limit</th>
+      <td><p><code>integer</code> Maximum amount of time (seconds) to spend
+during optimization.
+Defaults to the maximum integer value.</p></td>
     </tr>
     </table>
 
