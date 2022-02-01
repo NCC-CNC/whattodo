@@ -238,9 +238,20 @@ Get data for rendering widget to display results.
 \subsection{Method \code{render_site_data()}}{
 Render site data.
 \subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{Solution$render_site_data()}\if{html}{\out{</div>}}
+\if{html}{\out{<div class="r">}}\preformatted{Solution$render_site_data(height = "100\%", width = "100\%")}\if{html}{\out{</div>}}
 }
 
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{height}}{\code{character}/\code{numeric} CSS measurement value.
+Default to \code{"100\%"}.}
+
+\item{\code{width}}{\code{character}/\code{numeric} CSS measurement value.
+Default to \code{"100\%"}.}
+}
+\if{html}{\out{</div>}}
+}
 \subsection{Returns}{
 \link[rhandsontable:rhandsontable]{rhandsontable::rhandsontable} object.
 }
@@ -251,9 +262,20 @@ Render site data.
 \subsection{Method \code{render_feature_data()}}{
 Render feature data.
 \subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{Solution$render_feature_data()}\if{html}{\out{</div>}}
+\if{html}{\out{<div class="r">}}\preformatted{Solution$render_feature_data(height = "100\%", width = "100\%")}\if{html}{\out{</div>}}
 }
 
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{height}}{\code{character}/\code{numeric} CSS measurement value.
+Default to \code{"100\%"}.}
+
+\item{\code{width}}{\code{character}/\code{numeric} CSS measurement value.
+Default to \code{"100\%"}.}
+}
+\if{html}{\out{</div>}}
+}
 \subsection{Returns}{
 \link[rhandsontable:rhandsontable]{rhandsontable::rhandsontable} object.
 }
@@ -264,9 +286,20 @@ Render feature data.
 \subsection{Method \code{render_feasibility_data()}}{
 Render feasibility data.
 \subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{Solution$render_feasibility_data()}\if{html}{\out{</div>}}
+\if{html}{\out{<div class="r">}}\preformatted{Solution$render_feasibility_data(height = "100\%", width = "100\%")}\if{html}{\out{</div>}}
 }
 
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{height}}{\code{character}/\code{numeric} CSS measurement value.
+Default to \code{"100\%"}.}
+
+\item{\code{width}}{\code{character}/\code{numeric} CSS measurement value.
+Default to \code{"100\%"}.}
+}
+\if{html}{\out{</div>}}
+}
 \subsection{Returns}{
 \link[rhandsontable:rhandsontable]{rhandsontable::rhandsontable} object.
 }
@@ -277,13 +310,19 @@ Render feasibility data.
 \subsection{Method \code{render_consequence_data()}}{
 Render consequence data.
 \subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{Solution$render_consequence_data(action_id)}\if{html}{\out{</div>}}
+\if{html}{\out{<div class="r">}}\preformatted{Solution$render_consequence_data(action_id, height = "100\%", width = "100\%")}\if{html}{\out{</div>}}
 }
 
 \subsection{Arguments}{
 \if{html}{\out{<div class="arguments">}}
 \describe{
 \item{\code{action_id}}{\code{character} identifier for action.}
+
+\item{\code{height}}{\code{character}/\code{numeric} CSS measurement value.
+Default to \code{"100\%"}.}
+
+\item{\code{width}}{\code{character}/\code{numeric} CSS measurement value.
+Default to \code{"100\%"}.}
 }
 \if{html}{\out{</div>}}
 }

@@ -997,10 +997,10 @@
     },
     "rhandsontable": {
       "Package": "rhandsontable",
-      "Version": "0.3.7",
+      "Version": "0.3.8",
       "Source": "Repository",
       "Repository": "CRAN",
-      "Hash": "bf38ba1df24ecb204ae64b81c4774b43"
+      "Hash": "cc9b9fd1376181e84c88621711454676"
     },
     "rlang": {
       "Package": "rlang",

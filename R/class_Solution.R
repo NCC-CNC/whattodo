@@ -245,30 +245,51 @@ Solution <- R6::R6Class(
 
     #' @description
     #' Render site data.
+    #' @param height `character`/`numeric` CSS measurement value.
+    #'  Default to `"100%"`.
+    #' @param width `character`/`numeric` CSS measurement value.
+    #'  Default to `"100%"`.
     #' @return [rhandsontable::rhandsontable] object.
-    render_site_data = function() {
+    render_site_data = function(height = "100%", width = "100%") {
       rhandsontable::hot_cols(
-        self$project$render_site_data(),
+        self$project$render_site_data(
+          height = height,
+          width = width
+        ),
         readOnly = TRUE
       )
     },
 
     #' @description
     #' Render feature data.
+    #' @param height `character`/`numeric` CSS measurement value.
+    #'  Default to `"100%"`.
+    #' @param width `character`/`numeric` CSS measurement value.
+    #'  Default to `"100%"`.
     #' @return [rhandsontable::rhandsontable] object.
-    render_feature_data = function() {
+    render_feature_data = function(height = "100%", width = "100%") {
       rhandsontable::hot_cols(
-        self$project$render_feature_data(),
+        self$project$render_feature_data(
+          height = height,
+          width = width
+        ),
         readOnly = TRUE
       )
     },
 
     #' @description
     #' Render feasibility data.
+    #' @param height `character`/`numeric` CSS measurement value.
+    #'  Default to `"100%"`.
+    #' @param width `character`/`numeric` CSS measurement value.
+    #'  Default to `"100%"`.
     #' @return [rhandsontable::rhandsontable] object.
-    render_feasibility_data = function() {
+    render_feasibility_data = function(height = "100%", width = "100%") {
       rhandsontable::hot_cols(
-        self$project$render_feasibility_data(),
+        self$project$render_feasibility_data(
+          height = height,
+          width = width
+        ),
         readOnly = TRUE
       )
     },
@@ -276,10 +297,20 @@ Solution <- R6::R6Class(
     #' @description
     #' Render consequence data.
     #' @param action_id `character` identifier for action.
+    #' @param height `character`/`numeric` CSS measurement value.
+    #'  Default to `"100%"`.
+    #' @param width `character`/`numeric` CSS measurement value.
+    #'  Default to `"100%"`.
     #' @return [rhandsontable::rhandsontable] object.
-    render_consequence_data = function(action_id) {
+    render_consequence_data = function(action_id,
+                                       height = "100%",
+                                       width = "100%") {
       rhandsontable::hot_cols(
-        self$project$render_consequence_data(action_id = action_id),
+        self$project$render_consequence_data(
+          action_id = action_id,
+          height = height,
+          width = width
+        ),
         readOnly = TRUE
       )
     },
@@ -304,7 +335,7 @@ Solution <- R6::R6Class(
           ),
           ### disable paging
           paging = FALSE,
-          scrollY = "calc(100vh - 295px)",
+          scrollY = "calc(100vh - 350px)",
           scrollCollapse = TRUE
         )
       ) %>%
@@ -331,7 +362,7 @@ Solution <- R6::R6Class(
           ),
           ### disable paging
           paging = FALSE,
-          scrollY = "calc(100vh - 295px)",
+          scrollY = "calc(100vh - 350px)",
           scrollCollapse = TRUE
         )
       )
@@ -357,7 +388,7 @@ Solution <- R6::R6Class(
           ),
           ### disable paging
           paging = FALSE,
-          scrollY = "calc(100vh - 295px)",
+          scrollY = "calc(100vh - 350px)",
           scrollCollapse = TRUE
         )
       ) %>%

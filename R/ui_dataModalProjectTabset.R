@@ -42,8 +42,11 @@ dataModalProjectTab <- function(action_ids,
         parameters$site_data_sheet$sheet_name,
         id = "data_modal_project_site_panel"
       ),
-      rhandsontable::rHandsontableOutput(
-        "data_modal_project_site_table"
+      htmltools::tags$div(
+        class = "table-container",
+        rhandsontable::rHandsontableOutput(
+          "data_modal_project_site_table"
+        )
       )
     ),
     shiny::tabPanel(
@@ -51,8 +54,11 @@ dataModalProjectTab <- function(action_ids,
         parameters$feasibility_data_sheet$sheet_name,
         id = "data_modal_project_feasibility_panel"
       ),
-      rhandsontable::rHandsontableOutput(
-        "data_modal_project_feasibility_table"
+      htmltools::tags$div(
+        class = "table-container",
+        rhandsontable::rHandsontableOutput(
+          "data_modal_project_feasibility_table"
+        )
       )
     ),
     shiny::tabPanel(
@@ -60,8 +66,11 @@ dataModalProjectTab <- function(action_ids,
         parameters$feature_data_sheet$sheet_name,
         id = "data_modal_project_feature_panel"
       ),
-      rhandsontable::rHandsontableOutput(
-        "data_modal_project_feature_table"
+      htmltools::tags$div(
+        class = "table-container",
+        rhandsontable::rHandsontableOutput(
+          "data_modal_project_feature_table"
+        )
       )
     )
   )
@@ -76,8 +85,11 @@ dataModalProjectTab <- function(action_ids,
     ## return panel
     shiny::tabPanel(
       shiny::span(n, id = paste0("data_modal_project_action_", i, "_panel")),
-      rhandsontable::rHandsontableOutput(
-        paste0("data_modal_project_action_", i, "_table")
+      htmltools::tags$div(
+        class = "table-container",
+        rhandsontable::rHandsontableOutput(
+          paste0("data_modal_project_action_", i, "_table")
+        )
       )
     )
   }))

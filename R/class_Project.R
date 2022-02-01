@@ -910,8 +910,12 @@ Project <- R6::R6Class(
 
     #' @description
     #' Render site data.
+    #' @param height `character`/`numeric` CSS measurement value.
+    #'  Default to `"100%"`.
+    #' @param width `character`/`numeric` CSS measurement value.
+    #'  Default to `"100%"`.
     #' @return [rhandsontable::rhandsontable] object.
-    render_site_data = function() {
+    render_site_data = function(height = "100%", width = "100%") {
       # convert status column to factor
       d <- self$site_data
       d[[self$site_status_header]] <- factor(
@@ -919,7 +923,12 @@ Project <- R6::R6Class(
         levels = self$get_action_ids()
       )
       # initialize table
-      r <- rhandsontable::rhandsontable(d, useTypes = TRUE)
+      r <- rhandsontable::rhandsontable(
+        d,
+        height = height,
+        width = width,
+        useTypes = TRUE
+      )
       r <- rhandsontable::hot_col(
         hot = r,
         col = c(1, 2, 3),
@@ -944,10 +953,19 @@ Project <- R6::R6Class(
 
     #' @description
     #' Render feature data.
+    #' @param height `character`/`numeric` CSS measurement value.
+    #'  Default to `"100%"`.
+    #' @param width `character`/`numeric` CSS measurement value.
+    #'  Default to `"100%"`.
     #' @return [rhandsontable::rhandsontable] object.
-    render_feature_data = function() {
+    render_feature_data = function(height = "100%", width = "100%") {
       # initialize table
-      r <- rhandsontable::rhandsontable(self$feature_data, useTypes = TRUE)
+      r <- rhandsontable::rhandsontable(
+        self$feature_data,
+        height = height,
+        width = width,
+        useTypes = TRUE
+      )
       r <- rhandsontable::hot_col(r, col = 1, readOnly = TRUE)
       r <- rhandsontable::hot_validate_numeric(
         r, 2,
@@ -963,11 +981,18 @@ Project <- R6::R6Class(
 
     #' @description
     #' Render feasibility data.
+    #' @param height `character`/`numeric` CSS measurement value.
+    #'  Default to `"100%"`.
+    #' @param width `character`/`numeric` CSS measurement value.
+    #'  Default to `"100%"`.
     #' @return [rhandsontable::rhandsontable] object.
-    render_feasibility_data = function() {
+    render_feasibility_data = function(height = "100%", width = "100%") {
       # initialize table
       r <- rhandsontable::rhandsontable(
-        self$feasibility_data, useTypes = TRUE
+        self$feasibility_data,
+        height = height,
+        width = width,
+        useTypes = TRUE
       )
       r <- rhandsontable::hot_col(r, col = 1, readOnly = TRUE)
       r <- rhandsontable::hot_col(
@@ -997,8 +1022,14 @@ Project <- R6::R6Class(
     #' @description
     #' Render consequence data.
     #' @param action_id `character` identifier for action.
+    #' @param height `character`/`numeric` CSS measurement value.
+    #'  Default to `"100%"`.
+    #' @param width `character`/`numeric` CSS measurement value.
+    #'  Default to `"100%"`.
     #' @return [rhandsontable::rhandsontable] object.
-    render_consequence_data = function(action_id) {
+    render_consequence_data = function(action_id,
+                                       height = "100%",
+                                       width = "100%") {
       # assert arguments are valid
       assertthat::assert_that(
         assertthat::is.string(action_id),
@@ -1007,7 +1038,12 @@ Project <- R6::R6Class(
       )
       # initialize table
       x <- self$consequence_data[[match(action_id, self$action_ids)]]
-      r <- rhandsontable::rhandsontable(x, useTypes = TRUE)
+      r <- rhandsontable::rhandsontable(
+        x,
+        height = height,
+        width = width,
+        useTypes = TRUE
+      )
       r <- rhandsontable::hot_col(r, col = 1, readOnly = TRUE)
       r <- rhandsontable::hot_validate_numeric(
         r, seq(2, ncol(x)),

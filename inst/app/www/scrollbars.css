@@ -1,7 +1,6 @@
 ::-webkit-scrollbar {
   width: 8px;  /* for vertical scrollbars */
-  /* width: 6px;  /* for vertical scrollbars */ */
-  height: 12px; /* for horizontal scrollbars */
+  height: 8px; /* for horizontal scrollbars */
 }
 
 *:hover::-webkit-scrollbar-track {

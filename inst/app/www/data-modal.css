@@ -10,6 +10,13 @@
   height: calc(100vh - 50px);
 }
 
+.data-modal .modal-content .table-container {
+  overflow: hidden;
+  height: calc(100vh - 350px);
+  max-width: fit-content;
+  padding-right: 5px;
+}
+
 /* select input */
 .data-modal .select-container .dropdown {
   width: 400px !important;

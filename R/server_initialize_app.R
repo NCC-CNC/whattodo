@@ -22,7 +22,8 @@ server_initialize_app <- quote({
       project_data_id = uuid::UUIDgenerate(),
       solution = list(),
       solution_ids = c(),
-      parameters = whatdataio::read_data_configuration()
+      parameters = whatdataio::read_data_configuration(),
+      bd = c(0, 0)
     )
   )
 

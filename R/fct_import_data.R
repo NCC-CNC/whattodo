@@ -12,6 +12,7 @@ import_data <- function(x) {
   # store variables
   app_data$project <- x$project
   app_data$bbox <- x$project$get_bbox(expand = TRUE)
+  app_data$bd <- input$browser_dimension
 
   # update new solution sidebar
   output$newSolutionPane_settings <- renderSolutionSettings(
@@ -115,24 +116,25 @@ import_data <- function(x) {
       stop("Dataset not found for data modal")
     }
 
-    ## render dataset
+    ## render datasets
     output$data_modal_project_site_table <-
       rhandsontable::renderRHandsontable({
-        d$render_site_data()
+        d$render_site_data(height = app_data$bd[2] - 350)
       })
     output$data_modal_project_feature_table <-
       rhandsontable::renderRHandsontable({
-        d$render_feature_data()
+        d$render_feature_data(height = app_data$bd[2] - 350)
       })
     output$data_modal_project_feasibility_table <-
       rhandsontable::renderRHandsontable({
-        d$render_feasibility_data()
+        d$render_feasibility_data(height = app_data$bd[2] - 350)
       })
     lapply(seq_along(app_data$project$get_action_ids()), function(i) {
       output[[paste0("data_modal_project_action_", i, "_table")]] <-
         rhandsontable::renderRHandsontable({
           d$render_consequence_data(
-            action_id = d$get_action_ids()[[i]]
+            action_id = d$get_action_ids()[[i]],
+            height = app_data$bd[2] - 350
           )
         })
     })
