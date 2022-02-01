@@ -78,7 +78,7 @@ Language: en-US
 Remotes:
   r-lib/pkgdown,
   dirkschumacher/rcbc,
-  NCC-CNC/whatdataio@v2,
+  NCC-CNC/whatdataio,
   NCC-CNC/leaflet.extras2,
   NCC-CNC/leaflet@pane-extra,
 Collate:
