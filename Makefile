@@ -22,6 +22,13 @@ data:
 	R --slave -e "source('inst/scripts/simulated-data.R')"
 	R --slave -e "source('inst/scripts/test-data.R')"
 
+## copy data to production directory
+prod-data:
+	cd /opt/whattodo/projects & rm -rf simulated-data
+	cd /opt/whattodo/projects & rm -rf test-data
+	cp -R inst/extdata/projects/simulated-data /opt/whattodo/projects
+	cp -R inst/extdata/projects/test-data /opt/whattodo/projects
+
 ## rebubild readme
 readme:
 	R --slave -e "rmarkdown::render('README.Rmd')"
