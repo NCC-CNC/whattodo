@@ -1,1 +1,1 @@
-The Where To Work application is proudly developed by the [Nature Conservancy of Canada](https://natureconservancy.ca/).
+The What To Do application is proudly developed by the [Nature Conservancy of Canada](https://natureconservancy.ca/).
