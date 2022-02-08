@@ -5,17 +5,18 @@ NULL
 #'
 #' Create a leaflet map with customized default settings.
 #'
-#' @param sidebar_id `character` vector containing HTML identifiers for
-#' the sidebar.
+#' @param sidebar_ids `character` vector containing HTML identifiers for
+#' the sidebars.
 #'
 #' @return [leaflet::leaflet()] object.
 #'
 #' @export
-leaflet_map <- function(sidebar_id) {
+leaflet_map <- function(sidebar_ids) {
   # assert arguments are valid
   assertthat::assert_that(
-    assertthat::is.string(sidebar_id),
-    assertthat::noNA(sidebar_id)
+    is.character(sidebar_ids),
+    length(sidebar_ids) == 2,
+    assertthat::noNA(sidebar_ids)
   )
 
   # prepare JS code for buttons
@@ -113,11 +114,16 @@ leaflet_map <- function(sidebar_id) {
     )
 
   # add sidebars
-  map <- leaflet.extras2::addSidebar(
-    map,
-    id =  sidebar_id,
-    options = list(position = "left", fit = FALSE)
-  )
+  map <-
+    map %>%
+    leaflet.extras2::addSidebar(
+      id =  sidebar_ids[[1]],
+      options = list(position = "left", fit = FALSE)
+    ) %>%
+    leaflet.extras2::addSidebar(
+      id = sidebar_ids[[2]],
+      options = list(position = "right", fit = FALSE)
+    )
 
   # remove outdated font awesome dependency
   idx <- vapply(

@@ -121,6 +121,7 @@ Collate:
     'ui_helpModal.R'
     'ui_importModal.R'
     'ui_leaflet_map.R'
+    'ui_mapSidebarPane.R'
     'ui_newSolutionSidebarPane.R'
     'ui_solutionResultsSidebarPane.R'
     'utils_acknowledge_packages.R'

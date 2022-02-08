@@ -275,7 +275,7 @@ server_generate_new_solution <- quote({
     leaflet.extras2::openSidebar(
       map = leaflet::leafletProxy("map"),
       id = "solutionResultsPane",
-      sidebar_id = "mainSidebar"
+      sidebar_id = "analysisSidebar"
     )
 
     ## show solution on map
@@ -307,7 +307,7 @@ server_generate_new_solution <- quote({
 
     ### enable solution results sidebar after generating first solution
     if (length(app_data$solution) == 1) {
-      enable_html_css_selector("#mainSidebar li:nth-child(2)")
+      enable_html_css_selector("#analysisSidebar li:nth-child(2)")
     }
 
     ## reset buttons and input widgets

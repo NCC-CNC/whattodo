@@ -345,7 +345,8 @@ import_data <- function(x) {
   })
 
   # make sidebars visible
-  shinyjs::runjs("$('#mainSidebar').css('display','block');")
+  shinyjs::runjs("$('#dataSidebar').css('display','block');")
+  shinyjs::runjs("$('#analysisSidebar').css('display','block');")
 
   # make layer control visible
   shinyjs::runjs("$('#map_control').css('display','block');")
@@ -356,8 +357,13 @@ import_data <- function(x) {
   # open sidebars
   leaflet.extras2::openSidebar(
     map = map,
+    id = "mapPane",
+    sidebar_id = "dataSidebar"
+  )
+  leaflet.extras2::openSidebar(
+    map = map,
     id = "newSolutionPane",
-    sidebar_id = "mainSidebar"
+    sidebar_id = "analysisSidebar"
   )
 
   # remove startup mode

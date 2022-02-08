@@ -36,22 +36,6 @@ app_ui <- function(request) {
         class = "leaflet-title"
       ),
 
-      ## map user interface
-      htmltools::tags$div(
-        id = "map_control",
-        class = "leaflet-data-control",
-        shiny::selectInput(
-          inputId = "map_dataset",
-          label = "Select dataset",
-          choices = "NA"
-        ),
-        shiny::selectInput(
-          inputId = "map_layer",
-          label = "Select layer",
-          choices = "NA"
-        )
-      ),
-
       ## start up screen
       shinybusy::busy_start_up(
         loader = shinybusy::spin_epic("scaling-squares", color = "#FFF"),
@@ -73,24 +57,36 @@ app_ui <- function(request) {
       ## error modal
       errorModal("errorModal", trigger = "error_button"),
 
-      ## sidebar
+      ## data sidebar (appears on left)
       leaflet.extras2::sidebar_tabs(
-        id = "mainSidebar",
+        id = "dataSidebar",
         iconList = list(
-          shiny::icon("rocket"),
-          shiny::icon("tachometer-alt"),
+          shiny::icon("layer-group"),
           shiny::icon("download"),
           shiny::icon("envelope"),
           shiny::icon("heart")
         ),
-        newSolutionSidebarPane(id = "newSolutionPane"),
-        solutionResultsSidebarPane(id = "solutionResultsPane"),
+        mapSidebarPane(
+          id = "mapPane",
+          dataset_id = "map_dataset",
+          layer_id = "map_layer"
+        ),
         exportSidebarPane(id = "exportPane"),
         contactSidebarPane(id = "contactPane"),
         acknowledgmentsSidebarPane(id = "acknowledgmentsPane")
       )
-    )
+    ),
 
+    ## analysis sidebar (appears on right)
+    leaflet.extras2::sidebar_tabs(
+      id = "analysisSidebar",
+      iconList = list(
+        shiny::icon("rocket"),
+        shiny::icon("tachometer-alt")
+      ),
+      newSolutionSidebarPane(id = "newSolutionPane"),
+      solutionResultsSidebarPane(id = "solutionResultsPane")
+    )
   )
 }
 

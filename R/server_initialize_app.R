@@ -32,13 +32,16 @@ server_initialize_app <- quote({
   shinyjs::runjs("document.body.classList.add('startup');")
 
   # make sidebars hidden
-  shinyjs::runjs("$('#mainSidebar').css('display','none');")
+  shinyjs::runjs("$('#dataSidebar').css('display','none');")
+  shinyjs::runjs("$('#analysisSidebar').css('display','none');")
 
   # display import modal on start up
   shiny::showModal(importModal(id = "importModal"))
 
   # initialize map
-  output$map <- leaflet::renderLeaflet(leaflet_map("mainSidebar"))
+  output$map <- leaflet::renderLeaflet(
+    leaflet_map(c("dataSidebar", "analysisSidebar"))
+  )
 
   # initialize widgets
   output$solutionResultsPane_results <- renderSolutionResults({
@@ -75,7 +78,7 @@ server_initialize_app <- quote({
   shinyjs::disable("newSolutionPane_settings_stop_button")
 
   # disable solution results sidebar button
-  disable_html_css_selector("#mainSidebar li:nth-child(2)")
+  disable_html_css_selector("#analysisSidebar li:nth-child(2)")
 
   # add help modal button trigger
   observeEvent(input$help_button, {

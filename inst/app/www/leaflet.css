@@ -102,26 +102,20 @@
   background-image: url(globe-americas-solid.png) !important;
 }
 
-/* data control */
-.leaflet-data-control {
-  display: none;
-  z-index: 9995;
-  position: absolute;
-  top: 0;
-  right: 0;
-  margin-top: 10px;
-  margin-right: 10px;
-  background: #fff;
-  padding: 5px;
-  border-radius: 4px;
-  border: 2px solid rgba(0,0,0,0.2);
-  background-clip: padding-box;
-}
-
 .leaflet-data-control div:nth-of-type(2) {
   margin-bottom: 0px !important;
 }
 
-#map_layer + .plugin-selectize-plugin-a11y{
-  margin-bottom: 0px !important;
+.leaflet-bottom.leaflet-right {
+  left: 50%;
+  transform: translate(-50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  align-content: center;
+  justify-content: center;
+}
+
+.leaflet-bottom.leaflet-right .leaflet-control {
+  align-self: center !important;
 }

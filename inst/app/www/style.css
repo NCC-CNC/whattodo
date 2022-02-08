@@ -47,3 +47,7 @@
 .bs-container.dropdown {
   z-index: 99999999;
 }
+
+#map_layer + .plugin-selectize-plugin-a11y{
+  margin-bottom: 0px !important;
+}
