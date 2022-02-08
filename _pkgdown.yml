@@ -17,32 +17,49 @@ reference:
       - run_app
       - get_golem_config
 
+  - title: Sidebar panes
+    desc: >
+      - Functions for sidebar panes.
+    contents:
+      - newSolutionSidebarPane
+      - solutionResultsSidebarPane
+      - exportSidebarPane
+      - acknowledgmentsSidebarPane
+      - contactSidebarPane
+
+  - title: Solution settings widget
+    desc: >
+      Functions for creating and updating the widget.
+    contents:
+      - solutionSettings
+      - updateSolutionSettings
+      - solutionSettings-shiny
+
+  - title: Solution results widget
+    desc: >
+      Functions for creating and updating the widget.
+    contents:
+      - solutionResults
+      - solutionResults-shiny
+      - addSolutionResults
+      - dropSolutionResults
+      - showSolutionResults
+
   - title: User interface
     desc: >
       Functions for creating user interface components.
     contents:
+      - leaflet_map
+      - importModal
+      - helpModal
+      - errorModal
+      - dataModal
+      - dataModalProjectTab
+      - dataModalResultsTab
+      - horizontalPickerInput
       - ends_with("_ui")
 
-  - title: Map interface
-    desc: >
-      Functions for manipulating the map.
-    contents:
-      - ends_with("_map")
-
-  - title: Render and parse data
-    desc: >
-      Functions for rendering and parsing data.
-    contents:
-      - starts_with("render_")
-      - starts_with("parse_")
-
-  - title: Data preparation
-    desc: >
-      Functions for preparing data.
-    contents:
-      - starts_with("prepare_")
-
-  - title: Prioritization
+  - title: Prioritizations
     desc: >
       Functions for generating prioritizations.
     contents:
@@ -54,9 +71,53 @@ reference:
     contents:
       - starts_with("default_")
 
+  - title: Simulate data
+    desc: >
+      Functions for simulating data.
+    contents:
+      - starts_with("simulate_")
+
+  - title: Project functions
+    desc: >
+      Functions used to work with projects.
+    contents:
+      - read_builtin_project
+      - read_manual_project
+      - find_projects
+
+  - title: Class constructors
+    desc: >
+      Functions for generating new objects.
+    contents:
+      - starts_with("new_")
+
+  - title: Class definitions
+    desc: >
+      Definititions for classes used to organize data.
+    contents:
+      - Parameter
+      - Project
+      - Solution
+
+  - title: Javascript functions
+    desc: >
+      Functions for executing Javascript.
+    contents:
+      - disable_html_element
+      - disable_html_css_selector
+      - enable_html_element
+      - enable_html_css_selector
+
   - title: Miscellaneous functions
     desc: >
       Functions for assorted usage.
     contents:
       - st_geometry_data_type
-      - is_valid_shapefile
+      - convert_to_html_id
+      - is_valid_configuration_file
+      - is_valid_shapefile_file
+      - paste_vector
+      - format_solution_error
+      - format_solution_results
+      - prepare_for_shapefile_import
+      - acknowledge_packages

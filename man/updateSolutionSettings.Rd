@@ -89,6 +89,16 @@ This controls the slider used to specify goal for a feature.
 \item{value}{\code{0.8}}
 \item{type}{\code{"theme"}}
 }
+
+\strong{Update the feature maxima.}
+This controls the maximum possible amount for each feature.
+
+\describe{
+\item{id}{\code{"THEMEID"}}
+\item{setting}{\code{"feature_max"}}
+\item{value}{\code{34}}
+\item{type}{\code{"theme"}}
+}
 }
 
 \subsection{Weights}{
