@@ -83,6 +83,16 @@ NULL
 #' \item{type}{`"theme"`}
 #' }
 #'
+#' **Update the feature maxima.**
+#' This controls the maximum possible amount for each feature.
+#'
+#' \describe{
+#' \item{id}{`"THEMEID"`}
+#' \item{setting}{`"feature_max"`}
+#' \item{value}{`34`}
+#' \item{type}{`"theme"`}
+#' }
+#'
 #' ## Weights
 #'
 #' Here we detail all possible settings that can be updated for

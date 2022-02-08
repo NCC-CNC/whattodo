@@ -93,6 +93,8 @@ class ThemeSetting {
       this.updateName(value);
     } else if (setting === "feature_goal") {
       this.updateFeatureGoal(value);
+    } else if (setting === "feature_max") {
+      this.updateFeatureMax(value);
     } else if (setting === "feature_current") {
       this.updateFeatureCurrent(value);
     }
@@ -106,10 +108,14 @@ class ThemeSetting {
     this.goal_el.noUiSlider.set(value);
   }
 
+  updateFeatureMax(value) {
+    this.total = value;
+  }
+
   updateFeatureCurrent(value) {
     // current label
     this.current_label_el.innerText =
-      current_label_text(value, this.total, "Current", this.units);
+    current_label_text(value, this.total, "Current", this.units);
     // current bar width
     style_current_bar(this.current_bar_el, value);
   }

@@ -6,7 +6,7 @@
 #'
 #' @return Invisible `TRUE`.
 #'
-#' @export
+#' @noRd
 import_data <- function(x) {
 
   # store variables
@@ -165,9 +165,11 @@ import_data <- function(x) {
   shiny::observeEvent(input$data_modal_project_site_table, {
     shiny::req(input$data_modal_project_site_table)
     if (!identical(input$dataModal_select, app_data$project_data_id)) return()
+    ### update internal data
     app_data$project$set_site_data(
       rhandsontable::hot_to_r(input$data_modal_project_site_table)
     )
+    ### update budget slider
     updateSolutionSettings(
       session = session,
       inputId = "newSolutionPane_settings",
@@ -181,13 +183,60 @@ import_data <- function(x) {
         type = "parameter"
       )
     )
+    ### update current amount in goal sliders
+    id <- paste0("T", app_data$project$feature_html_ids)
+    cr <- app_data$project$get_current_feature_consequence()
+    mx <- app_data$project$get_max_feature_consequence()
+    lapply(seq_len(nrow(cr)), function(i) {
+      updateSolutionSettings(
+        session = session,
+        inputId = "newSolutionPane_settings",
+        value = list(
+          id = id[[i]],
+          setting = "feature_current",
+          value = cr$amount[[i]] / mx$amount[[i]],
+          type = "theme"
+        )
+      )
+    })
   })
   shiny::observeEvent(input$data_modal_project_feature_table, {
     shiny::req(input$data_modal_project_feature_table)
     if (!identical(input$dataModal_select, app_data$project_data_id)) return()
+    ### update internal data
     app_data$project$set_feature_data(
       rhandsontable::hot_to_r(input$data_modal_project_feature_table)
     )
+    ### update goal sliders
+    id <- paste0("T", app_data$project$feature_html_ids)
+    th <- app_data$parameters$feature_data_sheet$goal_header
+    lapply(seq_along(id), function(i) {
+      updateSolutionSettings(
+        session = session,
+        inputId = "newSolutionPane_settings",
+        value = list(
+          id = id[[i]],
+          setting = "feature_goal",
+          value = app_data$project$feature_data[[th]][[i]] / 100,
+          type = "theme"
+        )
+      )
+    })
+    ### update weight sliders
+    id <- paste0("W", app_data$project$feature_html_ids)
+    th <- app_data$parameters$feature_data_sheet$weight_header
+    lapply(seq_along(id), function(i) {
+      updateSolutionSettings(
+        session = session,
+        inputId = "newSolutionPane_settings",
+        value = list(
+          id = id[[i]],
+          setting = "factor",
+          value = app_data$project$feature_data[[th]][[i]],
+          type = "weight"
+        )
+      )
+    })
   })
   shiny::observeEvent(input$data_modal_project_feasibility_table, {
     shiny::req(input$data_modal_project_feasibility_table)
@@ -196,17 +245,61 @@ import_data <- function(x) {
       rhandsontable::hot_to_r(input$data_modal_project_feasibility_table)
     )
   })
-
   lapply(seq_along(app_data$project$get_action_ids()), function(i) {
     shiny::observeEvent(
       input[[paste0("data_modal_project_action_", i, "_table")]],  {
       x <- input[[paste0("data_modal_project_action_", i, "_table")]]
       shiny::req(x)
       if (!identical(input$dataModal_select, app_data$project_data_id)) return()
+      ### update internal data
       app_data$project$set_consequence_data(
         rhandsontable::hot_to_r(x),
         action_id = app_data$project$get_action_ids()[[i]]
       )
+      ### extract variables
+      id <- paste0("T", app_data$project$feature_html_ids)
+      cr <- app_data$project$get_current_feature_consequence()
+      mx <- app_data$project$get_max_feature_consequence()
+      ### update maximum amount in goal sliders
+      lapply(seq_len(nrow(cr)), function(i) {
+        updateSolutionSettings(
+          session = session,
+          inputId = "newSolutionPane_settings",
+          value = list(
+            id = id[[i]],
+            setting = "feature_max",
+            value = mx$amount[[i]],
+            type = "theme"
+          )
+        )
+      })
+      ### update current amount in goal sliders
+      lapply(seq_len(nrow(cr)), function(i) {
+        updateSolutionSettings(
+          session = session,
+          inputId = "newSolutionPane_settings",
+          value = list(
+            id = id[[i]],
+            setting = "feature_current",
+            value = cr$amount[[i]] / mx$amount[[i]],
+            type = "theme"
+          )
+        )
+      })
+      ### force update to goal sliders
+      th <- app_data$parameters$feature_data_sheet$goal_header
+      lapply(seq_along(id), function(i) {
+        updateSolutionSettings(
+          session = session,
+          inputId = "newSolutionPane_settings",
+          value = list(
+            id = id[[i]],
+            setting = "feature_goal",
+            value = app_data$project$feature_data[[th]][[i]] / 100,
+            type = "theme"
+          )
+        )
+      })
     })
   })
 
