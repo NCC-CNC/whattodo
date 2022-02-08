@@ -67,6 +67,7 @@ jobs:
           brew install proj
           brew install geos
           brew install gdal
+          export PKG_CONFIG_PATH="/usr/local/opt/cbc/lib/pkgconfig"
 
       - name: Install dependencies
         run: |
