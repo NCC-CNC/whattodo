@@ -29,6 +29,13 @@ app_ui <- function(request) {
         )
       ),
 
+      ## title
+      shiny::h3(
+        "What To Do",
+        id = "app_title",
+        class = "leaflet-title"
+      ),
+
       ## map user interface
       htmltools::tags$div(
         id = "map_control",

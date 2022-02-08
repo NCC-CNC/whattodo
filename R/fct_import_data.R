@@ -350,6 +350,9 @@ import_data <- function(x) {
   # make layer control visible
   shinyjs::runjs("$('#map_control').css('display','block');")
 
+  # make title visible
+  shinyjs::runjs("$('#app_title').css('display','block');")
+
   # open sidebars
   leaflet.extras2::openSidebar(
     map = map,
