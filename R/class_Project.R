@@ -927,7 +927,8 @@ Project <- R6::R6Class(
         d,
         height = height,
         width = width,
-        useTypes = TRUE
+        useTypes = TRUE,
+        stretchH = "all"
       )
       r <- rhandsontable::hot_col(
         hot = r,
@@ -964,7 +965,8 @@ Project <- R6::R6Class(
         self$feature_data,
         height = height,
         width = width,
-        useTypes = TRUE
+        useTypes = TRUE,
+        stretchH = "all"
       )
       r <- rhandsontable::hot_col(r, col = 1, readOnly = TRUE)
       r <- rhandsontable::hot_validate_numeric(
@@ -992,7 +994,8 @@ Project <- R6::R6Class(
         self$feasibility_data,
         height = height,
         width = width,
-        useTypes = TRUE
+        useTypes = TRUE,
+        stretchH = "all"
       )
       r <- rhandsontable::hot_col(r, col = 1, readOnly = TRUE)
       r <- rhandsontable::hot_col(
@@ -1042,7 +1045,8 @@ Project <- R6::R6Class(
         x,
         height = height,
         width = width,
-        useTypes = TRUE
+        useTypes = TRUE,
+        stretchH = "all"
       )
       r <- rhandsontable::hot_col(r, col = 1, readOnly = TRUE)
       r <- rhandsontable::hot_validate_numeric(

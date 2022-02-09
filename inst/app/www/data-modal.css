@@ -13,7 +13,6 @@
 .data-modal .modal-content .table-container {
   overflow: hidden;
   height: calc(100vh - 350px);
-  max-width: fit-content;
   padding-right: 5px;
 }
 
