@@ -181,10 +181,10 @@ Parameter <- R6::R6Class(
     set_value = function(value) {
       assertthat::assert_that(
         assertthat::is.number(value),
-        assertthat::noNA(value),
-        value >= self$min_value,
-        value <= self$max_value
+        assertthat::noNA(value)
       )
+      value <- min(value, self$max_value)
+      value <- max(value, self$min_value)
       self$value <- value
       invisible(self)
     },
