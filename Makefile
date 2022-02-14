@@ -106,7 +106,7 @@ reset:
 # renv commands
 ## update deps
 updatedeps:
-	R --slave -e "remotes::install_github('NCC-CNC/whatdataio@v2', force = TRUE, upgrade = 'never')"
+	R --slave -e "remotes::install_github('NCC-CNC/whatdataio', force = TRUE, upgrade = 'never')"
 	R --slave -e "renv::snapshot()"
 
 ## snapshot R package dependencies
