@@ -116,9 +116,6 @@ golem_add_external_resources <- function() {
       app_title = "What To Do"
     ),
 
-    ## favicon
-    golem::favicon(),
-
     ## dependencies
     shinyjs::useShinyjs(),
     shinyjs::useShinyjs(),
