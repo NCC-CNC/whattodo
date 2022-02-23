@@ -56,9 +56,13 @@ server_generate_new_solution <- quote({
 
     ## extract values for generating result
     ### settings
-    curr_budget <- app_data$project$settings[[1]]$get_value()
-    curr_type <- app_data$project$settings[[1]]$status
     curr_name <- input$newSolutionPane_settings_name
+    curr_type <- app_data$project$settings[[1]]$status
+    curr_budget <- dplyr::if_else(
+      curr_type,
+      app_data$project$settings[[1]]$get_value(),
+      NA_real_
+    )
 
     ### ids
     curr_site_ids <- app_data$project$site_ids
@@ -122,7 +126,11 @@ server_generate_new_solution <- quote({
         )
       }
       ## return result
-      list(id = curr_id, name = curr_name, type = curr_type, result = r)
+      list(
+        id = curr_id, name = curr_name,
+        type = curr_type, budget = curr_budget,
+        result = r
+      )
     })
 
     ## add promises to handle result once asynchronous task finished
@@ -202,7 +210,7 @@ server_generate_new_solution <- quote({
 
     ## create budget parameter to store settings
     curr_budget_settings <- app_data$project$settings[[1]]$clone(deep = TRUE)
-    curr_budget_settings$status <- is.na(r$budget)
+    curr_budget_settings$status <- !is.na(r$budget)
     curr_budget_settings$value <- ifelse(is.na(r$budget), 0, r$budget)
 
     ## generate solution from result
