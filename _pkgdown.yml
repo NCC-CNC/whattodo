@@ -108,16 +108,24 @@ reference:
       - enable_html_element
       - enable_html_css_selector
 
+  - title: File validation functions
+    desc: >
+      Functions for validating files.
+    contents:
+      - is_valid_configuration_file
+      - is_valid_shapefile_file
+      - is_valid_spreadsheet_file
+
   - title: Miscellaneous functions
     desc: >
       Functions for assorted usage.
     contents:
       - st_geometry_data_type
       - convert_to_html_id
-      - is_valid_configuration_file
-      - is_valid_shapefile_file
       - paste_vector
       - format_solution_error
       - format_solution_results
       - prepare_for_shapefile_import
       - acknowledge_packages
+      - error_message
+      - error_log

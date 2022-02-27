@@ -10,7 +10,8 @@ is_valid_shapefile_file(x)
 \item{x}{\code{character} file path.}
 }
 \value{
-\code{logical} value indicating validity.
+A \code{logical} value indicating validity, or a \code{character}
+explanation of why the file is not valid.
 }
 \description{
 Verify if a file path corresponds to a valid ESRI Shapefile.

@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Is valid configuration file? — is_valid_configuration_file • whattodo</title>
+<title>Error log — error_log • whattodo</title>
 
 
 <!-- jquery -->
@@ -41,8 +41,8 @@
   <link href="../extra.css" rel="stylesheet">
   
 
-<meta property="og:title" content="Is valid configuration file? — is_valid_configuration_file" />
-<meta property="og:description" content="Verify if a file path corresponds to a valid configuration file." />
+<meta property="og:title" content="Error log — error_log" />
+<meta property="og:description" content="Create an error log based on a try-error object." />
 
 
 
@@ -115,30 +115,35 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Is valid configuration file?</h1>
-    <small class="dont-index">Source: <a href='https://github.com/NCC-CNC/whattodo/blob/master/R/utils_file_validation.R'><code>R/utils_file_validation.R</code></a></small>
-    <div class="hidden name"><code>is_valid_configuration_file.Rd</code></div>
+    <h1>Error log</h1>
+    <small class="dont-index">Source: <a href='https://github.com/NCC-CNC/whattodo/blob/master/R/utils_error_misc.R'><code>R/utils_error_misc.R</code></a></small>
+    <div class="hidden name"><code>error_log.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>Verify if a file path corresponds to a valid configuration file.</p>
+    <p>Create an error log based on a <code>try-error</code> object.</p>
     </div>
 
-    <div class="ref-usage sourceCode"><pre class='sourceCode r'><code><span class='fu'>is_valid_configuration_file</span><span class='op'>(</span><span class='va'>x</span><span class='op'>)</span></code></pre></div>
+    <div class="ref-usage sourceCode"><pre class='sourceCode r'><code><span class='fu'>error_log</span><span class='op'>(</span><span class='va'>x</span><span class='op'>)</span></code></pre></div>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>x</th>
-      <td><p><code>character</code> file path.</p></td>
+      <td><p><code>try-error</code> object.</p></td>
     </tr>
     </table>
 
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>A <code>logical</code> value indicating validity, or a <code>character</code>
-explanation of why the file is not valid.</p>
+    <p><code>character</code> value.</p>
+    <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
+
+    <p>This function checks <code>attr(x, "log")</code> for a list of <code>SimpleError</code> objects
+that are used to construct the log. If the argument to <code>x</code> does not
+contain this attribute, then the text <code>"No error log available."</code>
+is returned.</p>
 
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">

@@ -12,6 +12,9 @@ app_ui <- function(request) {
     # app content
     shiny::fillPage(
 
+      ## enable functionality from shinyFeedback package
+      shinyFeedback::useShinyFeedback(),
+
       ## suppress dependencies that fail to import correctly
       htmltools::suppressDependencies("shinyBS"),
       htmltools::suppressDependencies("bootstrap-select"),

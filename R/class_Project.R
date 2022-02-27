@@ -133,7 +133,8 @@ Project <- R6::R6Class(
         ## parameters
         is.list(parameters),
         ## geometry
-        inherits(site_geometry, "sf")
+        inherits(site_geometry, "sf"),
+        identical(nrow(site_geometry), length(site_ids))
       )
 
       # assign data fields

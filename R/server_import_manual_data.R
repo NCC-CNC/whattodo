@@ -13,8 +13,102 @@
 #' @noRd
 server_import_manual_data <- quote({
 
+  # set behavior for shapefile upload
+  shiny::observeEvent(input$importModal_manual_spatial_file, {
+    ## specify dependencies
+    shiny::req(input$importModal_manual_spatial_file)
+
+    ## reset feedback state
+    shinyFeedback::hideFeedback(
+      inputId = "importModal_manual_spatial_file"
+    )
+
+    ## extract file path
+    f <- prepare_for_shapefile_import(
+      input$importModal_manual_spatial_file$datapath
+    )
+
+    ## check if data are valid
+    v <- is_valid_shapefile_file(f)
+
+    ## validate file format
+    if (!isTRUE(v)) {
+      ### display feedback on file input
+      shinyFeedback::showFeedbackDanger(
+        inputId = "importModal_manual_spatial_file",
+        text = v
+      )
+      ### update variable to indicate invalid shapefile
+      app_data$spatial_path <- try(stop("invalid file"), silent = TRUE)
+      ### disable upload button
+      disable_html_element("importModal_manual_button")
+      ## exit
+      return()
+    }
+
+    ## update app state given with shapefile path
+    app_data$spatial_path <- f[endsWith(f, ".shp")]
+
+    ### display feedback success
+    shinyFeedback::showFeedbackSuccess(
+      inputId = "importModal_manual_spatial_file"
+    )
+
+  })
+
+  # set behavior for spreadsheet upload
+  shiny::observeEvent(input$importModal_manual_spreadsheet_file, {
+    ## specify dependencies
+    shiny::req(input$importModal_manual_spreadsheet_file)
+
+    ## reset feedback state
+    shinyFeedback::hideFeedback(
+      inputId = "importModal_manual_spreadsheet_file"
+    )
+
+    ## extract file path
+    f <- input$importModal_manual_spreadsheet_file$datapath[[1]]
+
+    ## check if data are valid
+    v <- is_valid_spreadsheet_file(f)
+
+    ## validate file format
+    if (!isTRUE(v)) {
+      ### display feedback on file input
+      shinyFeedback::showFeedbackDanger(
+        inputId = "importModal_manual_spreadsheet_file",
+        text = v
+      )
+      ### update variable to indicate no valid configuration file
+      app_data$spatial_path <- NULL
+      ### disable upload button
+      disable_html_element("importModal_manual_button")
+      ## exit
+      return()
+    }
+
+    ## update app state given with shapefile path
+    app_data$spreadsheet_path <- f
+
+    ## enable import button if all files are uploaded
+    if (!inherits(app_data$spatial_path, "try-error")) {
+      enable_html_element("importModal_manual_button")
+    }
+
+    ### display feedback success
+    shinyFeedback::showFeedbackSuccess(
+      inputId = "importModal_manual_spreadsheet_file"
+    )
+
+  })
+
   # set behavior for importing data using the manual option
   shiny::observeEvent(input$importModal_manual_button, {
+   ## validation
+    if (!is.character(app_data$spreadsheet_path)) {
+      return()
+    }
+
     ## update import button
     disable_html_element("importModal_manual_button")
 
@@ -59,8 +153,18 @@ server_import_manual_data <- quote({
           writeLines(error_log(x), file.path(td, "error-log.txt"))
           # copy data file to temporary directory
           file.copy(app_data$spreadsheet_path, td)
-          if (!is.null(app_data$spatial_path)) {
-            file.copy(app_data$spatial_path, td)
+          if (is.character(app_data$spatial_path)) {
+            ## find files that are part of the shapefile
+            shapefile_paths <- dir(
+              path = dirname(app_data$spatial_path),
+              full.names = TRUE
+            )
+            idx <- which(
+              tools::file_path_sans_ext(basename(shapefile_paths)) ==
+              tools::file_path_sans_ext(basename(app_data$spatial_path))
+            )
+            ## copy files
+            file.copy(shapefile_paths[idx], td)
           }
           # zip files
           withr::with_dir(td, utils::zip(con, files = dir(td)))

@@ -7,7 +7,8 @@ NULL
 #'
 #' @param x `character` file path.
 #'
-#' @return `logical` value indicating validity.
+#' @return A `logical` value indicating validity, or a `character`
+#' explanation of why the file is not valid.
 #'
 #' @export
 is_valid_configuration_file <- function(x) {
@@ -82,6 +83,34 @@ is_valid_shapefile_file <- function(x) {
   } else {
     ## throw error because file is not ESRI Shapefile
     return("Error: not a valid ESRI Shapefile file format.")
+  }
+
+  # return success
+  TRUE
+}
+
+#' Is valid spreadsheet file?
+#'
+#' Verify if a file path corresponds to a valid spreadsheet file.
+#'
+#' @inheritParams is_valid_configuration_file
+#'
+#' @inherit is_valid_configuration_file return
+#'
+#' @export
+is_valid_spreadsheet_file <- function(x) {
+  # assert argument is valid
+  assertthat::assert_that(assertthat::is.string(x))
+
+  # check if spreadsheet based on file name
+  if (!endsWith(x, ".xlsx")) {
+    return("Error: file must have a \".xlsx\" extension")
+  }
+
+  # check if spreadsheet by trying to access sheet names
+  v <- try(openxlsx::getSheetNames(x), silent = TRUE)
+  if (inherits(v, "try-error")) {
+    return("Error: file is not a valid Excel Spreadsheet")
   }
 
   # return success

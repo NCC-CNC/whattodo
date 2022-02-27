@@ -18,6 +18,8 @@ server_initialize_app <- quote({
   ## so we don't have to worry about using the super-assignment operator
   app_data <- list2env(
     list(
+      spatial_path = NULL,
+      spreadsheet_path = NULL,
       project = NULL,
       project_data_id = uuid::UUIDgenerate(),
       solution = list(),

@@ -46,3 +46,11 @@ utils::globalVariables(
 tmp1 <- R.utils::gzip
 tmp1 <- rcbc::cbc_solve
 tmp1 <- Rsymphony::Rsymphony_solve_LP
+tmp1 <- future::future
+tmp1 <- geojsonsf::geojson_sf
+tmp1 <- leafem::addHomeButton
+tmp1 <- leafpop::popupTable
+tmp1 <- methods::as
+tmp1 <- RcppTOML::parseToml
+tmp1 <- tidyr::gather
+tmp1 <- withr::with_options
