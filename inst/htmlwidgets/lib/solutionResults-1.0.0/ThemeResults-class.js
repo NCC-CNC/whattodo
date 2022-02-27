@@ -45,9 +45,9 @@ class ThemeResults {
     }
 
     // clamp maximum values for plotted valuessolutions
-    plot_feature_current_held = Math.min(plot_feature_current_held, 0.9998);
+    plot_feature_current_held = Math.min(plot_feature_current_held, 0.9997);
     plot_feature_goal = Math.min(plot_feature_goal, 0.9998);
-    plot_feature_solution_held = Math.min(plot_feature_solution_held, 1.0);
+    plot_feature_solution_held = Math.min(plot_feature_solution_held, 0.9999);
 
     // create chart
     const chart = new ThemeSolutionChart(
