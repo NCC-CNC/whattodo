@@ -125,6 +125,7 @@ Collate:
     'ui_solutionResultsSidebarPane.R'
     'utils_acknowledge_packages.R'
     'utils_default_colors.R'
+    'utils_error_misc.R'
     'utils_file_validation.R'
     'utils_prepare_for_shapefile_import.R'
     'utils_shinyjs.R'
