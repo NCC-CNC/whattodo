@@ -335,7 +335,6 @@ Solution <- R6::R6Class(
           ),
           ### disable paging
           paging = FALSE,
-          scrollY = "calc(100vh - 350px)",
           scrollCollapse = TRUE
         )
       ) %>%
@@ -362,7 +361,6 @@ Solution <- R6::R6Class(
           ),
           ### disable paging
           paging = FALSE,
-          scrollY = "calc(100vh - 350px)",
           scrollCollapse = TRUE
         )
       )
@@ -388,7 +386,6 @@ Solution <- R6::R6Class(
           ),
           ### disable paging
           paging = FALSE,
-          scrollY = "calc(100vh - 350px)",
           scrollCollapse = TRUE
         )
       ) %>%
