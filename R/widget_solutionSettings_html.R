@@ -27,7 +27,7 @@ goal_component_scaffold <- function() {
           `data-placement` = "top",
           `data-container` = "body",
           `data-trigger` = "hover",
-          title = "Current amount"
+          title = "Percentage and amount given current status"
         )
       ),
       htmltools::tags$div(
