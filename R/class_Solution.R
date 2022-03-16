@@ -334,6 +334,7 @@ Solution <- R6::R6Class(
           ),
           ### disable paging
           paging = FALSE,
+          scrollY = "clamp(380px, calc(100vh - 380px), 10000px)",
           scrollCollapse = TRUE
         )
       ) %>%
@@ -360,6 +361,7 @@ Solution <- R6::R6Class(
           ),
           ### disable paging
           paging = FALSE,
+          scrollY = "clamp(380px, calc(100vh - 380px), 10000px)",
           scrollCollapse = TRUE
         )
       )
@@ -385,6 +387,7 @@ Solution <- R6::R6Class(
           ),
           ### disable paging
           paging = FALSE,
+          scrollY = "clamp(380px, calc(100vh - 380px), 10000px)",
           scrollCollapse = TRUE
         )
       ) %>%

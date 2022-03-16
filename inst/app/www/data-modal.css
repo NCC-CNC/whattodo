@@ -33,6 +33,10 @@
   padding-right: 0 !important;
 }
 
+.data-modal .dataTables_scrollBody {
+  height: clamp(380px, calc(100vh - 380px), 10000px) !important;
+}
+
 /* tabs */
 #dataModal_tabset + div {
   padding-top: 5px;
