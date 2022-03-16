@@ -211,8 +211,7 @@ Solution <- R6::R6Class(
               endsWith(self$summary_results[[1]][[i]], "cost") ~ "CAD",
               startsWith(self$summary_results[[1]][[i]], "Number") ~ "sites",
               TRUE ~ ""
-            ),
-            proportion = ""
+            )
           )
         }),
         theme_results = lapply(
