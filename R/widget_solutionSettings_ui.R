@@ -153,12 +153,12 @@ solutionSettings_html <- function(id, style, class, ...) {
           title = htmltools::tags$span(
             shinyBS::tipify(
               el = htmltools::tags$span(
-                shiny::icon("weight-hanging"),
-                "Weights"
+                shiny::icon("exclamation-circle"),
+                "Relative importance"
               ),
               title = paste(
-                "Weights describe the relative importance of meeting",
-                "goals for each of the themes."
+                "Factors denoting the importance of meeting",
+                "the goals for each theme."
               ),
               options = list(container = "body")
             )

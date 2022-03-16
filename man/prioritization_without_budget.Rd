@@ -9,6 +9,7 @@ prioritization_without_budget(
   feature_ids,
   action_ids,
   pu_data,
+  status_data,
   zone_data,
   goal_data,
   locked_data,
@@ -26,6 +27,8 @@ prioritization_without_budget(
 \item{action_ids}{\code{character} action identifiers.}
 
 \item{pu_data}{\code{dat.frame} containing planning unit data.}
+
+\item{status_data}{\code{dat.frame} containing status data.}
 
 \item{zone_data}{\code{dat.frame} containing zone data.}
 

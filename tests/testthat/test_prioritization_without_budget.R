@@ -25,6 +25,7 @@ test_that("feasible problem", {
     feature_ids = p$feature_ids,
     action_ids = p$action_ids,
     pu_data = p$get_pu_data(),
+    status_data = p$get_current_status_data(),
     zone_data = p$get_zone_data(),
     goal_data = p$get_goal_data(),
     locked_data = p$get_locked_data(),
@@ -33,8 +34,6 @@ test_that("feasible problem", {
     verbose = FALSE
   )
   # tests
-  expect_is(x, "list")
-  expect_is(x, "list")
   expect_is(x, "list")
   expect_is(x$summary_results, "data.frame")
   expect_is(x$feature_results, "data.frame")

@@ -13,6 +13,8 @@ NULL
 #'
 #' @param pu_data `dat.frame` containing planning unit data.
 #'
+#' @param status_data `dat.frame` containing status data.
+#'
 #' @param zone_data `dat.frame` containing zone data.
 #'
 #' @param goal_data `dat.frame` containing goal data.
@@ -41,6 +43,7 @@ prioritization_with_budget <- function(site_ids,
                                        feature_ids,
                                        action_ids,
                                        pu_data,
+                                       status_data,
                                        zone_data,
                                        goal_data,
                                        weight_data,
@@ -59,6 +62,7 @@ prioritization_with_budget <- function(site_ids,
     is.character(action_ids),
     assertthat::noNA(action_ids),
     inherits(pu_data, "data.frame"),
+    inherits(status_data, "data.frame"),
     inherits(zone_data, "ZonesCharacter"),
     inherits(goal_data, "data.frame"),
     inherits(weight_data, "data.frame"),
@@ -104,6 +108,7 @@ prioritization_with_budget <- function(site_ids,
     feature_ids = feature_ids,
     action_ids =  action_ids,
     pu_data = pu_data,
+    status_data = status_data,
     zone_data = zone_data,
     goal_data = goal_data,
     locked_data = locked_data,

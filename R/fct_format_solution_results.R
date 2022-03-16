@@ -19,6 +19,7 @@ format_solution_results <- function(site_ids,
                                     pu_data,
                                     zone_data,
                                     goal_data,
+                                    status_data,
                                     locked_data,
                                     solution_data,
                                     budget,
@@ -116,15 +117,31 @@ format_solution_results <- function(site_ids,
     parameters$feature_results_sheet$total_amount_header
   )
 
-  # solution_data status results
+  # site results data
   site_results <- solution_data[, sol_names, drop = FALSE]
   site_results <- as.matrix(site_results)
   site_results <- prioritizr::category_vector(site_results)
   site_results <- action_ids[site_results]
-  site_results <- tibble::tibble(name = site_ids, action = site_results)
+  site_results_costs <-
+    vapply(seq_along(site_ids), FUN.VALUE = numeric(1), function(i) {
+      pu_data[[
+        glue::glue(
+          parameters$site_data_sheet$action_cost_header,
+          action_ids = site_results[i]
+        )
+      ]][[i]]
+    })
+  site_results <- tibble::tibble(
+    name = site_ids,
+    current = status_data$status,
+    action = site_results,
+    cost = site_results_costs
+  )
   names(site_results) <- c(
     parameters$site_results_sheet$name_header,
-    parameters$site_results_sheet$action_header
+    parameters$site_results_sheet$current_header,
+    parameters$site_results_sheet$action_header,
+    parameters$site_results_sheet$cost_header
   )
 
   # return result

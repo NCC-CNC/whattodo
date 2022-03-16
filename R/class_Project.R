@@ -491,6 +491,13 @@ Project <- R6::R6Class(
     },
 
     #' @description
+    #' Get status data for optimization.
+    #' @return `data.frame` object.
+    get_current_status_data = function() {
+      tibble::tibble(status = self$site_data[[self$site_status_header]])
+    },
+
+    #' @description
     #' Get zone data for optimization.
     #' @return `data.frame` object.
     get_zone_data = function() {

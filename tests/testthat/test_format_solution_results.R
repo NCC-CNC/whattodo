@@ -33,6 +33,7 @@ test_that("without budget", {
     feature_ids = p$feature_ids,
     action_ids = p$action_ids,
     pu_data = p$get_pu_data(),
+    status_data = p$get_current_status_data(),
     zone_data = p$get_zone_data(),
     goal_data = p$get_goal_data(),
     locked_data = p$get_locked_data(),
@@ -118,7 +119,7 @@ test_that("without budget", {
   )
   ## site results
   expect_true(assertthat::has_name(x, "site_results"))
-  expect_equal(ncol(x$site_results), 2)
+  expect_equal(ncol(x$site_results), 4)
   expect_equal(nrow(x$site_results), 5)
   expect_equal(
     x$site_results[[1]],
@@ -126,8 +127,19 @@ test_that("without budget", {
   )
   expect_equal(
     x$site_results[[2]],
+    p$get_current_status_data()[[1]]
+  )
+  expect_equal(
+    x$site_results[[3]],
     vapply(seq_len(nrow(sol)), FUN.VALUE = character(1), function(i) {
       p$action_ids[[which(c(as.matrix(sol[i, ])) > 0.5)]]
+    })
+  )
+  expect_equal(
+    x$site_results[[4]],
+    vapply(seq_len(nrow(sol)), FUN.VALUE = numeric(1), function(i) {
+      a <- which(c(as.matrix(sol[i, ])) > 0.5)
+      p$get_action_costs(p$action_ids[[a]])[[i]]
     })
   )
   ## budget
@@ -168,6 +180,7 @@ test_that("with budget", {
     feature_ids = p$feature_ids,
     action_ids = p$action_ids,
     pu_data = p$get_pu_data(),
+    status_data = p$get_current_status_data(),
     zone_data = p$get_zone_data(),
     goal_data = p$get_goal_data(),
     locked_data = p$get_locked_data(),
@@ -253,7 +266,7 @@ test_that("with budget", {
   )
   ## site results
   expect_true(assertthat::has_name(x, "site_results"))
-  expect_equal(ncol(x$site_results), 2)
+  expect_equal(ncol(x$site_results), 4)
   expect_equal(nrow(x$site_results), 5)
   expect_equal(
     x$site_results[[1]],
@@ -261,8 +274,19 @@ test_that("with budget", {
   )
   expect_equal(
     x$site_results[[2]],
+    p$get_current_status_data()[[1]]
+  )
+  expect_equal(
+    x$site_results[[3]],
     vapply(seq_len(nrow(sol)), FUN.VALUE = character(1), function(i) {
       p$action_ids[[which(c(as.matrix(sol[i, ])) > 0.5)]]
+    })
+  )
+  expect_equal(
+    x$site_results[[4]],
+    vapply(seq_len(nrow(sol)), FUN.VALUE = numeric(1), function(i) {
+      a <- which(c(as.matrix(sol[i, ])) > 0.5)
+      p$get_action_costs(p$action_ids[[a]])[[i]]
     })
   )
   ## budget

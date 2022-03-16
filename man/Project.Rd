@@ -87,6 +87,7 @@ Definition for the Project class.
 \item \href{#method-get_current_feature_consequence}{\code{Project$get_current_feature_consequence()}}
 \item \href{#method-get_map_layers}{\code{Project$get_map_layers()}}
 \item \href{#method-get_pu_data}{\code{Project$get_pu_data()}}
+\item \href{#method-get_current_status_data}{\code{Project$get_current_status_data()}}
 \item \href{#method-get_zone_data}{\code{Project$get_zone_data()}}
 \item \href{#method-get_goal_data}{\code{Project$get_goal_data()}}
 \item \href{#method-get_weight_data}{\code{Project$get_weight_data()}}
@@ -451,6 +452,19 @@ Get layer names for rendering data on map.
 Get planning unit data for optimization.
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{Project$get_pu_data()}\if{html}{\out{</div>}}
+}
+
+\subsection{Returns}{
+\code{data.frame} object.
+}
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-get_current_status_data"></a>}}
+\if{latex}{\out{\hypertarget{method-get_current_status_data}{}}}
+\subsection{Method \code{get_current_status_data()}}{
+Get status data for optimization.
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{Project$get_current_status_data()}\if{html}{\out{</div>}}
 }
 
 \subsection{Returns}{

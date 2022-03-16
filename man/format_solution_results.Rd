@@ -11,6 +11,7 @@ format_solution_results(
   pu_data,
   zone_data,
   goal_data,
+  status_data,
   locked_data,
   solution_data,
   budget,
@@ -29,6 +30,8 @@ format_solution_results(
 \item{zone_data}{\code{dat.frame} containing zone data.}
 
 \item{goal_data}{\code{dat.frame} containing goal data.}
+
+\item{status_data}{\code{dat.frame} containing status data.}
 
 \item{locked_data}{\code{dat.frame} containing locked out data.}
 

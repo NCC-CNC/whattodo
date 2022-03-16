@@ -160,7 +160,9 @@ Solution <- R6::R6Class(
           domain = self$project$action_ids,
         )
         popups <- self$site_results
-        vals <- popups[[2]]
+        vals <- popups[[
+          self$project$parameters$site_results_sheet$action_header
+        ]]
         ### clear group from map
         map <- leaflet::clearGroup(map, group)
         map <- leaflet::clearShapes(map)
