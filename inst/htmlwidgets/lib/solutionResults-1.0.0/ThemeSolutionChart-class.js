@@ -88,6 +88,9 @@ class ThemeSolutionChart {
     const solution_stats =
       `Solution: ${Math.round(d_solution[1][0] * 100)}% ` +
       `(${Math.round(d_solution[1][0] * d_solution[4])} ${d_solution[6]})`;
+    /// total stats
+    const total_stats =
+      `Total: 100% (${d_solution[4]} ${d_solution[6]})`;
     // add tooltips
     /// current held
     tooltip
@@ -107,6 +110,12 @@ class ThemeSolutionChart {
       .text(solution_stats)
       .style("color", d_solution[2])
       .style("font-weight", d_solution[0] === locale ? "bold" : "normal")
+    // total
+    tooltip
+      .append("div")
+      .text(total_stats)
+      .style("color", "#B8B8B8")
+      .style("font-weight", "normal")
   }
 
   renderArcs(svg, tooltip) {
