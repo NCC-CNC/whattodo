@@ -69,6 +69,35 @@ test_that("without budget", {
   expect_equal(x$feature_results[[1]], p$feature_ids)
   expect_equal(
     x$feature_results[[2]],
+    paste0(
+        p$get_goal_data()$goal, " (",
+        p$get_goal_data()$goal * p$get_goal_data()$max, " units)"
+    )
+  )
+  fh <- 
+  expect_equal(
+    x$feature_results[[3]],
+    c(
+      paste0(
+
+
+
+      )
+        p$get_goal_data()$goal, " (",
+        , " units)"
+    )
+  )
+
+
+    held = paste0(
+      round(feature_absolute_held / goal_data$max, 2),
+       "% (", feature_absolute_held, " units)"
+    ),
+    goal_met = dplyr::if_else(
+      feature_absolute_held >= goal_data$goal * goal_data$max,  "Yes", "No"
+    )
+
+
     c(
       sum(
         sol[[1]] * p$get_consequences_for_feature(

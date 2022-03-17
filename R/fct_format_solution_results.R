@@ -78,7 +78,7 @@ format_solution_results <- function(site_ids,
   )
 
   # feature representation results
-  feature_results <-
+  feature_held_per_action <-
     vapply(
       seq_along(sol_names),
       FUN.VALUE = numeric(length(feature_ids)),
@@ -95,26 +95,30 @@ format_solution_results <- function(site_ids,
         colSums(rij * s)
       }
     )
-  if (!is.matrix(feature_results)) {
-    feature_results <- matrix(feature_results, nrow = length(feature_ids))
+  if (!is.matrix(feature_held_per_action)) {
+    feature_held_per_action <- matrix(
+      feature_held_per_action, nrow = length(feature_ids))
   }
-  feature_totals <- unname(rowSums(feature_results))
-  feature_results <- tibble::as_tibble(as.data.frame(feature_results))
-
-  names(feature_results) <- action_ids
+  feature_absolute_held <- unname(rowSums(feature_held_per_action))
   feature_results <- tibble::tibble(
-    name = feature_ids, feature_results, total = feature_totals
+    name = feature_ids,
+    goal = paste0(
+      round(goal_data$goal, 2), "% (",
+      round(goal_data$goal * goal_data$max, 2), " units)"
+    ),
+    held = paste0(
+      round(feature_absolute_held / goal_data$max, 2), "% (",
+      round(feature_absolute_held, 2), " units)"
+    ),
+    goal_met = dplyr::if_else(
+      feature_absolute_held >= goal_data$goal * goal_data$max,  "Yes", "No"
+    )
   )
   names(feature_results) <- c(
     parameters$feature_results_sheet$name_header,
-    sapply(action_ids, function(x) {
-      as.character(
-        glue::glue(parameters$feature_results_sheet$action_amount_header,
-          action_ids = x
-        )
-      )
-    }),
-    parameters$feature_results_sheet$total_amount_header
+    parameters$feature_results_sheet$goal_header,
+    parameters$feature_results_sheet$held_header,
+    parameters$feature_results_sheet$met_header
   )
 
   # site results data
