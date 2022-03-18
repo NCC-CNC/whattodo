@@ -78,46 +78,25 @@ format_solution_results <- function(site_ids,
   )
 
   # feature representation results
-  feature_held_per_action <-
-    vapply(
-      seq_along(sol_names),
-      FUN.VALUE = numeric(length(feature_ids)),
-      USE.NAMES = FALSE,
-      function(i) {
-        # extract rij values for action
-        rij <- as.matrix(pu_data[, zone_data[[i]], drop = FALSE])
-        # extract solution_data values for action
-        s <- matrix(solution_data[[sol_names[[i]]]],
-          nrow = length(site_ids),
-          ncol = length(feature_ids)
-        )
-        # compute amount held in zone
-        colSums(rij * s)
-      }
-    )
-  if (!is.matrix(feature_held_per_action)) {
-    feature_held_per_action <- matrix(
-      feature_held_per_action, nrow = length(feature_ids))
-  }
-  feature_absolute_held <- unname(rowSums(feature_held_per_action))
+  sac <- solution_action_consequence(
+    feature_ids, action_ids, pu_data, solution_data)
+  feature_absolute_held <- unname(rowSums(sac))
   feature_results <- tibble::tibble(
     name = feature_ids,
-    goal = paste0(
-      round(goal_data$goal, 2), "% (",
-      round(goal_data$goal * goal_data$max, 2), " units)"
-    ),
-    held = paste0(
-      round(feature_absolute_held / goal_data$max, 2), "% (",
-      round(feature_absolute_held, 2), " units)"
-    ),
+    goal_rel = goal_data$goal,
+    goal_abs = (goal_data$goal / 100) * goal_data$max,
+    held_rel = (feature_absolute_held / goal_data$max) * 100,
+    held_abs = feature_absolute_held,
     goal_met = dplyr::if_else(
-      feature_absolute_held >= goal_data$goal * goal_data$max,  "Yes", "No"
+      held_abs >= goal_abs, "Yes", "No"
     )
   )
   names(feature_results) <- c(
     parameters$feature_results_sheet$name_header,
-    parameters$feature_results_sheet$goal_header,
-    parameters$feature_results_sheet$held_header,
+    parameters$feature_results_sheet$goal_percentage_header,
+    parameters$feature_results_sheet$goal_units_header,
+    parameters$feature_results_sheet$held_percentage_header,
+    parameters$feature_results_sheet$held_units_header,
     parameters$feature_results_sheet$met_header
   )
 

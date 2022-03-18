@@ -125,6 +125,7 @@ reference:
       - paste_vector
       - format_solution_error
       - format_solution_results
+      - solution_action_consequence
       - prepare_for_shapefile_import
       - acknowledge_packages
       - error_message

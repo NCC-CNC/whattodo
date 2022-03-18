@@ -65,86 +65,35 @@ test_that("without budget", {
     )
   )
   ## feature results
+  sac <- solution_action_consequence(
+    p$feature_ids, p$action_ids, p$get_pu_data(), sol)
   expect_true(assertthat::has_name(x, "feature_results"))
-  expect_equal(x$feature_results[[1]], p$feature_ids)
+  expect_equal(
+    x$feature_results[[1]],
+    p$feature_ids
+  )
   expect_equal(
     x$feature_results[[2]],
-    paste0(
-        p$get_goal_data()$goal, " (",
-        p$get_goal_data()$goal * p$get_goal_data()$max, " units)"
-    )
-  )
-  fh <- 
-  expect_equal(
-    x$feature_results[[3]],
-    c(
-      paste0(
-
-
-
-      )
-        p$get_goal_data()$goal, " (",
-        , " units)"
-    )
-  )
-
-
-    held = paste0(
-      round(feature_absolute_held / goal_data$max, 2),
-       "% (", feature_absolute_held, " units)"
-    ),
-    goal_met = dplyr::if_else(
-      feature_absolute_held >= goal_data$goal * goal_data$max,  "Yes", "No"
-    )
-
-
-    c(
-      sum(
-        sol[[1]] * p$get_consequences_for_feature(
-          p$action_ids[[1]],
-          p$feature_ids[[1]]
-        )
-      ),
-      sum(
-        sol[[1]] * p$get_consequences_for_feature(
-          p$action_ids[[1]],
-          p$feature_ids[[2]]
-        )
-      ),
-      sum(
-        sol[[1]] * p$get_consequences_for_feature(
-          p$action_ids[[1]],
-          p$feature_ids[[3]]
-        )
-      )
-    )
+    p$get_goal_data()$goal
   )
   expect_equal(
     x$feature_results[[3]],
-    c(
-      sum(
-        sol[[2]] * p$get_consequences_for_feature(
-          p$action_ids[[2]],
-          p$feature_ids[[1]]
-        )
-      ),
-      sum(
-        sol[[2]] * p$get_consequences_for_feature(
-          p$action_ids[[2]],
-          p$feature_ids[[2]]
-        )
-      ),
-      sum(
-        sol[[2]] * p$get_consequences_for_feature(
-          p$action_ids[[2]],
-          p$feature_ids[[3]]
-        )
-      )
-    )
+    (p$get_goal_data()$goal / 100) * p$get_goal_data()$max
   )
   expect_equal(
     x$feature_results[[4]],
-    x$feature_results[[2]] + x$feature_results[[3]]
+    (unname(rowSums(sac)) / p$get_goal_data()$max) * 100
+  )
+  expect_equal(
+    x$feature_results[[5]],
+    unname(rowSums(sac))
+  )
+  expect_equal(
+    x$feature_results[[6]],
+    dplyr::if_else(
+      x$feature_results[[4]] >= x$feature_results[[2]],
+      "Yes", "No"
+    )
   )
   ## site results
   expect_true(assertthat::has_name(x, "site_results"))
@@ -241,57 +190,35 @@ test_that("with budget", {
     )
   )
   ## feature results
+  sac <- solution_action_consequence(
+    p$feature_ids, p$action_ids, p$get_pu_data(), sol)
   expect_true(assertthat::has_name(x, "feature_results"))
-  expect_equal(x$feature_results[[1]], p$feature_ids)
+  expect_equal(
+    x$feature_results[[1]],
+    p$feature_ids
+  )
   expect_equal(
     x$feature_results[[2]],
-    c(
-      sum(
-        sol[[1]] * p$get_consequences_for_feature(
-          p$action_ids[[1]],
-          p$feature_ids[[1]]
-        )
-      ),
-      sum(
-        sol[[1]] * p$get_consequences_for_feature(
-          p$action_ids[[1]],
-          p$feature_ids[[2]]
-        )
-      ),
-      sum(
-        sol[[1]] * p$get_consequences_for_feature(
-          p$action_ids[[1]],
-          p$feature_ids[[3]]
-        )
-      )
-    )
+    p$get_goal_data()$goal
   )
   expect_equal(
     x$feature_results[[3]],
-    c(
-      sum(
-        sol[[2]] * p$get_consequences_for_feature(
-          p$action_ids[[2]],
-          p$feature_ids[[1]]
-        )
-      ),
-      sum(
-        sol[[2]] * p$get_consequences_for_feature(
-          p$action_ids[[2]],
-          p$feature_ids[[2]]
-        )
-      ),
-      sum(
-        sol[[2]] * p$get_consequences_for_feature(
-          p$action_ids[[2]],
-          p$feature_ids[[3]]
-        )
-      )
-    )
+    (p$get_goal_data()$goal / 100) * p$get_goal_data()$max
   )
   expect_equal(
     x$feature_results[[4]],
-    x$feature_results[[2]] + x$feature_results[[3]]
+    (unname(rowSums(sac)) / p$get_goal_data()$max) * 100
+  )
+  expect_equal(
+    x$feature_results[[5]],
+    unname(rowSums(sac))
+  )
+  expect_equal(
+    x$feature_results[[6]],
+    dplyr::if_else(
+      x$feature_results[[4]] >= x$feature_results[[2]],
+      "Yes", "No"
+    )
   )
   ## site results
   expect_true(assertthat::has_name(x, "site_results"))

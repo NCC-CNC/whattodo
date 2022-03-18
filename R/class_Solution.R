@@ -199,7 +199,7 @@ Solution <- R6::R6Class(
       # extract variables
       nh <- self$project$parameters$feature_data_sheet$name_header
       th <- self$project$parameters$feature_data_sheet$goal_header
-      tah <- self$project$parameters$feature_results_sheet$total_amount_header
+      tah <- self$project$parameters$feature_results_sheet$held_units_header
       # return data
       list(
         id = self$id,
@@ -393,7 +393,7 @@ Solution <- R6::R6Class(
           scrollCollapse = TRUE
         )
       ) %>%
-      DT::formatRound(seq(2, ncol(d)), 2)
+      DT::formatRound(seq(2, ncol(d) - 1), 2)
     },
 
     #' @description
