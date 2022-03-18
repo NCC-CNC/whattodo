@@ -3,7 +3,7 @@
 
 # What To Do: Interactive management action prioritization application
 
-[![lifecycle](https://img.shields.io/badge/Lifecycle-experimental-orange.svg)](https://lifecycle.r-lib.org/articles/stages.html)
+[![lifecycle](https://img.shields.io/badge/Lifecycle-stable-brightgreen.svg)](https://lifecycle.r-lib.org/articles/stages.html)
 [![R-CMD-check-Ubuntu](https://img.shields.io/github/workflow/status/NCC-CNC/whattodo/Ubuntu/master.svg?label=Ubuntu)](https://github.com/NCC-CNC/whattodo/actions)
 [![R-CMD-check-Windows](https://img.shields.io/github/workflow/status/NCC-CNC/whattodo/Windows/master.svg?label=Windows)](https://github.com/NCC-CNC/whattodo/actions)
 [![Docker
