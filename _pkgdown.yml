@@ -59,6 +59,14 @@ reference:
       - horizontalPickerInput
       - ends_with("_ui")
 
+  - title: Project functions
+    desc: >
+      Functions used to work with projects.
+    contents:
+      - read_builtin_project
+      - read_manual_project
+      - find_projects
+
   - title: Prioritizations
     desc: >
       Functions for generating prioritizations and calculating their results.
@@ -72,20 +80,6 @@ reference:
       Functions for creating default objects.
     contents:
       - starts_with("default_")
-
-  - title: Simulate data
-    desc: >
-      Functions for simulating data.
-    contents:
-      - starts_with("simulate_")
-
-  - title: Project functions
-    desc: >
-      Functions used to work with projects.
-    contents:
-      - read_builtin_project
-      - read_manual_project
-      - find_projects
 
   - title: Class constructors
     desc: >
