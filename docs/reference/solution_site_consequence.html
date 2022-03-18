@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Calculate action consequence data for solution — solution_action_consequence • whattodo</title>
+<title>Calculate site consequence data for solution — solution_site_consequence • whattodo</title>
 
 
 <!-- jquery -->
@@ -41,9 +41,9 @@
   <link href="../extra.css" rel="stylesheet">
   
 
-<meta property="og:title" content="Calculate action consequence data for solution — solution_action_consequence" />
-<meta property="og:description" content="This function calculates the consequences for each feature
-within a solution. Specifically, it shows how each action contributes
+<meta property="og:title" content="Calculate site consequence data for solution — solution_site_consequence" />
+<meta property="og:description" content="This function calculates the consequences for each site
+within a solution. Specifically, it shows how each site contributes
 to the overall amount of each feature given the solution." />
 
 
@@ -117,18 +117,18 @@ to the overall amount of each feature given the solution." />
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Calculate action consequence data for solution</h1>
-    <small class="dont-index">Source: <a href='https://github.com/NCC-CNC/whattodo/blob/master/R/fct_solution_action_consequence.R'><code>R/fct_solution_action_consequence.R</code></a></small>
-    <div class="hidden name"><code>solution_action_consequence.Rd</code></div>
+    <h1>Calculate site consequence data for solution</h1>
+    <small class="dont-index">Source: <a href='https://github.com/NCC-CNC/whattodo/blob/master/R/fct_solution_site_consequence.R'><code>R/fct_solution_site_consequence.R</code></a></small>
+    <div class="hidden name"><code>solution_site_consequence.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>This function calculates the consequences for each feature
-within a solution. Specifically, it shows how each action contributes
+    <p>This function calculates the consequences for each site
+within a solution. Specifically, it shows how each site contributes
 to the overall amount of each feature given the solution.</p>
     </div>
 
-    <div class="ref-usage sourceCode"><pre class='sourceCode r'><code><span class='fu'>solution_action_consequence</span><span class='op'>(</span><span class='va'>feature_ids</span>, <span class='va'>action_ids</span>, <span class='va'>pu_data</span>, <span class='va'>solution_data</span><span class='op'>)</span></code></pre></div>
+    <div class="ref-usage sourceCode"><pre class='sourceCode r'><code><span class='fu'>solution_site_consequence</span><span class='op'>(</span><span class='va'>feature_ids</span>, <span class='va'>action_ids</span>, <span class='va'>pu_data</span>, <span class='va'>solution_data</span><span class='op'>)</span></code></pre></div>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -153,9 +153,9 @@ to the overall amount of each feature given the solution.</p>
 
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>A <code>matrix</code> containing the expected amount of each
-feature resulting from each action in the solution.
-Each row is a different feature, each column is a different action.</p>
+    <p>A <code>matrix</code> object containing the expected
+amount of each feature within each site.
+Each row is a different planning unit, each column is a different feature.</p>
 
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">

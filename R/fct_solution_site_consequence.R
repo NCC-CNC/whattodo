@@ -1,10 +1,10 @@
 #' @include internal.R
 NULL
 
-#' Calculate action consequence data for solution
+#' Calculate site consequence data for solution
 #'
-#' This function calculates the consequences for each feature
-#' within a solution. Specifically, it shows how each action contributes
+#' This function calculates the consequences for each site
+#' within a solution. Specifically, it shows how each site contributes
 #' to the overall amount of each feature given the solution.
 #'
 #' @param feature_ids `character` vector of identifiers for each feature.
@@ -15,13 +15,13 @@ NULL
 #'
 #' @param solution_data `data.frame` object containing the solution.
 #'
-#' @return A `matrix` containing the expected amount of each
-#'   feature resulting from each action in the solution.
-#'   Each row is a different feature, each column is a different action.
+#' @return A `matrix` object containing the expected
+#'   amount of each feature within each site.
+#'   Each row is a different planning unit, each column is a different feature.
 #'
 #' @export
-solution_action_consequence <- function(feature_ids, action_ids, pu_data,
-                                        solution_data) {
+solution_site_consequence <- function(feature_ids, action_ids, pu_data,
+                                      solution_data) {
   # assert arguments are valid
   assertthat::assert_that(
     ## action_ids
@@ -47,14 +47,14 @@ solution_action_consequence <- function(feature_ids, action_ids, pu_data,
   assertthat::assert_that(all(assertthat::has_name(pu_data, action_combs)))
 
   # calculate consequences
-  out <- matrix(0, nrow = length(feature_ids), ncol = length(action_ids))
-  rownames(out) <- feature_ids
-  colnames(out) <- action_ids
+  out <- matrix(0, nrow = nrow(pu_data), ncol = length(feature_ids))
+  colnames(out) <- feature_ids
+  rownames(out) <- pu_data$site
   for (j in feature_ids) {
     for (i in action_ids) {
       n <- paste0(i, "_", j)
-      v <- sum(solution_data[[paste0("solution_1_", i)]] * pu_data[[n]])
-      out[j, i] <- out[j, i] + v
+      v <- solution_data[[paste0("solution_1_", i)]] * pu_data[[n]]
+      out[, j] <- out[, j] + v
     }
   }
 

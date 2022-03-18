@@ -16,8 +16,9 @@ solution_action_consequence(feature_ids, action_ids, pu_data, solution_data)
 \item{solution_data}{\code{data.frame} object containing the solution.}
 }
 \value{
-A \code{tibble::tibble()} containing the expected amount of each
+A \code{matrix} containing the expected amount of each
 feature resulting from each action in the solution.
+Each row is a different feature, each column is a different action.
 }
 \description{
 This function calculates the consequences for each feature

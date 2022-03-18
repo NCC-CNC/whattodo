@@ -61,9 +61,11 @@ reference:
 
   - title: Prioritizations
     desc: >
-      Functions for generating prioritizations.
+      Functions for generating prioritizations and calculating their results.
     contents:
       - starts_with("prioritization_")
+      - solution_action_consequence
+      - solution_site_consequence
 
   - title: Default objects
     desc: >
@@ -125,7 +127,6 @@ reference:
       - paste_vector
       - format_solution_error
       - format_solution_results
-      - solution_action_consequence
       - prepare_for_shapefile_import
       - acknowledge_packages
       - error_message

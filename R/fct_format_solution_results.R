@@ -86,10 +86,10 @@ format_solution_results <- function(site_ids,
     goal_rel = goal_data$goal,
     goal_abs = (goal_data$goal / 100) * goal_data$max,
     held_rel = (feature_absolute_held / goal_data$max) * 100,
-    held_abs = feature_absolute_held,
-    goal_met = dplyr::if_else(
-      held_abs >= goal_abs, "Yes", "No"
-    )
+    held_abs = feature_absolute_held)
+  feature_results$goal_met <- dplyr::if_else(
+    feature_results$held_abs >= feature_results$goal_abs,
+    "Yes", "No"
   )
   names(feature_results) <- c(
     parameters$feature_results_sheet$name_header,
@@ -126,6 +126,19 @@ format_solution_results <- function(site_ids,
     parameters$site_results_sheet$action_header,
     parameters$site_results_sheet$cost_header
   )
+  site_consequence_results <- solution_site_consequence(
+    feature_ids, action_ids, pu_data, solution_data)
+  rownames(site_consequence_results) <- NULL
+  site_consequence_results <-
+    tibble::as_tibble(as.data.frame(site_consequence_results))
+  site_consequence_results <- stats::setNames(
+    site_consequence_results,
+    glue::glue(
+      parameters$site_results_sheet$consequence_header,
+      feature_ids = feature_ids
+    )
+  )
+  site_results <- dplyr::bind_cols(site_results, site_consequence_results)
 
   # return result
   list(

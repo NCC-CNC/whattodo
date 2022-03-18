@@ -96,8 +96,10 @@ test_that("without budget", {
     )
   )
   ## site results
+  ssc <- solution_site_consequence(
+    p$feature_ids, p$action_ids, p$get_pu_data(), sol)
   expect_true(assertthat::has_name(x, "site_results"))
-  expect_equal(ncol(x$site_results), 4)
+  expect_equal(ncol(x$site_results), 7)
   expect_equal(nrow(x$site_results), 5)
   expect_equal(
     x$site_results[[1]],
@@ -119,6 +121,18 @@ test_that("without budget", {
       a <- which(c(as.matrix(sol[i, ])) > 0.5)
       p$get_action_costs(p$action_ids[[a]])[[i]]
     })
+  )
+  expect_equal(
+    x$site_results[[5]],
+    unname(ssc[, 1])
+  )
+  expect_equal(
+    x$site_results[[6]],
+    unname(ssc[, 2])
+  )
+  expect_equal(
+    x$site_results[[7]],
+    unname(ssc[, 3])
   )
   ## budget
   expect_true(assertthat::has_name(x, "budget"))
@@ -221,8 +235,10 @@ test_that("with budget", {
     )
   )
   ## site results
+  ssc <- solution_site_consequence(
+    p$feature_ids, p$action_ids, p$get_pu_data(), sol)
   expect_true(assertthat::has_name(x, "site_results"))
-  expect_equal(ncol(x$site_results), 4)
+  expect_equal(ncol(x$site_results), 7)
   expect_equal(nrow(x$site_results), 5)
   expect_equal(
     x$site_results[[1]],
@@ -244,6 +260,18 @@ test_that("with budget", {
       a <- which(c(as.matrix(sol[i, ])) > 0.5)
       p$get_action_costs(p$action_ids[[a]])[[i]]
     })
+  )
+  expect_equal(
+    x$site_results[[5]],
+    unname(ssc[, 1])
+  )
+  expect_equal(
+    x$site_results[[6]],
+    unname(ssc[, 2])
+  )
+  expect_equal(
+    x$site_results[[7]],
+    unname(ssc[, 3])
   )
   ## budget
   expect_true(assertthat::has_name(x, "budget"))
