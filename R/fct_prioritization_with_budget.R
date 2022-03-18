@@ -84,12 +84,16 @@ prioritization_with_budget <- function(site_ids,
     action_ids = action_ids
   )
 
+  # prepare target data
+  target_data <-
+    goal_data[, c("feature", "zone", "type", "sense", "target"), drop = FALSE]
+
   # generate prioritization
   prb <-
     prioritizr::problem(pu_data, zone_data, cost_names) %>%
     prioritizr::add_min_shortfall_objective(budget = max(budget, 1e-5)) %>%
     prioritizr::add_feature_weights(matrix(weight_data[[2]], ncol = 1)) %>%
-    prioritizr::add_manual_targets(goal_data) %>%
+    prioritizr::add_manual_targets(target_data) %>%
     prioritizr::add_mandatory_allocation_constraints() %>%
     prioritizr::add_binary_decisions() %>%
     prioritizr::add_default_solver(

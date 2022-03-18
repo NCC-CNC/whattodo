@@ -98,6 +98,7 @@ Collate:
     'fct_prioritization_without_budget.R'
     'fct_read_builtin_project.R'
     'fct_read_manual_project.R'
+    'fct_solution_action_consequence.R'
     'horizontalPickerInput.R'
     'package.R'
     'run_app.R'

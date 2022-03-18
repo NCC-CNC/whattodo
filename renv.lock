@@ -1339,9 +1339,10 @@
       "RemoteHost": "api.github.com",
       "RemoteUsername": "ncc-cnc",
       "RemoteRepo": "whatdataio",
-      "RemoteRef": "3f3ef5af2e3afe36174db6040621860fd64c93a5",
-      "RemoteSha": "3f3ef5af2e3afe36174db6040621860fd64c93a5",
-      "Hash": "17c7424c7b3a4cb275acb1d0d9367bae"
+      "RemoteUsername": "NCC-CNC",
+      "RemoteRef": "HEAD",
+      "RemoteSha": "1524c4137e6209a06523e14d65fe2ef601a4b9c5",
+      "Hash": "39b2170e51de8a8e3a7b05d9843a15ab"
     },
     "whereami": {
       "Package": "whereami",

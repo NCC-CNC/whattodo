@@ -78,43 +78,26 @@ format_solution_results <- function(site_ids,
   )
 
   # feature representation results
-  feature_results <-
-    vapply(
-      seq_along(sol_names),
-      FUN.VALUE = numeric(length(feature_ids)),
-      USE.NAMES = FALSE,
-      function(i) {
-        # extract rij values for action
-        rij <- as.matrix(pu_data[, zone_data[[i]], drop = FALSE])
-        # extract solution_data values for action
-        s <- matrix(solution_data[[sol_names[[i]]]],
-          nrow = length(site_ids),
-          ncol = length(feature_ids)
-        )
-        # compute amount held in zone
-        colSums(rij * s)
-      }
-    )
-  if (!is.matrix(feature_results)) {
-    feature_results <- matrix(feature_results, nrow = length(feature_ids))
-  }
-  feature_totals <- unname(rowSums(feature_results))
-  feature_results <- tibble::as_tibble(as.data.frame(feature_results))
-
-  names(feature_results) <- action_ids
+  sac <- solution_action_consequence(
+    feature_ids, action_ids, pu_data, solution_data)
+  feature_absolute_held <- unname(rowSums(sac))
   feature_results <- tibble::tibble(
-    name = feature_ids, feature_results, total = feature_totals
+    name = feature_ids,
+    goal_rel = goal_data$goal,
+    goal_abs = (goal_data$goal / 100) * goal_data$max,
+    held_rel = (feature_absolute_held / goal_data$max) * 100,
+    held_abs = feature_absolute_held,
+    goal_met = dplyr::if_else(
+      held_abs >= goal_abs, "Yes", "No"
+    )
   )
   names(feature_results) <- c(
     parameters$feature_results_sheet$name_header,
-    sapply(action_ids, function(x) {
-      as.character(
-        glue::glue(parameters$feature_results_sheet$action_amount_header,
-          action_ids = x
-        )
-      )
-    }),
-    parameters$feature_results_sheet$total_amount_header
+    parameters$feature_results_sheet$goal_percentage_header,
+    parameters$feature_results_sheet$goal_units_header,
+    parameters$feature_results_sheet$held_percentage_header,
+    parameters$feature_results_sheet$held_units_header,
+    parameters$feature_results_sheet$met_header
   )
 
   # site results data

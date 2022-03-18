@@ -520,13 +520,12 @@ Project <- R6::R6Class(
     get_goal_data = function() {
       tibble::tibble(
         feature = self$feature_ids,
+        goal = self$feature_data[[self$feature_goal_header]],
+        max = self$get_max_feature_consequence()$amount,
         zone = list(self$action_ids)[rep(1, length(self$feature_ids))],
         type = "absolute",
         sense = ">=",
-        target = c(
-          (self$feature_data[[self$feature_goal_header]] / 100) *
-          self$get_max_feature_consequence()$amount
-        )
+        target = (goal / 100) * max
       )
     },
 
