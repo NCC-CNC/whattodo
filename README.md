@@ -6,7 +6,6 @@
 [![lifecycle](https://img.shields.io/badge/Lifecycle-experimental-orange.svg)](https://lifecycle.r-lib.org/articles/stages.html)
 [![R-CMD-check-Ubuntu](https://img.shields.io/github/workflow/status/NCC-CNC/whattodo/Ubuntu/master.svg?label=Ubuntu)](https://github.com/NCC-CNC/whattodo/actions)
 [![R-CMD-check-Windows](https://img.shields.io/github/workflow/status/NCC-CNC/whattodo/Windows/master.svg?label=Windows)](https://github.com/NCC-CNC/whattodo/actions)
-[![R-CMD-check-Mac-OSX](https://img.shields.io/github/workflow/status/NCC-CNC/whattodo/Mac%20OSX/master.svg?label=Mac%20OSX)](https://github.com/NCC-CNC/whattodo/actions)
 [![Docker
 Status](https://img.shields.io/docker/cloud/build/naturecons/whattodo?label=Docker%20build)](https://hub.docker.com/r/naturecons/whattodo)
 [![Coverage
