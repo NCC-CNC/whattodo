@@ -88,10 +88,6 @@ launch:
 launch-kill:
 	docker rm --force whattodo
 
-## deploy app on shinyapps.io
-shinyapps:
-	R -e "rsconnect::deployApp(getwd(), appName = 'whattodo', launch.browser = TRUE)"
-
 # Docker commands
 ## create local image and push to docker
 image:
