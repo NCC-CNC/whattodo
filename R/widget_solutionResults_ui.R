@@ -179,11 +179,11 @@ solutionResults_html <- function(id, style, class, ...) {
                   shinyBS::tipify(
                     el = htmltools::tags$span(
                       shiny::icon("star"),
-                      "Themes"
+                      "Features"
                     ),
                     title = paste(
-                      "Theme results for the solution.",
-                      "This panel shows the expected amount of each Theme",
+                      "Feature results for the solution.",
+                      "This panel shows the expected amount of each Feature",
                       "given the solution."
                     ),
                     options = list(container = "body")
