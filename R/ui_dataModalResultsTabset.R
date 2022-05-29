@@ -28,7 +28,6 @@ dataModalResultsTab <- function(action_ids,
     is.character(action_descriptions),
     assertthat::noNA(action_descriptions),
     length(action_descriptions) > 0,
-    identical(anyDuplicated(action_descriptions), 0L),
     ## parameters
     is.list(parameters)
   )
