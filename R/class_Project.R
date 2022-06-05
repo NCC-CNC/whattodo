@@ -397,6 +397,9 @@ Project <- R6::R6Class(
               FUN.VALUE = numeric(length(self$site_ids)),
               function(j) self$consequence_data[[j]][[ii]]
             )
+            if (!is.matrix(m)) {
+              m <- matrix(m, ncol = 1)
+            }
             sum(apply(m, 1, max, na.rm = TRUE))
           }
         )
