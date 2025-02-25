@@ -68,7 +68,7 @@ Depends:
     promises (>= 1.2.0.1),
     R6 (>= 2.5.0),
     sf (>= 0.9-8),
-License: GPL-3
+License: file LICENSE + LICENSE.note
 Encoding: UTF-8
 URL: https://NCC-CNC.github.io/whattodo/
 BugReports: https://github.com/NCC-CNC/whattodo/issues
