@@ -45,16 +45,12 @@ jobs:
 
       - uses: r-lib/actions/setup-pandoc@v2
 
-      - name: Query dependencies
-        run: |
-          install.packages('remotes')
-          saveRDS(remotes::dev_package_deps(dependencies = TRUE), ".github/depends.Rds", version = 2)
-          writeLines(sprintf("R-%i.%i", getRversion()$major, getRversion()$minor), ".github/R-version")
-        shell: Rscript {0}
-
       - name: Install dependencies
         run: |
-          remotes::install_deps(dependencies = TRUE)
+          options(install.packages.compile.from.source = "always")
+          options(pkgType = "source")
+          install.packages(c("renv", "remotes", "testthat", "rvest"))
+          renv::restore()
           remotes::install_cran("rcmdcheck")
           remotes::install_cran("covr")
         shell: Rscript {0}
