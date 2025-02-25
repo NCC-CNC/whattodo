@@ -43,3 +43,7 @@ Meta/*
 # shinyapps.io
 rsconnect
 ^rsconnect
+
+# R profile files
+*.Rhistory
+.Rproj.user/
