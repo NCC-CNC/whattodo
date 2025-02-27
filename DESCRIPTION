@@ -30,6 +30,7 @@ Imports:
     golem (>= 0.5.1),
     htmltools (>= 0.5.8.1),
     htmlwidgets (>= 1.6.4),
+    ipc (>= 0.1.4),
     leafem (>= 0.2.3),
     leaflet (>= 2.2.2.9001),
     leaflet.extras2 (>= 1.1.0.9000),
