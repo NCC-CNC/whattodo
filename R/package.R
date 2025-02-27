@@ -30,7 +30,7 @@ NULL
 #' run_app()
 #' }
 #' }
-NULL
+"_PACKAGE"
 
 # define global variables to pass package checks
 ## these variables are used in lazy evaluation or the shiny application
