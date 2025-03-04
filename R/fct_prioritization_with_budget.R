@@ -104,7 +104,7 @@ prioritization_with_budget <- function(site_ids,
       prb %>%
       prioritizr::add_manual_locked_constraints(locked_data)
   }
-  sol <- prioritizr::solve(prb)
+  sol <- prioritizr::solve.ConservationProblem(prb)
 
   # summarize results
   out <- format_solution_results(
