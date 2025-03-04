@@ -54,7 +54,7 @@ prioritization_without_budget <- function(site_ids,
 
   # generate prioritization
   prb <-
-    prioritizr::problem(pu_data, zone_data, cost_names) %>%
+    prioritizr::problem(pu_data, zone_data, as.character(cost_names)) %>%
     prioritizr::add_min_set_objective() %>%
     prioritizr::add_manual_targets(target_data) %>%
     prioritizr::add_mandatory_allocation_constraints() %>%

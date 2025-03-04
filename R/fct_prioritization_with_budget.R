@@ -90,7 +90,7 @@ prioritization_with_budget <- function(site_ids,
 
   # generate prioritization
   prb <-
-    prioritizr::problem(pu_data, zone_data, cost_names) %>%
+    prioritizr::problem(pu_data, zone_data, as.character(cost_names)) %>%
     prioritizr::add_min_shortfall_objective(budget = max(budget, 1e-5)) %>%
     prioritizr::add_feature_weights(matrix(weight_data[[2]], ncol = 1)) %>%
     prioritizr::add_manual_targets(target_data) %>%
