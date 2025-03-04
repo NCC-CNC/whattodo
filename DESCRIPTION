@@ -39,7 +39,7 @@ Imports:
     magrittr (>= 2.0.3),
     markdown (>= 1.13),
     openxlsx (>= 4.2.8),
-    prioritizr (>= 8.0.6),
+    prioritizr (>= 8.0.4),
     rcbc (>= 0.1.0.9001),
     RcppTOML (>= 0.2.2),
     rhandsontable (>= 0.3.8),
