@@ -29,7 +29,7 @@ describe("new_solution()", {
     goal_data = p$get_goal_data(),
     weight_data = p$get_weight_data(),
     locked_data = p$get_locked_data(),
-    budget = 1500,
+    budget = 20,
     gap = 0,
     parameters = parameters,
     verbose = FALSE
