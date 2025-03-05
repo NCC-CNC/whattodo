@@ -48,7 +48,7 @@ jobs:
       - name: Install system dependencies
         run: |
           sudo apt-get -y install libcurl4-openssl-dev coinor-libsymphony-dev coinor-libcbc-dev coinor-libclp-dev \
-          libgdal-dev libproj-dev libgeos-dev
+          libgdal-dev libproj-dev libgeos-dev libudunits2-dev
           
       - name: Install dependencies
         run: |
