@@ -72,7 +72,7 @@ Depends:
     R6 (>= 2.6.1),
     sf (>= 1.0-19),
     shinyBS (>= 0.61.1)
-License: GPL-3
+License: file LICENSE + LICENSE.note
 Encoding: UTF-8
 URL: https://NCC-CNC.github.io/whattodo/
 BugReports: https://github.com/NCC-CNC/whattodo/issues
