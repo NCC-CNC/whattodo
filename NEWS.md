@@ -20,7 +20,7 @@
 
 ### Infrastrucure changes
 
-- Updated to rocker/shiny:4.4.0 AS base in Dockerfile.
+- Updated to rocker/shiny:4.4.1 AS base in Dockerfile.
 - Updated Github action workflows
 
 # whattodo 0.0.0.9000
