@@ -35,6 +35,13 @@ Useful links:
 Authors:
 \itemize{
   \item Richard Schuster \email{richard.schuster@glel.carleton.ca} (\href{https://orcid.org/0000-0003-3191-7869}{ORCID})
+  \item Joseph Bennett
+  \item Jaimie Vincent
+}
+
+Other contributors:
+\itemize{
+  \item Dan Wismer \email{dan.wismer@natureconservancy.ca} [contributor]
 }
 
 }
