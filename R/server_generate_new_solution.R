@@ -70,6 +70,7 @@ server_generate_new_solution <- quote({
     curr_action_ids <- app_data$project$action_ids
     ### data
     curr_pu_data <- app_data$project$get_pu_data()
+    curr_pu_data_norm <- normalize_cost_columns(curr_pu_data)
     curr_current_status_data <- app_data$project$get_current_status_data()
     curr_zone_data <- app_data$project$get_zone_data()
     curr_goal_data <- app_data$project$get_goal_data()
@@ -83,7 +84,7 @@ server_generate_new_solution <- quote({
 
     ## enable stop button
     shinyjs::enable("newSolutionPane_settings_stop_button")
-
+    
     ## generate result using asynchronous task
     app_data$task <- future::future(packages = "whattodo", seed = NULL, {
       ### main processing
@@ -94,7 +95,7 @@ server_generate_new_solution <- quote({
             site_ids = curr_site_ids,
             feature_ids = curr_feature_ids,
             action_ids = curr_action_ids,
-            pu_data = curr_pu_data,
+            pu_data = list("raw_data" = curr_pu_data, "norm_data" = curr_pu_data_norm),
             status_data = curr_current_status_data,
             zone_data = curr_zone_data,
             goal_data = curr_goal_data,
@@ -115,7 +116,7 @@ server_generate_new_solution <- quote({
             site_ids = curr_site_ids,
             feature_ids = curr_feature_ids,
             action_ids = curr_action_ids,
-            pu_data = curr_pu_data,
+            pu_data = list("raw_data" = curr_pu_data, "norm_data" = curr_pu_data_norm),
             status_data = curr_current_status_data,
             zone_data = curr_zone_data,
             goal_data = curr_goal_data,
