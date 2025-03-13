@@ -138,6 +138,7 @@ Collate:
     'utils_default_colors.R'
     'utils_error_misc.R'
     'utils_file_validation.R'
+    'utils_normalize_data.R'
     'utils_prepare_for_shapefile_import.R'
     'utils_shinyjs.R'
     'utils_validation.R'
