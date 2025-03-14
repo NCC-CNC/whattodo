@@ -26,7 +26,8 @@ prioritization_without_budget(
 
 \item{action_ids}{\code{character} action identifiers.}
 
-\item{pu_data}{\code{dat.frame} containing planning unit data.}
+\item{pu_data}{\code{list} containing raw planning unit data as \code{data.frame} and
+cost normalized planning unit data as either \code{data.frame} or \code{NULL}.}
 
 \item{status_data}{\code{dat.frame} containing status data.}
 
