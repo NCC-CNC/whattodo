@@ -36,8 +36,17 @@ NULL
 #' 
 #' @export
 max_cost <- function(x, col_starts_with = "Cost") {
-  x %>%
-    dplyr::select(dplyr::starts_with(col_starts_with)) %>%
+  # Select columns that start with the specified prefix
+  cost_cols <- x %>%
+    dplyr::select(dplyr::starts_with(col_starts_with))
+  
+  # Check if any matching columns were found
+  if (ncol(cost_cols) == 0) {
+    stop(paste0("No columns starting with '", col_starts_with, "' found in the input data."))
+  }
+  
+  # Get the maximum value
+  cost_cols %>%
     range(na.rm = TRUE) %>%
     .[2]
 }
@@ -103,7 +112,7 @@ num_whole_digits <- function(x) {
 normalize_cost_columns <- function(x, col_starts_with = "Cost") {
   
   # get the max cost value across all cost-related columns
-  max_cost <- max_cost(x)
+  max_cost <- max_cost(x, col_starts_with = col_starts_with)
   # check if normalization is needed
   if (max_cost >= 1000000) {
     # determine the number of whole number digits in the max cost value
