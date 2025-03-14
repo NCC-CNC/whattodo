@@ -38,7 +38,8 @@ utils::globalVariables(
   c(
     "input",
     "session",
-    "map_listener"
+    "map_listener",
+    "." 
   )
 )
 
