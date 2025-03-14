@@ -19,12 +19,16 @@ test_that("feasible problem", {
     parameters = parameters,
     site_geometry = NULL
   )
+  # normalize cost data 
+  pu_data_norm <- normalize_cost_columns(p$get_pu_data())
+  pu_data <- list("raw_data" = p$get_pu_data(), "norm_data" = pu_data_norm)
+  
   # create object
   x <- prioritization_without_budget(
     site_ids = p$site_ids,
     feature_ids = p$feature_ids,
     action_ids = p$action_ids,
-    pu_data = p$get_pu_data(),
+    pu_data = pu_data,
     status_data = p$get_current_status_data(),
     zone_data = p$get_zone_data(),
     goal_data = p$get_goal_data(),
