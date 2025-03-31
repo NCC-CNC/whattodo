@@ -43,3 +43,4 @@ test_that("feasible problem", {
   expect_is(x$feature_results, "data.frame")
   expect_is(x$site_results, "data.frame")
 })
+

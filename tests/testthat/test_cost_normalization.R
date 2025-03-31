@@ -182,3 +182,16 @@ test_that("normalize_cost_columns handles NA values correctly", {
   expect_true(is.na(result_na$CostA[2]))
   expect_true(is.na(result_na$CostB[3]))
 })
+
+test_that("normalize_budget scales large values correctly", {
+  expect_equal(normalize_budget(5000000), 500000)  # 5M -> 500,000
+  expect_equal(normalize_budget(123456789), 123456.8, tolerance = 1e-3)  # 1M -> 100,000
+  expect_equal(normalize_budget(999999), 999999)  # Below 1M remains unchanged
+})
+
+test_that("normalize_budget handles small and edge cases correctly", {
+  expect_equal(normalize_budget(500000), 500000)  # No change under 1M
+  expect_equal(normalize_budget(1), 1)  # Single digit
+  expect_equal(normalize_budget(0), 0)  # Zero case
+})
+

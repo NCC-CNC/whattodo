@@ -146,8 +146,8 @@ normalize_cost_columns <- function(x, col_starts_with = "Cost") {
 #' @return A `numeric` value representing the normalized budget.
 #'
 #' @examples
-#' normalize_budget(5000000)   # Returns 500.000
-#' normalize_budget(250000)    # Returns 250000 (unchanged)
+#' normalize_budget(5000000)   # Returns 500,000
+#' normalize_budget(250000)    # Returns 250,000 (unchanged)
 #'
 #' @export
 normalize_budget <- function(budget) {
