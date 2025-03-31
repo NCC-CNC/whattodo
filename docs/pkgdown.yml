@@ -1,5 +1,8 @@
-pandoc: 3.1.11
+pandoc: '3.2'
 pkgdown: 2.1.1
 pkgdown_sha: ~
 articles: {}
-last_built: 2025-03-06T22:43Z
+last_built: 2025-03-31T17:44Z
+urls:
+  reference: https://ncc-cnc.github.io/whattodo/reference
+  article: https://ncc-cnc.github.io/whattodo/articles

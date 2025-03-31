@@ -3,6 +3,7 @@
 ### Notice
 
 - Official What To Do version 1.
+- What To Do now automatically normalizes cost values and budget for optimization purposes, eliminating the need for manual scaling in data preparation. If the highest cost value in a dataset is ≥ 1,000,000 CAD, all cost-related columns are scaled down to ensure at most six whole number digits. This is to ensure that the optimization executes as expected.
 - The `renv.lock` file only includes application dependencies from Imports, Depends and LinksTo found within the DESCRIPTION file. It does not include the Suggests packages needed for development. This reduces the bloat on deployment. The steps to contribute to package development include cloning whattodo, running `renv::restore()`, and then manually `renv::install` the Suggests packages referencing the correct version. Example `renv::install(testthat@3.3.2.1.1)`. 
 
 ### Major changes
@@ -13,6 +14,7 @@
 - Removed `leaflet.extras2::addHistory` button. This feature is not compatible with Shiny >= 1.7.0 when they removed the bundled copy of fontawesome to the fontawesome package.
 - Updated license agreement.
 - Updated `renv.lock` file only records application dependencies from Imports, Depends and LinksTo.
+- New cost and budget normalization functions.
 
 ### Minor changes and bug fixes
 

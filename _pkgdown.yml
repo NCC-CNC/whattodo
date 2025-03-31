@@ -1,12 +1,13 @@
+url: https://ncc-cnc.github.io/whattodo
+
+template:
+  bootstrap: 5
+
 authors:
   Jeffrey O Hanson:
     href: https://jeffrey-hanson.com
   Richard Schuster:
     href: http://www.richard-schuster.com
-
-template:
-  params:
-    bootswatch: flatly
 
 reference:
   - title: Application
@@ -111,6 +112,15 @@ reference:
       - is_valid_configuration_file
       - is_valid_shapefile_file
       - is_valid_spreadsheet_file
+      
+  - title: Normalization functions
+    desc: >
+      Functions for normalizing cost and budget values.
+    contents:
+      - max_cost
+      - normalize_budget
+      - normalize_cost_columns
+      - num_whole_digits
 
   - title: Miscellaneous functions
     desc: >
