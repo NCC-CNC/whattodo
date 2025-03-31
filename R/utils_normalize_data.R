@@ -132,3 +132,36 @@ normalize_cost_columns <- function(x, col_starts_with = "Cost") {
   }
 }
 
+#' Normalize Budget Value
+#'
+#' Scales a single numeric budget value to ensure it has at most six whole number digits.
+#'
+#' @param budget A `numeric` value representing the budget.
+#'
+#' @details
+#' If the budget is **1,000,000 or greater**, the function determines the number 
+#' of whole number digits and calculates a divisor to scale it down to six digits.  
+#' If no scaling is needed, the original budget is returned unchanged.
+#'
+#' @return A `numeric` value representing the normalized budget.
+#'
+#' @examples
+#' normalize_budget(5000000)   # Returns 500.000
+#' normalize_budget(250000)    # Returns 250000 (unchanged)
+#'
+#' @export
+normalize_budget <- function(budget) {
+  # Check if normalization is needed
+  if (budget >= 1000000) {
+    # Determine the number of whole number digits
+    num_digits <- num_whole_digits(budget)
+    # Calculate the divisor
+    divisor <- 10^(num_digits - 6)
+    # Return normalized budget
+    return(budget / divisor)
+  } else {
+    # Return NULL if no scaling is needed
+    return(budget)
+  }
+}
+

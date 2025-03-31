@@ -96,12 +96,15 @@ prioritization_with_budget <- function(site_ids,
     prb_pu_data <- pu_data$raw_data
   } else {
     prb_pu_data <- pu_data$norm_data
-  }  
+  }
+  
+  # normalize budget
+  norm_budget <- normalize_budget(budget)
 
   # generate prioritization
   prb <-
     prioritizr::problem(prb_pu_data, zone_data, as.character(cost_names)) %>%
-    prioritizr::add_min_shortfall_objective(budget = max(budget, 1e-5)) %>%
+    prioritizr::add_min_shortfall_objective(budget = max(norm_budget, 1e-5)) %>%
     prioritizr::add_feature_weights(matrix(weight_data[[2]], ncol = 1)) %>%
     prioritizr::add_manual_targets(target_data) %>%
     prioritizr::add_mandatory_allocation_constraints() %>%
@@ -122,13 +125,13 @@ prioritization_with_budget <- function(site_ids,
     site_ids = site_ids,
     feature_ids = feature_ids,
     action_ids =  action_ids,
-    pu_data = pu_data$raw_data, # evaluate solution based on raw data
+    pu_data = pu_data$raw_data, # evaluate solution based on raw cost data
     status_data = status_data,
     zone_data = zone_data,
     goal_data = goal_data,
     locked_data = locked_data,
     solution_data = sol,
-    budget = budget,
+    budget = budget, # evaluate solution based on denormalized budget data
     parameters = parameters
   )
 
