@@ -63,14 +63,14 @@ server_generate_new_solution <- quote({
       app_data$project$settings[[1]]$get_value(),
       NA_real_
     )
-
     ### ids
     curr_site_ids <- app_data$project$site_ids
     curr_feature_ids <- app_data$project$feature_ids
     curr_action_ids <- app_data$project$action_ids
     ### data
+    curr_max_budget <- app_data$project$get_max_budget() # needed to normalize 
     curr_pu_data <- app_data$project$get_pu_data()
-    curr_pu_data_norm <- normalize_cost_columns(curr_pu_data)
+    curr_pu_data_norm <- normalize_cost_columns(curr_pu_data, curr_max_budget)
     curr_current_status_data <- app_data$project$get_current_status_data()
     curr_zone_data <- app_data$project$get_zone_data()
     curr_goal_data <- app_data$project$get_goal_data()
@@ -102,6 +102,7 @@ server_generate_new_solution <- quote({
             weight_data = curr_weight_data,
             locked_data = curr_locked_data,
             budget = curr_budget,
+            max_budget = curr_max_budget, # needed to normalize budget
             parameters = curr_parameters,
             verbose = curr_verbose,
             gap = curr_gap,

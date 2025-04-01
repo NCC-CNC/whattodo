@@ -50,6 +50,7 @@ prioritization_with_budget <- function(site_ids,
                                        weight_data,
                                        locked_data,
                                        budget,
+                                       max_budget,
                                        parameters,
                                        gap = 0,
                                        verbose = TRUE,
@@ -72,6 +73,8 @@ prioritization_with_budget <- function(site_ids,
     inherits(locked_data, "data.frame"),
     assertthat::is.number(budget),
     isTRUE(budget >= 0),
+    assertthat::is.number(max_budget),
+    isTRUE(max_budget >= 0),
     assertthat::is.number(gap),
     isTRUE(gap >= 0),
     is.list(parameters),
@@ -99,12 +102,12 @@ prioritization_with_budget <- function(site_ids,
   }
   
   # normalize budget
-  norm_budget <- normalize_budget(budget)
+  norm_budget <- normalize_budget(budget, max_budget)
 
   # generate prioritization
   prb <-
     prioritizr::problem(prb_pu_data, zone_data, as.character(cost_names)) %>%
-    prioritizr::add_min_shortfall_objective(budget = max(norm_budget, 1e-5)) %>%
+    prioritizr::add_min_shortfall_objective(budget = norm_budget) %>%
     prioritizr::add_feature_weights(matrix(weight_data[[2]], ncol = 1)) %>%
     prioritizr::add_manual_targets(target_data) %>%
     prioritizr::add_mandatory_allocation_constraints() %>%
