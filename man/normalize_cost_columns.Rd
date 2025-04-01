@@ -4,29 +4,26 @@
 \alias{normalize_cost_columns}
 \title{Normalize Cost Columns}
 \usage{
-normalize_cost_columns(x, col_starts_with = "Cost")
+normalize_cost_columns(x, max_budget, col_starts_with = "Cost")
 }
 \arguments{
 \item{x}{A \code{tibble} containing raw planning unit data.}
+
+\item{max_budget}{A \code{numeric} greatest cost value for each site summed.}
 
 \item{col_starts_with}{A \code{character} string indicating the prefix for
 cost-related columns. Default is \code{"Cost"}.}
 }
 \value{
-A \code{tibble} with normalized cost columns,
+A \code{tibble} with normalized cost columns and the computed divisor,
 or \code{NULL} if no scaling is required.
 }
 \description{
-Scales cost-related columns to ensure that the maximum value has at most six
-whole number digits.
+Scales cost-related columns
 }
 \details{
-This function checks the highest cost value across all columns starting
-with \code{col_starts_with}. If the maximum cost is \strong{1,000,000 or greater}, it
-determines the number of whole number digits and calculates a divisor to scale
-the values down to six digits. The function returns a modified
-tibble with the cost columns normalized. If no scaling is needed,
-it returns \code{NULL}.
+If the \code{max_budget} is \strong{1,000,000 or greater}, the function determines the number
+of whole number digits and calculates a divisor to scale it down to six digits.
 }
 \examples{
 library(dplyr)
@@ -39,7 +36,10 @@ df <- tibble(
   Value = c(10, 20, 30)
 )
 
+# Compute max budget
+max_budget <- max(df \%>\% select(starts_with("Cost")), na.rm = TRUE)
+
 # Normalize cost columns
-normalize_cost_columns(df)
+normalize_cost_columns(df, max_budget)
 
 }

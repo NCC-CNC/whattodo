@@ -37,7 +37,7 @@
 <div class="section level4">
 <h4 id="notice-1-0-0">Notice<a class="anchor" aria-label="anchor" href="#notice-1-0-0"></a></h4>
 <ul><li>Official What To Do version 1.</li>
-<li>What To Do now automatically normalizes cost values and budget for optimization purposes, eliminating the need for manual scaling in data preparation. If the highest cost value in a dataset is ≥ 1,000,000 CAD, all cost-related columns are scaled down to ensure at most six whole number digits. This is to ensure that the optimization executes as expected.</li>
+<li>What To Do automatically normalizes cost values and budget for optimization purposes, eliminating the need for manual scaling in data preparation. If the max budget in a dataset is ≥ $1,000,000, all cost-related columns are scaled down to ensure at most six whole number digits. This is needed so that optimization executes as expected.</li>
 <li>The <code>renv.lock</code> file only includes application dependencies from Imports, Depends and LinksTo found within the DESCRIPTION file. It does not include the Suggests packages needed for development. This reduces the bloat on deployment. The steps to contribute to package development include cloning whattodo, running <code><a href="https://rstudio.github.io/renv/reference/restore.html" class="external-link">renv::restore()</a></code>, and then manually <code><a href="https://rstudio.github.io/renv/reference/install.html" class="external-link">renv::install</a></code> the Suggests packages referencing the correct version. Example <code>renv::install(testthat@3.3.2.1.1)</code>.</li>
 </ul></div>
 <div class="section level4">

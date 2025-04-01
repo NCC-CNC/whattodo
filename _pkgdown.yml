@@ -117,7 +117,6 @@ reference:
     desc: >
       Functions for normalizing cost and budget values.
     contents:
-      - max_cost
       - normalize_budget
       - normalize_cost_columns
       - num_whole_digits

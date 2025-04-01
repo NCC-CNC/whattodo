@@ -4,24 +4,26 @@
 \alias{normalize_budget}
 \title{Normalize Budget Value}
 \usage{
-normalize_budget(budget)
+normalize_budget(budget, max_budget)
 }
 \arguments{
 \item{budget}{A \code{numeric} value representing the budget.}
+
+\item{max_budget}{A \code{numeric} greatest cost value for each site summed.}
 }
 \value{
 A \code{numeric} value representing the normalized budget.
 }
 \description{
-Scales a single numeric budget value to ensure it has at most six whole number digits.
+Scales a single numeric budget value.
 }
 \details{
-If the budget is \strong{1,000,000 or greater}, the function determines the number
+If the \code{max_budget} is \strong{1,000,000 or greater}, the function determines the number
 of whole number digits and calculates a divisor to scale it down to six digits.
 If no scaling is needed, the original budget is returned unchanged.
 }
 \examples{
-normalize_budget(5000000)   # Returns 500,000
-normalize_budget(250000)    # Returns 250,000 (unchanged)
+# Example usage with different max_budget values
+normalize_budget(5000000, max_budget = 10000000)  # Normalized based on max_budget
 
 }

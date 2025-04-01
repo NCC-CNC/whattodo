@@ -15,6 +15,7 @@ prioritization_with_budget(
   weight_data,
   locked_data,
   budget,
+  max_budget,
   parameters,
   gap = 0,
   verbose = TRUE,
