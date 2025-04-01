@@ -1,0 +1,12 @@
+The wheretowork package as a whole is distributed a custom software license (see LICENSE file).
+
+The wheretowork package includes other open source software components. The following
+is a list of these components (full copies of the license agreements used by
+these components are included below):
+
+- Sortable, [https://github.com/SortableJS/Sortable]
+- d3, [https://github.com/d3/d3]
+- el-checkbox, [https://github.com/EvanLiu2968/el-checkbox]
+- noUISlider, [https://github.com/leongersen/noUiSlider]
+- shinyBS, [https://github.com/ebailey78/shinyBS]
+- wNumb, [https://github.com/leongersen/wnumb]

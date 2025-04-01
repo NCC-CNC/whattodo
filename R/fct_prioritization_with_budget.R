@@ -11,7 +11,8 @@ NULL
 #'
 #' @param action_ids `character` action identifiers.
 #'
-#' @param pu_data `dat.frame` containing planning unit data.
+#' @param pu_data `list` containing raw planning unit data as `data.frame` and
+#' cost normalized planning unit data as either `data.frame` or `NULL`.
 #'
 #' @param status_data `dat.frame` containing status data.
 #'
@@ -49,6 +50,7 @@ prioritization_with_budget <- function(site_ids,
                                        weight_data,
                                        locked_data,
                                        budget,
+                                       max_budget,
                                        parameters,
                                        gap = 0,
                                        verbose = TRUE,
@@ -61,7 +63,9 @@ prioritization_with_budget <- function(site_ids,
     assertthat::noNA(feature_ids),
     is.character(action_ids),
     assertthat::noNA(action_ids),
-    inherits(pu_data, "data.frame"),
+    is.list(pu_data),
+    inherits(pu_data$raw_data, "data.frame"),
+    inherits(pu_data$norm_data, "data.frame") | is.null(pu_data$norm_data),
     inherits(status_data, "data.frame"),
     inherits(zone_data, "ZonesCharacter"),
     inherits(goal_data, "data.frame"),
@@ -69,6 +73,8 @@ prioritization_with_budget <- function(site_ids,
     inherits(locked_data, "data.frame"),
     assertthat::is.number(budget),
     isTRUE(budget >= 0),
+    assertthat::is.number(max_budget),
+    isTRUE(max_budget >= 0),
     assertthat::is.number(gap),
     isTRUE(gap >= 0),
     is.list(parameters),
@@ -87,11 +93,21 @@ prioritization_with_budget <- function(site_ids,
   # prepare target data
   target_data <-
     goal_data[, c("feature", "zone", "type", "sense", "target"), drop = FALSE]
+  
+  # set problem data to use raw or normalized costs to solve
+  if (is.null(pu_data$norm_data)) {
+    prb_pu_data <- pu_data$raw_data
+  } else {
+    prb_pu_data <- pu_data$norm_data
+  }
+  
+  # normalize budget
+  norm_budget <- normalize_budget(budget, max_budget)
 
   # generate prioritization
   prb <-
-    prioritizr::problem(pu_data, zone_data, cost_names) %>%
-    prioritizr::add_min_shortfall_objective(budget = max(budget, 1e-5)) %>%
+    prioritizr::problem(prb_pu_data, zone_data, as.character(cost_names)) %>%
+    prioritizr::add_min_shortfall_objective(budget = norm_budget) %>%
     prioritizr::add_feature_weights(matrix(weight_data[[2]], ncol = 1)) %>%
     prioritizr::add_manual_targets(target_data) %>%
     prioritizr::add_mandatory_allocation_constraints() %>%
@@ -104,20 +120,21 @@ prioritization_with_budget <- function(site_ids,
       prb %>%
       prioritizr::add_manual_locked_constraints(locked_data)
   }
-  sol <- prioritizr::solve(prb)
+  
+  sol <- prioritizr::solve.ConservationProblem(prb)
 
   # summarize results
   out <- format_solution_results(
     site_ids = site_ids,
     feature_ids = feature_ids,
     action_ids =  action_ids,
-    pu_data = pu_data,
+    pu_data = pu_data$raw_data, # evaluate solution based on raw cost data
     status_data = status_data,
     zone_data = zone_data,
     goal_data = goal_data,
     locked_data = locked_data,
     solution_data = sol,
-    budget = budget,
+    budget = budget, # evaluate solution based on denormalized budget data
     parameters = parameters
   )
 

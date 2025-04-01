@@ -30,7 +30,7 @@ NULL
 #' run_app()
 #' }
 #' }
-NULL
+"_PACKAGE"
 
 # define global variables to pass package checks
 ## these variables are used in lazy evaluation or the shiny application
@@ -38,19 +38,22 @@ utils::globalVariables(
   c(
     "input",
     "session",
-    "map_listener"
+    "map_listener",
+    "." 
   )
 )
 
-# define functions for internally used packages to pass checks
-tmp1 <- R.utils::gzip
-tmp1 <- rcbc::cbc_solve
-tmp1 <- Rsymphony::Rsymphony_solve_LP
-tmp1 <- future::future
-tmp1 <- geojsonsf::geojson_sf
-tmp1 <- leafem::addHomeButton
-tmp1 <- leafpop::popupTable
-tmp1 <- methods::as
-tmp1 <- RcppTOML::parseToml
-tmp1 <- tidyr::gather
-tmp1 <- withr::with_options
+# ensure package checks pass
+#' @importFrom R.utils gzip
+#' @importFrom rcbc cbc_solve
+#' @importFrom Rsymphony Rsymphony_solve_LP
+#' @importFrom future future
+#' @importFrom geojsonsf geojson_sf
+#' @importFrom leafem addHomeButton
+#' @importFrom leafpop popupTable
+#' @importFrom methods as
+#' @importFrom RcppTOML parseToml
+#' @importFrom tidyr gather
+#' @importFrom withr with_options
+#' @export
+NULL

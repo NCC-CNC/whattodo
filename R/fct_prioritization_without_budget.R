@@ -30,7 +30,9 @@ prioritization_without_budget <- function(site_ids,
     assertthat::noNA(feature_ids),
     is.character(action_ids),
     assertthat::noNA(action_ids),
-    inherits(pu_data, "data.frame"),
+    is.list(pu_data),
+    inherits(pu_data$raw_data, "data.frame"),
+    inherits(pu_data$norm_data, "data.frame") | is.null(pu_data$norm_data),
     inherits(status_data, "data.frame"),
     inherits(zone_data, "ZonesCharacter"),
     inherits(goal_data, "data.frame"),
@@ -52,9 +54,16 @@ prioritization_without_budget <- function(site_ids,
   target_data <-
     goal_data[, c("feature", "zone", "type", "sense", "target"), drop = FALSE]
 
+  # set problem data to use raw or normalized costs to solve
+  if (is.null(pu_data$norm_data)) {
+    prb_pu_data <- pu_data$raw_data
+  } else {
+    prb_pu_data <- pu_data$norm_data
+  }
+  
   # generate prioritization
   prb <-
-    prioritizr::problem(pu_data, zone_data, cost_names) %>%
+    prioritizr::problem(prb_pu_data, zone_data, as.character(cost_names)) %>%
     prioritizr::add_min_set_objective() %>%
     prioritizr::add_manual_targets(target_data) %>%
     prioritizr::add_mandatory_allocation_constraints() %>%
@@ -67,14 +76,15 @@ prioritization_without_budget <- function(site_ids,
       prb %>%
       prioritizr::add_manual_locked_constraints(locked_data)
   }
-  sol <- prioritizr::solve(prb)
+  
+  sol <- prioritizr::solve.ConservationProblem(prb)
 
   # summarize results
   out <- format_solution_results(
     site_ids = site_ids,
     feature_ids = feature_ids,
     action_ids =  action_ids,
-    pu_data = pu_data,
+    pu_data = pu_data$raw_data, # evaluate solution based on raw data
     status_data = status_data,
     zone_data = zone_data,
     goal_data = goal_data,

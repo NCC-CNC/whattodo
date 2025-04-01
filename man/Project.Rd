@@ -68,52 +68,52 @@ Definition for the Project class.
 \section{Methods}{
 \subsection{Public methods}{
 \itemize{
-\item \href{#method-new}{\code{Project$new()}}
-\item \href{#method-print}{\code{Project$print()}}
-\item \href{#method-repr}{\code{Project$repr()}}
-\item \href{#method-get_site_ids}{\code{Project$get_site_ids()}}
-\item \href{#method-get_feature_ids}{\code{Project$get_feature_ids()}}
-\item \href{#method-get_feature_ids_from_html_id}{\code{Project$get_feature_ids_from_html_id()}}
-\item \href{#method-get_action_ids}{\code{Project$get_action_ids()}}
-\item \href{#method-get_feature_goal}{\code{Project$get_feature_goal()}}
-\item \href{#method-get_feature_weight}{\code{Project$get_feature_weight()}}
-\item \href{#method-get_site_statuses}{\code{Project$get_site_statuses()}}
-\item \href{#method-get_action_costs}{\code{Project$get_action_costs()}}
-\item \href{#method-get_action_feasibility}{\code{Project$get_action_feasibility()}}
-\item \href{#method-get_consequences_for_feature}{\code{Project$get_consequences_for_feature()}}
-\item \href{#method-get_min_budget}{\code{Project$get_min_budget()}}
-\item \href{#method-get_max_budget}{\code{Project$get_max_budget()}}
-\item \href{#method-get_max_feature_consequence}{\code{Project$get_max_feature_consequence()}}
-\item \href{#method-get_current_feature_consequence}{\code{Project$get_current_feature_consequence()}}
-\item \href{#method-get_map_layers}{\code{Project$get_map_layers()}}
-\item \href{#method-get_pu_data}{\code{Project$get_pu_data()}}
-\item \href{#method-get_current_status_data}{\code{Project$get_current_status_data()}}
-\item \href{#method-get_zone_data}{\code{Project$get_zone_data()}}
-\item \href{#method-get_goal_data}{\code{Project$get_goal_data()}}
-\item \href{#method-get_weight_data}{\code{Project$get_weight_data()}}
-\item \href{#method-get_locked_data}{\code{Project$get_locked_data()}}
-\item \href{#method-get_bbox}{\code{Project$get_bbox()}}
-\item \href{#method-get_solution_settings_data}{\code{Project$get_solution_settings_data()}}
-\item \href{#method-get_goals_settings_data}{\code{Project$get_goals_settings_data()}}
-\item \href{#method-get_weights_settings_data}{\code{Project$get_weights_settings_data()}}
-\item \href{#method-set_feature_goal}{\code{Project$set_feature_goal()}}
-\item \href{#method-set_feature_weight}{\code{Project$set_feature_weight()}}
-\item \href{#method-set_site_data}{\code{Project$set_site_data()}}
-\item \href{#method-set_feature_data}{\code{Project$set_feature_data()}}
-\item \href{#method-set_feasibility_data}{\code{Project$set_feasibility_data()}}
-\item \href{#method-set_consequence_data}{\code{Project$set_consequence_data()}}
-\item \href{#method-render_on_map}{\code{Project$render_on_map()}}
-\item \href{#method-render_site_data}{\code{Project$render_site_data()}}
-\item \href{#method-render_feature_data}{\code{Project$render_feature_data()}}
-\item \href{#method-render_feasibility_data}{\code{Project$render_feasibility_data()}}
-\item \href{#method-render_consequence_data}{\code{Project$render_consequence_data()}}
-\item \href{#method-write}{\code{Project$write()}}
-\item \href{#method-clone}{\code{Project$clone()}}
+\item \href{#method-Project-new}{\code{Project$new()}}
+\item \href{#method-Project-print}{\code{Project$print()}}
+\item \href{#method-Project-repr}{\code{Project$repr()}}
+\item \href{#method-Project-get_site_ids}{\code{Project$get_site_ids()}}
+\item \href{#method-Project-get_feature_ids}{\code{Project$get_feature_ids()}}
+\item \href{#method-Project-get_feature_ids_from_html_id}{\code{Project$get_feature_ids_from_html_id()}}
+\item \href{#method-Project-get_action_ids}{\code{Project$get_action_ids()}}
+\item \href{#method-Project-get_feature_goal}{\code{Project$get_feature_goal()}}
+\item \href{#method-Project-get_feature_weight}{\code{Project$get_feature_weight()}}
+\item \href{#method-Project-get_site_statuses}{\code{Project$get_site_statuses()}}
+\item \href{#method-Project-get_action_costs}{\code{Project$get_action_costs()}}
+\item \href{#method-Project-get_action_feasibility}{\code{Project$get_action_feasibility()}}
+\item \href{#method-Project-get_consequences_for_feature}{\code{Project$get_consequences_for_feature()}}
+\item \href{#method-Project-get_min_budget}{\code{Project$get_min_budget()}}
+\item \href{#method-Project-get_max_budget}{\code{Project$get_max_budget()}}
+\item \href{#method-Project-get_max_feature_consequence}{\code{Project$get_max_feature_consequence()}}
+\item \href{#method-Project-get_current_feature_consequence}{\code{Project$get_current_feature_consequence()}}
+\item \href{#method-Project-get_map_layers}{\code{Project$get_map_layers()}}
+\item \href{#method-Project-get_pu_data}{\code{Project$get_pu_data()}}
+\item \href{#method-Project-get_current_status_data}{\code{Project$get_current_status_data()}}
+\item \href{#method-Project-get_zone_data}{\code{Project$get_zone_data()}}
+\item \href{#method-Project-get_goal_data}{\code{Project$get_goal_data()}}
+\item \href{#method-Project-get_weight_data}{\code{Project$get_weight_data()}}
+\item \href{#method-Project-get_locked_data}{\code{Project$get_locked_data()}}
+\item \href{#method-Project-get_bbox}{\code{Project$get_bbox()}}
+\item \href{#method-Project-get_solution_settings_data}{\code{Project$get_solution_settings_data()}}
+\item \href{#method-Project-get_goals_settings_data}{\code{Project$get_goals_settings_data()}}
+\item \href{#method-Project-get_weights_settings_data}{\code{Project$get_weights_settings_data()}}
+\item \href{#method-Project-set_feature_goal}{\code{Project$set_feature_goal()}}
+\item \href{#method-Project-set_feature_weight}{\code{Project$set_feature_weight()}}
+\item \href{#method-Project-set_site_data}{\code{Project$set_site_data()}}
+\item \href{#method-Project-set_feature_data}{\code{Project$set_feature_data()}}
+\item \href{#method-Project-set_feasibility_data}{\code{Project$set_feasibility_data()}}
+\item \href{#method-Project-set_consequence_data}{\code{Project$set_consequence_data()}}
+\item \href{#method-Project-render_on_map}{\code{Project$render_on_map()}}
+\item \href{#method-Project-render_site_data}{\code{Project$render_site_data()}}
+\item \href{#method-Project-render_feature_data}{\code{Project$render_feature_data()}}
+\item \href{#method-Project-render_feasibility_data}{\code{Project$render_feasibility_data()}}
+\item \href{#method-Project-render_consequence_data}{\code{Project$render_consequence_data()}}
+\item \href{#method-Project-write}{\code{Project$write()}}
+\item \href{#method-Project-clone}{\code{Project$clone()}}
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-new"></a>}}
-\if{latex}{\out{\hypertarget{method-new}{}}}
+\if{html}{\out{<a id="method-Project-new"></a>}}
+\if{latex}{\out{\hypertarget{method-Project-new}{}}}
 \subsection{Method \code{new()}}{
 Create a Project object.
 \subsection{Usage}{
@@ -170,8 +170,8 @@ A new Project object.
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-print"></a>}}
-\if{latex}{\out{\hypertarget{method-print}{}}}
+\if{html}{\out{<a id="method-Project-print"></a>}}
+\if{latex}{\out{\hypertarget{method-Project-print}{}}}
 \subsection{Method \code{print()}}{
 Print the object.
 \subsection{Usage}{
@@ -187,8 +187,8 @@ Print the object.
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-repr"></a>}}
-\if{latex}{\out{\hypertarget{method-repr}{}}}
+\if{html}{\out{<a id="method-Project-repr"></a>}}
+\if{latex}{\out{\hypertarget{method-Project-repr}{}}}
 \subsection{Method \code{repr()}}{
 Generate a \code{character} summarizing the representation of the object.
 \subsection{Usage}{
@@ -200,8 +200,8 @@ Generate a \code{character} summarizing the representation of the object.
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-get_site_ids"></a>}}
-\if{latex}{\out{\hypertarget{method-get_site_ids}{}}}
+\if{html}{\out{<a id="method-Project-get_site_ids"></a>}}
+\if{latex}{\out{\hypertarget{method-Project-get_site_ids}{}}}
 \subsection{Method \code{get_site_ids()}}{
 Get site identifiers.
 \subsection{Usage}{
@@ -213,8 +213,8 @@ Get site identifiers.
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-get_feature_ids"></a>}}
-\if{latex}{\out{\hypertarget{method-get_feature_ids}{}}}
+\if{html}{\out{<a id="method-Project-get_feature_ids"></a>}}
+\if{latex}{\out{\hypertarget{method-Project-get_feature_ids}{}}}
 \subsection{Method \code{get_feature_ids()}}{
 Get feature identifiers.
 \subsection{Usage}{
@@ -226,8 +226,8 @@ Get feature identifiers.
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-get_feature_ids_from_html_id"></a>}}
-\if{latex}{\out{\hypertarget{method-get_feature_ids_from_html_id}{}}}
+\if{html}{\out{<a id="method-Project-get_feature_ids_from_html_id"></a>}}
+\if{latex}{\out{\hypertarget{method-Project-get_feature_ids_from_html_id}{}}}
 \subsection{Method \code{get_feature_ids_from_html_id()}}{
 Get feature HTML identifiers.
 \subsection{Usage}{
@@ -246,8 +246,8 @@ Get feature HTML identifiers.
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-get_action_ids"></a>}}
-\if{latex}{\out{\hypertarget{method-get_action_ids}{}}}
+\if{html}{\out{<a id="method-Project-get_action_ids"></a>}}
+\if{latex}{\out{\hypertarget{method-Project-get_action_ids}{}}}
 \subsection{Method \code{get_action_ids()}}{
 Get action identifiers.
 \subsection{Usage}{
@@ -259,8 +259,8 @@ Get action identifiers.
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-get_feature_goal"></a>}}
-\if{latex}{\out{\hypertarget{method-get_feature_goal}{}}}
+\if{html}{\out{<a id="method-Project-get_feature_goal"></a>}}
+\if{latex}{\out{\hypertarget{method-Project-get_feature_goal}{}}}
 \subsection{Method \code{get_feature_goal()}}{
 Get feature goal.
 \subsection{Usage}{
@@ -279,8 +279,8 @@ Get feature goal.
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-get_feature_weight"></a>}}
-\if{latex}{\out{\hypertarget{method-get_feature_weight}{}}}
+\if{html}{\out{<a id="method-Project-get_feature_weight"></a>}}
+\if{latex}{\out{\hypertarget{method-Project-get_feature_weight}{}}}
 \subsection{Method \code{get_feature_weight()}}{
 Get feature weight.
 \subsection{Usage}{
@@ -299,8 +299,8 @@ Get feature weight.
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-get_site_statuses"></a>}}
-\if{latex}{\out{\hypertarget{method-get_site_statuses}{}}}
+\if{html}{\out{<a id="method-Project-get_site_statuses"></a>}}
+\if{latex}{\out{\hypertarget{method-Project-get_site_statuses}{}}}
 \subsection{Method \code{get_site_statuses()}}{
 Get colors for actions.
 \subsection{Usage}{
@@ -319,8 +319,8 @@ Get colors for actions.
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-get_action_costs"></a>}}
-\if{latex}{\out{\hypertarget{method-get_action_costs}{}}}
+\if{html}{\out{<a id="method-Project-get_action_costs"></a>}}
+\if{latex}{\out{\hypertarget{method-Project-get_action_costs}{}}}
 \subsection{Method \code{get_action_costs()}}{
 Get cost data for implementing an action within each site.
 \subsection{Usage}{
@@ -339,8 +339,8 @@ Get cost data for implementing an action within each site.
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-get_action_feasibility"></a>}}
-\if{latex}{\out{\hypertarget{method-get_action_feasibility}{}}}
+\if{html}{\out{<a id="method-Project-get_action_feasibility"></a>}}
+\if{latex}{\out{\hypertarget{method-Project-get_action_feasibility}{}}}
 \subsection{Method \code{get_action_feasibility()}}{
 Get feasibility data for implementing an action within each site.
 \subsection{Usage}{
@@ -359,8 +359,8 @@ Get feasibility data for implementing an action within each site.
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-get_consequences_for_feature"></a>}}
-\if{latex}{\out{\hypertarget{method-get_consequences_for_feature}{}}}
+\if{html}{\out{<a id="method-Project-get_consequences_for_feature"></a>}}
+\if{latex}{\out{\hypertarget{method-Project-get_consequences_for_feature}{}}}
 \subsection{Method \code{get_consequences_for_feature()}}{
 Get consequence data for features.
 \subsection{Usage}{
@@ -381,8 +381,8 @@ Get consequence data for features.
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-get_min_budget"></a>}}
-\if{latex}{\out{\hypertarget{method-get_min_budget}{}}}
+\if{html}{\out{<a id="method-Project-get_min_budget"></a>}}
+\if{latex}{\out{\hypertarget{method-Project-get_min_budget}{}}}
 \subsection{Method \code{get_min_budget()}}{
 Get the cost of the cheapest solution.
 \subsection{Usage}{
@@ -394,8 +394,8 @@ Get the cost of the cheapest solution.
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-get_max_budget"></a>}}
-\if{latex}{\out{\hypertarget{method-get_max_budget}{}}}
+\if{html}{\out{<a id="method-Project-get_max_budget"></a>}}
+\if{latex}{\out{\hypertarget{method-Project-get_max_budget}{}}}
 \subsection{Method \code{get_max_budget()}}{
 Get the cost of the most expensive solution.
 \subsection{Usage}{
@@ -407,8 +407,8 @@ Get the cost of the most expensive solution.
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-get_max_feature_consequence"></a>}}
-\if{latex}{\out{\hypertarget{method-get_max_feature_consequence}{}}}
+\if{html}{\out{<a id="method-Project-get_max_feature_consequence"></a>}}
+\if{latex}{\out{\hypertarget{method-Project-get_max_feature_consequence}{}}}
 \subsection{Method \code{get_max_feature_consequence()}}{
 Get the highest amount for each feature.
 \subsection{Usage}{
@@ -420,8 +420,8 @@ Get the highest amount for each feature.
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-get_current_feature_consequence"></a>}}
-\if{latex}{\out{\hypertarget{method-get_current_feature_consequence}{}}}
+\if{html}{\out{<a id="method-Project-get_current_feature_consequence"></a>}}
+\if{latex}{\out{\hypertarget{method-Project-get_current_feature_consequence}{}}}
 \subsection{Method \code{get_current_feature_consequence()}}{
 Get the current expected amount for each feature.
 \subsection{Usage}{
@@ -433,8 +433,8 @@ Get the current expected amount for each feature.
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-get_map_layers"></a>}}
-\if{latex}{\out{\hypertarget{method-get_map_layers}{}}}
+\if{html}{\out{<a id="method-Project-get_map_layers"></a>}}
+\if{latex}{\out{\hypertarget{method-Project-get_map_layers}{}}}
 \subsection{Method \code{get_map_layers()}}{
 Get layer names for rendering data on map.
 \subsection{Usage}{
@@ -446,8 +446,8 @@ Get layer names for rendering data on map.
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-get_pu_data"></a>}}
-\if{latex}{\out{\hypertarget{method-get_pu_data}{}}}
+\if{html}{\out{<a id="method-Project-get_pu_data"></a>}}
+\if{latex}{\out{\hypertarget{method-Project-get_pu_data}{}}}
 \subsection{Method \code{get_pu_data()}}{
 Get planning unit data for optimization.
 \subsection{Usage}{
@@ -459,8 +459,8 @@ Get planning unit data for optimization.
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-get_current_status_data"></a>}}
-\if{latex}{\out{\hypertarget{method-get_current_status_data}{}}}
+\if{html}{\out{<a id="method-Project-get_current_status_data"></a>}}
+\if{latex}{\out{\hypertarget{method-Project-get_current_status_data}{}}}
 \subsection{Method \code{get_current_status_data()}}{
 Get status data for optimization.
 \subsection{Usage}{
@@ -472,8 +472,8 @@ Get status data for optimization.
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-get_zone_data"></a>}}
-\if{latex}{\out{\hypertarget{method-get_zone_data}{}}}
+\if{html}{\out{<a id="method-Project-get_zone_data"></a>}}
+\if{latex}{\out{\hypertarget{method-Project-get_zone_data}{}}}
 \subsection{Method \code{get_zone_data()}}{
 Get zone data for optimization.
 \subsection{Usage}{
@@ -485,8 +485,8 @@ Get zone data for optimization.
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-get_goal_data"></a>}}
-\if{latex}{\out{\hypertarget{method-get_goal_data}{}}}
+\if{html}{\out{<a id="method-Project-get_goal_data"></a>}}
+\if{latex}{\out{\hypertarget{method-Project-get_goal_data}{}}}
 \subsection{Method \code{get_goal_data()}}{
 Get goal data for optimization.
 \subsection{Usage}{
@@ -498,8 +498,8 @@ Get goal data for optimization.
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-get_weight_data"></a>}}
-\if{latex}{\out{\hypertarget{method-get_weight_data}{}}}
+\if{html}{\out{<a id="method-Project-get_weight_data"></a>}}
+\if{latex}{\out{\hypertarget{method-Project-get_weight_data}{}}}
 \subsection{Method \code{get_weight_data()}}{
 Get weight data for optimization.
 \subsection{Usage}{
@@ -511,8 +511,8 @@ Get weight data for optimization.
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-get_locked_data"></a>}}
-\if{latex}{\out{\hypertarget{method-get_locked_data}{}}}
+\if{html}{\out{<a id="method-Project-get_locked_data"></a>}}
+\if{latex}{\out{\hypertarget{method-Project-get_locked_data}{}}}
 \subsection{Method \code{get_locked_data()}}{
 Get locked data for optimization.
 \subsection{Usage}{
@@ -524,8 +524,8 @@ Get locked data for optimization.
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-get_bbox"></a>}}
-\if{latex}{\out{\hypertarget{method-get_bbox}{}}}
+\if{html}{\out{<a id="method-Project-get_bbox"></a>}}
+\if{latex}{\out{\hypertarget{method-Project-get_bbox}{}}}
 \subsection{Method \code{get_bbox()}}{
 Get the bounding box.
 \subsection{Usage}{
@@ -545,8 +545,8 @@ elements.
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-get_solution_settings_data"></a>}}
-\if{latex}{\out{\hypertarget{method-get_solution_settings_data}{}}}
+\if{html}{\out{<a id="method-Project-get_solution_settings_data"></a>}}
+\if{latex}{\out{\hypertarget{method-Project-get_solution_settings_data}{}}}
 \subsection{Method \code{get_solution_settings_data()}}{
 Get data for rendering the solution settings widget.
 \subsection{Usage}{
@@ -558,8 +558,8 @@ Get data for rendering the solution settings widget.
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-get_goals_settings_data"></a>}}
-\if{latex}{\out{\hypertarget{method-get_goals_settings_data}{}}}
+\if{html}{\out{<a id="method-Project-get_goals_settings_data"></a>}}
+\if{latex}{\out{\hypertarget{method-Project-get_goals_settings_data}{}}}
 \subsection{Method \code{get_goals_settings_data()}}{
 Get data for rendering widget to specify goals.
 \subsection{Usage}{
@@ -571,8 +571,8 @@ Get data for rendering widget to specify goals.
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-get_weights_settings_data"></a>}}
-\if{latex}{\out{\hypertarget{method-get_weights_settings_data}{}}}
+\if{html}{\out{<a id="method-Project-get_weights_settings_data"></a>}}
+\if{latex}{\out{\hypertarget{method-Project-get_weights_settings_data}{}}}
 \subsection{Method \code{get_weights_settings_data()}}{
 Get data for rendering widget to specify weights.
 \subsection{Usage}{
@@ -584,8 +584,8 @@ Get data for rendering widget to specify weights.
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-set_feature_goal"></a>}}
-\if{latex}{\out{\hypertarget{method-set_feature_goal}{}}}
+\if{html}{\out{<a id="method-Project-set_feature_goal"></a>}}
+\if{latex}{\out{\hypertarget{method-Project-set_feature_goal}{}}}
 \subsection{Method \code{set_feature_goal()}}{
 Set goal for a feature.
 \subsection{Usage}{
@@ -603,8 +603,8 @@ Set goal for a feature.
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-set_feature_weight"></a>}}
-\if{latex}{\out{\hypertarget{method-set_feature_weight}{}}}
+\if{html}{\out{<a id="method-Project-set_feature_weight"></a>}}
+\if{latex}{\out{\hypertarget{method-Project-set_feature_weight}{}}}
 \subsection{Method \code{set_feature_weight()}}{
 Set weight for a feature.
 \subsection{Usage}{
@@ -622,8 +622,8 @@ Set weight for a feature.
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-set_site_data"></a>}}
-\if{latex}{\out{\hypertarget{method-set_site_data}{}}}
+\if{html}{\out{<a id="method-Project-set_site_data"></a>}}
+\if{latex}{\out{\hypertarget{method-Project-set_site_data}{}}}
 \subsection{Method \code{set_site_data()}}{
 Set site data.
 \subsection{Usage}{
@@ -639,8 +639,8 @@ Set site data.
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-set_feature_data"></a>}}
-\if{latex}{\out{\hypertarget{method-set_feature_data}{}}}
+\if{html}{\out{<a id="method-Project-set_feature_data"></a>}}
+\if{latex}{\out{\hypertarget{method-Project-set_feature_data}{}}}
 \subsection{Method \code{set_feature_data()}}{
 Set feature data.
 \subsection{Usage}{
@@ -656,8 +656,8 @@ Set feature data.
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-set_feasibility_data"></a>}}
-\if{latex}{\out{\hypertarget{method-set_feasibility_data}{}}}
+\if{html}{\out{<a id="method-Project-set_feasibility_data"></a>}}
+\if{latex}{\out{\hypertarget{method-Project-set_feasibility_data}{}}}
 \subsection{Method \code{set_feasibility_data()}}{
 Set feasibility data.
 \subsection{Usage}{
@@ -673,8 +673,8 @@ Set feasibility data.
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-set_consequence_data"></a>}}
-\if{latex}{\out{\hypertarget{method-set_consequence_data}{}}}
+\if{html}{\out{<a id="method-Project-set_consequence_data"></a>}}
+\if{latex}{\out{\hypertarget{method-Project-set_consequence_data}{}}}
 \subsection{Method \code{set_consequence_data()}}{
 Set consequence data.
 \subsection{Usage}{
@@ -692,8 +692,8 @@ Set consequence data.
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-render_on_map"></a>}}
-\if{latex}{\out{\hypertarget{method-render_on_map}{}}}
+\if{html}{\out{<a id="method-Project-render_on_map"></a>}}
+\if{latex}{\out{\hypertarget{method-Project-render_on_map}{}}}
 \subsection{Method \code{render_on_map()}}{
 Render on map.
 \subsection{Usage}{
@@ -717,8 +717,8 @@ Argument must be a valid layer name (see \code{self$get_map_layers()}).}
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-render_site_data"></a>}}
-\if{latex}{\out{\hypertarget{method-render_site_data}{}}}
+\if{html}{\out{<a id="method-Project-render_site_data"></a>}}
+\if{latex}{\out{\hypertarget{method-Project-render_site_data}{}}}
 \subsection{Method \code{render_site_data()}}{
 Render site data.
 \subsection{Usage}{
@@ -741,8 +741,8 @@ Default to \code{"100\%"}.}
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-render_feature_data"></a>}}
-\if{latex}{\out{\hypertarget{method-render_feature_data}{}}}
+\if{html}{\out{<a id="method-Project-render_feature_data"></a>}}
+\if{latex}{\out{\hypertarget{method-Project-render_feature_data}{}}}
 \subsection{Method \code{render_feature_data()}}{
 Render feature data.
 \subsection{Usage}{
@@ -765,8 +765,8 @@ Default to \code{"100\%"}.}
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-render_feasibility_data"></a>}}
-\if{latex}{\out{\hypertarget{method-render_feasibility_data}{}}}
+\if{html}{\out{<a id="method-Project-render_feasibility_data"></a>}}
+\if{latex}{\out{\hypertarget{method-Project-render_feasibility_data}{}}}
 \subsection{Method \code{render_feasibility_data()}}{
 Render feasibility data.
 \subsection{Usage}{
@@ -789,8 +789,8 @@ Default to \code{"100\%"}.}
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-render_consequence_data"></a>}}
-\if{latex}{\out{\hypertarget{method-render_consequence_data}{}}}
+\if{html}{\out{<a id="method-Project-render_consequence_data"></a>}}
+\if{latex}{\out{\hypertarget{method-Project-render_consequence_data}{}}}
 \subsection{Method \code{render_consequence_data()}}{
 Render consequence data.
 \subsection{Usage}{
@@ -815,8 +815,8 @@ Default to \code{"100\%"}.}
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-write"></a>}}
-\if{latex}{\out{\hypertarget{method-write}{}}}
+\if{html}{\out{<a id="method-Project-write"></a>}}
+\if{latex}{\out{\hypertarget{method-Project-write}{}}}
 \subsection{Method \code{write()}}{
 Write the data to disk.
 \subsection{Usage}{
@@ -834,8 +834,8 @@ Write the data to disk.
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-clone"></a>}}
-\if{latex}{\out{\hypertarget{method-clone}{}}}
+\if{html}{\out{<a id="method-Project-clone"></a>}}
+\if{latex}{\out{\hypertarget{method-Project-clone}{}}}
 \subsection{Method \code{clone()}}{
 The objects of this class are cloneable with this method.
 \subsection{Usage}{

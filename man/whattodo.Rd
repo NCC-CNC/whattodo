@@ -2,6 +2,7 @@
 % Please edit documentation in R/package.R
 \docType{package}
 \name{whattodo}
+\alias{whattodo-package}
 \alias{whattodo}
 \title{whattodo: Interactive management action prioritization application}
 \description{
@@ -19,4 +20,28 @@ if (interactive()) {
 run_app()
 }
 }
+}
+\seealso{
+Useful links:
+\itemize{
+  \item \url{https://NCC-CNC.github.io/whattodo/}
+  \item Report bugs at \url{https://github.com/NCC-CNC/whattodo/issues}
+}
+
+}
+\author{
+\strong{Maintainer}: Jeffrey O Hanson \email{jeffrey.hanson@uqconnect.edu.au} (\href{https://orcid.org/0000-0002-4716-6134}{ORCID})
+
+Authors:
+\itemize{
+  \item Richard Schuster \email{richard.schuster@glel.carleton.ca} (\href{https://orcid.org/0000-0003-3191-7869}{ORCID})
+  \item Joseph Bennett
+  \item Jaimie Vincent
+}
+
+Other contributors:
+\itemize{
+  \item Dan Wismer \email{dan.wismer@natureconservancy.ca} [contributor]
+}
+
 }

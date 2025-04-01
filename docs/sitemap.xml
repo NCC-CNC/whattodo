@@ -1,180 +1,66 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-  <url>
-    <loc>/404.html</loc>
-  </url>
-  <url>
-    <loc>/authors.html</loc>
-  </url>
-  <url>
-    <loc>/index.html</loc>
-  </url>
-  <url>
-    <loc>/news/index.html</loc>
-  </url>
-  <url>
-    <loc>/reference/Parameter.html</loc>
-  </url>
-  <url>
-    <loc>/reference/Project.html</loc>
-  </url>
-  <url>
-    <loc>/reference/Solution.html</loc>
-  </url>
-  <url>
-    <loc>/reference/acknowledge_packages.html</loc>
-  </url>
-  <url>
-    <loc>/reference/acknowledgmentsSidebarPane.html</loc>
-  </url>
-  <url>
-    <loc>/reference/addSolutionResults.html</loc>
-  </url>
-  <url>
-    <loc>/reference/contactSidebarPane.html</loc>
-  </url>
-  <url>
-    <loc>/reference/convert_to_html_id.html</loc>
-  </url>
-  <url>
-    <loc>/reference/dataModal.html</loc>
-  </url>
-  <url>
-    <loc>/reference/dataModalProjectTab.html</loc>
-  </url>
-  <url>
-    <loc>/reference/dataModalResultsTab.html</loc>
-  </url>
-  <url>
-    <loc>/reference/default_colors.html</loc>
-  </url>
-  <url>
-    <loc>/reference/disable_html_css_selector.html</loc>
-  </url>
-  <url>
-    <loc>/reference/disable_html_element.html</loc>
-  </url>
-  <url>
-    <loc>/reference/dropSolutionResults.html</loc>
-  </url>
-  <url>
-    <loc>/reference/enable_html_css_selector.html</loc>
-  </url>
-  <url>
-    <loc>/reference/enable_html_element.html</loc>
-  </url>
-  <url>
-    <loc>/reference/errorModal.html</loc>
-  </url>
-  <url>
-    <loc>/reference/error_log.html</loc>
-  </url>
-  <url>
-    <loc>/reference/error_message.html</loc>
-  </url>
-  <url>
-    <loc>/reference/exportSidebarPane.html</loc>
-  </url>
-  <url>
-    <loc>/reference/find_projects.html</loc>
-  </url>
-  <url>
-    <loc>/reference/format_solution_error.html</loc>
-  </url>
-  <url>
-    <loc>/reference/format_solution_results.html</loc>
-  </url>
-  <url>
-    <loc>/reference/get_golem_config.html</loc>
-  </url>
-  <url>
-    <loc>/reference/helpModal.html</loc>
-  </url>
-  <url>
-    <loc>/reference/horizontalPickerInput.html</loc>
-  </url>
-  <url>
-    <loc>/reference/importModal.html</loc>
-  </url>
-  <url>
-    <loc>/reference/index.html</loc>
-  </url>
-  <url>
-    <loc>/reference/is_valid_configuration_file.html</loc>
-  </url>
-  <url>
-    <loc>/reference/is_valid_shapefile_file.html</loc>
-  </url>
-  <url>
-    <loc>/reference/is_valid_spreadsheet_file.html</loc>
-  </url>
-  <url>
-    <loc>/reference/leaflet_map.html</loc>
-  </url>
-  <url>
-    <loc>/reference/newSolutionSidebarPane.html</loc>
-  </url>
-  <url>
-    <loc>/reference/new_parameter.html</loc>
-  </url>
-  <url>
-    <loc>/reference/new_project.html</loc>
-  </url>
-  <url>
-    <loc>/reference/new_solution.html</loc>
-  </url>
-  <url>
-    <loc>/reference/paste_vector.html</loc>
-  </url>
-  <url>
-    <loc>/reference/prepare_for_shapefile_import.html</loc>
-  </url>
-  <url>
-    <loc>/reference/prioritization_with_budget.html</loc>
-  </url>
-  <url>
-    <loc>/reference/prioritization_without_budget.html</loc>
-  </url>
-  <url>
-    <loc>/reference/read_builtin_project.html</loc>
-  </url>
-  <url>
-    <loc>/reference/read_manual_project.html</loc>
-  </url>
-  <url>
-    <loc>/reference/run_app.html</loc>
-  </url>
-  <url>
-    <loc>/reference/showSolutionResults.html</loc>
-  </url>
-  <url>
-    <loc>/reference/solutionResults-shiny.html</loc>
-  </url>
-  <url>
-    <loc>/reference/solutionResults-widget.html</loc>
-  </url>
-  <url>
-    <loc>/reference/solutionResultsSidebarPane.html</loc>
-  </url>
-  <url>
-    <loc>/reference/solutionSettings-shiny.html</loc>
-  </url>
-  <url>
-    <loc>/reference/solutionSettings-widget.html</loc>
-  </url>
-  <url>
-    <loc>/reference/solution_action_consequence.html</loc>
-  </url>
-  <url>
-    <loc>/reference/solution_site_consequence.html</loc>
-  </url>
-  <url>
-    <loc>/reference/st_geometry_data_type.html</loc>
-  </url>
-  <url>
-    <loc>/reference/updateSolutionSettings.html</loc>
-  </url>
-  <url>
-    <loc>/reference/whattodo.html</loc>
-  </url>
+<urlset xmlns = 'http://www.sitemaps.org/schemas/sitemap/0.9'>
+<url><loc>https://ncc-cnc.github.io/whattodo/404.html</loc></url>
+<url><loc>https://ncc-cnc.github.io/whattodo/authors.html</loc></url>
+<url><loc>https://ncc-cnc.github.io/whattodo/index.html</loc></url>
+<url><loc>https://ncc-cnc.github.io/whattodo/LICENSE-text.html</loc></url>
+<url><loc>https://ncc-cnc.github.io/whattodo/news/index.html</loc></url>
+<url><loc>https://ncc-cnc.github.io/whattodo/reference/acknowledge_packages.html</loc></url>
+<url><loc>https://ncc-cnc.github.io/whattodo/reference/acknowledgmentsSidebarPane.html</loc></url>
+<url><loc>https://ncc-cnc.github.io/whattodo/reference/addSolutionResults.html</loc></url>
+<url><loc>https://ncc-cnc.github.io/whattodo/reference/contactSidebarPane.html</loc></url>
+<url><loc>https://ncc-cnc.github.io/whattodo/reference/convert_to_html_id.html</loc></url>
+<url><loc>https://ncc-cnc.github.io/whattodo/reference/dataModal.html</loc></url>
+<url><loc>https://ncc-cnc.github.io/whattodo/reference/dataModalProjectTab.html</loc></url>
+<url><loc>https://ncc-cnc.github.io/whattodo/reference/dataModalResultsTab.html</loc></url>
+<url><loc>https://ncc-cnc.github.io/whattodo/reference/default_colors.html</loc></url>
+<url><loc>https://ncc-cnc.github.io/whattodo/reference/disable_html_css_selector.html</loc></url>
+<url><loc>https://ncc-cnc.github.io/whattodo/reference/disable_html_element.html</loc></url>
+<url><loc>https://ncc-cnc.github.io/whattodo/reference/dropSolutionResults.html</loc></url>
+<url><loc>https://ncc-cnc.github.io/whattodo/reference/enable_html_css_selector.html</loc></url>
+<url><loc>https://ncc-cnc.github.io/whattodo/reference/enable_html_element.html</loc></url>
+<url><loc>https://ncc-cnc.github.io/whattodo/reference/errorModal.html</loc></url>
+<url><loc>https://ncc-cnc.github.io/whattodo/reference/error_log.html</loc></url>
+<url><loc>https://ncc-cnc.github.io/whattodo/reference/error_message.html</loc></url>
+<url><loc>https://ncc-cnc.github.io/whattodo/reference/exportSidebarPane.html</loc></url>
+<url><loc>https://ncc-cnc.github.io/whattodo/reference/find_projects.html</loc></url>
+<url><loc>https://ncc-cnc.github.io/whattodo/reference/format_solution_error.html</loc></url>
+<url><loc>https://ncc-cnc.github.io/whattodo/reference/format_solution_results.html</loc></url>
+<url><loc>https://ncc-cnc.github.io/whattodo/reference/get_golem_config.html</loc></url>
+<url><loc>https://ncc-cnc.github.io/whattodo/reference/helpModal.html</loc></url>
+<url><loc>https://ncc-cnc.github.io/whattodo/reference/horizontalPickerInput.html</loc></url>
+<url><loc>https://ncc-cnc.github.io/whattodo/reference/importModal.html</loc></url>
+<url><loc>https://ncc-cnc.github.io/whattodo/reference/index.html</loc></url>
+<url><loc>https://ncc-cnc.github.io/whattodo/reference/is_valid_configuration_file.html</loc></url>
+<url><loc>https://ncc-cnc.github.io/whattodo/reference/is_valid_shapefile_file.html</loc></url>
+<url><loc>https://ncc-cnc.github.io/whattodo/reference/is_valid_spreadsheet_file.html</loc></url>
+<url><loc>https://ncc-cnc.github.io/whattodo/reference/leaflet_map.html</loc></url>
+<url><loc>https://ncc-cnc.github.io/whattodo/reference/newSolutionSidebarPane.html</loc></url>
+<url><loc>https://ncc-cnc.github.io/whattodo/reference/new_parameter.html</loc></url>
+<url><loc>https://ncc-cnc.github.io/whattodo/reference/new_project.html</loc></url>
+<url><loc>https://ncc-cnc.github.io/whattodo/reference/new_solution.html</loc></url>
+<url><loc>https://ncc-cnc.github.io/whattodo/reference/normalize_budget.html</loc></url>
+<url><loc>https://ncc-cnc.github.io/whattodo/reference/normalize_cost_columns.html</loc></url>
+<url><loc>https://ncc-cnc.github.io/whattodo/reference/num_whole_digits.html</loc></url>
+<url><loc>https://ncc-cnc.github.io/whattodo/reference/Parameter.html</loc></url>
+<url><loc>https://ncc-cnc.github.io/whattodo/reference/paste_vector.html</loc></url>
+<url><loc>https://ncc-cnc.github.io/whattodo/reference/prepare_for_shapefile_import.html</loc></url>
+<url><loc>https://ncc-cnc.github.io/whattodo/reference/prioritization_without_budget.html</loc></url>
+<url><loc>https://ncc-cnc.github.io/whattodo/reference/prioritization_with_budget.html</loc></url>
+<url><loc>https://ncc-cnc.github.io/whattodo/reference/Project.html</loc></url>
+<url><loc>https://ncc-cnc.github.io/whattodo/reference/read_builtin_project.html</loc></url>
+<url><loc>https://ncc-cnc.github.io/whattodo/reference/read_manual_project.html</loc></url>
+<url><loc>https://ncc-cnc.github.io/whattodo/reference/run_app.html</loc></url>
+<url><loc>https://ncc-cnc.github.io/whattodo/reference/showSolutionResults.html</loc></url>
+<url><loc>https://ncc-cnc.github.io/whattodo/reference/Solution.html</loc></url>
+<url><loc>https://ncc-cnc.github.io/whattodo/reference/solutionResults-shiny.html</loc></url>
+<url><loc>https://ncc-cnc.github.io/whattodo/reference/solutionResults-widget.html</loc></url>
+<url><loc>https://ncc-cnc.github.io/whattodo/reference/solutionResultsSidebarPane.html</loc></url>
+<url><loc>https://ncc-cnc.github.io/whattodo/reference/solutionSettings-shiny.html</loc></url>
+<url><loc>https://ncc-cnc.github.io/whattodo/reference/solutionSettings-widget.html</loc></url>
+<url><loc>https://ncc-cnc.github.io/whattodo/reference/solution_action_consequence.html</loc></url>
+<url><loc>https://ncc-cnc.github.io/whattodo/reference/solution_site_consequence.html</loc></url>
+<url><loc>https://ncc-cnc.github.io/whattodo/reference/st_geometry_data_type.html</loc></url>
+<url><loc>https://ncc-cnc.github.io/whattodo/reference/updateSolutionSettings.html</loc></url>
+<url><loc>https://ncc-cnc.github.io/whattodo/reference/whattodo.html</loc></url>
 </urlset>
+

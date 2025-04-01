@@ -36,30 +36,30 @@ Definition for the Solution class.
 \section{Methods}{
 \subsection{Public methods}{
 \itemize{
-\item \href{#method-new}{\code{Solution$new()}}
-\item \href{#method-print}{\code{Solution$print()}}
-\item \href{#method-repr}{\code{Solution$repr()}}
-\item \href{#method-get_site_ids}{\code{Solution$get_site_ids()}}
-\item \href{#method-get_feature_ids}{\code{Solution$get_feature_ids()}}
-\item \href{#method-get_action_ids}{\code{Solution$get_action_ids()}}
-\item \href{#method-get_map_layers}{\code{Solution$get_map_layers()}}
-\item \href{#method-get_bbox}{\code{Solution$get_bbox()}}
-\item \href{#method-render_on_map}{\code{Solution$render_on_map()}}
-\item \href{#method-get_solution_results_data}{\code{Solution$get_solution_results_data()}}
-\item \href{#method-render_site_data}{\code{Solution$render_site_data()}}
-\item \href{#method-render_feature_data}{\code{Solution$render_feature_data()}}
-\item \href{#method-render_feasibility_data}{\code{Solution$render_feasibility_data()}}
-\item \href{#method-render_consequence_data}{\code{Solution$render_consequence_data()}}
-\item \href{#method-render_summary_results}{\code{Solution$render_summary_results()}}
-\item \href{#method-render_site_results}{\code{Solution$render_site_results()}}
-\item \href{#method-render_feature_results}{\code{Solution$render_feature_results()}}
-\item \href{#method-write}{\code{Solution$write()}}
-\item \href{#method-clone}{\code{Solution$clone()}}
+\item \href{#method-Solution-new}{\code{Solution$new()}}
+\item \href{#method-Solution-print}{\code{Solution$print()}}
+\item \href{#method-Solution-repr}{\code{Solution$repr()}}
+\item \href{#method-Solution-get_site_ids}{\code{Solution$get_site_ids()}}
+\item \href{#method-Solution-get_feature_ids}{\code{Solution$get_feature_ids()}}
+\item \href{#method-Solution-get_action_ids}{\code{Solution$get_action_ids()}}
+\item \href{#method-Solution-get_map_layers}{\code{Solution$get_map_layers()}}
+\item \href{#method-Solution-get_bbox}{\code{Solution$get_bbox()}}
+\item \href{#method-Solution-render_on_map}{\code{Solution$render_on_map()}}
+\item \href{#method-Solution-get_solution_results_data}{\code{Solution$get_solution_results_data()}}
+\item \href{#method-Solution-render_site_data}{\code{Solution$render_site_data()}}
+\item \href{#method-Solution-render_feature_data}{\code{Solution$render_feature_data()}}
+\item \href{#method-Solution-render_feasibility_data}{\code{Solution$render_feasibility_data()}}
+\item \href{#method-Solution-render_consequence_data}{\code{Solution$render_consequence_data()}}
+\item \href{#method-Solution-render_summary_results}{\code{Solution$render_summary_results()}}
+\item \href{#method-Solution-render_site_results}{\code{Solution$render_site_results()}}
+\item \href{#method-Solution-render_feature_results}{\code{Solution$render_feature_results()}}
+\item \href{#method-Solution-write}{\code{Solution$write()}}
+\item \href{#method-Solution-clone}{\code{Solution$clone()}}
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-new"></a>}}
-\if{latex}{\out{\hypertarget{method-new}{}}}
+\if{html}{\out{<a id="method-Solution-new"></a>}}
+\if{latex}{\out{\hypertarget{method-Solution-new}{}}}
 \subsection{Method \code{new()}}{
 Create a Solution object.
 \subsection{Usage}{
@@ -98,8 +98,8 @@ A new Solution object.
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-print"></a>}}
-\if{latex}{\out{\hypertarget{method-print}{}}}
+\if{html}{\out{<a id="method-Solution-print"></a>}}
+\if{latex}{\out{\hypertarget{method-Solution-print}{}}}
 \subsection{Method \code{print()}}{
 Print the object.
 \subsection{Usage}{
@@ -115,8 +115,8 @@ Print the object.
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-repr"></a>}}
-\if{latex}{\out{\hypertarget{method-repr}{}}}
+\if{html}{\out{<a id="method-Solution-repr"></a>}}
+\if{latex}{\out{\hypertarget{method-Solution-repr}{}}}
 \subsection{Method \code{repr()}}{
 Generate a \code{character} summarizing the representation of the object.
 \subsection{Usage}{
@@ -128,8 +128,8 @@ Generate a \code{character} summarizing the representation of the object.
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-get_site_ids"></a>}}
-\if{latex}{\out{\hypertarget{method-get_site_ids}{}}}
+\if{html}{\out{<a id="method-Solution-get_site_ids"></a>}}
+\if{latex}{\out{\hypertarget{method-Solution-get_site_ids}{}}}
 \subsection{Method \code{get_site_ids()}}{
 Get site identifiers.
 \subsection{Usage}{
@@ -141,8 +141,8 @@ Get site identifiers.
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-get_feature_ids"></a>}}
-\if{latex}{\out{\hypertarget{method-get_feature_ids}{}}}
+\if{html}{\out{<a id="method-Solution-get_feature_ids"></a>}}
+\if{latex}{\out{\hypertarget{method-Solution-get_feature_ids}{}}}
 \subsection{Method \code{get_feature_ids()}}{
 Get feature identifiers.
 \subsection{Usage}{
@@ -154,8 +154,8 @@ Get feature identifiers.
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-get_action_ids"></a>}}
-\if{latex}{\out{\hypertarget{method-get_action_ids}{}}}
+\if{html}{\out{<a id="method-Solution-get_action_ids"></a>}}
+\if{latex}{\out{\hypertarget{method-Solution-get_action_ids}{}}}
 \subsection{Method \code{get_action_ids()}}{
 Get action identifiers.
 \subsection{Usage}{
@@ -167,8 +167,8 @@ Get action identifiers.
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-get_map_layers"></a>}}
-\if{latex}{\out{\hypertarget{method-get_map_layers}{}}}
+\if{html}{\out{<a id="method-Solution-get_map_layers"></a>}}
+\if{latex}{\out{\hypertarget{method-Solution-get_map_layers}{}}}
 \subsection{Method \code{get_map_layers()}}{
 Get layer names for rendering data on map
 \subsection{Usage}{
@@ -177,8 +177,8 @@ Get layer names for rendering data on map
 
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-get_bbox"></a>}}
-\if{latex}{\out{\hypertarget{method-get_bbox}{}}}
+\if{html}{\out{<a id="method-Solution-get_bbox"></a>}}
+\if{latex}{\out{\hypertarget{method-Solution-get_bbox}{}}}
 \subsection{Method \code{get_bbox()}}{
 Get the bounding box.
 \subsection{Usage}{
@@ -198,8 +198,8 @@ elements.
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-render_on_map"></a>}}
-\if{latex}{\out{\hypertarget{method-render_on_map}{}}}
+\if{html}{\out{<a id="method-Solution-render_on_map"></a>}}
+\if{latex}{\out{\hypertarget{method-Solution-render_on_map}{}}}
 \subsection{Method \code{render_on_map()}}{
 Render on map.
 \subsection{Usage}{
@@ -223,8 +223,8 @@ Argument must be a valid layer name (see \code{self$get_map_layers()}).}
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-get_solution_results_data"></a>}}
-\if{latex}{\out{\hypertarget{method-get_solution_results_data}{}}}
+\if{html}{\out{<a id="method-Solution-get_solution_results_data"></a>}}
+\if{latex}{\out{\hypertarget{method-Solution-get_solution_results_data}{}}}
 \subsection{Method \code{get_solution_results_data()}}{
 Get data for rendering widget to display results.
 \subsection{Usage}{
@@ -233,8 +233,8 @@ Get data for rendering widget to display results.
 
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-render_site_data"></a>}}
-\if{latex}{\out{\hypertarget{method-render_site_data}{}}}
+\if{html}{\out{<a id="method-Solution-render_site_data"></a>}}
+\if{latex}{\out{\hypertarget{method-Solution-render_site_data}{}}}
 \subsection{Method \code{render_site_data()}}{
 Render site data.
 \subsection{Usage}{
@@ -257,8 +257,8 @@ Default to \code{"100\%"}.}
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-render_feature_data"></a>}}
-\if{latex}{\out{\hypertarget{method-render_feature_data}{}}}
+\if{html}{\out{<a id="method-Solution-render_feature_data"></a>}}
+\if{latex}{\out{\hypertarget{method-Solution-render_feature_data}{}}}
 \subsection{Method \code{render_feature_data()}}{
 Render feature data.
 \subsection{Usage}{
@@ -281,8 +281,8 @@ Default to \code{"100\%"}.}
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-render_feasibility_data"></a>}}
-\if{latex}{\out{\hypertarget{method-render_feasibility_data}{}}}
+\if{html}{\out{<a id="method-Solution-render_feasibility_data"></a>}}
+\if{latex}{\out{\hypertarget{method-Solution-render_feasibility_data}{}}}
 \subsection{Method \code{render_feasibility_data()}}{
 Render feasibility data.
 \subsection{Usage}{
@@ -305,8 +305,8 @@ Default to \code{"100\%"}.}
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-render_consequence_data"></a>}}
-\if{latex}{\out{\hypertarget{method-render_consequence_data}{}}}
+\if{html}{\out{<a id="method-Solution-render_consequence_data"></a>}}
+\if{latex}{\out{\hypertarget{method-Solution-render_consequence_data}{}}}
 \subsection{Method \code{render_consequence_data()}}{
 Render consequence data.
 \subsection{Usage}{
@@ -331,8 +331,8 @@ Default to \code{"100\%"}.}
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-render_summary_results"></a>}}
-\if{latex}{\out{\hypertarget{method-render_summary_results}{}}}
+\if{html}{\out{<a id="method-Solution-render_summary_results"></a>}}
+\if{latex}{\out{\hypertarget{method-Solution-render_summary_results}{}}}
 \subsection{Method \code{render_summary_results()}}{
 Display summary results data.
 \subsection{Usage}{
@@ -344,8 +344,8 @@ Display summary results data.
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-render_site_results"></a>}}
-\if{latex}{\out{\hypertarget{method-render_site_results}{}}}
+\if{html}{\out{<a id="method-Solution-render_site_results"></a>}}
+\if{latex}{\out{\hypertarget{method-Solution-render_site_results}{}}}
 \subsection{Method \code{render_site_results()}}{
 Display site results data.
 \subsection{Usage}{
@@ -357,8 +357,8 @@ Display site results data.
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-render_feature_results"></a>}}
-\if{latex}{\out{\hypertarget{method-render_feature_results}{}}}
+\if{html}{\out{<a id="method-Solution-render_feature_results"></a>}}
+\if{latex}{\out{\hypertarget{method-Solution-render_feature_results}{}}}
 \subsection{Method \code{render_feature_results()}}{
 Display feature results data.
 \subsection{Usage}{
@@ -370,8 +370,8 @@ Display feature results data.
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-write"></a>}}
-\if{latex}{\out{\hypertarget{method-write}{}}}
+\if{html}{\out{<a id="method-Solution-write"></a>}}
+\if{latex}{\out{\hypertarget{method-Solution-write}{}}}
 \subsection{Method \code{write()}}{
 Write the data to disk.
 \subsection{Usage}{
@@ -389,8 +389,8 @@ Write the data to disk.
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-clone"></a>}}
-\if{latex}{\out{\hypertarget{method-clone}{}}}
+\if{html}{\out{<a id="method-Solution-clone"></a>}}
+\if{latex}{\out{\hypertarget{method-Solution-clone}{}}}
 \subsection{Method \code{clone()}}{
 The objects of this class are cloneable with this method.
 \subsection{Usage}{
