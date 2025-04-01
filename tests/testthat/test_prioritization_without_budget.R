@@ -20,7 +20,7 @@ test_that("feasible problem", {
     site_geometry = NULL
   )
   # normalize cost data 
-  pu_data_norm <- normalize_cost_columns(p$get_pu_data())
+  pu_data_norm <- normalize_cost_columns(p$get_pu_data(), p$get_max_budget())
   pu_data <- list("raw_data" = p$get_pu_data(), "norm_data" = pu_data_norm)
   
   # create object

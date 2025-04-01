@@ -20,7 +20,7 @@ describe("new_solution()", {
     site_geometry = NULL
   )
   # normalize cost data 
-  pu_data_norm <- normalize_cost_columns(p$get_pu_data())
+  pu_data_norm <- normalize_cost_columns(p$get_pu_data(), p$get_max_budget())
   pu_data <- list("raw_data" = p$get_pu_data(), "norm_data" = pu_data_norm)
   
   s <- prioritization_with_budget(
@@ -33,7 +33,8 @@ describe("new_solution()", {
     goal_data = p$get_goal_data(),
     weight_data = p$get_weight_data(),
     locked_data = p$get_locked_data(),
-    budget = 20,
+    budget = p$get_max_budget() - 5,
+    max_budget = p$get_max_budget(),
     gap = 0,
     parameters = parameters,
     verbose = FALSE
